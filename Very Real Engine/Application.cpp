@@ -100,6 +100,7 @@ update_status Application::Update()
 
 	while (item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
+		
 		State=(*item)->PreUpdate();
 
 		//this is to allow esc to exit app
