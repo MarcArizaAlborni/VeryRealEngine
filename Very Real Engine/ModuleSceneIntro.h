@@ -1,20 +1,22 @@
 #pragma once
 #include "Module.h"
 
-#include "Globals.h"
 
-#include "libraries/imgui/imgui.h"
-#include "libraries/imgui/imgui_impl_opengl2.h"
+//#include "libraries/imgui/imgui.h"
+//#include "libraries/imgui/imgui_impl_opengl3.h"
+//
+//#include "libraries/imgui/imgui_impl_sdl.h"
+//
+//#include "libraries/glew/include/GL/glew.h"
 
-#include "libraries/glew/include/GL/glew.h"
-
-#include "libraries/MathGeoLib/include/MathGeoLib.h"
 
 
-#define BOUNCER_TIME 200
+//#include "libraries/MathGeoLib/include/MathGeoLib.h"
 
-struct PhysBody3D;
-class Cube;
+
+
+
+
 
 class ModuleSceneIntro : public Module
 {
@@ -22,9 +24,14 @@ public:
 	ModuleSceneIntro(Application* app, bool start_enabled = true);
 	~ModuleSceneIntro();
 
+	bool Init();
 	bool Start();
 	update_status Update();
 	bool CleanUp();
 
 public:
+
+
+	//ImGuiIO* io = nullptr;
+
 };

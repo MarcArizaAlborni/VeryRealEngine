@@ -11,17 +11,32 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 ModuleSceneIntro::~ModuleSceneIntro()
 {}
 
+bool ModuleSceneIntro::Init()
+{
+	
+	/*IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	io = &ImGui::GetIO(); (void)io;
+
+	ImGui::StyleColorsDark();
+
+	
+	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
+	ImGui_ImplOpenGL3_Init();*/
+
+
+	return true;
+}
+
 // Load assets
 bool ModuleSceneIntro::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	/*IMGUI_CHECKVERSION();*/
-	
-	/*glewInit();*/
 
-	/*math::Quat a = { 1,2,3,4 };*/
+
+
 
 
 	return ret;

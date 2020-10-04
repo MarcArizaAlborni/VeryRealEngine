@@ -107,5 +107,14 @@
     <Filter Include="Source\Core">
       <UniqueIdentifier>{8e69a14f-89ac-4213-a6cd-3ae0be5aa6bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\External Libs">
+      <UniqueIdentifier>{50bdd852-859d-4722-8660-fc40c3d77c11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\External Libs\glew">
+      <UniqueIdentifier>{e050e9ee-e02c-4a13-affc-0df1ebf601d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\External Libs\Imgui">
+      <UniqueIdentifier>{33e3bac5-7ffb-4109-aeb7-225dea86011c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
