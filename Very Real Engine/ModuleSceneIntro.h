@@ -3,6 +3,14 @@
 
 #include "Globals.h"
 
+#include "libraries/imgui/imgui.h"
+#include "libraries/imgui/imgui_impl_opengl2.h"
+
+#include "libraries/glew/include/GL/glew.h"
+
+#include "libraries/MathGeoLib/include/MathGeoLib.h"
+
+
 #define BOUNCER_TIME 200
 
 struct PhysBody3D;

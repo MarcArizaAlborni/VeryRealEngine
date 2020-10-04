@@ -3,6 +3,7 @@
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
 
+
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -15,6 +16,12 @@ bool ModuleSceneIntro::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
+
+	/*IMGUI_CHECKVERSION();*/
+	
+	/*glewInit();*/
+
+	/*math::Quat a = { 1,2,3,4 };*/
 
 
 	return ret;
