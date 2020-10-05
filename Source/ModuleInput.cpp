@@ -22,6 +22,7 @@ bool ModuleInput::Init()
 	LOG("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
+	ExitEngine = false;
 
 	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
@@ -113,7 +114,7 @@ update_status ModuleInput::PreUpdate()
 		}
 	}
 
-	if (quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
+	if (quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP || ExitEngine==true)
 		return UPDATE_STOP;
 
 	return UPDATE_CONTINUE;

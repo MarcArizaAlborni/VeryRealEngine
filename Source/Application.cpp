@@ -19,13 +19,11 @@ Application::Application()
 
 	// Main Modules
 	AddModule(window);
-	AddModule(renderer3D);
 	AddModule(camera);
 	AddModule(input);
-
-
-	// Scenes
 	AddModule(scene_intro);
+
+	AddModule(renderer3D);
 }
 
 Application::~Application()
@@ -54,25 +52,41 @@ bool Application::Init()
 		item++;
 	}
 
+
+
+	std::list<Module*>::iterator item2 = list_modules.begin();
+	
+	//Call Start() in all modules
+
+	item2 = list_modules.begin();
+
+	while (item2 != list_modules.end())
+	{
+		(*item2)->Start();
+		item2++;
+	}
+
+
 	return ret;
 }
 
-bool Application::Start()
-{
-	std::list<Module*>::iterator item = list_modules.begin();
-
-	//Call Start() in all modules
-
-	item = list_modules.begin();
-
-	while (item != list_modules.end())
-	{
-		(*item)->Start();
-		item++;
-	}
-
-	return true;
-}
+// ESTO NO VA
+//bool Application::Start()
+//{
+//	std::list<Module*>::iterator item = list_modules.begin();
+//
+//	//Call Start() in all modules
+//
+//	item = list_modules.begin();
+//
+//	while (item != list_modules.end())
+//	{
+//		(*item)->Start();
+//		item++;
+//	}
+//
+//	return true;
+//}
 
 
 
