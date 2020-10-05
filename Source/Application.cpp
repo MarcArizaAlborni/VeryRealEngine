@@ -9,7 +9,8 @@ Application::Application()
 {
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
-	scene_intro = new Module_ImGui(this);
+	ImGui = new Module_ImGui(this);
+
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 
@@ -21,7 +22,7 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
-	AddModule(scene_intro);
+	AddModule(ImGui);
 
 	AddModule(renderer3D);
 }

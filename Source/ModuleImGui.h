@@ -37,7 +37,7 @@ private:
 	//Window Bools
 
 	bool show_demo_window;
-	bool show_another_window;
+	bool show_window_2;
 	bool exit_engine_window;
 
 

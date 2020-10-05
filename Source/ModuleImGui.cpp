@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleSceneIntro.h"
+#include "ModuleImGui.h"
 
 
 #include "libraries/ImGUI/imgui.h"
@@ -31,13 +31,10 @@ bool Module_ImGui::Start()
 	App->camera->LookAt(vec3(0, 0, 0));
 
 
-
+	// Init Glew
 	glewInit();
 
 	const char* glsl_version = "#version 130";
-
-	
-
 	
 	gl_context = SDL_GL_CreateContext(App->window->window);
 	SDL_GL_MakeCurrent(App->window->window, gl_context);
@@ -49,13 +46,11 @@ bool Module_ImGui::Start()
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 	
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking (panels)
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 	
-
-	
-	
 	ImGui::StyleColorsClassic();
+
 
 	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 	ImGuiStyle& style = ImGui::GetStyle();
@@ -64,9 +59,9 @@ bool Module_ImGui::Start()
 		style.WindowRounding = 0.0f;
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
-	// Our state
+	// States
 	show_demo_window = true;
-	show_another_window = false;
+	show_window_2 = false;
 	exit_engine_window = true;
 
 	// Setup Platform/Renderer bindings
@@ -106,7 +101,6 @@ update_status Module_ImGui::Update()
 	
 	ImVec4 clear_color = ImVec4(0.8f, 0.15f, 0.60f, 1.00f); //PINK
 
-
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
@@ -134,20 +128,21 @@ update_status Module_ImGui::Update()
 		static float f = 0.0f;
 		static int counter = 0;
 
-		ImGui::Begin("IMGUI IS FINALLY FUCKING WORKING :)");                          // Create a window called "Hello, world!" and append into it.
+		ImGui::Begin("IMGUI IS FINALLY WORKING :)");                          // Create a window called "Hello, world!" and append into it.
 
-		ImGui::Text("G2,FNC,RGE>TSM,TL,FLY");               // Display some text (you can use a format strings too)
+		ImGui::Text("WELCOME TO VERY REAL ENGINE");               // Display some text (you can use a format strings too)
+		ImGui::NextColumn();
+		ImGui::Text("Created by Marc Ariza & Gerard Romeu");
 		ImGui::Checkbox("Show Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-		ImGui::Checkbox("Window2", &show_another_window);
+		ImGui::Checkbox("Exit Menu", &show_window_2);
 
-		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-		ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
+		ImGui::SliderFloat("float", &f, 0.0f, 5.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+		ImGui::ColorEdit4("color 1", (float*)&clear_color);		// Edit 3 floats representing a color
 
 		if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
 			counter++;
 		
-		if (ImGui::Button("Botton 2")) {
+		if (ImGui::Button("Click Me")) {
 			
 			if (on) {
 				on=false;
@@ -160,14 +155,11 @@ update_status Module_ImGui::Update()
 		}
 
 		if (on == true) {
-			ImGui::Text("Me pego un tiro");
-		}
-		
-		if (ImGui::Button("Close Engine")) {
-			App->input->ExitEngine = true;
+			ImGui::Text("Best Engine");
 		}
 
-		ImGui::SameLine();
+
+		ImGui::NextColumn();						// Backspace
 		ImGui::Text("counter = %d", counter);
 
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
@@ -175,27 +167,16 @@ update_status Module_ImGui::Update()
 	}
 
 	// 3. Show another simple window.
-	if (show_another_window)
+	if (show_window_2)
 	{
-		ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-		ImGui::Text("Hello from another window!");
-		if (ImGui::Button("Close Me"))
-			show_another_window = false;
+		ImGui::Begin("Exit Menu", &show_window_2);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+		ImGui::Text("Exit Menu");
+		if (ImGui::Button("Close VeryRealEngine")) {
+			App->input->ExitEngine = true;
+		}
 		ImGui::End();
 	}
 	bool closeEngineBut;
-
-
-	/*ImGui::Begin("Close Engine Window",&exit_engine_window);
-
-	ImGui::Button("Exit Engine"); {
-
-		App->input->ExitEngine = true;
-		
-	}
-
-	ImGui::End();*/
-
 
 
 	//Render
