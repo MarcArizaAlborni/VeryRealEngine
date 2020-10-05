@@ -14,10 +14,6 @@ ModuleSceneIntro::~ModuleSceneIntro()
 bool ModuleSceneIntro::Init()
 {
 
-
-
-	
-
 	
 
 
@@ -30,50 +26,51 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	//glewInit();
 
-	//const char* glsl_version = "#version 130";
-	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
-	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+	glewInit();
 
-	//SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	//SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-	//SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-	//window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-	//window = SDL_CreateWindow("Dear ImGui SDL2+OpenGL3 example", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
-	//gl_context = SDL_GL_CreateContext(window);
-	//SDL_GL_MakeCurrent(window, gl_context);
-	//SDL_GL_SetSwapInterval(1);
+	const char* glsl_version = "#version 130";
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
-
-	//IMGUI_CHECKVERSION();
-	//ImGui::CreateContext();
-	//ImGuiIO& io = ImGui::GetIO(); (void)io;
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       
-	//     // Enable Gamepad Controls
-	//io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           
-	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         
-	//
-	//ImGui::StyleColorsDark();
-	//
-
-	//
-	//ImGuiStyle& style = ImGui::GetStyle();
-	//if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-	//{
-	//	style.WindowRounding = 0.0f;
-	//	style.Colors[ImGuiCol_WindowBg].w = 1.0f;
-	//}
-	//// Our state
-	//show_demo_window = true;
-	//show_another_window = false;
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+	window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+	window = SDL_CreateWindow("Dear ImGui SDL2+OpenGL3 example", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
+	gl_context = SDL_GL_CreateContext(window);
+	SDL_GL_MakeCurrent(window, gl_context);
+	SDL_GL_SetSwapInterval(1);
 
 
-	//// Setup Platform/Renderer bindings
-	//ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
-	//ImGui_ImplOpenGL3_Init(glsl_version);
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       
+	     // Enable Gamepad Controls
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         
+	
+	ImGui::StyleColorsDark();
+	
+
+	
+	ImGuiStyle& style = ImGui::GetStyle();
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		style.WindowRounding = 0.0f;
+		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+	}
+	// Our state
+	show_demo_window = true;
+	show_another_window = false;
+
+
+	// Setup Platform/Renderer bindings
+	ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
+	ImGui_ImplOpenGL3_Init(glsl_version);
 
 
 
@@ -100,8 +97,6 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-
-
 
 	return UPDATE_CONTINUE;
 }
