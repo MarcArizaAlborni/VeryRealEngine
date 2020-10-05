@@ -17,7 +17,7 @@ public:
 	ModuleWindow* window;
 	ModuleInput* input;
 
-	ModuleSceneIntro* scene_intro;
+	Module_ImGui* scene_intro;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 

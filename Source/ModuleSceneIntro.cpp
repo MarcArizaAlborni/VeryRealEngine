@@ -14,15 +14,15 @@
 
 
 
-ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app,start_enabled)
+Module_ImGui::Module_ImGui(Application* app, bool start_enabled) : Module(app,start_enabled)
 {
 }
 
-ModuleSceneIntro::~ModuleSceneIntro()
+Module_ImGui::~Module_ImGui()
 {}
 
 // Load assets
-bool ModuleSceneIntro::Start()
+bool Module_ImGui::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
@@ -79,7 +79,7 @@ bool ModuleSceneIntro::Start()
 }
 
 // Load assets
-bool ModuleSceneIntro::CleanUp()
+bool Module_ImGui::CleanUp()
 {
 	LOG("Unloading Intro scene");
 
@@ -98,7 +98,7 @@ bool ModuleSceneIntro::CleanUp()
 
 
 // Update
-update_status ModuleSceneIntro::Update()
+update_status Module_ImGui::Update()
 {
 
 	bool closeEngine = false;
@@ -195,6 +195,7 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	ImGui::End();*/
+
 
 
 	//Render
