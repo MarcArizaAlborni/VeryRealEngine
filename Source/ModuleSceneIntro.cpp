@@ -67,7 +67,7 @@ bool ModuleSceneIntro::Start()
 	// Our state
 	show_demo_window = true;
 	show_another_window = false;
-
+	exit_engine_window = true;
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, gl_context);
@@ -183,6 +183,19 @@ update_status ModuleSceneIntro::Update()
 			show_another_window = false;
 		ImGui::End();
 	}
+	bool closeEngineBut;
+
+
+	/*ImGui::Begin("Close Engine Window",&exit_engine_window);
+
+	ImGui::Button("Exit Engine"); {
+
+		App->input->ExitEngine = true;
+		
+	}
+
+	ImGui::End();*/
+
 
 	//Render
 	ImGui::Render();

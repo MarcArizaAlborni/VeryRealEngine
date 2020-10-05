@@ -65,10 +65,19 @@ private:
 	
 	SDL_WindowFlags window_flags;
 	SDL_GLContext gl_context;
-	bool show_demo_window;
-	bool show_another_window;
+	
 
 
 	bool on = false;
 	bool done = false;
+
+
+	//Window Bools
+
+	bool show_demo_window;
+	bool show_another_window;
+	bool exit_engine_window;
+
+
+
 };
