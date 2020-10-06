@@ -176,7 +176,7 @@ update_status Module_ImGui::Update()
 		}
 		ImGui::End();
 	}
-	bool closeEngineBut;
+
 
 
 	//Render
