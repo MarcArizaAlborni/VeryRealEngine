@@ -68,7 +68,7 @@ bool Module_ImGui::Start()
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, gl_context);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
-
+	OnInit = true;
 
 	return ret;
 }
@@ -177,6 +177,83 @@ update_status Module_ImGui::Update()
 		ImGui::End();
 	}
 
+	
+
+	if (show_configuration_window) {
+
+		static int val = 1000;
+		static int val2;
+		static int val3;
+		static int volume;
+
+		if (OnInit) {
+			ImGui::SetNextWindowSize({ 300,300 }, ImGuiCond_Once);
+		}
+		else {
+			ImGui::SetNextWindowSize({ (float)val3,(float)val2 });
+		}
+
+		ImGui::Begin("Configuration Window", &show_configuration_window);
+
+		ImGui::SliderInt("Brightness", &val, 0.0f,100.0f);
+		ImGui::SliderInt("Size V", &val2,0.0f, 300.0f);
+		ImGui::SliderInt("Size H", &val3,0.0f, 300.0f);
+
+		
+		
+		ImGui::Checkbox("Vsync", &vsync_active);
+
+		
+		
+
+
+		ImGui::SliderInt("Volume", &volume, 0.0f, 100.0f);
+
+		ImGui::Text("Input Active: ");
+
+		ImGui::SameLine(0.0f,10.0f);
+		
+		if (App->input->keyboard[SDL_SCANCODE_W]) {
+
+			ImGui::Text("GO UP BUTTON ");
+
+		}
+		if (App->input->keyboard[SDL_SCANCODE_S]) {
+
+			ImGui::Text("GO DOWN BUTTON ");
+
+		}
+		if (App->input->keyboard[SDL_SCANCODE_A]) {
+
+			ImGui::Text("GO LEFT BUTTON ");
+
+		}
+		if (App->input->keyboard[SDL_SCANCODE_D]) {
+
+			ImGui::Text("GO RIGHT BUTTON ");
+
+		}
+
+
+
+		if (App->input->mouse_buttons[SDL_BUTTON_LEFT]) {
+
+			ImGui::Text("GO LEFT BUTTON ");
+
+		}
+
+		if (App->input->mouse_buttons[SDL_BUTTON_RIGHT]) {
+
+			ImGui::Text("GO RIGHT BUTTON ");
+
+		}
+
+
+		
+
+
+		ImGui::End();
+	}
 
 
 	//Render
@@ -200,7 +277,7 @@ update_status Module_ImGui::Update()
 
 	//SDL_GL_SwapWindow(App->window->window);
 
-
+	OnInit = false;
 	
 
 	return UPDATE_STOP;

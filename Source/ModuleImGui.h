@@ -39,6 +39,16 @@ private:
 	bool show_demo_window;
 	bool show_window_2;
 	bool exit_engine_window;
+	bool show_configuration_window;
+
+
+
+	// Window Manager Bools
+
+	bool OnInit;
+	
+	bool vsync_active;
+
 
 
 
