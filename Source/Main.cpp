@@ -17,6 +17,7 @@ enum main_states
 	MAIN_UPDATE,
 	MAIN_FINISH,
 	MAIN_EXIT
+
 };
 
 int main(int argc, char ** argv)
