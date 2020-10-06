@@ -7,11 +7,11 @@
 
 class Primitive;
 
-class Module_ImGui : public Module
+class ModuleImGui : public Module
 {
 public:
-	Module_ImGui(Application* app,bool start_enabled = true);
-	~Module_ImGui();
+	ModuleImGui(Application* app,bool start_enabled = true);
+	~ModuleImGui();
 
 	bool Start();
 	update_status Update();

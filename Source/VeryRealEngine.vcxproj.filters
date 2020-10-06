@@ -55,6 +55,9 @@
     <ClCompile Include="ModuleImGui.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>Source\Helper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -122,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="ModuleImGui.h">
       <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>Source\Helper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

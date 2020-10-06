@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "ModuleImGui.h"
 
-
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
 #include "libraries/ImGUI/imgui_impl_sdl.h"
@@ -14,15 +13,15 @@
 
 
 
-Module_ImGui::Module_ImGui(Application* app, bool start_enabled) : Module(app,start_enabled)
+ModuleImGui::ModuleImGui(Application* app, bool start_enabled) : Module(app,start_enabled)
 {
 }
 
-Module_ImGui::~Module_ImGui()
+ModuleImGui::~ModuleImGui()
 {}
 
 // Load assets
-bool Module_ImGui::Start()
+bool ModuleImGui::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
@@ -74,7 +73,7 @@ bool Module_ImGui::Start()
 }
 
 // Load assets
-bool Module_ImGui::CleanUp()
+bool ModuleImGui::CleanUp()
 {
 	LOG("Unloading Intro scene");
 
@@ -93,12 +92,13 @@ bool Module_ImGui::CleanUp()
 
 
 // Update
-update_status Module_ImGui::Update()
+update_status ModuleImGui::Update()
 {
 
 	bool closeEngine = false;
 	
-	
+
+
 	ImVec4 clear_color = ImVec4(0.8f, 0.15f, 0.60f, 1.00f); //PINK
 
 	SDL_Event event;
@@ -182,8 +182,8 @@ update_status Module_ImGui::Update()
 	//Render
 	ImGui::Render();
 	glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
-	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-	glClear(GL_COLOR_BUFFER_BIT);
+	//glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+	//glClear(GL_COLOR_BUFFER_BIT);
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	
 	// Update and Render additional Platform Windows
