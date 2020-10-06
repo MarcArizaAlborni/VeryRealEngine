@@ -16,10 +16,9 @@ class Application
 public:
 	ModuleWindow* window;
 	ModuleInput* input;
-
-	Module_ImGui* ImGui;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
+	ModuleImGui* ImGui;
 
 private:
 

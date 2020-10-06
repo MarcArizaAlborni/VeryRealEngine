@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "libraries/SDL/include/SDL_opengl.h"
+#include "Primitive.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
@@ -120,10 +121,21 @@ update_status ModuleRenderer3D::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
+update_status ModuleRenderer3D::Update()
+{
+	Plane p(0, 1, 0, 0);
+	p.axis = true;
+	p.Render();
+
+	return UPDATE_CONTINUE;
+}
+
+
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate()
 {
 	SDL_GL_SwapWindow(App->window->window);
+
 	return UPDATE_CONTINUE;
 }
 

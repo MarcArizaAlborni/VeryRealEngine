@@ -9,10 +9,10 @@ Application::Application()
 {
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
-	ImGui = new Module_ImGui(this);
-
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
+	ImGui = new ModuleImGui(this);
+
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -22,9 +22,9 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
-	AddModule(ImGui);
-
 	AddModule(renderer3D);
+	AddModule(ImGui);
+	
 }
 
 Application::~Application()
