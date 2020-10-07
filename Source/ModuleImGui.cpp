@@ -256,22 +256,13 @@ update_status ModuleImGui::Update()
 
 
 
-
-
-
-
-
-
-
-
-
-
+	//MEnuEditor
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
 		{
 			if (ImGui::MenuItem("Quit", "ESC")) {
-			
+
 				App->input->ExitEngine = true;
 			}
 			ImGui::EndMenu();
@@ -281,11 +272,11 @@ update_status ModuleImGui::Update()
 		{
 			ImGui::MenuItem("Console", "1"); // Console Window
 			ImGui::MenuItem("Configuration", "4", &show_config_window); // We need to get 4 as input to close It
-		
+
 			if (App->input->keyboard[SDL_SCANCODE_4]) {
-				
+
 				// Condition to enable/disable when clicking 4
-								
+
 			}
 
 			ImGui::EndMenu();
@@ -304,18 +295,26 @@ update_status ModuleImGui::Update()
 
 		if (ImGui::BeginMenu("Help"))
 		{
-			if (ImGui::MenuItem("Gui Demo")) {}
-			if (ImGui::MenuItem("Documentation")) {}
-			if (ImGui::MenuItem("Download Latest")) {}
-			if (ImGui::MenuItem("Report a bug")) {}
+			if (ImGui::MenuItem("Gui Demo")) {};
+
+			if (ImGui::MenuItem("Documentation"))
+				App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine"); // Missing wiki
+
+			if (ImGui::MenuItem("Download Latest"))
+				App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine"); // Missing release
+
+			if (ImGui::MenuItem("Report a bug"))
+				App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine/issues");
+
 			if (ImGui::MenuItem("About")) {}
+
 			ImGui::EndMenu();
 		}
 
 		ImGui::EndMainMenuBar();
 	}
 
-	
+
 	if (show_config_window) {
 
 		ImGui::Begin("Configuration", &show_config_window);
@@ -323,6 +322,14 @@ update_status ModuleImGui::Update()
 		ImGui::End();
 
 	}
+
+
+
+
+
+
+
+	
 
 
 	//Render

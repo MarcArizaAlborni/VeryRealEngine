@@ -10,6 +10,7 @@
 #include "ModuleImGui.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
+#include "ModuleEditor.h"
 
 class Application
 {
@@ -19,6 +20,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleImGui* ImGui;
+	ModuleEditor* editor;
 
 private:
 
@@ -34,6 +36,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	void RequestBrowser(const char* url) const;
 
 private:
 

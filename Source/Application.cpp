@@ -11,6 +11,7 @@ Application::Application()
 	input = new ModuleInput(this);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
+	editor = new ModuleEditor(this);
 	ImGui = new ModuleImGui(this);
 
 
@@ -23,6 +24,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(renderer3D);
+	AddModule(editor);
 	AddModule(ImGui);
 	
 }
@@ -160,4 +162,9 @@ bool Application::CleanUp()
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
+}
+
+void Application::RequestBrowser(const char* url) const
+{
+	ShellExecuteA(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
 }

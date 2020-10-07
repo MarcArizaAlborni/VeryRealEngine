@@ -58,6 +58,9 @@
     <ClCompile Include="Primitive.cpp">
       <Filter>Source\Helper</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleEditor.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -128,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Source\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleEditor.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
