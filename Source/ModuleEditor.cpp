@@ -27,7 +27,7 @@ bool ModuleEditor::CleanUp()
 }
 
 // -----------------------------------------------------------------
-update_status ModuleEditor::Update()
+update_status ModuleEditor::Update(float dt)
 {
 
 	// Main Menu GUI

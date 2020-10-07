@@ -35,13 +35,13 @@ bool ModuleCamera3D::CleanUp()
 }
 
 // -----------------------------------------------------------------
-update_status ModuleCamera3D::Update()
+update_status ModuleCamera3D::Update(float dt)
 {
 
 	vec3 newPos(0, 0, 0);
-	float speed = 2.0f;
+	float speed = 2.0f * dt;
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 8.0f;
+		speed = 8.0f * dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;

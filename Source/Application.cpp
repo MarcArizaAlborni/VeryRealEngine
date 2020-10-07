@@ -46,6 +46,8 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	dt = 0.5f;
+	
 	//Call Init() in all modules
 	std::list<Module*>::iterator item = list_modules.begin();
 
@@ -97,6 +99,7 @@ bool Application::Init()
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
+
 }
 
 // ---------------------------------------------
@@ -117,7 +120,7 @@ update_status Application::Update()
 	while (item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
 
-		State = (*item)->PreUpdate();
+		State = (*item)->PreUpdate(dt);
 
 		//this is to allow esc to exit app
 		if (State == UPDATE_STOP) {
@@ -130,7 +133,7 @@ update_status Application::Update()
 
 	while (item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
-		(*item)->Update();
+		(*item)->Update(dt);
 		item++;
 	}
 
@@ -138,7 +141,7 @@ update_status Application::Update()
 
 	while (item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
-		(*item)->PostUpdate();
+		(*item)->PostUpdate(dt);
 		item++;
 	}
 
@@ -197,3 +200,84 @@ void Application::SetFramerateLimit(uint max_framerate)
 	}
 		
 }
+
+
+float Application::GetDT()
+{
+	return dt;
+}
+
+
+// SAVE & LOAD
+
+bool Application::LoadSaveFile()
+{
+	bool ret;
+
+
+
+
+
+	return ret;
+}
+
+
+bool Application::SaveSaveFile()
+{
+
+
+	bool ret;
+
+
+
+
+	return ret;
+}
+
+
+bool SaveLoad::Save(SaveLoad item, const char* file)
+{
+
+	bool ret = true;
+
+	//if (file !=nullptr) {
+	//	
+	//	std::ofstream stream(file, std::ofstream::out);
+	//	SDL_assert(stream.is_open());
+
+	//	stream << std::setw(4) << item << std::endl;
+	//
+	//	stream.close();
+	//}
+
+	return ret;
+
+}
+
+SaveLoad SaveLoad::Load(const char* file)
+{
+
+	SaveLoad item;
+	/*SDL_assert(file != nullptr);
+
+
+	std::ifstream stream(file, std::ifstream::in);
+	SDL_assert(stream.is_open());
+
+
+	try {
+		item = json::parse(stream);
+	}
+	catch (json::parse_error& e) {
+		LOG("Parse Error while Loading File: %c", e.what());
+	}
+
+	stream.close();
+
+	return item;*/
+
+
+
+	return item;
+}
+
