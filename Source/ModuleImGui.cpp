@@ -48,8 +48,9 @@ bool ModuleImGui::Start()
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking (panels)
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 	
-	ImGui::StyleColorsClassic();
-
+	//ImGui::StyleColorsClassic();
+	ImGui::StyleColorsLight();
+	//ImGui::StyleColorsDark();
 
 	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 	ImGuiStyle& style = ImGui::GetStyle();
@@ -66,6 +67,9 @@ bool ModuleImGui::Start()
 	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, gl_context);
 	ImGui_ImplOpenGL3_Init(glsl_version);
+
+
+	clear_color = ImVec4(0.8f, 0.15f, 0.60f, 1.00f); //PINK
 
 	OnInit = true;
 
@@ -99,7 +103,7 @@ update_status ModuleImGui::Update()
 	
 
 
-	ImVec4 clear_color = ImVec4(0.8f, 0.15f, 0.60f, 1.00f); //PINK
+	
 
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
@@ -259,7 +263,7 @@ update_status ModuleImGui::Update()
 	//Render
 	ImGui::Render();
 	glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
-	//glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
 	//glClear(GL_COLOR_BUFFER_BIT);
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	
