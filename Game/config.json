@@ -1,0 +1,18 @@
+{
+    "answer": {
+        "everything": 42
+    },
+    "boolean": false,
+    "list": [
+        1,
+        0,
+        2
+    ],
+    "name": "Niels",
+   
+    "object": {
+        "currency": "USD",
+        "value": 42.99
+    },
+    "game": LoL
+}
