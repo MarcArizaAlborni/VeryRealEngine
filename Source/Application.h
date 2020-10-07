@@ -12,11 +12,6 @@
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
 
-// JOTA-HIJO
-
-#include "libraries/json/json.hpp"
-using json = nlohmann::json;
-
 class Application
 {
 public:
@@ -48,39 +43,4 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
-
-
-
-	//SAVE & LOAD WITH JOTA SON
-
-
-	////// FUNCTIONS ///////
-
-	bool LoadSaveFile();
-	bool SaveSaveFile();
-
-
-	///// DEFINITIONS  ///////
-
-
-
-	
-};
-
-
-// Class for save and load
-
-class SaveLoad {
-
-public:
-
-	SaveLoad() {};
-
-
-
-	bool Save(SaveLoad item, const char* file);
-
-	SaveLoad Load(const char* file);
-
-
 };

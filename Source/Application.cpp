@@ -4,9 +4,6 @@
 #include <sstream> 
 #include "Definitions.h"
 
-#include "libraries/SDL/include/SDL_assert.h"
-#include <fstream>
-#include <iomanip>
 
 Application::Application()
 {
@@ -100,15 +97,12 @@ bool Application::Init()
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
-	
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
 }
-
-
 
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
@@ -173,78 +167,4 @@ void Application::AddModule(Module* mod)
 void Application::RequestBrowser(const char* url) const
 {
 	ShellExecuteA(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
-}
-
-
-// SAVE & LOAD
-
-bool Application::LoadSaveFile()
-{
-	bool ret;
-
-
-
-
-
-	return ret;
-}
-
-
-bool Application::SaveSaveFile()
-{
-
-
-	bool ret;
-
-
-
-
-	return ret;
-}
-
-
-bool SaveLoad::Save(SaveLoad item, const char* file)
-{
-
-	bool ret = true;
-
-	//if (file !=nullptr) {
-	//	
-	//	std::ofstream stream(file, std::ofstream::out);
-	//	SDL_assert(stream.is_open());
-
-	//	stream << std::setw(4) << item << std::endl;
-	//
-	//	stream.close();
-	//}
-
-	return ret;
-	
-}
-
-SaveLoad SaveLoad::Load(const char* file)
-{
-
-	SaveLoad item;
-	/*SDL_assert(file != nullptr);
-
-	
-	std::ifstream stream(file, std::ifstream::in);
-	SDL_assert(stream.is_open());
-
-	
-	try {
-		item = json::parse(stream);
-	}
-	catch (json::parse_error& e) {
-		LOG("Parse Error while Loading File: %c", e.what());
-	}
-
-	stream.close();
-
-	return item;*/
-
-	
-
-	return item;
 }
