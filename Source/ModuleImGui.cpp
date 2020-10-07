@@ -11,8 +11,6 @@
 #include "libraries/SDL/include/SDL_opengl.h"
 
 
-
-
 ModuleImGui::ModuleImGui(Application* app, bool start_enabled) : Module(app,start_enabled)
 {
 }
@@ -28,7 +26,6 @@ bool ModuleImGui::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
-
 
 	// Init Glew
 	glewInit();
@@ -417,6 +414,12 @@ void ModuleImGui::CreateConfigWindow_Application() {
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(0.f, 1.f, 0.f, 1.f), "%i", App->GetFramerateLimit());
 
+		/*char title[25];
+		sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
+		ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		sprintf_s(title, 25, "Milliseconds %0.1f", ms_log[ms_log.size() - 1]);
+		ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));*/
 
+		// Memory --------------------
 	}
 }

@@ -4,9 +4,12 @@
 #include "Module.h"
 #include "p2DynArray.h"
 #include "Globals.h"
+#include <vector>
 #include "libraries/ImGUI/imgui.h"
 
 class Primitive;
+
+#define FPS_LOG_SIZE 100
 
 class ModuleImGui : public Module
 {
