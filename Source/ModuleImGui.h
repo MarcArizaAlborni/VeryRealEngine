@@ -31,6 +31,7 @@ private:
 
 
 	bool on = false;
+	bool on_config = false;
 	bool done = false;
 
 
@@ -40,6 +41,8 @@ private:
 	bool show_window_2;
 	bool exit_engine_window;
 	bool show_configuration_window;
+
+	bool show_config_window;
 
 
 

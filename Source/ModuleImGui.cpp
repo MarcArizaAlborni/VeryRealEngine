@@ -94,11 +94,8 @@ bool ModuleImGui::CleanUp()
 // Update
 update_status ModuleImGui::Update()
 {
-
 	bool closeEngine = false;
 	
-
-
 	ImVec4 clear_color = ImVec4(0.8f, 0.15f, 0.60f, 1.00f); //PINK
 
 	SDL_Event event;
@@ -123,59 +120,59 @@ update_status ModuleImGui::Update()
 
 	
 
-	// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-	{
-		static float f = 0.0f;
-		static int counter = 0;
+	//// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
+	//{
+	//	static float f = 0.0f;
+	//	static int counter = 0;
 
-		ImGui::Begin("IMGUI IS FINALLY WORKING :)");                          // Create a window called "Hello, world!" and append into it.
+	//	ImGui::Begin("IMGUI IS FINALLY WORKING :)");                          // Create a window called "Hello, world!" and append into it.
 
-		ImGui::Text("WELCOME TO VERY REAL ENGINE");               // Display some text (you can use a format strings too)
-		ImGui::NextColumn();
-		ImGui::Text("Created by Marc Ariza & Gerard Romeu");
-		ImGui::Checkbox("Show Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-		ImGui::Checkbox("Exit Menu", &show_window_2);
+	//	ImGui::Text("WELCOME TO VERY REAL ENGINE");               // Display some text (you can use a format strings too)
+	//	ImGui::NextColumn();
+	//	ImGui::Text("Created by Marc Ariza & Gerard Romeu");
+	//	ImGui::Checkbox("Show Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+	//	ImGui::Checkbox("Exit Menu", &show_window_2);
 
-		ImGui::SliderFloat("float", &f, 0.0f, 5.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-		ImGui::ColorEdit4("color 1", (float*)&clear_color);		// Edit 3 floats representing a color
+	//	ImGui::SliderFloat("float", &f, 0.0f, 5.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+	//	ImGui::ColorEdit4("color 1", (float*)&clear_color);		// Edit 3 floats representing a color
 
-		if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-			counter++;
-		
-		if (ImGui::Button("Click Me")) {
-			
-			if (on) {
-				on=false;
-			}
-			else {
-				on=true;
-			}
-			
-				
-		}
+	//	if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+	//		counter++;
+	//	
+	//	if (ImGui::Button("Click Me")) {
+	//		
+	//		if (on) {
+	//			on=false;
+	//		}
+	//		else {
+	//			on=true;
+	//		}
+	//		
+	//			
+	//	}
 
-		if (on == true) {
-			ImGui::Text("Best Engine");
-		}
+	//	if (on == true) {
+	//		ImGui::Text("Best Engine");
+	//	}
 
 
-		ImGui::NextColumn();						// Backspace
-		ImGui::Text("counter = %d", counter);
+	//	ImGui::NextColumn();						// Backspace
+	//	ImGui::Text("counter = %d", counter);
 
-		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-		ImGui::End();
-	}
+	//	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	//	ImGui::End();
+	//}
 
-	// 3. Show another simple window.
-	if (show_window_2)
-	{
-		ImGui::Begin("Exit Menu", &show_window_2);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-		ImGui::Text("Exit Menu");
-		if (ImGui::Button("Close VeryRealEngine")) {
-			App->input->ExitEngine = true;
-		}
-		ImGui::End();
-	}
+	//// 3. Show another simple window.
+	//if (show_window_2)
+	//{
+	//	ImGui::Begin("Exit Menu", &show_window_2);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+	//	ImGui::Text("Exit Menu");
+	//	if (ImGui::Button("Close VeryRealEngine")) {
+	//		App->input->ExitEngine = true;
+	//	}
+	//	ImGui::End();
+	//}
 
 	
 
@@ -247,12 +244,79 @@ update_status ModuleImGui::Update()
 			ImGui::Text("GO RIGHT BUTTON ");
 
 		}
+		ImGui::End();
+	}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+	if (ImGui::BeginMainMenuBar())
+	{
+		if (ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("Quit", "ESC")) {
+			
+				App->input->ExitEngine = true;
+			}
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("View"))
+		{
+			ImGui::MenuItem("Console", "1"); // Console Window
+			ImGui::MenuItem("Configuration", "4", &show_config_window); // We need to get 4 as input to close It
 		
+			if (App->input->keyboard[SDL_SCANCODE_4]) {
+				
+				// Condition to enable/disable when clicking 4
+								
+			}
 
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("Edit"))
+		{
+			if (ImGui::MenuItem("Undo", "Ctrl+Z")) {}
+			if (ImGui::MenuItem("Redo", "Ctrl+Y", false, false)) {}  // Disabled item
+			if (ImGui::MenuItem("Cut", "Ctrl+X")) {}
+			if (ImGui::MenuItem("Copy", "Ctrl+C")) {}
+			if (ImGui::MenuItem("Paste", "Ctrl+V")) {}
+
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("Help"))
+		{
+			if (ImGui::MenuItem("Gui Demo")) {}
+			if (ImGui::MenuItem("Documentation")) {}
+			if (ImGui::MenuItem("Download Latest")) {}
+			if (ImGui::MenuItem("Report a bug")) {}
+			if (ImGui::MenuItem("About")) {}
+			ImGui::EndMenu();
+		}
+
+		ImGui::EndMainMenuBar();
+	}
+
+	
+	if (show_config_window) {
+
+		ImGui::Begin("Configuration", &show_config_window);
 
 		ImGui::End();
+
 	}
 
 
