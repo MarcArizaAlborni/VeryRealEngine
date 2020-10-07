@@ -176,3 +176,77 @@ uint Application::GetFramerateLimit() const
 	else
 		return 0;
 }
+
+
+// SAVE & LOAD
+
+bool Application::LoadSaveFile()
+{
+	bool ret;
+
+
+
+
+
+	return ret;
+}
+
+
+bool Application::SaveSaveFile()
+{
+
+
+	bool ret;
+
+
+
+
+	return ret;
+}
+
+
+bool SaveLoad::Save(SaveLoad item, const char* file)
+{
+
+	bool ret = true;
+
+	//if (file !=nullptr) {
+	//	
+	//	std::ofstream stream(file, std::ofstream::out);
+	//	SDL_assert(stream.is_open());
+
+	//	stream << std::setw(4) << item << std::endl;
+	//
+	//	stream.close();
+	//}
+
+	return ret;
+
+}
+
+SaveLoad SaveLoad::Load(const char* file)
+{
+
+	SaveLoad item;
+	/*SDL_assert(file != nullptr);
+
+
+	std::ifstream stream(file, std::ifstream::in);
+	SDL_assert(stream.is_open());
+
+
+	try {
+		item = json::parse(stream);
+	}
+	catch (json::parse_error& e) {
+		LOG("Parse Error while Loading File: %c", e.what());
+	}
+
+	stream.close();
+
+	return item;*/
+
+
+
+	return item;
+}
