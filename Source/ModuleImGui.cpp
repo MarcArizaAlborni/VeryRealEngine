@@ -49,8 +49,8 @@ bool ModuleImGui::Start()
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 	
 	//ImGui::StyleColorsClassic();
-	ImGui::StyleColorsLight();
-	//ImGui::StyleColorsDark();
+	//ImGui::StyleColorsLight();
+	ImGui::StyleColorsDark();
 
 	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 	ImGuiStyle& style = ImGui::GetStyle();
@@ -69,7 +69,7 @@ bool ModuleImGui::Start()
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
 
-	clear_color = ImVec4(0.8f, 0.15f, 0.60f, 1.00f); //PINK
+	clear_color = ImVec4(0.40f, 0.10f, 0.20f, 1.00f); 
 
 	OnInit = true;
 
@@ -99,8 +99,7 @@ bool ModuleImGui::CleanUp()
 update_status ModuleImGui::Update()
 {
 	bool closeEngine = false;
-	
-	ImVec4 clear_color = ImVec4(0.8f, 0.15f, 0.60f, 1.00f); //PINK
+
 	
 
 	SDL_Event event;
@@ -201,12 +200,7 @@ update_status ModuleImGui::Update()
 		ImGui::SliderInt("Size V", &val2,0.0f, 300.0f);
 		ImGui::SliderInt("Size H", &val3,0.0f, 300.0f);
 
-		
-		
 		ImGui::Checkbox("Vsync", &vsync_active);
-
-		
-		
 
 
 		ImGui::SliderInt("Volume", &volume, 0.0f, 100.0f);
@@ -253,84 +247,10 @@ update_status ModuleImGui::Update()
 	}
 
 
+	CreateMainMenuBar();
 
-
-
-	//MEnuEditor
-	if (ImGui::BeginMainMenuBar())
-	{
-		if (ImGui::BeginMenu("File"))
-		{
-			if (ImGui::MenuItem("Quit", "ESC")) {
-
-				App->input->ExitEngine = true;
-			}
-			ImGui::EndMenu();
-		}
-
-		if (ImGui::BeginMenu("View"))
-		{
-			ImGui::MenuItem("Console", "1"); // Console Window
-			ImGui::MenuItem("Configuration", "4", &show_config_window); // We need to get 4 as input to close It
-
-			if (App->input->keyboard[SDL_SCANCODE_4]) {
-
-				// Condition to enable/disable when clicking 4
-
-			}
-
-			ImGui::EndMenu();
-		}
-
-		if (ImGui::BeginMenu("Edit"))
-		{
-			if (ImGui::MenuItem("Undo", "Ctrl+Z")) {}
-			if (ImGui::MenuItem("Redo", "Ctrl+Y", false, false)) {}  // Disabled item
-			if (ImGui::MenuItem("Cut", "Ctrl+X")) {}
-			if (ImGui::MenuItem("Copy", "Ctrl+C")) {}
-			if (ImGui::MenuItem("Paste", "Ctrl+V")) {}
-
-			ImGui::EndMenu();
-		}
-
-		if (ImGui::BeginMenu("Help"))
-		{
-			if (ImGui::MenuItem("Gui Demo")) {};
-
-			if (ImGui::MenuItem("Documentation"))
-				App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine"); // Missing wiki
-
-			if (ImGui::MenuItem("Download Latest"))
-				App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine"); // Missing release
-
-			if (ImGui::MenuItem("Report a bug"))
-				App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine/issues");
-
-			if (ImGui::MenuItem("About")) {}
-
-			ImGui::EndMenu();
-		}
-
-		ImGui::EndMainMenuBar();
-	}
-
-
-	if (show_config_window) {
-
-		ImGui::Begin("Configuration", &show_config_window);
-
-		ImGui::End();
-
-	}
-
-
-
-
-
-
-
+	CreateConfigWindow();
 	
-
 
 	//Render
 	ImGui::Render();
@@ -359,3 +279,129 @@ update_status ModuleImGui::Update()
 	return UPDATE_STOP;
 }
 
+// ----------------------------MENU BAR-------------------------------------
+//Creation
+void ModuleImGui::CreateMainMenuBar() {
+
+	//MenuEditor
+	if (ImGui::BeginMainMenuBar())
+	{
+		CreateMainMenuBar_File();
+		CreateMainMenuBar_Edit();
+		CreateMainMenuBar_View();
+		CreateMainMenuBar_Help();
+
+		ImGui::EndMainMenuBar();
+	}
+
+
+}
+
+//CREATION OF SUBMENUS
+//---------FILE--------
+
+void ModuleImGui::CreateMainMenuBar_File() {
+
+	if (ImGui::BeginMenu("File"))
+	{
+		if (ImGui::MenuItem("Quit", "ESC")) {
+
+			App->input->ExitEngine = true;
+		}
+		ImGui::EndMenu();
+	}
+}
+
+//----------EDIT-----------
+void ModuleImGui::CreateMainMenuBar_Edit() {
+
+	if (ImGui::BeginMenu("Edit"))
+	{
+		if (ImGui::MenuItem("Undo", "Ctrl+Z")) {}
+		if (ImGui::MenuItem("Redo", "Ctrl+Y", false, false)) {}  // Disabled item
+		if (ImGui::MenuItem("Cut", "Ctrl+X")) {}
+		if (ImGui::MenuItem("Copy", "Ctrl+C")) {}
+		if (ImGui::MenuItem("Paste", "Ctrl+V")) {}
+
+		ImGui::EndMenu();
+	}
+}
+
+//-----------VIEW-----------
+void ModuleImGui::CreateMainMenuBar_View() {
+
+	if (ImGui::BeginMenu("View"))
+	{
+		ImGui::MenuItem("Console", "1"); // Console Window
+		ImGui::MenuItem("Configuration", "4", &show_config_window); // We need to get 4 as input to close It
+
+		if (App->input->keyboard[SDL_SCANCODE_4]) {
+
+			// Condition to enable/disable when clicking 4
+
+		}
+
+		ImGui::EndMenu();
+	}
+}
+
+//---------------------HELP-----------------
+void ModuleImGui::CreateMainMenuBar_Help() {
+
+	if (ImGui::BeginMenu("Help"))
+	{
+		if (ImGui::MenuItem("Gui Demo")) {};
+
+		if (ImGui::MenuItem("Documentation"))
+			App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine"); // Missing wiki
+
+		if (ImGui::MenuItem("Download Latest"))
+			App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine"); // Missing release
+
+		if (ImGui::MenuItem("Report a bug"))
+			App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine/issues");
+
+		if (ImGui::MenuItem("About")) {}
+
+		ImGui::EndMenu();
+	}
+}
+
+
+
+// ----------------------------CONFIG WINDOW-------------------------------------
+//Creation
+void ModuleImGui::CreateConfigWindow() {
+
+	// Configuration menu gerard
+	if (show_config_window) {
+
+		ImGui::Begin("Configuration", &show_config_window);
+
+		CreateConfigWindow_Options();
+		CreateConfigWindow_Application();
+
+		ImGui::End();
+
+	}
+}
+
+//CREATION OF SUBMENUS
+//---------OPTIONS--------
+void ModuleImGui::CreateConfigWindow_Options() {
+
+	if (ImGui::BeginMenu("Options")) {
+
+		ImGui::MenuItem("Set Defaults");
+		ImGui::MenuItem("Load");
+		ImGui::MenuItem("Save");
+
+		ImGui::EndMenu();
+	}
+}
+
+//---------APPLICATION--------
+void ModuleImGui::CreateConfigWindow_Application() {
+
+	if (ImGui::CollapsingHeader("Application")) {}
+}
