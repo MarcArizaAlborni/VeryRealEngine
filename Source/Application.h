@@ -38,6 +38,7 @@ public:
 
 	void RequestBrowser(const char* url) const;
 	uint GetFramerateLimit() const;
+	void SetFramerateLimit(uint max_framerate);
 
 private:
 

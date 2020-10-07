@@ -409,13 +409,14 @@ void ModuleImGui::CreateConfigWindow_Application() {
 		ImGui::InputTextWithHint("App Name", "Enter Text Here", str1, IM_ARRAYSIZE(str1));
 		ImGui::InputTextWithHint("Organization", "Enter Text Here", str1, IM_ARRAYSIZE(str1));
 
-		int max_fps = App->GetFramerateLimit();
-		if (ImGui::SliderInt("Max FPS", &max_fps, 0, 120));
-			//Function to set framerate
+		int fps_max = App->GetFramerateLimit();
+		if (ImGui::SliderInt("Max FPS", &fps_max, 0, 120));
+		App->SetFramerateLimit(fps_max);
 
 		ImGui::Text("Limit Framerate:");
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(0.f, 1.f, 0.f, 1.f), "%i", App->GetFramerateLimit());
+
 
 	}
 }

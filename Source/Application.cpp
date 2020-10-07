@@ -171,8 +171,29 @@ void Application::RequestBrowser(const char* url) const
 
 uint Application::GetFramerateLimit() const
 {
-	if (capped_ms > 0)
+	if (capped_ms > 0) {
+		
 		return (uint)((1.0f / (float)capped_ms) * 1000.0f);
-	else
+
+	}
+	else {
+
 		return 0;
+	}
+		
+		
+}
+
+void Application::SetFramerateLimit(uint max_framerate)
+{
+	if (max_framerate > 0)
+	{
+		capped_ms = 1000 / max_framerate;
+	}
+		
+	else
+	{
+		capped_ms = 0;
+	}
+		
 }

@@ -57,7 +57,6 @@ private:
 	bool OnInit;
 	bool vsync_active;
 
-	
 	ImVec4 clear_color;
 
 
