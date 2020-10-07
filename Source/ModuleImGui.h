@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "p2DynArray.h"
 #include "Globals.h"
+#include "libraries/ImGUI/imgui.h"
 
 class Primitive;
 
@@ -53,6 +54,6 @@ private:
 	bool vsync_active;
 
 
-
-
+	
+	ImVec4 clear_color;
 };
