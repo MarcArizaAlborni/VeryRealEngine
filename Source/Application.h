@@ -37,10 +37,13 @@ public:
 	bool CleanUp();
 
 	void RequestBrowser(const char* url) const;
+	uint GetFramerateLimit() const;
 
 private:
 
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
+
+	int		capped_ms; 
 };

@@ -403,5 +403,19 @@ void ModuleImGui::CreateConfigWindow_Options() {
 //---------APPLICATION--------
 void ModuleImGui::CreateConfigWindow_Application() {
 
-	if (ImGui::CollapsingHeader("Application")) {}
+	if (ImGui::CollapsingHeader("Application")) {
+	
+		static char str1[128] = "";
+		ImGui::InputTextWithHint("App Name", "Enter Text Here", str1, IM_ARRAYSIZE(str1));
+		ImGui::InputTextWithHint("Organization", "Enter Text Here", str1, IM_ARRAYSIZE(str1));
+
+		int max_fps = App->GetFramerateLimit();
+		if (ImGui::SliderInt("Max FPS", &max_fps, 0, 120));
+			//Function to set framerate
+
+		ImGui::Text("Limit Framerate:");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(0.f, 1.f, 0.f, 1.f), "%i", App->GetFramerateLimit());
+
+	}
 }
