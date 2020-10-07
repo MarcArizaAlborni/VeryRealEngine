@@ -96,7 +96,7 @@ bool ModuleImGui::CleanUp()
 
 
 // Update
-update_status ModuleImGui::Update()
+update_status ModuleImGui::Update(float dt)
 {
 	bool closeEngine = false;
 

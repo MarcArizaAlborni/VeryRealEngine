@@ -46,6 +46,8 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	dt = 0.5f;
+	
 	//Call Init() in all modules
 	std::list<Module*>::iterator item = list_modules.begin();
 
@@ -97,6 +99,7 @@ bool Application::Init()
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
+
 }
 
 // ---------------------------------------------
@@ -117,7 +120,7 @@ update_status Application::Update()
 	while (item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
 
-		State = (*item)->PreUpdate();
+		State = (*item)->PreUpdate(dt);
 
 		//this is to allow esc to exit app
 		if (State == UPDATE_STOP) {
@@ -130,7 +133,7 @@ update_status Application::Update()
 
 	while (item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
-		(*item)->Update();
+		(*item)->Update(dt);
 		item++;
 	}
 
@@ -138,7 +141,7 @@ update_status Application::Update()
 
 	while (item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
-		(*item)->PostUpdate();
+		(*item)->PostUpdate(dt);
 		item++;
 	}
 
@@ -175,6 +178,11 @@ uint Application::GetFramerateLimit() const
 		return (uint)((1.0f / (float)capped_ms) * 1000.0f);
 	else
 		return 0;
+}
+
+float Application::GetDT()
+{
+	return dt;
 }
 
 

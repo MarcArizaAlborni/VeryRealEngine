@@ -39,6 +39,8 @@ public:
 	void RequestBrowser(const char* url) const;
 	uint GetFramerateLimit() const;
 
+	float GetDT();
+
 private:
 
 	void AddModule(Module* mod);
@@ -60,7 +62,7 @@ private:
 
 	///// DEFINITIONS  ///////
 
-
+	
 
 
 };
