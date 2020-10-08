@@ -70,6 +70,8 @@ bool ModuleImGui::Start()
 
 	OnInit = true;
 
+	active_window = true;
+
 	return ret;
 }
 
@@ -179,68 +181,6 @@ update_status ModuleImGui::Update(float dt)
 
 	if (show_configuration_window) {
 
-		static int val = 1000;
-		static int val2;
-		static int val3;
-		static int volume;
-
-		if (OnInit) {
-			ImGui::SetNextWindowSize({ 300,300 }, ImGuiCond_Once);
-		}
-		else {
-			ImGui::SetNextWindowSize({ (float)val3,(float)val2 });
-		}
-
-		ImGui::Begin("Configuration Window", &show_configuration_window);
-
-		ImGui::SliderInt("Brightness", &val, 0.0f,100.0f);
-		ImGui::SliderInt("Size V", &val2,0.0f, 300.0f);
-		ImGui::SliderInt("Size H", &val3,0.0f, 300.0f);
-
-		ImGui::Checkbox("Vsync", &vsync_active);
-
-
-		ImGui::SliderInt("Volume", &volume, 0.0f, 100.0f);
-
-		ImGui::Text("Input Active: ");
-
-		ImGui::SameLine(0.0f,10.0f);
-		
-		if (App->input->keyboard[SDL_SCANCODE_W]) {
-
-			ImGui::Text("GO UP BUTTON ");
-
-		}
-		if (App->input->keyboard[SDL_SCANCODE_S]) {
-
-			ImGui::Text("GO DOWN BUTTON ");
-
-		}
-		if (App->input->keyboard[SDL_SCANCODE_A]) {
-
-			ImGui::Text("GO LEFT BUTTON ");
-
-		}
-		if (App->input->keyboard[SDL_SCANCODE_D]) {
-
-			ImGui::Text("GO RIGHT BUTTON ");
-
-		}
-
-
-
-		if (App->input->mouse_buttons[SDL_BUTTON_LEFT]) {
-
-			ImGui::Text("GO LEFT BUTTON ");
-
-		}
-
-		if (App->input->mouse_buttons[SDL_BUTTON_RIGHT]) {
-
-			ImGui::Text("GO RIGHT BUTTON ");
-
-		}
-		ImGui::End();
 	}
 
 
@@ -248,6 +188,7 @@ update_status ModuleImGui::Update(float dt)
 
 	CreateConfigWindow();
 	
+	CreateHardwareWindow();
 
 	//Render
 	ImGui::Render();
@@ -377,7 +318,7 @@ void ModuleImGui::CreateConfigWindow() {
 
 		CreateConfigWindow_Options();
 		CreateConfigWindow_Application();
-
+		CreateConfigWindow_Window();
 		ImGui::End();
 
 	}
@@ -420,6 +361,103 @@ void ModuleImGui::CreateConfigWindow_Application() {
 		sprintf_s(title, 25, "Milliseconds %0.1f", ms_log[ms_log.size() - 1]);
 		ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));*/
 
+
+		
+
 		// Memory --------------------
 	}
+}
+
+void ModuleImGui::CreateConfigWindow_Window()
+{
+	if (ImGui::CollapsingHeader("Window")) {
+
+		ImGui::Checkbox("Active", &active_window);
+
+
+
+		static int val = 1000;
+		static int val2;
+		static int val3;
+		static int volume;
+
+		if (OnInit) {
+			ImGui::SetNextWindowSize({ 300,300 }, ImGuiCond_Once);
+		}
+		else {
+			ImGui::SetNextWindowSize({ (float)val3,(float)val2 });
+		}
+
+		
+
+		ImGui::SliderInt("Brightness", &val, 0.0f, 100.0f);
+		ImGui::SliderInt("Size V", &val2, 0.0f, 300.0f);
+		ImGui::SliderInt("Size H", &val3, 0.0f, 300.0f);
+
+		ImGui::Checkbox("Vsync", &vsync_active);
+
+
+		ImGui::SliderInt("Volume", &volume, 0.0f, 100.0f);
+
+		ImGui::Text("Input Active: ");
+
+		ImGui::SameLine(0.0f, 10.0f);
+
+		if (App->input->keyboard[SDL_SCANCODE_W]) {
+
+			ImGui::Text("GO UP BUTTON ");
+
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_S]) {
+
+			ImGui::Text("GO DOWN BUTTON ");
+
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_A]) {
+
+			ImGui::Text("GO LEFT BUTTON ");
+
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_D]) {
+
+			ImGui::Text("GO RIGHT BUTTON ");
+
+		}
+		else if (App->input->mouse_buttons[SDL_BUTTON_LEFT]) {
+
+			ImGui::Text("GO LEFT BUTTON ");
+
+		}
+		else if (App->input->mouse_buttons[SDL_BUTTON_RIGHT]) {
+
+			ImGui::Text("GO RIGHT BUTTON ");
+
+		}
+		else {
+			ImGui::Text("No Input Detected");
+		}
+
+	
+		
+		ImGui::Text("Refresh Rate");
+
+		ImGui::SameLine(0.0f, 30.0f);
+
+		ImGui::Text("Current fps");
+
+
+		ImGui::Checkbox("Fullscreen", &active_fullscreen);
+		ImGui::SameLine(0,50.0f);
+		ImGui::Checkbox("Resizable", &active_Resizable);
+
+		ImGui::Checkbox("Borderless", &active_Borderless);
+		ImGui::SameLine(0, 50.0f);
+		ImGui::Checkbox("Full Desktop", &active_Full_Desktop);
+
+
+	}
+}
+
+void ModuleImGui::CreateHardwareWindow()
+{
 }

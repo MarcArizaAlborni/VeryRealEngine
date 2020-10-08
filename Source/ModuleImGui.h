@@ -41,7 +41,10 @@ private:
 	void CreateConfigWindow();
 	void CreateConfigWindow_Options();
 	void CreateConfigWindow_Application();
+	void CreateConfigWindow_Window();
 
+	// ---------------Hardware Window---------------
+	void CreateHardwareWindow();
 
 	bool on = false;
 	bool on_config = false;
@@ -54,6 +57,12 @@ private:
 	bool exit_engine_window;
 	bool show_configuration_window;
 
+	bool active_window;
+	bool active_fullscreen;
+	bool active_Resizable;
+	bool active_Borderless;
+	bool active_Full_Desktop;
+
 	bool show_config_window;
 
 	// Window Manager Bools
@@ -61,6 +70,8 @@ private:
 	bool vsync_active;
 
 	ImVec4 clear_color;
+
+
 
 
 
