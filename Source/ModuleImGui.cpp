@@ -189,6 +189,12 @@ update_status ModuleImGui::Update(float dt)
 
 	CreateConfigWindow();
 
+	if (show_about_window == true) {
+
+		CreateAboutWindow();
+
+	}
+
 	//Render
 	ImGui::Render();
 	glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
@@ -298,7 +304,11 @@ void ModuleImGui::CreateMainMenuBar_Help() {
 		if (ImGui::MenuItem("Report a bug"))
 			App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine/issues");
 
-		if (ImGui::MenuItem("About")) {}
+		if (ImGui::MenuItem("About")) {
+
+			show_about_window = true;
+		
+		}
 
 		ImGui::EndMenu();
 	}
@@ -478,25 +488,61 @@ void ModuleImGui::CreateConfigWindow_Hardware()
 		HardwareStat.GPU.model_name = (char*)glGetString(GL_VENDOR);
 		HardwareStat.GPU.renderer_name = (char*)glGetString(GL_RENDERER);
 		HardwareStat.GPU.version = (char*)glGetString(GL_VERSION);
-		ImGui::Begin("Hardware Status");
+		
 
-		ImGui::Text("CPUs:");
+		ImGui::TextColored({ 255,255,0,1 }, "CPUs:");
 		ImGui::SameLine();
-		ImGui::Text("%d", HardwareStat.CPU.CPU_Count);
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.CPU_Count);
 		ImGui::SameLine();
-		ImGui::Text("(Cache: %d kb)", HardwareStat.CPU.Cache_size);
+		ImGui::TextColored({ 255,255,0,1 }, "(Cache: %d kb)", HardwareStat.CPU.Cache_size);
 
-		ImGui::Text("System Ram: %d GBs", HardwareStat.CPU.System_Ram);
+		ImGui::TextColored({ 255,255,0,1 },"System Ram: %d GBs", HardwareStat.CPU.System_Ram);
 
-		ImGui::Text(HardwareStat.GPU.model_name);
-		ImGui::Text(HardwareStat.GPU.renderer_name);
-		ImGui::Text(HardwareStat.GPU.version);
+		ImGui::TextColored({ 255,255,0,1 }, HardwareStat.GPU.model_name);
+		ImGui::TextColored({ 255,255,0,1 }, HardwareStat.GPU.renderer_name);
+		ImGui::TextColored({ 255,255,0,1 }, HardwareStat.GPU.version);
 
-		ImGui::End();
+		
 	}
 
 }
 
 void ModuleImGui::CreateAboutWindow()
 {
+	ImGui::Begin("About");
+
+	ImGui::Text("Very Real Engine v0.1");
+
+	ImGui::Text("An actually real engine...");
+
+	ImGui::Text("Made by Gerard Romeu Vidal & Marc Ariza Alborni");
+
+	ImGui::Text("3rd Party Libraries:");
+
+	ImGui::BulletText("SDL 2.0");
+
+	ImGui::BulletText("Glew 2.0.0");
+
+	ImGui::BulletText("ImGui v1.78");
+
+	ImGui::BulletText("Math Geo Lib v1.5");
+
+	ImGui::BulletText("OpenGL 3.1");
+
+	ImGui::NewLine();
+
+	ImGui::Text("License:");
+
+	ImGui::Text("Copyright (c) <2020> <Gerard Romeu Vidal & Marc Ariza Alborni>");
+
+	ImGui::NewLine();
+
+	//THIS IS WRONG WE NEED TO FIX IT (WIP)
+	ImGui::Text("This software is provided 'as-is', without any express or implied warranty.In no event will the authors be held liable for any damages arising from the use of this software. Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter itand redistribute it freely, subject to the following restrictions :");
+	ImGui::Text("1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.");
+	ImGui::Text("2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.");
+	ImGui::Text("3. This notice may not be removed or altered from any source distribution.n.");
+
+
+	ImGui::End();
 }
