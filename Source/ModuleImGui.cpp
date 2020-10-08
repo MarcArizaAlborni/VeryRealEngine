@@ -177,12 +177,6 @@ update_status ModuleImGui::Update(float dt)
 	//	ImGui::End();
 	//}
 
-	
-
-	if (show_configuration_window) {
-
-	}
-
 
 	CreateMainMenuBar();
 
@@ -361,9 +355,6 @@ void ModuleImGui::CreateConfigWindow_Application() {
 		sprintf_s(title, 25, "Milliseconds %0.1f", ms_log[ms_log.size() - 1]);
 		ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));*/
 
-
-		
-
 		// Memory --------------------
 	}
 }
@@ -374,21 +365,10 @@ void ModuleImGui::CreateConfigWindow_Window()
 
 		ImGui::Checkbox("Active", &active_window);
 
-
-
 		static int val = 1000;
 		static int val2;
 		static int val3;
 		static int volume;
-
-		if (OnInit) {
-			ImGui::SetNextWindowSize({ 300,300 }, ImGuiCond_Once);
-		}
-		else {
-			ImGui::SetNextWindowSize({ (float)val3,(float)val2 });
-		}
-
-		
 
 		ImGui::SliderInt("Brightness", &val, 0.0f, 100.0f);
 		ImGui::SliderInt("Size V", &val2, 0.0f, 300.0f);
