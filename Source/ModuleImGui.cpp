@@ -365,7 +365,7 @@ void ModuleImGui::CreateConfigWindow_Application() {
 
 		ImGui::Text("Limit Framerate:");
 		ImGui::SameLine();
-		ImGui::TextColored(ImVec4(0.f, 1.f, 0.f, 1.f), "%i", App->GetFramerateLimit());
+		ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "%i", App->GetFramerateLimit());
 
 		/*char title[25];
 		sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
@@ -488,15 +488,18 @@ void ModuleImGui::CreateConfigWindow_Hardware()
 		HardwareStat.GPU.model_name = (char*)glGetString(GL_VENDOR);
 		HardwareStat.GPU.renderer_name = (char*)glGetString(GL_RENDERER);
 		HardwareStat.GPU.version = (char*)glGetString(GL_VERSION);
-		
 
-		ImGui::TextColored({ 255,255,0,1 }, "CPUs:");
+		ImGui::Text("CPUs:");
 		ImGui::SameLine();
 		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.CPU_Count);
+		
+		ImGui::Text("Cache:");
 		ImGui::SameLine();
-		ImGui::TextColored({ 255,255,0,1 }, "(Cache: %d kb)", HardwareStat.CPU.Cache_size);
+		ImGui::TextColored({ 255,255,0,1 }, "(%d kb)", HardwareStat.CPU.Cache_size);
 
-		ImGui::TextColored({ 255,255,0,1 },"System Ram: %d GBs", HardwareStat.CPU.System_Ram);
+		ImGui::Text("System Ram:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 },"%d GBs", HardwareStat.CPU.System_Ram);
 
 		ImGui::TextColored({ 255,255,0,1 }, HardwareStat.GPU.model_name);
 		ImGui::TextColored({ 255,255,0,1 }, HardwareStat.GPU.renderer_name);
