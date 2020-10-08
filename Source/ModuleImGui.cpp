@@ -460,4 +460,17 @@ void ModuleImGui::CreateConfigWindow_Window()
 
 void ModuleImGui::CreateHardwareWindow()
 {
+	
+	
+	ImGui::Text("CPUs:");
+	ImGui::SameLine();
+	ImGui::Text("%d", SDL_GetCPUCount);
+	ImGui::SameLine();
+	ImGui::Text("(Cache: %d kb)", SDL_GetCPUCacheLineSize());
+
+	ImGui::Text("System Ram: %d Gb", SDL_GetSystemRAM());
+
+
+
+
 }
