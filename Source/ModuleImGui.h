@@ -42,6 +42,10 @@ private:
 	void CreateConfigWindow_Options();
 	void CreateConfigWindow_Application();
 	void CreateConfigWindow_Window();
+	void CreateConfigWindow_FileSystem();
+	void CreateConfigWindow_Input();
+
+	
 
 	// ---------------Hardware Window---------------
 	void CreateHardwareWindow();

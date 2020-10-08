@@ -313,6 +313,8 @@ void ModuleImGui::CreateConfigWindow() {
 		CreateConfigWindow_Options();
 		CreateConfigWindow_Application();
 		CreateConfigWindow_Window();
+		CreateConfigWindow_FileSystem();
+		CreateConfigWindow_Input();
 		ImGui::End();
 
 	}
@@ -359,11 +361,14 @@ void ModuleImGui::CreateConfigWindow_Application() {
 	}
 }
 
+//------------WINDOW-----------------------
 void ModuleImGui::CreateConfigWindow_Window()
 {
 	if (ImGui::CollapsingHeader("Window")) {
 
 		ImGui::Checkbox("Active", &active_window);
+
+		//Icon Stuff
 
 		static int val = 1000;
 		static int val2;
@@ -373,11 +378,6 @@ void ModuleImGui::CreateConfigWindow_Window()
 		ImGui::SliderInt("Brightness", &val, 0.0f, 100.0f);
 		ImGui::SliderInt("Size V", &val2, 0.0f, 300.0f);
 		ImGui::SliderInt("Size H", &val3, 0.0f, 300.0f);
-
-		ImGui::Checkbox("Vsync", &vsync_active);
-
-
-		ImGui::SliderInt("Volume", &volume, 0.0f, 100.0f);
 
 		ImGui::Text("Input Active: ");
 
@@ -416,8 +416,6 @@ void ModuleImGui::CreateConfigWindow_Window()
 		else {
 			ImGui::Text("No Input Detected");
 		}
-
-	
 		
 		ImGui::Text("Refresh Rate");
 
@@ -425,14 +423,37 @@ void ModuleImGui::CreateConfigWindow_Window()
 
 		ImGui::Text("Current fps");
 
+		/*if (ImGui::Checkbox("Fullscreen", &fullscreen))
+			App->window->SetFullscreen(fullscreen);
 
-		ImGui::Checkbox("Fullscreen", &active_fullscreen);
-		ImGui::SameLine(0,50.0f);
-		ImGui::Checkbox("Resizable", &active_Resizable);
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Resizable", &resizable))
+			App->window->SetResizable(resizable);
+		if (ImGui::IsItemHovered())
+			ImGui::SetTooltip("Restart to apply");*/
 
 		ImGui::Checkbox("Borderless", &active_Borderless);
 		ImGui::SameLine(0, 50.0f);
 		ImGui::Checkbox("Full Desktop", &active_Full_Desktop);
+
+	}
+}
+
+//----------------------FILE VIEW----------------------
+void ModuleImGui::CreateConfigWindow_FileSystem()
+{
+
+	if (ImGui::CollapsingHeader("File System")) {
+
+
+	}
+}
+
+//---------------------INPUT-------------------------
+void ModuleImGui::CreateConfigWindow_Input()
+{
+
+	if (ImGui::CollapsingHeader("Input")) {
 
 
 	}
