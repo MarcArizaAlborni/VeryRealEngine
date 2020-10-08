@@ -484,7 +484,7 @@ void ModuleImGui::CreateConfigWindow_Hardware()
 		HardwareStat.GPU.model_name = (char*)glGetString(GL_VENDOR);
 		HardwareStat.GPU.renderer_name = (char*)glGetString(GL_RENDERER);
 		HardwareStat.GPU.version = (char*)glGetString(GL_VERSION);
-		ImGui::Begin("Hardware Status");
+		
 
 		ImGui::Text("CPUs:");
 		ImGui::SameLine();
@@ -498,11 +498,16 @@ void ModuleImGui::CreateConfigWindow_Hardware()
 		ImGui::Text(HardwareStat.GPU.renderer_name);
 		ImGui::Text(HardwareStat.GPU.version);
 
-		ImGui::End();
+		
 	}
 
 }
 
 void ModuleImGui::CreateAboutWindow()
 {
+	ImGui::Begin("About");
+
+
+
+	ImGui::End();
 }
