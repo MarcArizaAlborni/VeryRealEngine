@@ -11,6 +11,10 @@
 #include "libraries/SDL/include/SDL_opengl.h"
 
 
+
+
+
+
 ModuleImGui::ModuleImGui(Application* app, bool start_enabled) : Module(app,start_enabled)
 {
 }
@@ -21,12 +25,13 @@ ModuleImGui::~ModuleImGui()
 // Load assets
 bool ModuleImGui::Start()
 {
+	
 	LOG("Loading Intro assets");
 	bool ret = true;
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
-
+	
 	// Init Glew
 	glewInit();
 
@@ -71,6 +76,15 @@ bool ModuleImGui::Start()
 	OnInit = true;
 
 	active_window = true;
+
+
+
+	// HARDWARE DETECTION
+
+
+
+
+
 
 	return ret;
 }
@@ -440,17 +454,33 @@ void ModuleImGui::CreateConfigWindow_Window()
 
 void ModuleImGui::CreateHardwareWindow()
 {
-	
+
+	HardwareStat.CPU.CPU_Count = SDL_GetCPUCount();
+	HardwareStat.CPU.Cache_size=SDL_GetCPUCacheLineSize();
+	HardwareStat.CPU.System_Ram =SDL_GetSystemRAM() / 1000;
+	HardwareStat.GPU.model_name = (char*)glGetString(GL_VENDOR);
+	HardwareStat.GPU.renderer_name = (char*)glGetString(GL_RENDERER);
+	HardwareStat.GPU.version = (char*)glGetString(GL_VERSION);
+	ImGui::Begin("Hardware Status");
 	
 	ImGui::Text("CPUs:");
 	ImGui::SameLine();
-	ImGui::Text("%d", SDL_GetCPUCount);
+	ImGui::Text("%d", HardwareStat.CPU.CPU_Count);
 	ImGui::SameLine();
-	ImGui::Text("(Cache: %d kb)", SDL_GetCPUCacheLineSize());
+	ImGui::Text("(Cache: %d kb)", HardwareStat.CPU.Cache_size);
 
-	ImGui::Text("System Ram: %d Gb", SDL_GetSystemRAM());
+	ImGui::Text("System Ram: %d GBs", HardwareStat.CPU.System_Ram);
+
+	ImGui::Text(HardwareStat.GPU.model_name);
+	ImGui::Text(HardwareStat.GPU.renderer_name);
+	ImGui::Text(HardwareStat.GPU.version);
+	
 
 
+	ImGui::End();
 
+}
 
+void ModuleImGui::CreateAboutWindow()
+{
 }

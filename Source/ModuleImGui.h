@@ -11,6 +11,29 @@ class Primitive;
 
 #define FPS_LOG_SIZE 100
 
+struct GPU_Status {
+
+	char* model_name;
+	char* renderer_name;
+	char* version;
+
+};
+
+struct CPU_Status {
+
+	int CPU_Count;
+	int Cache_size;
+	int System_Ram;
+
+};
+
+struct Hardware_Status {
+
+	GPU_Status GPU;
+	CPU_Status CPU;
+
+};
+
 class ModuleImGui : public Module
 {
 public:
@@ -46,6 +69,9 @@ private:
 	// ---------------Hardware Window---------------
 	void CreateHardwareWindow();
 
+	// ---------------About Window---------------
+	void CreateAboutWindow();
+
 	bool on = false;
 	bool on_config = false;
 	bool done = false;
@@ -72,7 +98,7 @@ private:
 	ImVec4 clear_color;
 
 
-
+	Hardware_Status HardwareStat;
 
 
 };
