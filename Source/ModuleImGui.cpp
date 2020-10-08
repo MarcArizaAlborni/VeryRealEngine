@@ -196,7 +196,11 @@ update_status ModuleImGui::Update(float dt)
 
 	CreateConfigWindow();
 
-	CreateAboutWindow();
+	if (show_about_window == true) {
+
+		CreateAboutWindow();
+
+	}
 
 	//Render
 	ImGui::Render();
@@ -307,7 +311,11 @@ void ModuleImGui::CreateMainMenuBar_Help() {
 		if (ImGui::MenuItem("Report a bug"))
 			App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine/issues");
 
-		if (ImGui::MenuItem("About")) {}
+		if (ImGui::MenuItem("About")) {
+
+			show_about_window = true;
+		
+		}
 
 		ImGui::EndMenu();
 	}

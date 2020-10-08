@@ -94,6 +94,8 @@ private:
 
 	bool show_config_window;
 
+	bool show_about_window;
+
 	// Window Manager Bools
 	bool OnInit;
 	bool vsync_active;
