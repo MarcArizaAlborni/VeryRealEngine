@@ -67,11 +67,10 @@ private:
 	void CreateConfigWindow_Window();
 	void CreateConfigWindow_FileSystem();
 	void CreateConfigWindow_Input();
-
+	void CreateConfigWindow_Hardware();
 	
 
-	// ---------------Hardware Window---------------
-	void CreateHardwareWindow();
+
 
 	// ---------------About Window---------------
 	void CreateAboutWindow();

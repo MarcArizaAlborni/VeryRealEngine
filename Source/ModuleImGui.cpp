@@ -195,8 +195,6 @@ update_status ModuleImGui::Update(float dt)
 	CreateMainMenuBar();
 
 	CreateConfigWindow();
-	
-	CreateHardwareWindow();
 
 	//Render
 	ImGui::Render();
@@ -329,6 +327,7 @@ void ModuleImGui::CreateConfigWindow() {
 		CreateConfigWindow_Window();
 		CreateConfigWindow_FileSystem();
 		CreateConfigWindow_Input();
+		CreateConfigWindow_Hardware();
 		ImGui::End();
 
 	}
@@ -473,32 +472,34 @@ void ModuleImGui::CreateConfigWindow_Input()
 	}
 }
 
-void ModuleImGui::CreateHardwareWindow()
+//---------------------HARDWARE-------------------------
+void ModuleImGui::CreateConfigWindow_Hardware()
 {
 
-	HardwareStat.CPU.CPU_Count = SDL_GetCPUCount();
-	HardwareStat.CPU.Cache_size=SDL_GetCPUCacheLineSize();
-	HardwareStat.CPU.System_Ram =SDL_GetSystemRAM() / 1000;
-	HardwareStat.GPU.model_name = (char*)glGetString(GL_VENDOR);
-	HardwareStat.GPU.renderer_name = (char*)glGetString(GL_RENDERER);
-	HardwareStat.GPU.version = (char*)glGetString(GL_VERSION);
-	ImGui::Begin("Hardware Status");
-	
-	ImGui::Text("CPUs:");
-	ImGui::SameLine();
-	ImGui::Text("%d", HardwareStat.CPU.CPU_Count);
-	ImGui::SameLine();
-	ImGui::Text("(Cache: %d kb)", HardwareStat.CPU.Cache_size);
+	if (ImGui::CollapsingHeader("Hardware")) {
 
-	ImGui::Text("System Ram: %d GBs", HardwareStat.CPU.System_Ram);
+		HardwareStat.CPU.CPU_Count = SDL_GetCPUCount();
+		HardwareStat.CPU.Cache_size = SDL_GetCPUCacheLineSize();
+		HardwareStat.CPU.System_Ram = SDL_GetSystemRAM() / 1000;
+		HardwareStat.GPU.model_name = (char*)glGetString(GL_VENDOR);
+		HardwareStat.GPU.renderer_name = (char*)glGetString(GL_RENDERER);
+		HardwareStat.GPU.version = (char*)glGetString(GL_VERSION);
+		ImGui::Begin("Hardware Status");
 
-	ImGui::Text(HardwareStat.GPU.model_name);
-	ImGui::Text(HardwareStat.GPU.renderer_name);
-	ImGui::Text(HardwareStat.GPU.version);
-	
+		ImGui::Text("CPUs:");
+		ImGui::SameLine();
+		ImGui::Text("%d", HardwareStat.CPU.CPU_Count);
+		ImGui::SameLine();
+		ImGui::Text("(Cache: %d kb)", HardwareStat.CPU.Cache_size);
 
+		ImGui::Text("System Ram: %d GBs", HardwareStat.CPU.System_Ram);
 
-	ImGui::End();
+		ImGui::Text(HardwareStat.GPU.model_name);
+		ImGui::Text(HardwareStat.GPU.renderer_name);
+		ImGui::Text(HardwareStat.GPU.version);
+
+		ImGui::End();
+	}
 
 }
 
