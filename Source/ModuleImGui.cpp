@@ -77,14 +77,7 @@ bool ModuleImGui::Start()
 
 	active_window = true;
 
-
-
 	// HARDWARE DETECTION
-
-
-
-
-
 
 	return ret;
 }
@@ -444,6 +437,7 @@ void ModuleImGui::CreateConfigWindow_Window()
 			App->window->SetResizable(resizable);
 		if (ImGui::IsItemHovered())
 			ImGui::SetTooltip("Restart to apply");*/
+
 
 		ImGui::Checkbox("Borderless", &active_Borderless);
 		ImGui::SameLine(0, 50.0f);

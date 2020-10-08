@@ -1,15 +1,10 @@
 
-
 #pragma once
 #include "Module.h"
 #include "p2DynArray.h"
 #include "Globals.h"
 #include <vector>
 #include "libraries/ImGUI/imgui.h"
-
-class Primitive;
-
-#define FPS_LOG_SIZE 100
 
 struct GPU_Status {
 
@@ -46,8 +41,6 @@ public:
 	bool CleanUp();
 
 private:
-
-	p2DynArray<Primitive*> primitives;
 
 	
 	SDL_WindowFlags window_flags;
@@ -100,6 +93,8 @@ private:
 
 	ImVec4 clear_color;
 
+	std::vector<float> fps_log;
+	std::vector<float> ms_log;
 
 	Hardware_Status HardwareStat;
 
