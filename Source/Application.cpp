@@ -3,6 +3,12 @@
 #include <iostream> 
 #include <sstream> 
 #include "Definitions.h"
+#include <fstream>
+#include "ModuleCamera3D.h"
+
+
+
+
 
 
 Application::Application()
@@ -12,7 +18,9 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	editor = new ModuleEditor(this);
-	ImGui = new ModuleImGui(this);
+	ImGuiMod = new ModuleImGui(this);
+	//LoadSaveMod = new SaveLoad(this);
+	
 
 
 	// The order of calls is very important!
@@ -25,7 +33,9 @@ Application::Application()
 	AddModule(input);
 	AddModule(renderer3D);
 	AddModule(editor);
-	AddModule(ImGui);
+	//AddModule(LoadSaveMod);
+	AddModule(ImGuiMod);
+	
 	
 }
 
@@ -75,24 +85,6 @@ bool Application::Init()
 	return ret;
 }
 
-// ESTO NO VA
-//bool Application::Start()
-//{
-//	std::list<Module*>::iterator item = list_modules.begin();
-//
-//	//Call Start() in all modules
-//
-//	item = list_modules.begin();
-//
-//	while (item != list_modules.end())
-//	{
-//		(*item)->Start();
-//		item++;
-//	}
-//
-//	return true;
-//}
-
 
 
 
@@ -106,6 +98,8 @@ void Application::PrepareUpdate()
 void Application::FinishUpdate()
 {
 }
+
+
 
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
@@ -210,74 +204,54 @@ float Application::GetDT()
 
 // SAVE & LOAD
 
-bool Application::LoadSaveFile()
-{
-	bool ret;
 
 
 
-
-
-	return ret;
-}
-
-
-bool Application::SaveSaveFile()
-{
-
-
-	bool ret;
-
-
-
-
-	return ret;
-}
-
-
-bool SaveLoad::Save(SaveLoad item, const char* file)
-{
-
-	bool ret = true;
-
-	//if (file !=nullptr) {
-	//	
-	//	std::ofstream stream(file, std::ofstream::out);
-	//	SDL_assert(stream.is_open());
-
-	//	stream << std::setw(4) << item << std::endl;
-	//
-	//	stream.close();
-	//}
-
-	return ret;
-
-}
-
-SaveLoad SaveLoad::Load(const char* file)
-{
-
-	SaveLoad item;
-	/*SDL_assert(file != nullptr);
-
-
-	std::ifstream stream(file, std::ifstream::in);
-	SDL_assert(stream.is_open());
-
-
-	try {
-		item = json::parse(stream);
-	}
-	catch (json::parse_error& e) {
-		LOG("Parse Error while Loading File: %c", e.what());
-	}
-
-	stream.close();
-
-	return item;*/
-
-
-
-	return item;
-}
-
+//bool Application::LoadFromFile(json& item)
+//{
+//
+//	App->camera->Position.x = item["Camera"]["PositionX"].get<float>();
+//	App->camera->Position.y = item["Camera"]["PositionY"].get<float>();
+//	App->camera->Position.z = item["Camera"]["Position<"].get<float>();
+//
+//	return true;
+//}
+//
+//bool Application::SaveintoFileConfig() const
+//{
+//	bool ret = true;
+//
+//
+//	json config = {
+//		{"App", {
+//			{"Title","Very Real Engine"},
+//		}},
+//
+//		{"Window", {
+//			{"Width", "error" },
+//			{"Height","error"},
+//			{"Fullscreen", "error"},
+//			{"Resizable", "error"},
+//			{"Borderless", "error"},
+//			{"FullscreenDesktop", "error"}
+//		}},
+//
+//
+//		{"GUI", {
+//			{"ConfigurationWindow", "bon dia"},
+//
+//		}},
+//
+//		{"Camera", {
+//			{"PositionX",App->camera->Position.x},
+//			{"PositionY",App->camera->Position.y},
+//			{"PositionZ",App->camera->Position.z},
+//		}},
+//	};
+//
+//	isLoad.Save(config, SaveFileName.c_str());
+//
+//	return ret;
+//}
+//
+//

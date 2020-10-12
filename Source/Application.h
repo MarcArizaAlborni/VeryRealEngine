@@ -12,6 +12,15 @@
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
 #include <vector>
+#include "libraries/json/json.hpp"
+#include "SaveLoadModule.h"
+
+
+
+
+using json = nlohmann::json;
+
+
 
 class Application
 {
@@ -20,8 +29,10 @@ public:
 	ModuleInput* input;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
-	ModuleImGui* ImGui;
+	ModuleImGui* ImGuiMod;
 	ModuleEditor* editor;
+	//SaveLoad* LoadSaveMod;
+	
 
 private:
 
@@ -58,33 +69,20 @@ private:
 
 	////// FUNCTIONS ///////
 
-	bool LoadSaveFile();
-	bool SaveSaveFile();
+	bool LoadFromFile(json& item);
+	bool SaveintoFileConfig() const;
+
+	
 
 
 	///// DEFINITIONS  ///////
 
 	
-	
+	//SaveLoad isLoad;
+	std::string SaveFileName;
 
 };
 
 
-// Class for save and load
-
-class SaveLoad {
-
-public:
-
-	SaveLoad() {};
-
-
-
-	bool Save(SaveLoad item, const char* file);
-
-	SaveLoad Load(const char* file);
-
-
-};
 
 

@@ -7,6 +7,17 @@
 
 class Application;
 
+
+struct WindowInfo {
+	
+	int width;
+	int height;
+	bool Fullscreen;
+
+
+
+};
+
 class ModuleWindow : public Module
 {
 public:

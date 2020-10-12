@@ -61,6 +61,9 @@
     <ClCompile Include="ModuleEditor.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="SaveLoadModule.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -133,6 +136,9 @@
       <Filter>Source\Helper</Filter>
     </ClInclude>
     <ClInclude Include="ModuleEditor.h">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveLoadModule.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
