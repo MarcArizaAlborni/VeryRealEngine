@@ -61,7 +61,7 @@
     <ClCompile Include="ModuleEditor.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="SaveLoadModule.cpp">
+    <ClCompile Include="SaveAndLoad.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -138,7 +138,7 @@
     <ClInclude Include="ModuleEditor.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="SaveLoadModule.h">
+    <ClInclude Include="SaveAndLoad.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>

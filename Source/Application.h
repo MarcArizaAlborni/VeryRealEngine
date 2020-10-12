@@ -13,7 +13,8 @@
 #include "ModuleEditor.h"
 #include <vector>
 #include "libraries/json/json.hpp"
-#include "SaveLoadModule.h"
+
+#include "SaveAndLoad.h"
 
 
 
@@ -31,6 +32,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleImGui* ImGuiMod;
 	ModuleEditor* editor;
+	LoadSaveMod* LoadSave;
 	//SaveLoad* LoadSaveMod;
 	
 
@@ -69,8 +71,7 @@ private:
 
 	////// FUNCTIONS ///////
 
-	bool LoadFromFile(json& item);
-	bool SaveintoFileConfig() const;
+	
 
 	
 
@@ -78,7 +79,7 @@ private:
 	///// DEFINITIONS  ///////
 
 	
-	//SaveLoad isLoad;
+	
 	std::string SaveFileName;
 
 };

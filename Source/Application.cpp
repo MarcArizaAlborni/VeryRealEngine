@@ -19,7 +19,8 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	editor = new ModuleEditor(this);
 	ImGuiMod = new ModuleImGui(this);
-	//LoadSaveMod = new SaveLoad(this);
+	LoadSave = new LoadSaveMod(this);
+	
 	
 
 
@@ -33,7 +34,8 @@ Application::Application()
 	AddModule(input);
 	AddModule(renderer3D);
 	AddModule(editor);
-	//AddModule(LoadSaveMod);
+	AddModule(LoadSave);
+	
 	AddModule(ImGuiMod);
 	
 	
@@ -207,51 +209,6 @@ float Application::GetDT()
 
 
 
-//bool Application::LoadFromFile(json& item)
-//{
-//
-//	App->camera->Position.x = item["Camera"]["PositionX"].get<float>();
-//	App->camera->Position.y = item["Camera"]["PositionY"].get<float>();
-//	App->camera->Position.z = item["Camera"]["Position<"].get<float>();
-//
-//	return true;
-//}
-//
-//bool Application::SaveintoFileConfig() const
-//{
-//	bool ret = true;
-//
-//
-//	json config = {
-//		{"App", {
-//			{"Title","Very Real Engine"},
-//		}},
-//
-//		{"Window", {
-//			{"Width", "error" },
-//			{"Height","error"},
-//			{"Fullscreen", "error"},
-//			{"Resizable", "error"},
-//			{"Borderless", "error"},
-//			{"FullscreenDesktop", "error"}
-//		}},
-//
-//
-//		{"GUI", {
-//			{"ConfigurationWindow", "bon dia"},
-//
-//		}},
-//
-//		{"Camera", {
-//			{"PositionX",App->camera->Position.x},
-//			{"PositionY",App->camera->Position.y},
-//			{"PositionZ",App->camera->Position.z},
-//		}},
-//	};
-//
-//	isLoad.Save(config, SaveFileName.c_str());
-//
-//	return ret;
-//}
+
 //
 //

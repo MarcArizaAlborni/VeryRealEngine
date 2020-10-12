@@ -10,6 +10,8 @@
 #include "libraries/Glew/include/GL/glew.h" 
 #include "libraries/SDL/include/SDL_opengl.h"
 
+#include "SaveAndLoad.h"
+
 
 
 
@@ -106,7 +108,11 @@ update_status ModuleImGui::Update(float dt)
 {
 	bool closeEngine = false;
 
-	
+	if (App->input->keyboard[SDL_SCANCODE_P]) {
+
+		App->LoadSave->SaveintoFileConfig();
+
+	}
 
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
