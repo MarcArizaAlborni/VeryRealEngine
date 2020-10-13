@@ -27,7 +27,16 @@ ModuleImGui::~ModuleImGui()
 // Load assets
 bool ModuleImGui::Start()
 {
-	
+	ConsoleLogs.push_back("Bon dia a tots");
+	ConsoleLogs.push_back("Bon dia a tots");
+	ConsoleLogs.push_back("Bon dia a tots");
+	ConsoleLogs.push_back("Bon dia a tots");
+	ConsoleLogs.push_back("Bon dia a tots");
+	ConsoleLogs.push_back("Bon dia a tots");
+	ConsoleLogs.push_back("Bon dia a tots");
+	ConsoleLogs.push_back("Bon dia a tots");
+
+
 	LOG("Loading Intro assets");
 	bool ret = true;
 
@@ -140,11 +149,13 @@ update_status ModuleImGui::Update(float dt)
 
 	CreateConfigWindow();
 
-	if (show_about_window == true) {
+	
 
 		CreateAboutWindow();
 
-	}
+	
+
+	CreateConsoleWindow();
 
 	//Render
 	ImGui::Render();
@@ -461,42 +472,64 @@ void ModuleImGui::CreateConfigWindow_Hardware()
 
 }
 
+void ModuleImGui::CreateConsoleWindow()
+{
+	if (show_console_window) {
+
+		std::list<char*>::iterator Iterator = ConsoleLogs.begin();
+
+		
+
+		for (Iterator; Iterator != ConsoleLogs.end(); Iterator++) {
+
+
+			ImGui::TextUnformatted(*Iterator);
+
+		}
+
+
+
+	}
+}
+
 void ModuleImGui::CreateAboutWindow()
 {
-	ImGui::Begin("About");
+	if (show_about_window) {
+		ImGui::Begin("About");
 
-	ImGui::Text("Very Real Engine v0.1");
+		ImGui::Text("Very Real Engine v0.1");
 
-	ImGui::Text("An actually real engine...");
+		ImGui::Text("An actually real engine...");
 
-	ImGui::Text("Made by Gerard Romeu Vidal & Marc Ariza Alborni");
+		ImGui::Text("Made by Gerard Romeu Vidal & Marc Ariza Alborni");
 
-	ImGui::Text("3rd Party Libraries:");
+		ImGui::Text("3rd Party Libraries:");
 
-	ImGui::BulletText("SDL 2.0");
+		ImGui::BulletText("SDL 2.0");
 
-	ImGui::BulletText("Glew 2.0.0");
+		ImGui::BulletText("Glew 2.0.0");
 
-	ImGui::BulletText("ImGui v1.78");
+		ImGui::BulletText("ImGui v1.78");
 
-	ImGui::BulletText("Math Geo Lib v1.5");
+		ImGui::BulletText("Math Geo Lib v1.5");
 
-	ImGui::BulletText("OpenGL 3.1");
+		ImGui::BulletText("OpenGL 3.1");
 
-	ImGui::NewLine();
+		ImGui::NewLine();
 
-	ImGui::Text("License:");
+		ImGui::Text("License:");
 
-	ImGui::Text("Copyright (c) <2020> <Gerard Romeu Vidal & Marc Ariza Alborni>");
+		ImGui::Text("Copyright (c) <2020> <Gerard Romeu Vidal & Marc Ariza Alborni>");
 
-	ImGui::NewLine();
+		ImGui::NewLine();
 
-	//THIS IS WRONG WE NEED TO FIX IT (WIP)
-	ImGui::Text("This software is provided 'as-is', without any express or implied warranty.In no event will the authors be held liable for any damages arising from the use of this software. Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter itand redistribute it freely, subject to the following restrictions :");
-	ImGui::Text("1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.");
-	ImGui::Text("2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.");
-	ImGui::Text("3. This notice may not be removed or altered from any source distribution.n.");
+		//THIS IS WRONG WE NEED TO FIX IT (WIP)
+		ImGui::Text("This software is provided 'as-is', without any express or implied warranty.In no event will the authors be held liable for any damages arising from the use of this software. Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter itand redistribute it freely, subject to the following restrictions :");
+		ImGui::Text("1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.");
+		ImGui::Text("2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.");
+		ImGui::Text("3. This notice may not be removed or altered from any source distribution.n.");
 
 
-	ImGui::End();
+		ImGui::End();
+	}
 }

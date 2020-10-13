@@ -62,8 +62,8 @@ private:
 	void CreateConfigWindow_Input();
 	void CreateConfigWindow_Hardware();
 	
-
-
+	// ---------------Config Window---------------
+	void CreateConsoleWindow();
 
 	// ---------------About Window---------------
 	void CreateAboutWindow();
@@ -89,6 +89,8 @@ private:
 
 	bool show_about_window;
 
+	bool show_console_window;
+
 	// Window Manager Bools
 	bool OnInit;
 	bool vsync_active;
@@ -100,5 +102,7 @@ private:
 
 	Hardware_Status HardwareStat;
 
+public:
 
+	std::list<char*> ConsoleLogs;
 };
