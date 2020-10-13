@@ -73,73 +73,6 @@ void Primitive::Render() const
 
 	glEnd();
 
-	// TRIANGLE
-
-	/*glBegin(GL_TRIANGLES);
-
-	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-
-	glLineWidth(10.0f);
-
-	glVertex3f(0.0f, 0.0f, 50.0f);
-	glVertex3f(10.0f, 50.0f, 50.0f);
-	glVertex3f(20.0f, 25.0f, 50.0f);
-
-	glLineWidth(10.0f);
-
-	glEnd();*/
-
-	// TRIANGLE STRIP
-
-	//glBegin(GL_TRIANGLE_STRIP);
-
-	//glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-
-	//glLineWidth(10.0f);
-
-	//glVertex3f(0.0f, 0.0f, 0.0f); //1
-	//glVertex3f(10.0f, 50.0f, 0.0f);//2
-	//glVertex3f(20.0f, 25.0f, 0.0f);//3
-	//glVertex3f(10.0f, 50.0f, 0.0f);//4
-	//glVertex3f(20.0f, 25.0f, 0.0f);//5
-	//glVertex3f(20.0f, 30.0f, 0.0f);//6
-	//glVertex3f(30.0f, 40.0f, 0.0f);//7
-
-
-	//glLineWidth(10.0f);
-
-	//glEnd();
-
-	// QUAD WITH TRIANGLES
-
-	//glBegin(GL_TRIANGLES);
-
-	//glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-
-	//glLineWidth(10.0f);
-
-	//glVertex3f(1.0f, 1.0f, 1.0f); //1 eeste
-	//glVertex3f(-1.0f, 1.0f, 1.0f);//2
-	//glVertex3f(-1.0f, -1.0f, 1.0f);//3
-
-	//glVertex3f(-1.0f, -1.0f, 1.0f); //1
-	//glVertex3f(1.0f, -1.0f, 1.0f);//2
-	//glVertex3f(1.0f, 1.0f, 1.0f);//3
-
-	//glRotatef(0.1f, 1.0f, 1.0f, 0.0f);
-
-	//glLineWidth(10.0f);
-
-	//glEnd();
-
-	// QUAD WITH TRIANGLES
-
-	//glBegin(GL_TRIANGLES);
-
-	//glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-
-	//glLineWidth(10.0f);
-
 	////FRONT
 	//glVertex3f(1.0f, 1.0f, 1.0f  ); //1 eeste
 	//glVertex3f(-1.0f, 1.0f, 1.0f );//2
@@ -291,10 +224,6 @@ void Primitive::Render() const
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
-
-	
-
-	
 
 
 	glColor3f(color.r, color.g, color.b);
