@@ -476,6 +476,7 @@ void ModuleImGui::CreateConsoleWindow()
 {
 	if (show_console_window) {
 
+		ImGui::Begin("Console", &show_console_window);
 		std::list<char*>::iterator Iterator = ConsoleLogs.begin();
 
 		
@@ -487,7 +488,7 @@ void ModuleImGui::CreateConsoleWindow()
 
 		}
 
-
+		ImGui::End();
 
 	}
 }
