@@ -330,10 +330,10 @@ void ModuleImGui::CreateConfigWindow_Application() {
 		ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "%i", App->GetFramerateLimit());
 
 		/*char title[25];
-		sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
-		ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
-		sprintf_s(title, 25, "Milliseconds %0.1f", ms_log[ms_log.size() - 1]);
-		ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));*/
+		sprintf_s(title, 25, "Framerate %.1f", App->fps_log[App->fps_log.size() - 1]);
+		ImGui::PlotHistogram("##framerate", &App->fps_log[0], App->fps_log.size(), 0, title, 0.0f, 140.0f, ImVec2(310, 100));
+		sprintf_s(title, 25, "Milliseconds %.1f", App->ms_log[App->ms_log.size() - 1]);
+		ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));*/
 
 		// Memory --------------------
 	}
@@ -353,7 +353,10 @@ void ModuleImGui::CreateConfigWindow_Window()
 		static int val3;
 		static int volume;
 
-		ImGui::SliderInt("Brightness", &val, 0.0f, 100.0f);
+		brightness = App->window->GetBrightness();
+		if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
+			App->window->ChangeWindowBrightnessTo(brightness);
+
 		ImGui::SliderInt("Size V", &val2, 0.0f, 300.0f);
 		ImGui::SliderInt("Size H", &val3, 0.0f, 300.0f);
 
@@ -401,19 +404,22 @@ void ModuleImGui::CreateConfigWindow_Window()
 
 		ImGui::Text("Current fps");
 
-		/*if (ImGui::Checkbox("Fullscreen", &fullscreen))
-			App->window->SetFullscreen(fullscreen);
+		active_fullscreen = App->window->GetFullscreen();
+		if (ImGui::Checkbox("Fullscreen", &active_fullscreen))
+			App->window->SetFullscreen(active_fullscreen);
 
 		ImGui::SameLine();
-		if (ImGui::Checkbox("Resizable", &resizable))
-			App->window->SetResizable(resizable);
+		(ImGui::Checkbox("Resizable", &active_Resizable));
 		if (ImGui::IsItemHovered())
-			ImGui::SetTooltip("Restart to apply");*/
+			ImGui::SetTooltip("Restart to apply");
 
 
 		ImGui::Checkbox("Borderless", &active_Borderless);
 		ImGui::SameLine(0, 50.0f);
-		ImGui::Checkbox("Full Desktop", &active_Full_Desktop);
+
+		active_Full_Desktop = App->window->GetFullDesktop();
+		if (ImGui::Checkbox("Fullscreen Desktop", &active_Full_Desktop))
+			App->window->SetFullScreenDesktop(active_Full_Desktop);
 
 	}
 }

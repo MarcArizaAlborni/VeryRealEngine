@@ -39,6 +39,28 @@ public:
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
 
+	// WIndows Functions
+	float GetBrightness() const;
+	void ChangeWindowBrightnessTo(float brightness);
+
+	bool GetFullscreen() const;
+	bool GetResizable() const;
+	bool GetBorderless() const;
+	bool GetFullDesktop() const;
+
+	void SetFullscreen(bool fullscreen);
+
+
+	void SetFullScreenDesktop(bool fullscreen_desktop);
+
+	//Window flags
+	float window_brightness = 1.0f;
+
+	bool window_fullscreen = false;
+	bool window_resizable = true;
+	bool window_borderless = false;
+	bool window_full_desktop = false;
+
 };
 
 #endif // __ModuleWindow_H__

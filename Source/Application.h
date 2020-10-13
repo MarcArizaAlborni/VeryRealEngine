@@ -56,6 +56,11 @@ public:
 
 	float GetDT();
 
+public:
+
+	std::vector<float>	ms_log;
+	std::vector<float>	fps_log;
+
 private:
 
 	void AddModule(Module* mod);

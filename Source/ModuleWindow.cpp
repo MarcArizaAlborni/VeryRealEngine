@@ -92,3 +92,78 @@ void ModuleWindow::SetTitle(const char* title)
 {
 	SDL_SetWindowTitle(window, title);
 }
+
+// BRIGHTNESS
+float ModuleWindow::GetBrightness() const
+{
+	return window_brightness;
+}
+
+void ModuleWindow::ChangeWindowBrightnessTo(float brightness)
+{
+	if (brightness < 0.000f)
+	{
+		brightness = 0.000f;
+	}
+		
+	else if 
+		(brightness > 1.000f)
+		brightness = 1.000f;
+
+	SDL_SetWindowBrightness(window, brightness);
+
+	window_brightness = brightness;
+}
+
+// WINDOWS GETTERS
+bool ModuleWindow::GetFullscreen() const
+{
+	return window_fullscreen;
+}
+
+bool ModuleWindow::GetResizable() const
+{
+	return window_resizable;
+}
+
+bool ModuleWindow::GetBorderless() const
+{
+	return window_borderless;
+}
+
+bool ModuleWindow::GetFullDesktop() const
+{
+	return window_full_desktop;
+}
+
+
+// WINDOWS SETTERS
+void ModuleWindow::SetFullscreen(bool fullscreen)
+{
+	if (fullscreen)
+	{
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+	}
+	else
+	{
+		SDL_SetWindowFullscreen(window, 0);
+	}
+		
+
+	window_fullscreen = fullscreen;
+}
+
+void ModuleWindow::SetFullScreenDesktop(bool fullscreen_desktop)
+{
+	if (fullscreen_desktop)
+	{
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	}
+		
+	else
+	{
+		SDL_SetWindowFullscreen(window, 0);
+	}
+		
+	window_full_desktop = fullscreen_desktop;
+}

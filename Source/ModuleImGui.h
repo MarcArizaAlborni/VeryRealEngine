@@ -79,6 +79,8 @@ private:
 	bool exit_engine_window;
 	bool show_configuration_window;
 
+	float brightness;
+
 	bool active_window;
 	bool active_fullscreen;
 	bool active_Resizable;
@@ -96,9 +98,6 @@ private:
 	bool vsync_active;
 
 	ImVec4 clear_color;
-
-	std::vector<float> fps_log;
-	std::vector<float> ms_log;
 
 	Hardware_Status HardwareStat;
 

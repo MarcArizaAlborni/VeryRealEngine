@@ -99,6 +99,7 @@ void Application::PrepareUpdate()
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	// Update the fps Log
 }
 
 
