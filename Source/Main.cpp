@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Globals.h"
 
+#include "libraries/Glew/include/GL/glew.h"
 #include "libraries/SDL/include/SDL.h"
 
 #pragma comment (lib, "libraries/Glew/lib/Release/Win32/glew32.lib")

@@ -1,5 +1,6 @@
 
 #include "Globals.h"
+#include "libraries/Glew/include/GL/glew.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "Primitive.h"
@@ -56,6 +57,229 @@ void Primitive::Render() const
 
 		glLineWidth(1.0f);
 	}
+
+	// VERTICAL LINE
+
+	glBegin(GL_LINES);
+
+	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+
+	glLineWidth(10.0f);
+
+	glVertex3f(20.0f, 0.0f, 0.0f);
+	glVertex3f(20.0f, 100.0f, 0.0f);
+
+	glLineWidth(10.0f);
+
+	glEnd();
+
+	// TRIANGLE
+
+	/*glBegin(GL_TRIANGLES);
+
+	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+
+	glLineWidth(10.0f);
+
+	glVertex3f(0.0f, 0.0f, 50.0f);
+	glVertex3f(10.0f, 50.0f, 50.0f);
+	glVertex3f(20.0f, 25.0f, 50.0f);
+
+	glLineWidth(10.0f);
+
+	glEnd();*/
+
+	// TRIANGLE STRIP
+
+	//glBegin(GL_TRIANGLE_STRIP);
+
+	//glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+
+	//glLineWidth(10.0f);
+
+	//glVertex3f(0.0f, 0.0f, 0.0f); //1
+	//glVertex3f(10.0f, 50.0f, 0.0f);//2
+	//glVertex3f(20.0f, 25.0f, 0.0f);//3
+	//glVertex3f(10.0f, 50.0f, 0.0f);//4
+	//glVertex3f(20.0f, 25.0f, 0.0f);//5
+	//glVertex3f(20.0f, 30.0f, 0.0f);//6
+	//glVertex3f(30.0f, 40.0f, 0.0f);//7
+
+
+	//glLineWidth(10.0f);
+
+	//glEnd();
+
+	// QUAD WITH TRIANGLES
+
+	//glBegin(GL_TRIANGLES);
+
+	//glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+
+	//glLineWidth(10.0f);
+
+	//glVertex3f(1.0f, 1.0f, 1.0f); //1 eeste
+	//glVertex3f(-1.0f, 1.0f, 1.0f);//2
+	//glVertex3f(-1.0f, -1.0f, 1.0f);//3
+
+	//glVertex3f(-1.0f, -1.0f, 1.0f); //1
+	//glVertex3f(1.0f, -1.0f, 1.0f);//2
+	//glVertex3f(1.0f, 1.0f, 1.0f);//3
+
+	//glRotatef(0.1f, 1.0f, 1.0f, 0.0f);
+
+	//glLineWidth(10.0f);
+
+	//glEnd();
+
+	// QUAD WITH TRIANGLES
+
+	//glBegin(GL_TRIANGLES);
+
+	//glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+
+	//glLineWidth(10.0f);
+
+	////FRONT
+	//glVertex3f(1.0f, 1.0f, 1.0f  ); //1 eeste
+	//glVertex3f(-1.0f, 1.0f, 1.0f );//2
+	//glVertex3f(-1.0f, -1.0f, 1.0f);//3
+
+	//glVertex3f(-1.0f, -1.0f, 1.0f); //4
+	//glVertex3f(1.0f, -1.0f, 1.0f );//5
+	//glVertex3f(1.0f, 1.0f, 1.0f  );//6
+	////DERECHA
+	//glVertex3f(1.0f, 1.0f, 1.0f  ); //1 
+	//glVertex3f(1.0f, -1.0f, 1.0f );//2
+	//glVertex3f(1.0f, -1.0f, -1.0f);//3
+
+	//glVertex3f(1.0f, -1.0f, -1.0f); //4
+	//glVertex3f(1.0f, 1.0f, -1.0f );//5
+	//glVertex3f(1.0f, 1.0f, 1.0f  );//6
+	////ARRIBA
+	//glVertex3f(1.0f, 1.0f, 1.0f  ); //1 
+	//glVertex3f(1.0f, 1.0f, -1.0f );//2
+	//glVertex3f(-1.0f, 1.0f, -1.0f);//3
+
+	//glVertex3f(-1.0f, 1.0f, -1.0f); //4
+	//glVertex3f(-1.0f, 1.0f, 1.0f );//5
+	//glVertex3f(1.0f, 1.0f, 1.0f  );//6
+	////IZQUIERDA
+	//glVertex3f(-1.0f, 1.0f, 1.0f ); //1 
+	//glVertex3f(-1.0f, 1.0f, -1.0f);//2
+	//glVertex3f(-1.0f, -1.0f,-1.0f);//3
+
+	//glVertex3f(-1.0f, -1.0f,-1.0f); //4
+	//glVertex3f(-1.0f, -1.0f, 1.0f);//5
+	//glVertex3f(-1.0f, 1.0f, 1.0f );//6
+	////ABAJO
+	//glVertex3f(-1.0f, -1.0f,-1.0f); //1 
+	//glVertex3f(1.0f, -1.0f, -1.0f);//2
+	//glVertex3f(1.0f, -1.0f, 1.0f );//3
+
+	//glVertex3f(1.0f, -1.0f, 1.0f ); //4
+	//glVertex3f(-1.0f, -1.0f, 1.0f);//5
+	//glVertex3f(-1.0f, -1.0f,-1.0f);//6
+	////DETRAS
+	//glVertex3f(1.0f, -1.0f, -1.0f); //1 
+	//glVertex3f(-1.0f, -1.0f,-1.0f);//2
+	//glVertex3f(-1.0f, 1.0f, -1.0f);//3
+
+	//glVertex3f(-1.0f, 1.0f, -1.0f); //4
+	//glVertex3f(1.0f, 1.0f, -1.0f );//5
+	//glVertex3f(1.0f, -1.0f, -1.0f);//6
+
+
+    glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+	
+	 GLfloat Vertices[108] = { 1.0f, 1.0f, 1.0f ,- 1.0f, 1.0f, 1.0f ,- 1.0f, -1.0f, 1.0f,-1.0f, -1.0f, 1.0f,1.0f, -1.0f, 1.0f,1.0f, 1.0f, 1.0f,
+
+						1.0f, 1.0f, 1.0f,
+						1.0f, -1.0f, 1.0f,
+						1.0f, -1.0f, -1.0f,
+
+						1.0f, -1.0f, -1.0f,
+						1.0f, 1.0f, -1.0f,
+						1.0f, 1.0f, 1.0f,
+
+						1.0f, 1.0f, 1.0f,
+						1.0f, 1.0f, -1.0f,
+						-1.0f, 1.0f, -1.0f,
+
+						-1.0f, 1.0f, -1.0f,
+						-1.0f, 1.0f, 1.0f,
+						1.0f, 1.0f, 1.0f,
+
+						-1.0f, 1.0f, 1.0f,
+						-1.0f, 1.0f, -1.0f,
+						-1.0f, -1.0f,-1.0f,
+
+						-1.0f, -1.0f,-1.0f,
+						-1.0f, -1.0f, 1.0f,
+						-1.0f, 1.0f, 1.0f,
+
+						-1.0f, -1.0f,-1.0f,
+						1.0f, -1.0f, -1.0f,
+						1.0f, -1.0f, 1.0f,
+
+						1.0f, -1.0f, 1.0f,
+						-1.0f, -1.0f, 1.0f,
+						-1.0f, -1.0f,-1.0f,
+
+						1.0f, -1.0f, -1.0f,
+						-1.0f, -1.0f,-1.0f,
+						-1.0f, 1.0f, -1.0f,
+
+						-1.0f, 1.0f, -1.0f,
+						1.0f, 1.0f, -1.0f,
+						1.0f, -1.0f, -1.0f 
+	};
+
+	////BUFFER ARRAY
+	//uint my_id = 0;
+	//glGenBuffers(1, (GLuint*)&(my_id));
+	//glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 36 * 3, Vertices, GL_STATIC_DRAW);
+
+
+
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	//glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	//glDrawArrays(GL_TRIANGLES, 0, 36);
+	//glDisableClientState(GL_VERTEX_ARRAY);
+
+	GLubyte indices[36] = {
+
+		     0,1,2, 2,3,0,   // 36 of indices
+			 0,3,4, 4,5,0,
+			 0,5,6, 6,1,0,
+			 1,6,7, 7,2,1,
+			 7,4,3, 3,2,7,
+			 4,7,6, 6,5,4 
+		              
+	};
+
+	//INDICES
+
+
+	uint my_indices = 0;
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)* 36, indices, GL_STATIC_DRAW);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, Vertices);
+
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	
+
+	
+
 
 	glColor3f(color.r, color.g, color.b);
 

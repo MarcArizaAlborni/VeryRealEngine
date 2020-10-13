@@ -73,7 +73,7 @@ bool ModuleImGui::Start()
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
 
-	clear_color = ImVec4(0.40f, 0.10f, 0.20f, 1.00f); 
+	clear_color = ImVec4(0.0f, 0.0f, 0.0f, 1.00f); 
 
 	OnInit = true;
 

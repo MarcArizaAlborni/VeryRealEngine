@@ -26,6 +26,7 @@ public:
 	PrimitiveTypes	GetType() const;
 
 
+
 	Color color;
 	mat4x4 transform;
 	bool axis,wire;
