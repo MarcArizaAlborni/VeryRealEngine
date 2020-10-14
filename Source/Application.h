@@ -29,7 +29,6 @@ public:
 	ModuleInput* input;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
-	ModuleImGui* ImGuiMod;
 	ModuleEditor* editor;
 	ModuleMeshImporter* meshimporter;
 	LoadSaveMod* LoadSave;

@@ -52,9 +52,6 @@
     <ClCompile Include="libraries\ImGui\imgui_widgets.cpp">
       <Filter>Source\External Libraries\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleImGui.cpp">
-      <Filter>Source\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Primitive.cpp">
       <Filter>Source\Helper</Filter>
     </ClCompile>
@@ -66,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="ModuleMeshImporter.cpp">
       <Filter>Source\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleImGui.cpp">
+      <Filter>Source\Windows &amp; Menus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,9 +132,6 @@
     <ClInclude Include="libraries\ImGui\imstb_truetype.h">
       <Filter>Source\External Libraries\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleImGui.h">
-      <Filter>Source\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Source\Helper</Filter>
     </ClInclude>
@@ -146,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="ModuleMeshImporter.h">
       <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleImGui.h">
+      <Filter>Source\Windows &amp; Menus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +175,21 @@
     </Filter>
     <Filter Include="Source\Tools">
       <UniqueIdentifier>{e93f45d5-40fd-47b0-8bc4-55e21e63badb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows &amp; Menus">
+      <UniqueIdentifier>{6aa6277a-a672-45d7-a44f-cd9f2161acfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\External Libraries\Json">
+      <UniqueIdentifier>{5d054494-53f5-41af-aa3c-dd10d0f46fec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\External Libraries\MathGeoLib">
+      <UniqueIdentifier>{516b6cca-4618-4e54-952a-87d42edd858b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\External Libraries\Assimp">
+      <UniqueIdentifier>{8577efd0-635d-4dd5-bc04-f5d4da61f4ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\External Libraries\SDL">
+      <UniqueIdentifier>{d0d944d8-8101-496e-b5a0-9c37c382a650}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

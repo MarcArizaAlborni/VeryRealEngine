@@ -18,7 +18,6 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	editor = new ModuleEditor(this);
-	ImGuiMod = new ModuleImGui(this);
 	meshimporter = new ModuleMeshImporter(this);
 	LoadSave = new LoadSaveMod(this);
 	
@@ -38,7 +37,6 @@ Application::Application()
 	AddModule(meshimporter);
 	AddModule(LoadSave);
 	
-	AddModule(ImGuiMod);
 	AddModule(renderer3D);
 	
 }

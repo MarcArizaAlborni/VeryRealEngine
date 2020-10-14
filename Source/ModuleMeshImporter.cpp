@@ -43,7 +43,6 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 
 	if (scene != nullptr && scene->HasMeshes()) {
 
-
 		int MESH_TOTAL_AMOUNT = scene->mNumMeshes;
 
 		for (int i = 0; i < MESH_TOTAL_AMOUNT; ++i) {

@@ -21,6 +21,9 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	// Insert Geometry Options
+	void DrawCube();
+
 	void OnResize(int width, int height);
 
 	void DrawMesh(const MeshInfo* mesh);
