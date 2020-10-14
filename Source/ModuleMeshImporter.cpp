@@ -49,7 +49,7 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 		for (int i = 0; i < scene->mNumMeshes; ++i)
 		{
 			ourMesh->num_vertex = scene->mMeshes[i]->mNumVertices;
-			ourMesh->vertex = new float[ourMesh->num_vertex * 3];
+			ourMesh->vertex = new float[ourMesh->num_vertex * 3.0f];
 			memcpy(ourMesh->vertex, scene->mMeshes[i]->mVertices, sizeof(float) * ourMesh->num_vertex * 3);
 			LOG("New mesh with %d vertices", ourMesh->num_vertex);
 

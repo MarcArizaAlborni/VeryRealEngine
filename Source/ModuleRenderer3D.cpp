@@ -173,13 +173,13 @@ void ModuleRenderer3D::OnResize(int width, int height)
 void ModuleRenderer3D::DrawMesh(const MeshInfo* mesh)
 {
 	//Bind buffers
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->num_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->num_index, mesh->index, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(GLubyte)*mesh->num_vertex, mesh->index, GL_STATIC_DRAW);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, mesh->vertex);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_index);
+	
 
 	//Draw
 	glDrawElements(GL_TRIANGLES, mesh->num_index, GL_UNSIGNED_BYTE, mesh->index);

@@ -98,18 +98,18 @@ void Primitive::Render() const
 	
 
 
-	//uint my_indices = 0;
+	uint my_indices = 0;
 
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)* 36, indices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)* 36, indices, GL_STATIC_DRAW);
 
-	//glEnableClientState(GL_VERTEX_ARRAY);
-	//glVertexPointer(3, GL_FLOAT, 0, Vertices2);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, Vertices2);
 
-	//
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
+	
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
 
-	//glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
 
 
 	glColor3f(color.r, color.g, color.b);
