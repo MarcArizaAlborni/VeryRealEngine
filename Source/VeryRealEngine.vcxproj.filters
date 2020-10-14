@@ -64,6 +64,9 @@
     <ClCompile Include="SaveAndLoad.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleMeshImporter.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -139,6 +142,9 @@
       <Filter>Source\Modules</Filter>
     </ClInclude>
     <ClInclude Include="SaveAndLoad.h">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleMeshImporter.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
