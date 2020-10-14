@@ -8,6 +8,7 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -102,9 +103,21 @@ bool ModuleRenderer3D::Init()
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	warrior = App->meshimporter->LoadMesh("Assets/Models/warrior/warrior.FBX");
+   
 
 	return ret;
+}
+
+bool ModuleRenderer3D::Start()
+{
+	/*if (App->input->keyboard[SDL_SCANCODE_K]) {
+		App->meshimporter->LoadMesh("Assets/Models/warrior/warrior.FBX");
+	}*/
+
+	
+		App->meshimporter->LoadMesh("Assets/Models/warrior/warrior.FBX");
+	
+	return true;
 }
 
 // PreUpdate: clear buffer
@@ -122,6 +135,9 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
+
+	
+
 	return UPDATE_CONTINUE;
 }
 
@@ -130,8 +146,14 @@ update_status ModuleRenderer3D::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
+	std::list<MeshInfo*>::iterator IteratorLoaded = App->meshimporter->LoadedMeshes.begin();
+	for (int a = 0; a < App->meshimporter->LoadedMeshes.size(); ++a) {
 
-	DrawMesh(warrior);
+		DrawMesh(*IteratorLoaded);
+		IteratorLoaded++;
+	}
+
+	//DrawMesh(warrior);
 
 	return UPDATE_CONTINUE;
 }
@@ -172,19 +194,36 @@ void ModuleRenderer3D::OnResize(int width, int height)
 // Draw mesh with vertex and index
 void ModuleRenderer3D::DrawMesh(const MeshInfo* mesh)
 {
-	//Bind buffers
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(GLubyte)*mesh->num_vertex, mesh->index, GL_STATIC_DRAW);
+	if (mesh->index != nullptr) {
+		//Bind buffers
+		glEnableClientState(GL_VERTEX_ARRAY);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, mesh->vertex);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertex);
+
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_index);
+
+		glDrawElements(GL_TRIANGLES, mesh->num_index, GL_UNSIGNED_INT, nullptr);
+
+		//TURN OFF
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glDisableClientState(GL_VERTEX_ARRAY);
+
+
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte) * mesh->num_vertex, mesh->index, GL_STATIC_DRAW);
 
 	
+		//
 
-	//Draw
-	glDrawElements(GL_TRIANGLES, mesh->num_index, GL_UNSIGNED_BYTE, mesh->index);
 
-	glDisableClientState(GL_VERTEX_ARRAY);
+
+		////Draw
+		//glDrawElements(GL_TRIANGLES, mesh->num_index, GL_UNSIGNED_BYTE, mesh->index);
+
+		//glDisableClientState(GL_VERTEX_ARRAY);
+	}
 
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
 	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)* 36, indices, GL_STATIC_DRAW);
@@ -196,4 +235,20 @@ void ModuleRenderer3D::DrawMesh(const MeshInfo* mesh)
 	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
 
 	//glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void ModuleRenderer3D::GenerateVertexBuffer(uint& id_vertex, const int& size, const float* vertex)
+{
+	glGenBuffers(1, (GLuint*)&(id_vertex));
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * size * 3, vertex, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void ModuleRenderer3D::GenerateIndexBuffer(uint& id_index, const int& size, const uint* index)
+{
+	glGenBuffers(1, (GLuint*)&(id_index));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * size, index, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

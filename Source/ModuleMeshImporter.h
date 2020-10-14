@@ -3,14 +3,15 @@
 #include "Globals.h"
 #include "glmath.h"
 
+
 struct MeshInfo
 {
-	uint id_index; // index in VRAM
-	uint num_index;
-	uint* index;
-	uint id_vertex; // unique vertex in VRAM
-	uint num_vertex;
-	float* vertex;
+	uint id_index=0; // index in VRAM
+	uint num_index = 0;
+	uint* index = nullptr;
+	uint id_vertex = 0; // unique vertex in VRAM
+	uint num_vertex = 0;
+	float* vertex=nullptr;
 };
 
 class ModuleMeshImporter : public Module
@@ -25,6 +26,7 @@ public:
 
 	MeshInfo* LoadMesh(char* file_path);
 	
+	std::list<MeshInfo*> LoadedMeshes;
 
 private:
 

@@ -100,6 +100,8 @@ void Primitive::Render() const
 
 	uint my_indices = 0;
 
+	
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)* 36, indices, GL_STATIC_DRAW);
 

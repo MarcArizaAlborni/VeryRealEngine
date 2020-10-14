@@ -33,13 +33,13 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
-	AddModule(renderer3D);
+	
 	AddModule(editor);
 	AddModule(meshimporter);
 	AddModule(LoadSave);
 	
 	AddModule(ImGuiMod);
-	
+	AddModule(renderer3D);
 	
 }
 

@@ -15,6 +15,7 @@ public:
 	~ModuleRenderer3D();
 
 	bool Init();
+	bool Start();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
@@ -23,6 +24,9 @@ public:
 	void OnResize(int width, int height);
 
 	void DrawMesh(const MeshInfo* mesh);
+
+	void GenerateVertexBuffer(uint& id_vertex, const int& size, const float* vertex);
+	void GenerateIndexBuffer(uint& id_index, const int& size, const uint* index);
 
 public:
 
