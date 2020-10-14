@@ -23,7 +23,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void LoadMesh(char* file_path);
+	MeshInfo* LoadMesh(char* file_path);
 	
 
 private:

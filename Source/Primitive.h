@@ -30,7 +30,7 @@ public:
 	Color color;
 	mat4x4 transform;
 	bool axis,wire;
-	//TODO 4: Add a PhysBody to the primitive
+
 
 protected:
 	virtual void InnerRender() const;

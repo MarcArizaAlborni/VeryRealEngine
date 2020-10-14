@@ -6,6 +6,8 @@
 
 #define MAX_LIGHTS 8
 
+struct MeshInfo;
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -20,10 +22,14 @@ public:
 
 	void OnResize(int width, int height);
 
+	void DrawMesh(const MeshInfo* mesh);
+
 public:
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	MeshInfo* warrior;
 };

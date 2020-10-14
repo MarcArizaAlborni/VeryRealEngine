@@ -73,125 +73,10 @@ void Primitive::Render() const
 
 	glEnd();
 
-	////FRONT
-	//glVertex3f(1.0f, 1.0f, 1.0f  ); //1 eeste
-	//glVertex3f(-1.0f, 1.0f, 1.0f );//2
-	//glVertex3f(-1.0f, -1.0f, 1.0f);//3
-
-	//glVertex3f(-1.0f, -1.0f, 1.0f); //4
-	//glVertex3f(1.0f, -1.0f, 1.0f );//5
-	//glVertex3f(1.0f, 1.0f, 1.0f  );//6
-	////DERECHA
-	//glVertex3f(1.0f, 1.0f, 1.0f  ); //1 
-	//glVertex3f(1.0f, -1.0f, 1.0f );//2
-	//glVertex3f(1.0f, -1.0f, -1.0f);//3
-
-	//glVertex3f(1.0f, -1.0f, -1.0f); //4
-	//glVertex3f(1.0f, 1.0f, -1.0f );//5
-	//glVertex3f(1.0f, 1.0f, 1.0f  );//6
-	////ARRIBA
-	//glVertex3f(1.0f, 1.0f, 1.0f  ); //1 
-	//glVertex3f(1.0f, 1.0f, -1.0f );//2
-	//glVertex3f(-1.0f, 1.0f, -1.0f);//3
-
-	//glVertex3f(-1.0f, 1.0f, -1.0f); //4
-	//glVertex3f(-1.0f, 1.0f, 1.0f );//5
-	//glVertex3f(1.0f, 1.0f, 1.0f  );//6
-	////IZQUIERDA
-	//glVertex3f(-1.0f, 1.0f, 1.0f ); //1 
-	//glVertex3f(-1.0f, 1.0f, -1.0f);//2
-	//glVertex3f(-1.0f, -1.0f,-1.0f);//3
-
-	//glVertex3f(-1.0f, -1.0f,-1.0f); //4
-	//glVertex3f(-1.0f, -1.0f, 1.0f);//5
-	//glVertex3f(-1.0f, 1.0f, 1.0f );//6
-	////ABAJO
-	//glVertex3f(-1.0f, -1.0f,-1.0f); //1 
-	//glVertex3f(1.0f, -1.0f, -1.0f);//2
-	//glVertex3f(1.0f, -1.0f, 1.0f );//3
-
-	//glVertex3f(1.0f, -1.0f, 1.0f ); //4
-	//glVertex3f(-1.0f, -1.0f, 1.0f);//5
-	//glVertex3f(-1.0f, -1.0f,-1.0f);//6
-	////DETRAS
-	//glVertex3f(1.0f, -1.0f, -1.0f); //1 
-	//glVertex3f(-1.0f, -1.0f,-1.0f);//2
-	//glVertex3f(-1.0f, 1.0f, -1.0f);//3
-
-	//glVertex3f(-1.0f, 1.0f, -1.0f); //4
-	//glVertex3f(1.0f, 1.0f, -1.0f );//5
-	//glVertex3f(1.0f, -1.0f, -1.0f);//6
 
 
     glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
 	
-	 GLfloat Vertices[108] = { 
-
-		                 1.0f, 1.0f, 1.0f ,
-		                - 1.0f, 1.0f, 1.0f 
-		                ,- 1.0f, -1.0f, 1.0f,
-		                -1.0f, -1.0f, 1.0f,
-		                1.0f, -1.0f, 1.0f,
-		                1.0f, 1.0f, 1.0f,
-
-						1.0f, 1.0f, 1.0f,
-						1.0f, -1.0f, 1.0f,
-						1.0f, -1.0f, -1.0f,
-
-						1.0f, -1.0f, -1.0f,
-						1.0f, 1.0f, -1.0f,
-						1.0f, 1.0f, 1.0f,
-
-						1.0f, 1.0f, 1.0f,
-						1.0f, 1.0f, -1.0f,
-						-1.0f, 1.0f, -1.0f,
-
-						-1.0f, 1.0f, -1.0f,
-						-1.0f, 1.0f, 1.0f,
-						1.0f, 1.0f, 1.0f,
-
-						-1.0f, 1.0f, 1.0f,
-						-1.0f, 1.0f, -1.0f,
-						-1.0f, -1.0f,-1.0f,
-
-						-1.0f, -1.0f,-1.0f,
-						-1.0f, -1.0f, 1.0f,
-						-1.0f, 1.0f, 1.0f,
-
-						-1.0f, -1.0f,-1.0f,
-						1.0f, -1.0f, -1.0f,
-						1.0f, -1.0f, 1.0f,
-
-						1.0f, -1.0f, 1.0f,
-						-1.0f, -1.0f, 1.0f,
-						-1.0f, -1.0f,-1.0f,
-
-						1.0f, -1.0f, -1.0f,
-						-1.0f, -1.0f,-1.0f,
-						-1.0f, 1.0f, -1.0f,
-
-						-1.0f, 1.0f, -1.0f,
-						1.0f, 1.0f, -1.0f,
-						1.0f, -1.0f, -1.0f 
-	};
-
-
-
-
-	////BUFFER ARRAY
-	//uint my_id = 0;
-	//glGenBuffers(1, (GLuint*)&(my_id));
-	//glBindBuffer(GL_ARRAY_BUFFER, my_id);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 36 * 3, Vertices, GL_STATIC_DRAW);
-
-
-
-	//glEnableClientState(GL_VERTEX_ARRAY);
-
-	//glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-	//glDrawArrays(GL_TRIANGLES, 0, 36);
-	//glDisableClientState(GL_VERTEX_ARRAY);
 
 
 	 GLfloat Vertices2[] = { 1, 1, 1,  -1, 1, 1,  -1,-1, 1,   1,-1, 1,   // v0,v1,v2,v3 (front)
@@ -207,23 +92,24 @@ void Primitive::Render() const
 						8, 9,10,  10,11, 8,      
 					   12,13,14,  14,15,12,      
 					   16,17,18,  18,19,16,      
-					   20,21,22,  22,23,20 };    
+					   20,21,22,  22,23,20 
+	 };    
 
 	
 
 
-	uint my_indices = 0;
+	//uint my_indices = 0;
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)* 36, indices, GL_STATIC_DRAW);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)* 36, indices, GL_STATIC_DRAW);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, Vertices2);
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glVertexPointer(3, GL_FLOAT, 0, Vertices2);
 
-	
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
+	//
+	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
 
-	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState(GL_VERTEX_ARRAY);
 
 
 	glColor3f(color.r, color.g, color.b);

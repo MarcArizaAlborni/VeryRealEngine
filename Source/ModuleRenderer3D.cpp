@@ -1,8 +1,10 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "libraries/Glew/include/GL/glew.h"
 #include "libraries/SDL/include/SDL_opengl.h"
 #include "Primitive.h"
+#include "ModuleMeshImporter.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
@@ -100,6 +102,8 @@ bool ModuleRenderer3D::Init()
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
+	warrior = App->meshimporter->LoadMesh("Assets/Models/warrior/warrior.FBX");
+
 	return ret;
 }
 
@@ -126,6 +130,8 @@ update_status ModuleRenderer3D::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
+
+	DrawMesh(warrior);
 
 	return UPDATE_CONTINUE;
 }
@@ -161,4 +167,33 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+// Draw mesh with vertex and index
+void ModuleRenderer3D::DrawMesh(const MeshInfo* mesh)
+{
+	//Bind buffers
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->num_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->num_index, mesh->index, GL_STATIC_DRAW);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, mesh->vertex);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_index);
+
+	//Draw
+	glDrawElements(GL_TRIANGLES, mesh->num_index, GL_UNSIGNED_BYTE, mesh->index);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)* 36, indices, GL_STATIC_DRAW);
+
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glVertexPointer(3, GL_FLOAT, 0, Vertices2);
+
+	//
+	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
+
+	//glDisableClientState(GL_VERTEX_ARRAY);
 }
