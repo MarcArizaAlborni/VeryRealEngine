@@ -110,7 +110,7 @@ bool ModuleRenderer3D::Init()
 
 bool ModuleRenderer3D::Start()
 {
-		App->meshimporter->LoadMesh("Assets/Models/Warrior/warrior.FBX");
+		//App->meshimporter->LoadMesh("Assets/Models/Warrior/warrior.FBX");
 	
 	return true;
 }

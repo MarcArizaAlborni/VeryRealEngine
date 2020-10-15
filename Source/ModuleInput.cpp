@@ -110,7 +110,15 @@ update_status ModuleInput::PreUpdate(float dt)
 		{
 			if (e.window.event == SDL_WINDOWEVENT_RESIZED)
 				App->renderer3D->OnResize(e.window.data1, e.window.data2);
+			break;
 		}
+		case SDL_DROPFILE:
+
+			Drop_Path = e.drop.file;
+			App->meshimporter->LoadMesh(Drop_Path);
+			SDL_free(Drop_Path);
+
+			break;
 		}
 	}
 
