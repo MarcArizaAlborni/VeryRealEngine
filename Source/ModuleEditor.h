@@ -36,6 +36,7 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
+	update_status PostUpdate(float dt);
 	bool CleanUp();
 
 private:
@@ -71,7 +72,6 @@ private:
 	bool on_config = false;
 	bool done = false;
 
-
 	//Window Bools
 	bool show_demo_window;
 	bool show_window_2;
@@ -91,6 +91,8 @@ private:
 	bool show_about_window;
 
 	bool show_console_window;
+
+	bool drawcube;
 
 	// Window Manager Bools
 	bool OnInit;

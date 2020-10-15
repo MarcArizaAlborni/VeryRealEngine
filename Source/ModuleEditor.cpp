@@ -84,6 +84,7 @@ bool ModuleEditor::Start()
 
 	active_window = true;
 
+	drawcube = false;
 	// HARDWARE DETECTION
 
 	return ret;
@@ -169,6 +170,18 @@ update_status ModuleEditor::Update(float dt)
 
 	return UPDATE_STOP;
 }
+
+update_status ModuleEditor::PostUpdate(float dt)
+{
+	if (drawcube)
+	{
+		App->renderer3D->DrawCube();
+		!drawcube;
+	}
+
+	return UPDATE_STOP;
+}
+
 
 
 // ----------------------------MENU BAR-------------------------------------
@@ -269,7 +282,7 @@ void ModuleEditor::CreateInsertPrimitivesWindow()
 		{
 			if (ImGui::MenuItem("Cube"))
 			{
-				App->renderer3D->DrawCube();
+				drawcube = true;
 			}
 			ImGui::MenuItem("Sphere");
 			ImGui::MenuItem("Warrior");

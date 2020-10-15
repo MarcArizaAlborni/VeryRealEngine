@@ -110,12 +110,7 @@ bool ModuleRenderer3D::Init()
 
 bool ModuleRenderer3D::Start()
 {
-	/*if (App->input->keyboard[SDL_SCANCODE_K]) {
-		App->meshimporter->LoadMesh("Assets/Models/warrior/warrior.FBX");
-	}*/
-
-	
-		App->meshimporter->LoadMesh("Assets/Models/warrior/warrior.FBX");
+		App->meshimporter->LoadMesh("Assets/Models/Warrior/mesh2.FBX");
 	
 	return true;
 }
@@ -134,8 +129,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
-
-
 	
 
 	return UPDATE_CONTINUE;
@@ -146,14 +139,15 @@ update_status ModuleRenderer3D::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
+
+	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+
 	std::list<MeshInfo*>::iterator IteratorLoaded = App->meshimporter->LoadedMeshes.begin();
 	for (int a = 0; a < App->meshimporter->LoadedMeshes.size(); ++a) {
 
 		DrawMesh(*IteratorLoaded);
 		IteratorLoaded++;
 	}
-
-	//DrawMesh(warrior);
 
 	return UPDATE_CONTINUE;
 }
