@@ -73,4 +73,9 @@ public:
 public:
 
 	bool ExitEngine;
+
+
+	//----------DROP ITEMS
+
+	char* Drop_Path;
 };
