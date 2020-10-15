@@ -285,7 +285,8 @@ void ModuleEditor::CreateInsertPrimitivesWindow()
 				drawcube = true;
 			}
 			ImGui::MenuItem("Sphere");
-			ImGui::MenuItem("Warrior");
+			ImGui::MenuItem("Pyramid");
+			ImGui::MenuItem("Cylinder");
 			ImGui::MenuItem("Import A mesh");
 			ImGui::EndMenu();
 			
