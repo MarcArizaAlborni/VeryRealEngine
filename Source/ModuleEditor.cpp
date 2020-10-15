@@ -110,6 +110,32 @@ bool ModuleEditor::CleanUp()
 update_status ModuleEditor::Update(float dt)
 {
 
+	
+
+	return UPDATE_STOP;
+}
+
+update_status ModuleEditor::PostUpdate(float dt)
+{
+	if (drawcube)
+	{
+		App->renderer3D->DrawCube();
+		!drawcube;
+	}
+
+	if (drawpyramid)
+	{
+		App->renderer3D->DrawPyramid();
+		!drawpyramid;
+	}
+
+	if (drawcylinder)
+	{
+		App->renderer3D->DrawCylinder();
+		!drawcylinder;
+	}
+
+
 	bool closeEngine = false;
 
 	if (App->input->keyboard[SDL_SCANCODE_P]) {
@@ -166,29 +192,6 @@ update_status ModuleEditor::Update(float dt)
 	//SDL_GL_SwapWindow(App->window->window);
 
 	OnInit = false;
-
-	return UPDATE_STOP;
-}
-
-update_status ModuleEditor::PostUpdate(float dt)
-{
-	if (drawcube)
-	{
-		App->renderer3D->DrawCube();
-		!drawcube;
-	}
-
-	if (drawpyramid)
-	{
-		App->renderer3D->DrawPyramid();
-		!drawpyramid;
-	}
-
-	if (drawcylinder)
-	{
-		App->renderer3D->DrawCylinder();
-		!drawcylinder;
-	}
 
 	return UPDATE_STOP;
 }
