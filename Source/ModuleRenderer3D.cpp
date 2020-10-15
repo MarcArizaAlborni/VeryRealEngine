@@ -280,30 +280,7 @@ void ModuleRenderer3D::DrawMesh(const MeshInfo* mesh)
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glDisableClientState(GL_VERTEX_ARRAY);
 
-
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte) * mesh->num_vertex, mesh->index, GL_STATIC_DRAW);
-
-	
-		//
-
-
-
-		////Draw
-		//glDrawElements(GL_TRIANGLES, mesh->num_index, GL_UNSIGNED_BYTE, mesh->index);
-
-		//glDisableClientState(GL_VERTEX_ARRAY);
 	}
-
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)* 36, indices, GL_STATIC_DRAW);
-
-	//glEnableClientState(GL_VERTEX_ARRAY);
-	//glVertexPointer(3, GL_FLOAT, 0, Vertices2);
-
-	//
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
-
-	//glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void ModuleRenderer3D::GenerateVertexBuffer(uint& id_vertex, const int& size, const float* vertex)

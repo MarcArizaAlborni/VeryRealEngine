@@ -252,7 +252,7 @@ void ModuleEditor::CreateMainMenuBar_View() {
 
 	if (ImGui::BeginMenu("View"))
 	{
-		ImGui::MenuItem("Console", "1"); // Console Window
+		ImGui::MenuItem("Console", "1", &show_console_window); //  We need to get 1 as input to close It
 		ImGui::MenuItem("Configuration", "4", &show_config_window); // We need to get 4 as input to close It
 
 		if (App->input->keyboard[SDL_SCANCODE_4]) {
