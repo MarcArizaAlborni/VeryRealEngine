@@ -107,6 +107,20 @@ bool ModuleEditor::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleEditor::Update(float dt)
 {
+	
+
+
+	return UPDATE_STOP;
+}
+
+update_status ModuleEditor::PostUpdate(float dt)
+{
+	if (drawcube)
+	{
+		App->renderer3D->DrawCube();
+		!drawcube;
+	}
+
 	bool closeEngine = false;
 
 	if (App->input->keyboard[SDL_SCANCODE_P]) {
@@ -164,17 +178,6 @@ update_status ModuleEditor::Update(float dt)
 
 	OnInit = false;
 
-
-	return UPDATE_STOP;
-}
-
-update_status ModuleEditor::PostUpdate(float dt)
-{
-	if (drawcube)
-	{
-		App->renderer3D->DrawCube();
-		!drawcube;
-	}
 
 	return UPDATE_STOP;
 }
