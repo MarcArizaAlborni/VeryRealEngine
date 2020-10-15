@@ -23,14 +23,9 @@ ModuleEditor::~ModuleEditor()
 // -----------------------------------------------------------------
 bool ModuleEditor::Start()
 {
-	ConsoleLogs.push_back("Bon dia a tots");
-	ConsoleLogs.push_back("Bon dia a tots");
-	ConsoleLogs.push_back("Bon dia a tots");
-	ConsoleLogs.push_back("Bon dia a tots");
-	ConsoleLogs.push_back("Bon dia a tots");
-	ConsoleLogs.push_back("Bon dia a tots");
-	ConsoleLogs.push_back("Bon dia a tots");
-	ConsoleLogs.push_back("Bon dia a tots");
+	
+	
+	LOGFIX("CONSOLE WORKING");
 
 
 	LOG("Loading Intro assets");
@@ -86,6 +81,8 @@ bool ModuleEditor::Start()
 
 	drawcube = false;
 	// HARDWARE DETECTION
+
+	LogsAmount = 0;
 
 	return ret;
 }
@@ -504,16 +501,24 @@ void ModuleEditor::CreateConsoleWindow()
 		ImGui::Begin("Console", &show_console_window);
 		std::list<char*>::iterator Iterator = ConsoleLogs.begin();
 
-		for (Iterator; Iterator != ConsoleLogs.end(); Iterator++) {
+		if ( LogsAmount < ConsoleLogs.size()) {
+
+			for (Iterator; Iterator != ConsoleLogs.end(); Iterator++) {
 
 
-			ImGui::TextUnformatted(*Iterator);
+				ImGui::TextUnformatted(*Iterator);
+
+			}
 
 		}
 
 		ImGui::End();
 
 	}
+
+	LogsAmount = ConsoleLogs.size();
+
+
 }
 
 // ------------------------ABOUT--------------------
@@ -557,6 +562,24 @@ void ModuleEditor::CreateAboutWindow()
 
 		ImGui::End();
 	}
+}
+
+void ModuleEditor::CreateConsolelog(const char file[], int line, const char* format, ...)
+{
+	static char tmp_string[4096];
+	static char tmp_string2[4096];
+	static va_list  ap;
+
+	// Construct the string from variable arguments
+	va_start(ap, format);
+	vsprintf_s(tmp_string, 4096, format, ap);
+	va_end(ap);
+	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
+	OutputDebugString(tmp_string2);
+
+	 char* TextToPrint = tmp_string2;
+	App->editor->ConsoleLogs.push_back(TextToPrint);
+
 }
 
 

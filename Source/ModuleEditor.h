@@ -104,8 +104,13 @@ private:
 
 public:
 
+	///---------------CONSOLE STUFF-------------
+
 	std::list<char*> ConsoleLogs;
+	int LogsAmount;
+
+   #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
+	void CreateConsolelog(const char file[], int line, const char* format, ...);
 
 
-	
 };
