@@ -93,6 +93,8 @@ private:
 	bool show_console_window;
 
 	bool drawcube;
+	bool drawpyramid;
+	bool drawcylinder;
 
 	// Window Manager Bools
 	bool OnInit;

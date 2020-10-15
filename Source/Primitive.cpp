@@ -58,21 +58,6 @@ void Primitive::Render() const
 		glLineWidth(1.0f);
 	}
 
-	// VERTICAL LINE
-
-	glBegin(GL_LINES);
-
-	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-
-	glLineWidth(10.0f);
-
-	glVertex3f(20.0f, 0.0f, 0.0f);
-	glVertex3f(20.0f, 100.0f, 0.0f);
-
-	glLineWidth(10.0f);
-
-	glEnd();
-
 
 
 	glColor3f(color.r, color.g, color.b);

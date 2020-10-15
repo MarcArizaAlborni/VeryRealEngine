@@ -23,6 +23,8 @@ public:
 
 	// Insert Geometry Options
 	void DrawCube();
+	void DrawPyramid();
+	void DrawCylinder();
 
 	void OnResize(int width, int height);
 

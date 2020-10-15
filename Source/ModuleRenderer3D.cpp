@@ -206,9 +206,6 @@ void ModuleRenderer3D::DrawCube()
 					  20,21,22,  22,23,20
 	};
 
-
-
-
 	uint my_indices = 0;
 
 
@@ -225,6 +222,57 @@ void ModuleRenderer3D::DrawCube()
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
+
+void ModuleRenderer3D::DrawPyramid()
+{
+	// Draw the base square
+	glBegin(GL_QUADS);
+	glVertex3f(-1, 0, -1);
+	glVertex3f(-1, 0, 1);
+	glVertex3f(1, 0, 1);
+	glVertex3f(1, 0, -1);
+	glEnd();
+
+	// Draw four side triangles
+	glBegin(GL_TRIANGLE_FAN);
+
+	// the commond point of the four triangles
+	glVertex3f(0, 1.4, 0);
+
+	// Base points of each triangle
+	glVertex3f(-1, 0, -1);
+	glVertex3f(-1, 0, 1);
+
+	glVertex3f(-1, 0, 1);
+	glVertex3f(1, 0, 1);
+
+	glVertex3f(1, 0, 1);
+	glVertex3f(1, 0, -1);
+
+	glVertex3f(1, 0, -1);
+	glVertex3f(-1, 0, -1);
+
+	glEnd();
+}
+
+void ModuleRenderer3D::DrawCylinder()
+{
+	float radius, halfLength;
+	int slices;
+	for (int i = 0; i < slices; i++) {
+		float theta = ((float)i) * 2.0 * M_PI;
+		float nextTheta = ((float)i + 1) * 2.0 * M_PI;
+		glBegin(GL_TRIANGLE_STRIP);
+		/*vertex at middle of end */ glVertex3f(0.0, halfLength, 0.0);
+		/*vertices at edges of circle*/ glVertex3f(radius * cos(theta), halfLength, radius * sin(theta));
+		glVertex3f(radius * cos(nextTheta), halfLength, radius * sin(nextTheta));
+		/* the same vertices at the bottom of the cylinder*/
+		glVertex3f(radius * cos(nextTheta), -halfLength, radius * sin(nextTheta));
+		glVertex3f(radius * cos(theta), -halfLength, radius * sin(theta));
+		glVertex3f(0.0, -halfLength, 0.0);
+		glEnd();
+	}
+}
 
 // Draw mesh with vertex and index
 void ModuleRenderer3D::DrawMesh(const MeshInfo* mesh)
