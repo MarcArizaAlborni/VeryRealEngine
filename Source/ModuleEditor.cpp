@@ -396,8 +396,12 @@ void ModuleEditor::CreateConfigWindow_Window()
 		if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
 			App->window->ChangeWindowBrightnessTo(brightness);
 
-		ImGui::SliderInt("Size V", &val2, 0.0f, 300.0f);
-		ImGui::SliderInt("Size H", &val3, 0.0f, 300.0f);
+
+		ImGui::SliderInt("Size Height", &val2, 0.0f, 300.0f);
+		ImGui::SliderInt("Size Width", &val3, 0.0f, 300.0f);
+
+
+
 
 		ImGui::Text("Input Active: ");
 
@@ -436,6 +440,12 @@ void ModuleEditor::CreateConfigWindow_Window()
 		else {
 			ImGui::Text("No Input Detected");
 		}
+
+		ImGui::Text("Mouse Position");
+		ImGui::SameLine(0.0f, 10.0f);
+		ImGui::Text("X: %d", App->input->mouse_x);
+		ImGui::SameLine(0.0f, 10.0f);
+		ImGui::Text("Y: %d", App->input->mouse_y);
 
 		ImGui::Text("Refresh Rate");
 
@@ -565,7 +575,7 @@ void ModuleEditor::CreateConsoleWindow()
 		ImGui::Begin("Console", &show_console_window);
 		std::list<char*>::iterator Iterator = ConsoleLogs.begin();
 
-		if ( LogsAmount < ConsoleLogs.size()) {
+		
 
 			for (Iterator; Iterator != ConsoleLogs.end(); Iterator++) {
 
@@ -574,7 +584,7 @@ void ModuleEditor::CreateConsoleWindow()
 
 			}
 
-		}
+		
 
 		ImGui::End();
 
@@ -618,6 +628,8 @@ void ModuleEditor::CreateAboutWindow()
 		ImGui::NewLine();
 
 		//THIS IS WRONG WE NEED TO FIX IT (WIP)
+
+		
 		ImGui::Text("This software is provided 'as-is', without any express or implied warranty.In no event will the authors be held liable for any damages arising from the use of this software. Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter itand redistribute it freely, subject to the following restrictions :");
 		ImGui::Text("1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.");
 		ImGui::Text("2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.");
@@ -641,8 +653,11 @@ void ModuleEditor::CreateConsolelog(const char file[], int line, const char* for
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
 
-	 char* TextToPrint = tmp_string2;
-	App->editor->ConsoleLogs.push_back(TextToPrint);
+	
+
+
+	 
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 
 }
 

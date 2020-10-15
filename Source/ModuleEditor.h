@@ -119,6 +119,7 @@ private:
 	ImVec4 clear_color;
 
 	
+	
 
 public:
 
