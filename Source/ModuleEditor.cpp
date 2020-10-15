@@ -83,7 +83,7 @@ bool ModuleEditor::Start()
 	drawpyramid = false;
 	drawcylinder = false;
 	// HARDWARE DETECTION
-
+	GetHardwareStatus();
 	LogsAmount = 0;
 
 	return ret;
@@ -489,12 +489,8 @@ void ModuleEditor::CreateConfigWindow_Hardware()
 
 	if (ImGui::CollapsingHeader("Hardware")) {
 
-		HardwareStat.CPU.CPU_Count = SDL_GetCPUCount();
-		HardwareStat.CPU.Cache_size = SDL_GetCPUCacheLineSize();
-		HardwareStat.CPU.System_Ram = SDL_GetSystemRAM() / 1000;
-		HardwareStat.GPU.model_name = (char*)glGetString(GL_VENDOR);
-		HardwareStat.GPU.renderer_name = (char*)glGetString(GL_RENDERER);
-		HardwareStat.GPU.version = (char*)glGetString(GL_VERSION);
+		
+
 
 		ImGui::Text("CPUs:");
 		ImGui::SameLine();
@@ -511,6 +507,50 @@ void ModuleEditor::CreateConfigWindow_Hardware()
 		ImGui::TextColored({ 255,255,0,1 }, HardwareStat.GPU.model_name);
 		ImGui::TextColored({ 255,255,0,1 }, HardwareStat.GPU.renderer_name);
 		ImGui::TextColored({ 255,255,0,1 }, HardwareStat.GPU.version);
+
+		ImGui::Text("3D Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_3D );
+
+		ImGui::Text("AltiVec Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_AltiVec);
+
+		ImGui::Text("AVX Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_AVX);
+
+		ImGui::Text("AVX2 Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_AVX2);
+
+		ImGui::Text("MMX Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_MMX);
+
+		ImGui::Text("RDTSC Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_RDTSC);
+
+		ImGui::Text("SSE Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE);
+
+		ImGui::Text("SSE2 Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE2);
+
+		ImGui::Text("SSE3 Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE3);
+
+		ImGui::Text("SSE41 Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE41);
+
+		ImGui::Text("SSE42 Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE42);
 
 
 	}
@@ -606,4 +646,23 @@ void ModuleEditor::CreateConsolelog(const char file[], int line, const char* for
 
 }
 
-
+void ModuleEditor::GetHardwareStatus()
+{
+	App->editor->HardwareStat.CPU.CPU_Count = SDL_GetCPUCount();
+	App->editor->HardwareStat.CPU.Cache_size = SDL_GetCPUCacheLineSize();
+	App->editor->HardwareStat.CPU.System_Ram = SDL_GetSystemRAM() / 1000;
+	App->editor->HardwareStat.GPU.model_name = (char*)glGetString(GL_VENDOR);
+	App->editor->HardwareStat.GPU.renderer_name = (char*)glGetString(GL_RENDERER);
+	App->editor->HardwareStat.GPU.version = (char*)glGetString(GL_VERSION);
+	App->editor->HardwareStat.CPU.isActive_3D = SDL_Has3DNow();
+	App->editor->HardwareStat.CPU.isActive_AVX2 = SDL_HasAVX2();
+	App->editor->HardwareStat.CPU.isActive_AVX = SDL_HasAVX();
+	App->editor->HardwareStat.CPU.isActive_AltiVec = SDL_HasAltiVec();
+	App->editor->HardwareStat.CPU.isActive_MMX = SDL_HasMMX();
+	App->editor->HardwareStat.CPU.isActive_RDTSC = SDL_HasRDTSC();
+	App->editor->HardwareStat.CPU.isActive_SSE = SDL_HasSSE();
+	App->editor->HardwareStat.CPU.isActive_SSE2 = SDL_HasSSE2();
+	App->editor->HardwareStat.CPU.isActive_SSE3 = SDL_HasSSE3();
+	App->editor->HardwareStat.CPU.isActive_SSE41 = SDL_HasSSE41();
+	App->editor->HardwareStat.CPU.isActive_SSE42 = SDL_HasSSE42();
+}
