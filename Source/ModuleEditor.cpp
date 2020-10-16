@@ -360,13 +360,16 @@ void ModuleEditor::CreateConfigWindow_Application() {
 		ImGui::InputTextWithHint("App Name", "Enter Text Here", str1, IM_ARRAYSIZE(str1));
 		ImGui::InputTextWithHint("Organization", "Enter Text Here", str1, IM_ARRAYSIZE(str1));
 
-		int fps_max = App->GetFramerateLimit();
-		if (ImGui::SliderInt("Max FPS", &fps_max, 0, 120));
-		App->SetFramerateLimit(fps_max);
 
-		ImGui::Text("Limit Framerate:");
-		ImGui::SameLine();
-		ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "%i", App->GetFramerateLimit());
+		ImGui::SliderInt("MAX FPS", &App->max_FPS, 0, 120);
+		if (ImGui::Checkbox("VSync", &App->editor->vSync)) {
+			if (App->editor->vSync) {
+				SDL_GL_SetSwapInterval(1);
+			}
+			else {
+				SDL_GL_SetSwapInterval(0);
+			}
+		}
 
 		/*char title[25];
 		sprintf_s(title, 25, "Framerate %.1f", App->fps_log[App->fps_log.size() - 1]);

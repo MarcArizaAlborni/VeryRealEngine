@@ -99,7 +99,7 @@ void Application::PrepareUpdate()
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
-	// Update the fps Log
+
 }
 
 
@@ -164,39 +164,12 @@ void Application::AddModule(Module* mod)
 	list_modules.push_back(mod);
 }
 
+
 void Application::RequestBrowser(const char* url) const
 {
 	ShellExecuteA(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
 }
 
-uint Application::GetFramerateLimit() const
-{
-	if (capped_ms > 0) {
-		
-		return (uint)((1.0f / (float)capped_ms) * 1000.0f);
-
-	}
-	else {
-
-		return 0;
-	}
-		
-		
-}
-
-void Application::SetFramerateLimit(uint max_framerate)
-{
-	if (max_framerate > 0)
-	{
-		capped_ms = 1000 / max_framerate;
-	}
-		
-	else
-	{
-		capped_ms = 0;
-	}
-		
-}
 
 
 float Application::GetDT()
