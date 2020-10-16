@@ -22,7 +22,7 @@ class ModuleWindow : public Module
 {
 public:
 
-	ModuleWindow(Application* app, bool start_enabled = true);
+	ModuleWindow(Application* app, const char* name = "null", bool start_enabled = true);
 
 	// Destructor
 	virtual ~ModuleWindow();

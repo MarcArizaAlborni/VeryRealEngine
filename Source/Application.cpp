@@ -13,13 +13,13 @@
 
 Application::Application()
 {
-	window = new ModuleWindow(this);
-	input = new ModuleInput(this);
-	renderer3D = new ModuleRenderer3D(this);
-	camera = new ModuleCamera3D(this);
-	editor = new ModuleEditor(this);
-	meshimporter = new ModuleMeshImporter(this);
-	LoadSave = new LoadSaveMod(this);
+	window = new ModuleWindow(this,"Window");
+	input = new ModuleInput(this, "Input");
+	renderer3D = new ModuleRenderer3D(this, "Render3D");
+	camera = new ModuleCamera3D(this, "Camera 3D");
+	editor = new ModuleEditor(this, "Editor");
+	meshimporter = new ModuleMeshImporter(this, "MeshImporter");
+	LoadSave = new LoadSaveMod(this, "SaveLoad");
 	
 	
 

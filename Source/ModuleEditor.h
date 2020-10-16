@@ -44,7 +44,7 @@ struct Hardware_Status {
 class ModuleEditor : public Module
 {
 public:
-	ModuleEditor(Application* app, bool start_enabled = true);
+	ModuleEditor(Application* app, const char* name = "null", bool start_enabled = true);
 	~ModuleEditor();
 
 	bool Start();

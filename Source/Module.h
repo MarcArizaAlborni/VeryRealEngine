@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 class Application;
 
 class Module
@@ -9,8 +9,9 @@ private:
 
 public:
 	Application* App;
-
-	Module(Application* parent, bool start_enabled = true) : App(parent)
+	std::string name;
+	bool active;
+	Module(Application* parent, const char* name = "none", bool start_enabled = true) : App(parent), name(name), active(start_enabled)
 	{}
 
 	virtual ~Module()
@@ -45,4 +46,6 @@ public:
 	{
 		return true;
 	}
+
+	
 };

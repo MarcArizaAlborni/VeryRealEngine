@@ -12,7 +12,7 @@ class LoadSaveMod : public Module
 {
 public:
 
-	LoadSaveMod(Application* app, bool start_enabled = true);
+	LoadSaveMod(Application* app, const char* name = "null", bool start_enabled = true);
 	~LoadSaveMod();
 
 	bool Init();
