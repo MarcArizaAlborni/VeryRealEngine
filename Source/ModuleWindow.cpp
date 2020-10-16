@@ -2,7 +2,8 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 
-ModuleWindow::ModuleWindow(Application* app, const char* name, bool start_enabled) : Module(app,name, start_enabled)
+
+ModuleWindow::ModuleWindow(Application* app, const char* name, bool start_enabled) : Module(app,"Window", start_enabled)
 {
 	window = NULL;
 	screen_surface = NULL;
@@ -16,6 +17,7 @@ ModuleWindow::~ModuleWindow()
 // Called before render is available
 bool ModuleWindow::Init()
 {
+	
 	LOG("Init SDL window & surface");
 	bool ret = true;
 

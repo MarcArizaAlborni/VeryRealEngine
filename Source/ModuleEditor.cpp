@@ -12,7 +12,9 @@
 
 #include "SaveAndLoad.h"
 
-ModuleEditor::ModuleEditor(Application* app, const char* name, bool start_enabled) : Module(app,name, start_enabled)
+#include "GoodClass.h"
+
+ModuleEditor::ModuleEditor(Application* app, const char* name, bool start_enabled) : Module(app,"Editor", start_enabled)
 {
 	
 }
@@ -23,12 +25,22 @@ ModuleEditor::~ModuleEditor()
 // -----------------------------------------------------------------
 bool ModuleEditor::Start()
 {
-	
-	
-	LOGFIX("CONSOLE WORKING");
+	//Class1::Addition(); IF STATIC
 
 
-	LOG("Loading Intro assets");
+ //      Class1 ClaseTest;   //IF NOT STATIC
+
+	//ClaseTest.Addition();
+	
+
+
+
+	
+	
+	
+
+
+	LOGFIX("Loading Intro assets");
 	bool ret = true;
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
@@ -92,7 +104,7 @@ bool ModuleEditor::Start()
 // -----------------------------------------------------------------
 bool ModuleEditor::CleanUp()
 {
-	LOG("Unloading Intro scene");
+	LOGFIX("Unloading Intro scene");
 
 
 	ImGui_ImplOpenGL3_Shutdown();

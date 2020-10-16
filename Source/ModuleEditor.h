@@ -41,9 +41,16 @@ struct Hardware_Status {
 
 };
 
+
+class Class1;
+
 class ModuleEditor : public Module
 {
 public:
+
+	
+
+
 	ModuleEditor(Application* app, const char* name = "null", bool start_enabled = true);
 	~ModuleEditor();
 
@@ -137,5 +144,7 @@ public:
    #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
 	void CreateConsolelog(const char file[], int line, const char* format, ...);
 
+	void CallLOG(char* text);
 
+   
 };

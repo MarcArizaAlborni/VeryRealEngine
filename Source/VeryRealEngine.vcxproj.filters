@@ -67,6 +67,9 @@
     <ClCompile Include="ModuleImGui.cpp">
       <Filter>Source\Windows &amp; Menus</Filter>
     </ClCompile>
+    <ClCompile Include="GoodClass.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -146,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="ModuleImGui.h">
       <Filter>Source\Windows &amp; Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GoodClass.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

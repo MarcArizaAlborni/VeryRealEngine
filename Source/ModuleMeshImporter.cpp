@@ -7,7 +7,7 @@
 #include "libraries/Assimp/Assimp/include/postprocess.h"
 #pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
 
-ModuleMeshImporter::ModuleMeshImporter(Application* app, const char* name, bool start_enabled) : Module(app,name, start_enabled)
+ModuleMeshImporter::ModuleMeshImporter(Application* app, const char* name, bool start_enabled) : Module(app,"Importer", start_enabled)
 {
 
 }

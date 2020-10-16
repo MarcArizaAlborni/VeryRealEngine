@@ -3,6 +3,8 @@
 #include "Application.h"
 #include "ModuleEditor.h"
 
+class Application;
+
 void log(const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];
@@ -15,6 +17,8 @@ void log(const char file[], int line, const char* format, ...)
 	va_end(ap);
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
+
+	
 	
 	
 }
