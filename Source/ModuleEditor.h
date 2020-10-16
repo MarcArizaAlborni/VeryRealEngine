@@ -84,6 +84,8 @@ private:
 	// ---------------About Window---------------
 	void CreateAboutWindow();
 
+	bool vSync = true;
+
 	bool on = false;
 	bool on_config = false;
 	bool done = false;

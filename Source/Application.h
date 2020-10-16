@@ -16,11 +16,7 @@
 #include "SaveAndLoad.h"
 
 
-
-
 using json = nlohmann::json;
-
-
 
 class Application
 {
@@ -50,23 +46,21 @@ public:
 	bool CleanUp();
 
 	void RequestBrowser(const char* url) const;
-	uint GetFramerateLimit() const;
-	void SetFramerateLimit(uint max_framerate);
+	
 
 	float GetDT();
 
 public:
 
-	std::vector<float>	ms_log;
-	std::vector<float>	fps_log;
+	std::vector<float>			ms_log;
+	std::vector<float>			fps_log;
+	int							max_FPS = 0;
 
 private:
 
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
-
-	int		capped_ms; 
 
 	float dt;
 
