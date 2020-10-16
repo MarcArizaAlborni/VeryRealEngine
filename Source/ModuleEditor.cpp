@@ -403,9 +403,6 @@ void ModuleEditor::CreateConfigWindow_Window()
 		ImGui::SliderInt("Size Height", &val2, 0.0f, 300.0f);
 		ImGui::SliderInt("Size Width", &val3, 0.0f, 300.0f);
 
-
-
-
 		ImGui::Text("Input Active: ");
 
 		ImGui::SameLine(0.0f, 10.0f);
@@ -460,13 +457,17 @@ void ModuleEditor::CreateConfigWindow_Window()
 		if (ImGui::Checkbox("Fullscreen", &active_fullscreen))
 			App->window->SetFullscreen(active_fullscreen);
 
+		// Not working yet
 		ImGui::SameLine();
+		active_Resizable = App->window->GetResizable();
 		(ImGui::Checkbox("Resizable", &active_Resizable));
+		App->window->SetResizable(active_Resizable);
 		if (ImGui::IsItemHovered())
 			ImGui::SetTooltip("Restart to apply");
 
-
-		ImGui::Checkbox("Borderless", &active_Borderless);
+		active_Borderless = App->window->GetBorderless();
+		if (ImGui::Checkbox("Borderless", &active_Borderless))
+			App->window->SetBorderless(active_Borderless);
 		ImGui::SameLine(0, 50.0f);
 
 		active_Full_Desktop = App->window->GetFullDesktop();

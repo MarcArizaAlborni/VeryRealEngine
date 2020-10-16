@@ -49,11 +49,11 @@ public:
 	bool GetFullDesktop() const;
 
 	void SetFullscreen(bool fullscreen);
-
-
+	void SetBorderless(bool borderless);
+	void SetResizable(bool resizable);
 	void SetFullScreenDesktop(bool fullscreen_desktop);
 
-	//Window flags
+	//Window Settings
 	float window_brightness = 1.0f;
 
 	bool window_fullscreen = false;

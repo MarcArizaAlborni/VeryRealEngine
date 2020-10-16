@@ -662,6 +662,23 @@ extern DECLSPEC void SDLCALL SDL_SetWindowBordered(SDL_Window * window,
                                                    SDL_bool bordered);
 
 /**
+ *  \brief Set the user-resizable state of a window.
+ *
+ *  This will add or remove the window's SDL_WINDOW_RESIZABLE flag and
+ *  allow/disallow user resizing of the window. This is a no-op if the
+ *  window's resizable state already matches the requested state.
+ *
+ *  \param window The window of which to change the resizable state.
+ *  \param resizable SDL_TRUE to allow resizing, SDL_FALSE to disallow.
+ *
+ *  \note You can't change the resizable state of a fullscreen window.
+ *
+ *  \sa SDL_GetWindowFlags()
+ */
+extern DECLSPEC void SDLCALL SDL_SetWindowResizable(SDL_Window* window,
+    SDL_bool resizable);
+
+/**
  *  \brief Show a window.
  *
  *  \sa SDL_HideWindow()

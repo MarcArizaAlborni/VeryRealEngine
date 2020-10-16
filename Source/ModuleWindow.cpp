@@ -153,6 +153,13 @@ void ModuleWindow::SetFullscreen(bool fullscreen)
 	window_fullscreen = fullscreen;
 }
 
+void ModuleWindow::SetResizable(bool resizable)
+{
+	/*SDL_SetWindowResizable(window, (SDL_bool)resizable);*/
+
+	window_resizable = resizable;
+}
+
 void ModuleWindow::SetFullScreenDesktop(bool fullscreen_desktop)
 {
 	if (fullscreen_desktop)
@@ -166,4 +173,11 @@ void ModuleWindow::SetFullScreenDesktop(bool fullscreen_desktop)
 	}
 		
 	window_full_desktop = fullscreen_desktop;
+}
+
+void ModuleWindow::SetBorderless(bool borderless)
+{
+	SDL_SetWindowBordered(window, (SDL_bool)!borderless); // If true enables borders, If false sets borderless flag
+
+	window_borderless = borderless;
 }
