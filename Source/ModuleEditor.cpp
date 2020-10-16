@@ -14,6 +14,8 @@
 
 #include "GoodClass.h"
 
+// Class1 Clase2; Define Class
+
 ModuleEditor::ModuleEditor(Application* app, const char* name, bool start_enabled) : Module(app,"Editor", start_enabled)
 {
 	
@@ -26,7 +28,7 @@ ModuleEditor::~ModuleEditor()
 bool ModuleEditor::Start()
 {
 	//Class1::Addition(); IF STATIC
-
+	//Clase2.Addition();
 
  //      Class1 ClaseTest;   //IF NOT STATIC
 
