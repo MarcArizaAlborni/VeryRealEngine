@@ -39,6 +39,3 @@ enum update_status
 #define VSYNC true
 #define TITLE "VeryRealEngine"
 
-class Application;
-
-extern Application* App;
