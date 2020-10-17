@@ -103,7 +103,7 @@ bool ModuleRenderer3D::Init()
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-   
+	WireframeMode = false;
 
 	return ret;
 }
@@ -118,6 +118,28 @@ bool ModuleRenderer3D::Start()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+	if (App->input->keyboard[SDL_SCANCODE_O]) {
+
+		if (WireframeMode) {
+			WireframeMode = false;;
+		}
+		else {
+			WireframeMode = true;
+		}
+
+		if (WireframeMode == true) {
+			glPolygonMode(GL_FRONT, GL_LINE);
+			glPolygonMode(GL_BACK, GL_LINE);
+		}
+		else {
+			glPolygonMode(GL_FRONT, GL_LINE);
+			glPolygonMode(GL_BACK, GL_LINE);
+		}
+
+	}
+	
+	
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -136,6 +158,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 update_status ModuleRenderer3D::Update(float dt)
 {
+
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
