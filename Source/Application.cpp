@@ -14,12 +14,17 @@
 Application::Application()
 {
 	window = new ModuleWindow(this);
-	input = new ModuleInput(this );
-	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
+	input = new ModuleInput(this );
+
 	editor = new ModuleEditor(this);
+
 	meshimporter = new ModuleMeshImporter(this);
+
 	LoadSave = new LoadSaveMod(this);
+
+	geometryloader = new ModuleGeometryLoader(this);
+	renderer3D = new ModuleRenderer3D(this);
 	
 	
 
@@ -34,9 +39,12 @@ Application::Application()
 	AddModule(input);
 	
 	AddModule(editor);
+
 	AddModule(meshimporter);
+
 	AddModule(LoadSave);
 	
+	AddModule(geometryloader);
 	AddModule(renderer3D);
 	
 }

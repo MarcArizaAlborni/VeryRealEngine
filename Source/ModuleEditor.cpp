@@ -133,19 +133,19 @@ update_status ModuleEditor::PostUpdate(float dt)
 {
 	if (drawcube)
 	{
-		App->renderer3D->DrawCube();
+		App->geometryloader->DrawCube();
 		!drawcube;
 	}
 
 	if (drawpyramid)
 	{
-		App->renderer3D->DrawPyramid();
+		App->geometryloader->DrawPyramid();
 		!drawpyramid;
 	}
 
 	if (drawcylinder)
 	{
-		App->renderer3D->DrawCylinder();
+		App->geometryloader->DrawCylinder();
 		!drawcylinder;
 	}
 

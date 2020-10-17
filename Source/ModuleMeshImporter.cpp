@@ -35,6 +35,7 @@ update_status ModuleMeshImporter::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+// Load a mesh with index and vertex
 MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 {
 	MeshInfo* ourMesh = new MeshInfo();

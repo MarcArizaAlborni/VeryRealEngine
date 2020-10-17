@@ -7,6 +7,7 @@
 #include <list>
 #include "ModuleImGui.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleGeometryLoader.h"
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
 #include "ModuleMeshImporter.h"
@@ -28,6 +29,7 @@ public:
 	ModuleEditor* editor;
 	ModuleMeshImporter* meshimporter;
 	LoadSaveMod* LoadSave;
+	ModuleGeometryLoader* geometryloader;
 	//SaveLoad* LoadSaveMod;
 	
 

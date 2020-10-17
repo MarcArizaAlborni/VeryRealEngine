@@ -21,14 +21,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	// Insert Geometry Options
-	void DrawCube();
-	void DrawPyramid();
-	void DrawCylinder();
-
 	void OnResize(int width, int height);
-
-	void DrawMesh(const MeshInfo* mesh);
 
 	void GenerateVertexBuffer(uint& id_vertex, const int& size, const float* vertex);
 	void GenerateIndexBuffer(uint& id_index, const int& size, const uint* index);
@@ -40,5 +33,4 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
-	MeshInfo* warrior;
 };

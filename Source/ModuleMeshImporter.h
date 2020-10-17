@@ -3,7 +3,7 @@
 #include "Globals.h"
 #include "glmath.h"
 
-
+// Class Mesh
 struct MeshInfo
 {
 	uint id_index=0; // index in VRAM
@@ -24,12 +24,12 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+public:
+
+	//Mesh Import functions 
 	MeshInfo* LoadMesh(char* file_path);
-	
+
+	//Mesh Import variables 
 	std::list<MeshInfo*> LoadedMeshes;
-
-private:
-
-	
 	
 };
