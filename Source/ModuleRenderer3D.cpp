@@ -129,7 +129,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 		if (WireframeMode == true) {
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-			
+		
 		}
 		else {
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
