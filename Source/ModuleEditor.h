@@ -48,9 +48,6 @@ class ModuleEditor : public Module
 {
 public:
 
-	
-
-
 	ModuleEditor(Application* app, const char* name = "null", bool start_enabled = true);
 	~ModuleEditor();
 
@@ -92,15 +89,10 @@ private:
 	void CreateAboutWindow();
 
 	bool vSync = true;
-
-	bool on = false;
-	bool on_config = false;
 	bool done = false;
 
 	//Window Bools
 	bool show_demo_window;
-	bool show_window_2;
-	bool exit_engine_window;
 	bool show_configuration_window;
 
 	float brightness;
@@ -123,12 +115,9 @@ private:
 
 	// Window Manager Bools
 	bool OnInit;
-	bool vsync_active;
 
 	ImVec4 clear_color;
 
-	
-	
 
 public:
 

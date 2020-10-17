@@ -79,8 +79,6 @@ bool ModuleEditor::Start()
 	}
 	// States
 	show_demo_window = true;
-	show_window_2 = false;
-	exit_engine_window = true;
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, gl_context);
