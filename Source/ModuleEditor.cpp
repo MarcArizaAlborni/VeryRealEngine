@@ -91,9 +91,12 @@ bool ModuleEditor::Start()
 
 	active_window = true;
 
+	drawline = false;
+	drawplane = false;
 	drawcube = false;
 	drawpyramid = false;
 	drawcylinder = false;
+	drawsphere = false;
 	// HARDWARE DETECTION
 	GetHardwareStatus();
 	LogsAmount = 0;
@@ -129,6 +132,19 @@ update_status ModuleEditor::Update(float dt)
 
 update_status ModuleEditor::PostUpdate(float dt)
 {
+
+	if (drawline)
+	{
+		App->geometryloader->DrawLine();
+		!drawline;
+	}
+
+	if (drawplane)
+	{
+		App->geometryloader->DrawPlane();
+		!drawplane;
+	}
+
 	if (drawcube)
 	{
 		App->geometryloader->DrawCube();
@@ -147,6 +163,11 @@ update_status ModuleEditor::PostUpdate(float dt)
 		!drawcylinder;
 	}
 
+	if (drawsphere)
+	{
+		App->geometryloader->DrawSphere();
+		!drawsphere;
+	}
 
 	bool closeEngine = false;
 
@@ -306,11 +327,18 @@ void ModuleEditor::CreateInsertPrimitivesWindow()
 	{
 		if (ImGui::BeginMenu("Create"))
 		{
+			if (ImGui::MenuItem("Line"))
+			{
+				drawline = true;
+			}
+			if (ImGui::MenuItem("Plane"))
+			{
+				drawplane = true;
+			}
 			if (ImGui::MenuItem("Cube"))
 			{
 				drawcube = true;
 			}
-			ImGui::MenuItem("Sphere");
 			if (ImGui::MenuItem("Pyramid"))
 			{
 				drawpyramid = true;
@@ -318,6 +346,10 @@ void ModuleEditor::CreateInsertPrimitivesWindow()
 			if (ImGui::MenuItem("Cylinder"))
 			{
 				drawcylinder = true;
+			}
+			if (ImGui::MenuItem("Sphere"))
+			{
+				drawsphere = true;
 			}
 			ImGui::MenuItem("Import A mesh");
 			ImGui::EndMenu();

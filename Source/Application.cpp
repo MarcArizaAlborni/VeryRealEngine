@@ -11,7 +11,7 @@
 
 
 
-Application::Application()
+Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 {
 	window = new ModuleWindow(this);
 	camera = new ModuleCamera3D(this);
@@ -44,8 +44,9 @@ Application::Application()
 
 	AddModule(LoadSave);
 	
-	AddModule(geometryloader);
+	
 	AddModule(renderer3D);
+	AddModule(geometryloader);
 	
 }
 

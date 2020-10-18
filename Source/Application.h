@@ -32,6 +32,9 @@ public:
 	ModuleGeometryLoader* geometryloader;
 	//SaveLoad* LoadSaveMod;
 	
+	bool					debug;
+	bool					renderPrimitives;
+
 
 private:
 

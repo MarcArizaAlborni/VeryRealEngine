@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
+#include "Primitive.h"
 #include "Light.h"
 
 #define MAX_LIGHTS 8
@@ -24,13 +25,23 @@ public:
 
 public:
 	// Insert Primitives
+	void DrawLine();
+	void DrawPlane();
 	void DrawCube();
 	void DrawPyramid();
+	void DrawSphere();
 	void DrawCylinder();
 
 	void DrawMesh(const MeshInfo* mesh);
 
 public:
 
+	Line line;
+	Plane plane;
+	Cube cube;
+	Pyramid pyramid;
+	Cylinder cylinder;
+	Sphere sphere;
+	
 	MeshInfo* warrior;
 };

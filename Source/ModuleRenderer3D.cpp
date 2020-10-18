@@ -103,8 +103,6 @@ bool ModuleRenderer3D::Init()
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	WireframeMode = false;
-
 	return ret;
 }
 
@@ -118,28 +116,7 @@ bool ModuleRenderer3D::Start()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
-	if (App->input->keyboard[SDL_SCANCODE_O]) {
-
-		if (WireframeMode) {
-			WireframeMode = false;;
-		}
-		else {
-			WireframeMode = true;
-		}
-
-		if (WireframeMode == true) {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		
-		}
-		else {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-			
-		}
-
-	}
 	
-	
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -163,7 +140,6 @@ update_status ModuleRenderer3D::Update(float dt)
 	p.axis = true;
 	p.Render();
 
-
 	return UPDATE_CONTINUE;
 }
 
@@ -171,6 +147,7 @@ update_status ModuleRenderer3D::Update(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+
 	SDL_GL_SwapWindow(App->window->window);
 
 	return UPDATE_CONTINUE;

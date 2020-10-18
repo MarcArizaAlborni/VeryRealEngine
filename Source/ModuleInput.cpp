@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "libraries/Glew/include/GL/glew.h"
 
 #define MAX_KEYS 300
 
@@ -129,6 +130,18 @@ update_status ModuleInput::PreUpdate(float dt)
 		return UPDATE_STOP;
 
 	return UPDATE_CONTINUE;
+}
+
+update_status ModuleInput::Update(float dt)
+{
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	return update_status::UPDATE_CONTINUE;
 }
 
 // Called before quitting
