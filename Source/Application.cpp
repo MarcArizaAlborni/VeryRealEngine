@@ -6,11 +6,6 @@
 #include <fstream>
 #include "ModuleCamera3D.h"
 
-
-
-
-
-
 Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 {
 	window = new ModuleWindow(this);
@@ -18,7 +13,9 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	input = new ModuleInput(this );
 
 	editor = new ModuleEditor(this);
-	mainMenubar = new ModuleMainMenuBar(this);
+	mainMenubar = new ModuleEditorMainMenuBar(this);
+	configWindow = new ModuleEditorConfiguration(this);
+	console = new ModuleEditorConsole(this);
 
 	meshimporter = new ModuleMeshImporter(this);
 
@@ -41,6 +38,8 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	
 	AddModule(editor);
 	AddModule(mainMenubar);
+	AddModule(configWindow);
+	AddModule(console);
 
 	AddModule(meshimporter);
 

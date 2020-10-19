@@ -6,12 +6,12 @@
 #include "libraries/ImGUI/imgui.h"
 
 
-class ModuleMainMenuBar : public Module
+class ModuleEditorMainMenuBar : public Module
 {
 public:
 
-	ModuleMainMenuBar(Application* app, const char* name = "null", bool start_enabled = true);
-	~ModuleMainMenuBar();
+	ModuleEditorMainMenuBar(Application* app, const char* name = "null", bool start_enabled = true);
+	~ModuleEditorMainMenuBar();
 
 	// ------------------Main Bar------------------
 	void CreateMainMenuBar();

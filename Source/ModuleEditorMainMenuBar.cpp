@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleMainMenuBar.h"
+#include "ModuleEditorMainMenuBar.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -10,22 +10,18 @@
 #include "libraries/Glew/include/GL/glew.h" 
 #include "libraries/SDL/include/SDL_opengl.h"
 
-#include "SaveAndLoad.h"
 
-#include "GoodClass.h"
-
-
-ModuleMainMenuBar::ModuleMainMenuBar(Application* app, const char* name, bool start_enabled) : Module(app, "ModuleMainMenuBar", start_enabled)
+ModuleEditorMainMenuBar::ModuleEditorMainMenuBar(Application* app, const char* name, bool start_enabled) : Module(app, "ModuleMainMenuBar", start_enabled)
 {
 
 }
 
-ModuleMainMenuBar::~ModuleMainMenuBar()
+ModuleEditorMainMenuBar::~ModuleEditorMainMenuBar()
 {}
 
 // ----------------------------MENU BAR-------------------------------------
 //Creation
-void ModuleMainMenuBar::CreateMainMenuBar() {
+void ModuleEditorMainMenuBar::CreateMainMenuBar() {
 
 	//MenuEditor
 	if (ImGui::BeginMainMenuBar())
@@ -45,7 +41,7 @@ void ModuleMainMenuBar::CreateMainMenuBar() {
 //CREATION OF SUBMENUS
 //---------FILE--------
 
-void ModuleMainMenuBar::CreateMainMenuBar_File() {
+void ModuleEditorMainMenuBar::CreateMainMenuBar_File() {
 
 	if (ImGui::BeginMenu("File"))
 	{
@@ -58,7 +54,7 @@ void ModuleMainMenuBar::CreateMainMenuBar_File() {
 }
 
 //----------EDIT-----------
-void ModuleMainMenuBar::CreateMainMenuBar_Edit() {
+void ModuleEditorMainMenuBar::CreateMainMenuBar_Edit() {
 
 	if (ImGui::BeginMenu("Edit"))
 	{
@@ -73,7 +69,7 @@ void ModuleMainMenuBar::CreateMainMenuBar_Edit() {
 }
 
 //-----------VIEW-----------
-void ModuleMainMenuBar::CreateMainMenuBar_View() {
+void ModuleEditorMainMenuBar::CreateMainMenuBar_View() {
 
 	if (ImGui::BeginMenu("View"))
 	{
@@ -91,7 +87,7 @@ void ModuleMainMenuBar::CreateMainMenuBar_View() {
 }
 
 //---------------------HELP-----------------
-void ModuleMainMenuBar::CreateMainMenuBar_Help() {
+void ModuleEditorMainMenuBar::CreateMainMenuBar_Help() {
 
 	if (ImGui::BeginMenu("Help"))
 	{
@@ -113,7 +109,7 @@ void ModuleMainMenuBar::CreateMainMenuBar_Help() {
 }
 
 //--------------------INSERT PRIMITIVES-----------------
-void ModuleMainMenuBar::CreateInsertPrimitivesWindow()
+void ModuleEditorMainMenuBar::CreateInsertPrimitivesWindow()
 {
 	if (ImGui::BeginMenu("Insert"))
 	{

@@ -70,7 +70,13 @@
     <ClCompile Include="ModuleGeometryLoader.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleMainMenuBar.cpp">
+    <ClCompile Include="ModuleEditorConfiguration.cpp">
+      <Filter>Source\Windows &amp; Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleEditorMainMenuBar.cpp">
+      <Filter>Source\Windows &amp; Menus\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleEditorConsole.cpp">
       <Filter>Source\Windows &amp; Menus</Filter>
     </ClCompile>
   </ItemGroup>
@@ -489,7 +495,13 @@
     <ClInclude Include="ModuleGeometryLoader.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleMainMenuBar.h">
+    <ClInclude Include="ModuleEditorConfiguration.h">
+      <Filter>Source\Windows &amp; Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleEditorMainMenuBar.h">
+      <Filter>Source\Windows &amp; Menus\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleEditorConsole.h">
       <Filter>Source\Windows &amp; Menus</Filter>
     </ClInclude>
   </ItemGroup>
@@ -538,6 +550,9 @@
     </Filter>
     <Filter Include="Source\Modules\Importers">
       <UniqueIdentifier>{724f06ac-0cc8-4bd6-b74c-e91b8fd4e9d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows &amp; Menus\MainMenu">
+      <UniqueIdentifier>{19780105-9ec4-4a41-9a1c-aac8e4a87310}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

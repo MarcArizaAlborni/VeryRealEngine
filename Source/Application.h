@@ -5,7 +5,9 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include <list>
-#include "ModuleMainMenuBar.h"
+#include "ModuleEditorMainMenuBar.h"
+#include "ModuleEditorConfiguration.h"
+#include "ModuleEditorConsole.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleGeometryLoader.h"
 #include "ModuleCamera3D.h"
@@ -32,7 +34,10 @@ public:
 	ModuleGeometryLoader* geometryloader;
 
 	//Windows & Menus
-	ModuleMainMenuBar* mainMenubar;
+	ModuleEditorMainMenuBar* mainMenubar;
+	ModuleEditorConfiguration* configWindow;
+	ModuleEditorConsole* console;
+
 	//SaveLoad* LoadSaveMod;
 	
 	bool					debug;
