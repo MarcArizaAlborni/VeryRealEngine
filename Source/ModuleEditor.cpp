@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleImGui.h"
+#include "ModuleMainMenuBar.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -91,12 +91,12 @@ bool ModuleEditor::Start()
 
 	active_window = true;
 
-	drawline = false;
-	drawplane = false;
-	drawcube = false;
-	drawpyramid = false;
-	drawcylinder = false;
-	drawsphere = false;
+	App->mainMenubar->drawline = false;
+	App->mainMenubar->drawplane = false;
+	App->mainMenubar->drawcube = false;
+	App->mainMenubar->drawpyramid = false;
+	App->mainMenubar->drawcylinder = false;
+	App->mainMenubar->drawsphere = false;
 	// HARDWARE DETECTION
 	GetHardwareStatus();
 	LogsAmount = 0;
@@ -124,49 +124,46 @@ bool ModuleEditor::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleEditor::Update(float dt)
 {
-
-	
-
 	return UPDATE_STOP;
 }
 
 update_status ModuleEditor::PostUpdate(float dt)
 {
 
-	if (drawline)
+	if (App->mainMenubar->drawline)
 	{
 		App->geometryloader->DrawLine();
-		!drawline;
+		!App->mainMenubar->drawline;
 	}
 
-	if (drawplane)
+	if (App->mainMenubar->drawplane)
 	{
 		App->geometryloader->DrawPlane();
-		!drawplane;
+		!App->mainMenubar->drawplane;
 	}
 
-	if (drawcube)
+	if (App->mainMenubar->drawcube)
 	{
 		App->geometryloader->DrawCube();
-		!drawcube;
+		!App->mainMenubar->drawcube;
 	}
 
-	if (drawpyramid)
+	if (App->mainMenubar->drawpyramid)
 	{
 		App->geometryloader->DrawPyramid();
-		!drawpyramid;
+		!App->mainMenubar->drawpyramid;
 	}
 
-	if (drawcylinder)
+	if (App->mainMenubar->drawcylinder)
 	{
 		App->geometryloader->DrawCylinder();
-		!drawcylinder;
+		!App->mainMenubar->drawcylinder;
 	}
 
-	if (drawsphere)
+	if (App->mainMenubar->drawsphere)
 	{
 		App->geometryloader->DrawSphere();
-		!drawsphere;
+		!App->mainMenubar->drawsphere;
 	}
 
 	bool closeEngine = false;
@@ -198,7 +195,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 		ImGui::ShowDemoWindow(&show_demo_window);
 
 
-	CreateMainMenuBar();
+	App->mainMenubar->CreateMainMenuBar();
 	CreateConfigWindow();
 	CreateAboutWindow();
 	CreateConsoleWindow();
@@ -230,145 +227,13 @@ update_status ModuleEditor::PostUpdate(float dt)
 }
 
 
-
-// ----------------------------MENU BAR-------------------------------------
-//Creation
-void ModuleEditor::CreateMainMenuBar() {
-
-	//MenuEditor
-	if (ImGui::BeginMainMenuBar())
-	{
-		CreateMainMenuBar_File();
-		CreateMainMenuBar_Edit();
-		CreateInsertPrimitivesWindow();
-		CreateMainMenuBar_View();
-		CreateMainMenuBar_Help();
-
-		ImGui::EndMainMenuBar();
-	}
-
-
-}
-
-//CREATION OF SUBMENUS
-//---------FILE--------
-
-void ModuleEditor::CreateMainMenuBar_File() {
-
-	if (ImGui::BeginMenu("File"))
-	{
-		if (ImGui::MenuItem("Quit", "ESC")) {
-
-			App->input->ExitEngine = true;
-		}
-		ImGui::EndMenu();
-	}
-}
-
-//----------EDIT-----------
-void ModuleEditor::CreateMainMenuBar_Edit() {
-
-	if (ImGui::BeginMenu("Edit"))
-	{
-		if (ImGui::MenuItem("Undo", "Ctrl+Z")) {}
-		if (ImGui::MenuItem("Redo", "Ctrl+Y", false, false)) {}  // Disabled item
-		if (ImGui::MenuItem("Cut", "Ctrl+X")) {}
-		if (ImGui::MenuItem("Copy", "Ctrl+C")) {}
-		if (ImGui::MenuItem("Paste", "Ctrl+V")) {}
-
-		ImGui::EndMenu();
-	}
-}
-
-//-----------VIEW-----------
-void ModuleEditor::CreateMainMenuBar_View() {
-
-	if (ImGui::BeginMenu("View"))
-	{
-		ImGui::MenuItem("Console", "1", &show_console_window); //  We need to get 1 as input to close It
-		ImGui::MenuItem("Configuration", "4", &show_config_window); // We need to get 4 as input to close It
-
-		if (App->input->keyboard[SDL_SCANCODE_4]) {
-
-			// Condition to enable/disable when clicking 4
-
-		}
-
-		ImGui::EndMenu();
-	}
-}
-
-//---------------------HELP-----------------
-void ModuleEditor::CreateMainMenuBar_Help() {
-
-	if (ImGui::BeginMenu("Help"))
-	{
-		if (ImGui::MenuItem("Gui Demo")) {};
-
-		if (ImGui::MenuItem("Documentation"))
-			App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine"); // Missing wiki
-
-		if (ImGui::MenuItem("Download Latest"))
-			App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine"); // Missing release
-
-		if (ImGui::MenuItem("Report a bug"))
-			App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine/issues");
-
-		(ImGui::MenuItem("About", "", &show_about_window));
-
-		ImGui::EndMenu();
-	}
-}
-
-//--------------------INSERT PRIMITIVES-----------------
-void ModuleEditor::CreateInsertPrimitivesWindow()
-{
-	if (ImGui::BeginMenu("Insert"))
-	{
-		if (ImGui::BeginMenu("Create"))
-		{
-			if (ImGui::MenuItem("Line"))
-			{
-				drawline = true;
-			}
-			if (ImGui::MenuItem("Plane"))
-			{
-				drawplane = true;
-			}
-			if (ImGui::MenuItem("Cube"))
-			{
-				drawcube = true;
-			}
-			if (ImGui::MenuItem("Pyramid"))
-			{
-				drawpyramid = true;
-			}
-			if (ImGui::MenuItem("Cylinder"))
-			{
-				drawcylinder = true;
-			}
-			if (ImGui::MenuItem("Sphere"))
-			{
-				drawsphere = true;
-			}
-			ImGui::MenuItem("Import A mesh");
-			ImGui::EndMenu();
-			
-		}
-
-		ImGui::EndMenu();
-	}
-}
-
-
-
 // ----------------------------CONFIG WINDOW-------------------------------------
 //Creation
 void ModuleEditor::CreateConfigWindow() {
 
-	if (show_config_window) {
+	if (App->mainMenubar->show_config_window) {
 
-		ImGui::Begin("Configuration", &show_config_window);
+		ImGui::Begin("Configuration", &App->mainMenubar->show_config_window);
 
 		CreateConfigWindow_Options();
 		CreateConfigWindow_Application();
@@ -547,9 +412,6 @@ void ModuleEditor::CreateConfigWindow_Hardware()
 
 	if (ImGui::CollapsingHeader("Hardware")) {
 
-		
-
-
 		ImGui::Text("CPUs:");
 		ImGui::SameLine();
 		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.CPU_Count);
@@ -609,8 +471,6 @@ void ModuleEditor::CreateConfigWindow_Hardware()
 		ImGui::Text("SSE42 Active:");
 		ImGui::SameLine();
 		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE42);
-
-
 	}
 
 }
@@ -618,12 +478,10 @@ void ModuleEditor::CreateConfigWindow_Hardware()
 // -----------------------CONSOLE------------------------
 void ModuleEditor::CreateConsoleWindow()
 {
-	if (show_console_window) {
+	if (App->mainMenubar->show_console_window) {
 
-		ImGui::Begin("Console", &show_console_window);
+		ImGui::Begin("Console", &App->mainMenubar->show_console_window);
 		std::list<char*>::iterator Iterator = ConsoleLogs.begin();
-
-		
 
 			for (Iterator; Iterator != ConsoleLogs.end(); Iterator++) {
 
@@ -632,21 +490,18 @@ void ModuleEditor::CreateConsoleWindow()
 
 			}
 
-		
-
 		ImGui::End();
 
 	}
 
 	LogsAmount = ConsoleLogs.size();
 
-
 }
 
 // ------------------------ABOUT--------------------
 void ModuleEditor::CreateAboutWindow()
 {
-	if (show_about_window) {
+	if (App->mainMenubar->show_about_window) {
 		ImGui::Begin("About");
 
 		ImGui::Text("Very Real Engine v0.1");

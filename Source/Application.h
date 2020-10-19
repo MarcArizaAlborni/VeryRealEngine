@@ -5,7 +5,7 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include <list>
-#include "ModuleImGui.h"
+#include "ModuleMainMenuBar.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleGeometryLoader.h"
 #include "ModuleCamera3D.h"
@@ -30,6 +30,9 @@ public:
 	ModuleMeshImporter* meshimporter;
 	LoadSaveMod* LoadSave;
 	ModuleGeometryLoader* geometryloader;
+
+	//Windows & Menus
+	ModuleMainMenuBar* mainMenubar;
 	//SaveLoad* LoadSaveMod;
 	
 	bool					debug;

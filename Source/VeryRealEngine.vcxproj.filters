@@ -61,9 +61,6 @@
     <ClCompile Include="SaveAndLoad.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleImGui.cpp">
-      <Filter>Source\Windows &amp; Menus</Filter>
-    </ClCompile>
     <ClCompile Include="GoodClass.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
@@ -72,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="ModuleGeometryLoader.cpp">
       <Filter>Source\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleMainMenuBar.cpp">
+      <Filter>Source\Windows &amp; Menus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,9 +146,6 @@
     </ClInclude>
     <ClInclude Include="SaveAndLoad.h">
       <Filter>Source\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleImGui.h">
-      <Filter>Source\Windows &amp; Menus</Filter>
     </ClInclude>
     <ClInclude Include="GoodClass.h">
       <Filter>Source\Modules</Filter>
@@ -491,6 +488,9 @@
     </ClInclude>
     <ClInclude Include="ModuleGeometryLoader.h">
       <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleMainMenuBar.h">
+      <Filter>Source\Windows &amp; Menus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

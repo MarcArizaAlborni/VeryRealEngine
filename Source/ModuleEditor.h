@@ -64,15 +64,6 @@ private:
 	SDL_WindowFlags window_flags;
 	SDL_GLContext gl_context;
 
-	//Window Bools
-	// ------------------Main Bar------------------
-	void CreateMainMenuBar();
-	void CreateMainMenuBar_File();
-	void CreateInsertPrimitivesWindow();
-	void CreateMainMenuBar_Edit();
-	void CreateMainMenuBar_View();
-	void CreateMainMenuBar_Help();
-
 	// ---------------Config Window---------------
 	void CreateConfigWindow();
 	void CreateConfigWindow_Options();
@@ -93,7 +84,6 @@ private:
 
 	//Window Bools
 	bool show_demo_window;
-	bool show_configuration_window;
 
 	float brightness;
 
@@ -102,19 +92,6 @@ private:
 	bool active_Resizable;
 	bool active_Borderless;
 	bool active_Full_Desktop;
-
-	bool show_config_window;
-
-	bool show_about_window;
-
-	bool show_console_window;
-
-	bool drawline;
-	bool drawplane;
-	bool drawcube;
-	bool drawpyramid;
-	bool drawcylinder;
-	bool drawsphere;
 
 	// Window Manager Bools
 	bool OnInit;

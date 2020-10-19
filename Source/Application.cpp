@@ -18,6 +18,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	input = new ModuleInput(this );
 
 	editor = new ModuleEditor(this);
+	mainMenubar = new ModuleMainMenuBar(this);
 
 	meshimporter = new ModuleMeshImporter(this);
 
@@ -39,6 +40,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	AddModule(input);
 	
 	AddModule(editor);
+	AddModule(mainMenubar);
 
 	AddModule(meshimporter);
 
