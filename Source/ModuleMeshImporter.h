@@ -33,6 +33,11 @@ public:
 
 	//Mesh Import variables 
 	std::list<MeshInfo*> LoadedMeshes;
+
+
+	//------------ CONSOLE STUFF
+#define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
+	void CreateConsolelog(const char file[], int line, const char* format, ...);
 	
 };
 

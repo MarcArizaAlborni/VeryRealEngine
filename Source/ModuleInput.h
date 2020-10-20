@@ -83,6 +83,10 @@ public:
 	//----------DROP ITEMS
 
 	char* Drop_Path;
+
+//------------ CONSOLE STUFF
+#define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
+	void CreateConsolelog(const char file[], int line, const char* format, ...);
 };
 
 #endif

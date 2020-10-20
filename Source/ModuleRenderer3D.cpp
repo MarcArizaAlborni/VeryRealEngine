@@ -23,14 +23,14 @@ ModuleRenderer3D::~ModuleRenderer3D()
 // Called before render is available
 bool ModuleRenderer3D::Init()
 {
-	LOG("Creating 3D Renderer context");
+	LOGFIX("Creating 3D Renderer context");
 	bool ret = true;
 
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
 	if (context == NULL)
 	{
-		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
+		LOGFIX("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 
@@ -38,7 +38,7 @@ bool ModuleRenderer3D::Init()
 	{
 		//Use Vsync
 		if (VSYNC && SDL_GL_SetSwapInterval(1) < 0)
-			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
+			LOGFIX("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
@@ -48,7 +48,7 @@ bool ModuleRenderer3D::Init()
 		GLenum error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOGFIX("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 
@@ -60,7 +60,7 @@ bool ModuleRenderer3D::Init()
 		error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOGFIX("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 
@@ -74,7 +74,7 @@ bool ModuleRenderer3D::Init()
 		error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOGFIX("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 
@@ -99,7 +99,8 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
 	}
-
+	
+	//App->console->CreateConsolelog();
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -158,7 +159,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 // Called before quitting
 bool ModuleRenderer3D::CleanUp()
 {
-	LOG("Destroying 3D Renderer");
+	LOGFIX("Destroying 3D Renderer");
 
 	SDL_GL_DeleteContext(context);
 
@@ -194,4 +195,21 @@ void ModuleRenderer3D::GenerateIndexBuffer(uint& id_index, const int& size, cons
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * size, index, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void ModuleRenderer3D::CreateConsolelog(const char file[], int line, const char* format, ...)
+{
+	static char tmp_string[4096];
+	static char tmp_string2[4096];
+	static va_list  ap;
+
+	// Construct the string from variable arguments
+	va_start(ap, format);
+	vsprintf_s(tmp_string, 4096, format, ap);
+	va_end(ap);
+	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
+	OutputDebugString(tmp_string2);
+
+
+	App->console->ConsoleLogs.push_back(tmp_string2);
 }

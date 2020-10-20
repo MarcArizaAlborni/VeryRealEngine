@@ -38,6 +38,7 @@ update_status ModuleMeshImporter::Update(float dt)
 // Load a mesh with index and vertex
 MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 {
+	LOGFIX("Importing Model");
 	MeshInfo* ourMesh = new MeshInfo();
 
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
@@ -88,5 +89,22 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 	}
 
 	return ourMesh;
+}
+
+void ModuleMeshImporter::CreateConsolelog(const char file[], int line, const char* format, ...)
+{
+	static char tmp_string[4096];
+	static char tmp_string2[4096];
+	static va_list  ap;
+
+	// Construct the string from variable arguments
+	va_start(ap, format);
+	vsprintf_s(tmp_string, 4096, format, ap);
+	va_end(ap);
+	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
+	OutputDebugString(tmp_string2);
+
+
+	App->console->ConsoleLogs.push_back(tmp_string2);
 }
 

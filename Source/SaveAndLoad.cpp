@@ -53,7 +53,7 @@ json LoadSaveMod::Load(const char* file)
 		obj = json::parse(stream);
 	}
 	catch (json::parse_error& e) {
-		LOG("Parse Error while Loading File: %c", e.what());
+		LOGFIX("Parse Error while Loading File: %c", e.what());
 	}
 
 	stream.close();
@@ -106,5 +106,22 @@ void LoadSaveMod::SaveintoFileConfig()
 	Save(config, SaveFileName.c_str());
 
 	
+}
+
+void LoadSaveMod::CreateConsolelog(const char file[], int line, const char* format, ...)
+{
+	static char tmp_string[4096];
+	static char tmp_string2[4096];
+	static va_list  ap;
+
+	// Construct the string from variable arguments
+	va_start(ap, format);
+	vsprintf_s(tmp_string, 4096, format, ap);
+	va_end(ap);
+	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
+	OutputDebugString(tmp_string2);
+
+
+	App->console->ConsoleLogs.push_back(tmp_string2);
 }
 
