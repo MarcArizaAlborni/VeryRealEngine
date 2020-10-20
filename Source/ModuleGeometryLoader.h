@@ -1,4 +1,6 @@
 #pragma once
+#ifndef __ModuleLoader_H__
+#define __ModuleLoader_H__
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
@@ -45,3 +47,5 @@ public:
 	
 	MeshInfo* warrior;
 };
+
+#endif

@@ -1,4 +1,6 @@
 #pragma once
+#ifndef __ModuleImporters_H__
+#define __ModuleImporters_H__
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
@@ -33,3 +35,5 @@ public:
 	std::list<MeshInfo*> LoadedMeshes;
 	
 };
+
+#endif

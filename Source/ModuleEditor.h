@@ -1,4 +1,6 @@
 #pragma once
+#ifndef __ModuleEditor_H__
+#define __ModuleEditor_H__
 #include "Module.h"
 #include "p2DynArray.h"
 #include "Globals.h"
@@ -37,3 +39,5 @@ private:
 	ImVec4 clear_color;
    
 };
+
+#endif

@@ -1,4 +1,6 @@
 #pragma once
+#ifndef __ModuleSaveLoad_H__
+#define __ModuleSaveLoad_H__
 #include "Module.h"
 #include "Globals.h"
 #include <iomanip>
@@ -38,3 +40,5 @@ public:
 
 	
 };
+
+#endif

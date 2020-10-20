@@ -1,4 +1,11 @@
+
+
 #pragma once
+
+#ifndef __ModuleEditorConfig_H__
+#define __ModuleEditorConfig_H__
+
+
 #include "Module.h"
 #include "p2DynArray.h"
 #include "Globals.h"
@@ -72,3 +79,5 @@ public:
 	bool active_Full_Desktop;
 	
 }; 
+
+#endif

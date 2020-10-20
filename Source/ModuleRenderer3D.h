@@ -1,4 +1,7 @@
 #pragma once
+#ifndef __ModuleRenderer_H__
+#define __ModuleRenderer_H__
+
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
@@ -34,3 +37,5 @@ public:
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
 };
+
+#endif

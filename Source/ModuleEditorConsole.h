@@ -1,4 +1,8 @@
 #pragma once
+#ifndef __ModuleEditorConsole_H__
+#define __ModuleEditorConsole_H__
+
+
 #include "Module.h"
 #include "p2DynArray.h"
 #include "Globals.h"
@@ -25,3 +29,5 @@ public:
 
 	void CallLOG(char* text);
 };
+
+#endif 
