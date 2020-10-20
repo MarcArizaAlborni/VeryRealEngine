@@ -61,6 +61,8 @@ public:
 	bool window_borderless = false;
 	bool window_full_desktop = false;
 
+	WindowInfo WindowInformation;
+
 };
 
 #endif // __ModuleWindow_H__
