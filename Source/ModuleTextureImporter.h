@@ -11,6 +11,8 @@ public:
 	ModuleTextureImporter(Application* app, const char* name = "null", bool start_enabled = true);
 	~ModuleTextureImporter();
 
+	bool LoadTexturesCheckers();
+
 };
 
 #endif
