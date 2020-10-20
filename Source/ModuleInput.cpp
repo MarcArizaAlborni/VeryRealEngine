@@ -93,6 +93,24 @@ update_status ModuleInput::PreUpdate(float dt)
 		{
 		case SDL_MOUSEWHEEL:
 			mouse_z = e.wheel.y;
+
+			if (e.wheel.y > 0) {
+				float posx = 3;
+				
+				//App->camera->Position.x -= posx;
+				
+			}
+
+			if (e.wheel.y < 0) {
+				float posx = 3;
+
+				//App->camera->Position.x -= posx;
+
+			}
+
+			if (e.wheel.y < 0) {
+
+			}
 			break;
 
 		case SDL_MOUSEMOTION:
