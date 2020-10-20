@@ -217,6 +217,7 @@
     <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="ModuleMeshImporter.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
+    <ClInclude Include="ModuleTextureImporter.h" />
     <ClInclude Include="p2List.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleInput.h" />
@@ -251,6 +252,7 @@
     <ClCompile Include="ModuleMeshImporter.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleEditorMainMenuBar.cpp" />
+    <ClCompile Include="ModuleTextureImporter.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="SaveAndLoad.cpp" />

@@ -1,6 +1,4 @@
 #pragma once
-
-
 #ifndef __APPLICATION_H__
 
 #define __APPLICATION_H__
@@ -18,6 +16,7 @@
 #include "ModuleGeometryLoader.h"
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
+#include "ModuleTextureImporter.h"
 #include "ModuleMeshImporter.h"
 #include <vector>
 #include "libraries/json/json.hpp"
@@ -35,6 +34,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleEditor* editor;
+	ModuleTextureImporter* textureImporter;
 	ModuleMeshImporter* meshimporter;
 	LoadSaveMod* LoadSave;
 	ModuleGeometryLoader* geometryloader;

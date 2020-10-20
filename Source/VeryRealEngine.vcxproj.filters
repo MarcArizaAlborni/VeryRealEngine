@@ -79,6 +79,9 @@
     <ClCompile Include="ModuleEditorConsole.cpp">
       <Filter>Source\Windows &amp; Menus</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleTextureImporter.cpp">
+      <Filter>Source\Modules\Importers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -503,6 +506,9 @@
     </ClInclude>
     <ClInclude Include="ModuleEditorConsole.h">
       <Filter>Source\Windows &amp; Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTextureImporter.h">
+      <Filter>Source\Modules\Importers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

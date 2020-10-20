@@ -110,6 +110,8 @@ bool ModuleRenderer3D::Start()
 {
 		//App->meshimporter->LoadMesh("Assets/Models/Warrior/warrior.FBX");
 	
+	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	return true;
 }
 

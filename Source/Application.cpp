@@ -17,6 +17,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	configWindow = new ModuleEditorConfiguration(this);
 	console = new ModuleEditorConsole(this);
 
+	textureImporter = new ModuleTextureImporter(this);
 	meshimporter = new ModuleMeshImporter(this);
 
 	LoadSave = new LoadSaveMod(this);
@@ -24,9 +25,6 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	geometryloader = new ModuleGeometryLoader(this);
 	renderer3D = new ModuleRenderer3D(this);
 	
-	
-
-
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -41,10 +39,10 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	AddModule(configWindow);
 	AddModule(console);
 
+	AddModule(textureImporter);
 	AddModule(meshimporter);
 
 	AddModule(LoadSave);
-	
 	
 	AddModule(renderer3D);
 	AddModule(geometryloader);
