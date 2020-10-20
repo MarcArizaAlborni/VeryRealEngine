@@ -6,6 +6,7 @@
 #include "libraries/Assimp/Assimp/include/scene.h"
 #include "libraries/Assimp/Assimp/include/postprocess.h"
 #pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
+#include "libraries/Glew/include/GL/glew.h"
 
 #include <gl/GLU.h>
 
@@ -19,6 +20,63 @@ ModuleTextureImporter::ModuleTextureImporter(Application* app, const char* name,
 
 ModuleTextureImporter::~ModuleTextureImporter()
 {}
+
+
+uint ModuleTextureImporter::LoadTextureCheckers()
+{
+	uint TextureValue;
+	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
+		for (int j = 0; j < CHECKERS_WIDTH; j++) {
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkerImage[i][j][0] = (GLubyte)c;
+			checkerImage[i][j][1] = (GLubyte)c;
+			checkerImage[i][j][2] = (GLubyte)c;
+			checkerImage[i][j][3] = (GLubyte)255;
+		}
+	}
+
+	TextureValue = SetUpTexture(checkerImage, CHECKERS_WIDTH, CHECKERS_HEIGHT, GL_RGBA, GL_RGBA, GL_TEXTURE_2D, GL_NEAREST, GL_REPEAT, true);
+
+	return TextureValue;
+}
+
+void ModuleTextureImporter::ImportTexture()
+{
+}
+
+uint ModuleTextureImporter::SetUpTexture(const void* ImageInfo, int TexWidth, int TexHeight, int Border, int intFormat, uint format, uint Target, int FilterTypus, int WrapType)
+{
+	GLuint Texture_Id;
+	std::string FilterType; // GL_NEAREST and GL_LINEAR no implementation for mipmaps yet so these two are the only choices
+	std::string TextureType = "2D";
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &Texture_Id);
+	glBindTexture(Target, Texture_Id);
+	glTexParameteri(Target, GL_TEXTURE_WRAP_S, FilterTypus);
+	glTexParameteri(Target, GL_TEXTURE_WRAP_T, FilterTypus);
+
+	if (FilterTypus == GL_LINEAR) {
+		FilterType.assign("Linear");
+		glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+	}
+	else if (FilterTypus == GL_NEAREST) {
+		FilterType.assign("Nearest");
+        glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		
+	}
+	glTexImage2D(Target, 0, intFormat, TexWidth, TexHeight, 0, format, GL_UNSIGNED_BYTE, ImageInfo);
+	glBindTexture(Target, 0);
+	return Texture_Id;
+}
+
+
+
+
 
 void ModuleTextureImporter::CreateConsolelog(const char file[], int line, const char* format, ...)
 {

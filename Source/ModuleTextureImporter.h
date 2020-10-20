@@ -11,8 +11,9 @@ public:
 	ModuleTextureImporter(Application* app, const char* name = "null", bool start_enabled = true);
 	~ModuleTextureImporter();
 
-	bool LoadTexturesCheckers();
-
+	uint LoadTextureCheckers();
+	void ImportTexture();
+	uint SetUpTexture(const void* ImageInfo, int TexWidth, int TexHeight,int Border, int intFormat, uint format, uint Target, int FilterTypus, int WrapType);
 
 
 	//------------ CONSOLE STUFF

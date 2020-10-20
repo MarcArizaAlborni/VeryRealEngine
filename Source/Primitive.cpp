@@ -209,7 +209,7 @@ void Cube::RenderCube_Indices()
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, Vertices2);
-
+		
 
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, indices);
 

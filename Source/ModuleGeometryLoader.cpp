@@ -117,7 +117,11 @@ void ModuleGeometryLoader::DrawMesh(const MeshInfo* mesh)
 
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertex);
 
+
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+		glBindTexture(GL_TEXTURE_2D, App->renderer3D->CheckerTexture);
+		//glActiveTexture(GL_TEXTURE0);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_index);
 

@@ -7,6 +7,7 @@
 #include "ModuleMeshImporter.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include "ModuleTextureImporter.h"
 
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
@@ -110,7 +111,7 @@ bool ModuleRenderer3D::Init()
 bool ModuleRenderer3D::Start()
 {
 		//App->meshimporter->LoadMesh("Assets/Models/Warrior/warrior.FBX");
-	
+	CheckerTexture=App->textureImporter->LoadTextureCheckers();
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	return true;
