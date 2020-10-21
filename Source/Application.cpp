@@ -51,7 +51,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 
 Application::~Application()
 {
-	std::list<Module*>::reverse_iterator item = list_modules.rbegin();
+	std::vector<Module*>::reverse_iterator item = list_modules.rbegin();
 
 	while (item != list_modules.rend())
 	{
@@ -69,7 +69,7 @@ bool Application::Init()
 	dt = 0.5f;
 	
 	//Call Init() in all modules
-	std::list<Module*>::iterator item = list_modules.begin();
+	std::vector<Module*>::iterator item = list_modules.begin();
 
 	while (item != list_modules.end())
 	{
@@ -79,7 +79,7 @@ bool Application::Init()
 
 
 
-	std::list<Module*>::iterator item2 = list_modules.begin();
+	std::vector<Module*>::iterator item2 = list_modules.begin();
 	
 	//Call Start() in all modules
 
@@ -118,7 +118,7 @@ update_status Application::Update()
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 
-	std::list<Module*>::iterator item = list_modules.begin();
+	std::vector<Module*>::iterator item = list_modules.begin();
 
 	update_status State;
 
@@ -157,7 +157,7 @@ update_status Application::Update()
 bool Application::CleanUp()
 {
 	bool ret = true;
-	std::list<Module*>::reverse_iterator item = list_modules.rbegin();
+	std::vector<Module*>::reverse_iterator item = list_modules.rbegin();
 
 	while (item != list_modules.rend() && ret == true)
 	{

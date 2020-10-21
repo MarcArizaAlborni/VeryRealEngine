@@ -1,6 +1,7 @@
-#pragma once
-#ifndef __APPLICATION_H__
 
+#pragma once
+
+#ifndef __APPLICATION_H__
 #define __APPLICATION_H__
 
 #include "Globals.h"
@@ -20,8 +21,9 @@
 #include "ModuleMeshImporter.h"
 #include <vector>
 #include "libraries/json/json.hpp"
-
 #include "SaveAndLoad.h"
+
+
 
 
 using json = nlohmann::json;
@@ -52,7 +54,7 @@ public:
 
 private:
 
-	std::list<Module*> list_modules;
+	std::vector<Module*> list_modules;
 
 public:
 
