@@ -31,7 +31,7 @@ void ModuleEditorMainMenuBar::CreateMainMenuBar() {
 		CreateInsertPrimitivesWindow();
 		CreateMainMenuBar_View();
 		CreateMainMenuBar_Help();
-		CreateMainMenuBar_Hierarchy();
+		
 
 		ImGui::EndMainMenuBar();
 	}
@@ -109,10 +109,7 @@ void ModuleEditorMainMenuBar::CreateMainMenuBar_Help() {
 	}
 }
 
-void ModuleEditorMainMenuBar::CreateMainMenuBar_Hierarchy()
-{
-	
-}
+
 
 void ModuleEditorMainMenuBar::CreateConsolelog(const char file[], int line, const char* format, ...)
 {

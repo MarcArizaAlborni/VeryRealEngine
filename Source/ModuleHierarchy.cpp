@@ -35,7 +35,7 @@ update_status ModuleHierarchyGameObject::Update(float dt)
 
 	
 
-		HierarchyWindow();
+	
 	
 
 	return UPDATE_CONTINUE;
@@ -48,16 +48,16 @@ bool ModuleHierarchyGameObject::CleanUp()
 	return true;
 }
 
-void ModuleHierarchyGameObject::HierarchyWindow()
+void ModuleHierarchyGameObject::CreateHierarchyWindow()
 {
-	/*if (App->mainMenubar->show_hierarchy_window) {
+	if (App->mainMenubar->show_hierarchy_window) {
 		ImGui::Begin("Hierarchy",&App->mainMenubar->show_hierarchy_window);
-
+		
 
 
 		ImGui::End();
 
-	}*/
+	}
 }
 
 void ModuleHierarchyGameObject::CreateConsolelog(const char file[], int line, const char* format, ...)

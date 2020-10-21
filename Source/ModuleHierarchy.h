@@ -17,7 +17,7 @@ public:
 
 	//Hierarchy Window Functions
 
-	void HierarchyWindow();
+	void CreateHierarchyWindow();
 	//Hierarchy Window Bools
 
 	bool ShowHierarchyWindow;
