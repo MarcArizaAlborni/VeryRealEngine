@@ -18,11 +18,13 @@ public:
 	//Hierarchy Window Functions
 
 	void CreateHierarchyWindow();
+
+	void InspectorInfo(const char* text, int uid);
 	//Hierarchy Window Bools
 
 	bool ShowHierarchyWindow;
 
-
+	
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);

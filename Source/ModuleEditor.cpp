@@ -109,6 +109,10 @@ bool ModuleEditor::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleEditor::Update(float dt)
 {
+
+
+
+
 	return UPDATE_STOP;
 }
 
