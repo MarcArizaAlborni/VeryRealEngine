@@ -77,41 +77,45 @@ bool ModuleGeometryLoader::CleanUp()
 // Draws a cube
 void ModuleGeometryLoader::DrawCube()
 {
-
-	cube.RenderCube_Indices();
-
+	App->meshimporter->LoadMesh("Assets/Models/Primitives/Cube.FBX");
 }
 
 void ModuleGeometryLoader::DrawPyramid()
 {
-	pyramid.RenderPyramid_Indices();
+	App->meshimporter->LoadMesh("Assets/Models/Primitives/Pyramid.FBX");
 	
 }
 
 void ModuleGeometryLoader::DrawSphere()
 {
-	sphere.RenderSphere_Indices();
+	App->meshimporter->LoadMesh("Assets/Models/Primitives/Sphere.FBX");
 }
 
 void ModuleGeometryLoader::DrawCylinder()
 {
-
-}
-
-void ModuleGeometryLoader::DrawLine()
-{
-	line.InnerRender();
+	App->meshimporter->LoadMesh("Assets/Models/Primitives/Cylinder.FBX");
 }
 
 void ModuleGeometryLoader::DrawPlane()
 {
-	plane.InnerRender();
+	App->meshimporter->LoadMesh("Assets/Models/Primitives/Plane.FBX");
 }
 
 // Draw mesh with vertex and index
 void ModuleGeometryLoader::DrawMesh(const MeshInfo* mesh)
 {
 	if (mesh->index != nullptr) {
+
+		/*glPushMatrix();
+		glScalef(0.5,0.5,0.5);
+		glRotatef(90, -1.0, 0.0, 0.0);
+		glRotatef(45, 0.0, 0.0, 1.0);
+
+		if (App->input->keyboard[SDL_SCANCODE_LEFT]) {
+
+			glTranslatef(-5.0, 0.0, 0.0);
+		}*/
+		
 		//Bind buffers
 		glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -135,6 +139,7 @@ void ModuleGeometryLoader::DrawMesh(const MeshInfo* mesh)
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glDisableClientState(GL_VERTEX_ARRAY);
 
+		/*glPopMatrix();*/
 	}
 }
 

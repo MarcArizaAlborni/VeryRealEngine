@@ -132,11 +132,6 @@ void ModuleEditorMainMenuBar::CreateInsertPrimitivesWindow()
 	{
 		if (ImGui::BeginMenu("Create"))
 		{
-			if (ImGui::MenuItem("Line"))
-			{
-				LOGFIX("Creating : Line");
-				drawline = true;
-			}
 			if (ImGui::MenuItem("Plane"))
 			{
 				LOGFIX("Creating : Plane");

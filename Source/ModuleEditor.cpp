@@ -77,7 +77,6 @@ bool ModuleEditor::Start()
 
 	App->configWindow->active_window = true;
 
-	App->mainMenubar->drawline = false;
 	App->mainMenubar->drawplane = false;
 	App->mainMenubar->drawcube = false;
 	App->mainMenubar->drawpyramid = false;
@@ -116,40 +115,34 @@ update_status ModuleEditor::Update(float dt)
 update_status ModuleEditor::PostUpdate(float dt)
 {
 
-	if (App->mainMenubar->drawline)
-	{
-		App->geometryloader->DrawLine();
-		!App->mainMenubar->drawline;
-	}
-
 	if (App->mainMenubar->drawplane)
 	{
 		App->geometryloader->DrawPlane();
-		!App->mainMenubar->drawplane;
+		App->mainMenubar->drawplane = false;
 	}
 
 	if (App->mainMenubar->drawcube)
 	{
 		App->geometryloader->DrawCube();
-		!App->mainMenubar->drawcube;
+		App->mainMenubar->drawcube = false;
 	}
 
 	if (App->mainMenubar->drawpyramid)
 	{
 		App->geometryloader->DrawPyramid();
-		!App->mainMenubar->drawpyramid;
+		App->mainMenubar->drawpyramid = false;
 	}
 
 	if (App->mainMenubar->drawcylinder)
 	{
 		App->geometryloader->DrawCylinder();
-		!App->mainMenubar->drawcylinder;
+		App->mainMenubar->drawcylinder = false;
 	}
 
 	if (App->mainMenubar->drawsphere)
 	{
 		App->geometryloader->DrawSphere();
-		!App->mainMenubar->drawsphere;
+		App->mainMenubar->drawsphere = false;
 	}
 
 	bool closeEngine = false;
