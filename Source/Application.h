@@ -46,7 +46,7 @@ public:
 	ModuleEditorMainMenuBar* mainMenubar;
 	ModuleEditorConfiguration* configWindow;
 	ModuleEditorConsole* console;
-	ModuleHierarchy* hierarchy;
+	ModuleHierarchyGameObject* hierarchy;
 
 	//SaveLoad* LoadSaveMod;
 	

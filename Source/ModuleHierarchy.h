@@ -5,11 +5,11 @@
 #include "Globals.h"
 #include "glmath.h"
 
-class ModuleHierarchy : public Module
+class ModuleHierarchyGameObject : public Module
 {
 public:
-	ModuleHierarchy(Application* app, const char* name = "null", bool start_enabled = true);
-	~ModuleHierarchy();
+	ModuleHierarchyGameObject(Application* app, const char* name = "null", bool start_enabled = true);
+	~ModuleHierarchyGameObject();
 
 	bool Start();
 	update_status Update(float dt);

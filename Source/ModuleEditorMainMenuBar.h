@@ -20,6 +20,7 @@ public:
 	void CreateMainMenuBar_Edit();
 	void CreateMainMenuBar_View();
 	void CreateMainMenuBar_Help();
+	void CreateMainMenuBar_Hierarchy();
 
 	//Main Menu Bar Bools
 	bool show_config_window;
@@ -27,6 +28,10 @@ public:
 	bool show_about_window;
 
 	bool show_console_window;
+
+	bool show_hierarchy_window;
+
+	
 
 	bool drawplane;
 	bool drawcube;

@@ -31,6 +31,7 @@ void ModuleEditorMainMenuBar::CreateMainMenuBar() {
 		CreateInsertPrimitivesWindow();
 		CreateMainMenuBar_View();
 		CreateMainMenuBar_Help();
+		CreateMainMenuBar_Hierarchy();
 
 		ImGui::EndMainMenuBar();
 	}
@@ -75,7 +76,7 @@ void ModuleEditorMainMenuBar::CreateMainMenuBar_View() {
 	{
 		ImGui::MenuItem("Console", "1", &show_console_window); //  We need to get 1 as input to close It
 		ImGui::MenuItem("Configuration", "4", &show_config_window); // We need to get 4 as input to close It
-
+		ImGui::MenuItem("Show GameObject Hierarchy", "2", &show_hierarchy_window);
 		if (App->input->keyboard[SDL_SCANCODE_4]) {
 
 			// Condition to enable/disable when clicking 4
@@ -106,6 +107,11 @@ void ModuleEditorMainMenuBar::CreateMainMenuBar_Help() {
 
 		ImGui::EndMenu();
 	}
+}
+
+void ModuleEditorMainMenuBar::CreateMainMenuBar_Hierarchy()
+{
+	
 }
 
 void ModuleEditorMainMenuBar::CreateConsolelog(const char file[], int line, const char* format, ...)
