@@ -81,7 +81,7 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 				App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);
 			
 			//Add to mesh list for when we draw each mesh
-			LoadedMeshes.push_back(ourMesh);
+			MeshesOnScene.push_back(ourMesh);
 		}
 
 		//Free memory

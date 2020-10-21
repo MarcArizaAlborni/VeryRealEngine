@@ -15,9 +15,19 @@ struct MeshInfo
 	uint num_vertex = 0;
 	float* vertex=nullptr;
 
+	
+};
+
+struct GameObject {
+
+	MeshInfo mesh_info;
+
 	std::string mesh_name;
 
-	bool isSelected;
+	bool is_Selected;
+
+	bool is_Textured;
+
 };
 
 class ModuleMeshImporter : public Module
@@ -36,7 +46,7 @@ public:
 	MeshInfo* LoadMesh(char* file_path);
 
 	//Mesh Import variables 
-	std::list<MeshInfo*> LoadedMeshes;
+	std::vector<MeshInfo*> MeshesOnScene;
 
 
 	//------------ CONSOLE STUFF

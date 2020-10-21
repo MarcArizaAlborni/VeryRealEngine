@@ -48,8 +48,8 @@ update_status ModuleGeometryLoader::Update(float dt)
 {
 	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 
-	std::list<MeshInfo*>::iterator IteratorLoaded = App->meshimporter->LoadedMeshes.begin();
-	for (int a = 0; a < App->meshimporter->LoadedMeshes.size(); ++a) {
+	std::vector<MeshInfo*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
+	for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 
 		DrawMesh(*IteratorLoaded);
 		IteratorLoaded++;
@@ -118,7 +118,10 @@ void ModuleGeometryLoader::DrawMesh(const MeshInfo* mesh)
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertex);
 
 
+
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+
 
 		glBindTexture(GL_TEXTURE_2D, App->renderer3D->CheckerTexture);
 		//glActiveTexture(GL_TEXTURE0);
