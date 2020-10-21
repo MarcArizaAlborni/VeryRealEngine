@@ -28,7 +28,6 @@ public:
 
 	bool show_console_window;
 
-	bool drawline;
 	bool drawplane;
 	bool drawcube;
 	bool drawpyramid;

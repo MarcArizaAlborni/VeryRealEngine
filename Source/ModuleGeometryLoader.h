@@ -27,27 +27,14 @@ public:
 
 public:
 	// Insert Primitives
-	void DrawLine();
 	void DrawPlane();
 	void DrawCube();
 	void DrawPyramid();
 	void DrawSphere();
 	void DrawCylinder();
 
+	//Meshes
 	void DrawMesh(const MeshInfo* mesh);
-
-public:
-
-	Line line;
-	Plane plane;
-	Cube cube;
-	Pyramid pyramid;
-	Cylinder cylinder;
-	Sphere sphere;
-	
-	MeshInfo* warrior;
-	
-
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
