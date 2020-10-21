@@ -16,6 +16,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	mainMenubar = new ModuleEditorMainMenuBar(this);
 	configWindow = new ModuleEditorConfiguration(this);
 	console = new ModuleEditorConsole(this);
+	inspector = new ModuleInspectorGameObject(this);
 
 	textureImporter = new ModuleTextureImporter(this);
 	meshimporter = new ModuleMeshImporter(this);
@@ -42,6 +43,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	AddModule(textureImporter);
 	AddModule(meshimporter);
 	AddModule(hierarchy);
+	AddModule(inspector);
 	AddModule(LoadSave);
 	
 	AddModule(renderer3D);

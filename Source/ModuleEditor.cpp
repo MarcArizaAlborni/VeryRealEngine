@@ -179,6 +179,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 	CreateAboutWindow();
 	App->console->CreateConsoleWindow();
 	App->hierarchy->CreateHierarchyWindow();
+	App->inspector->CreateInspectorWindow();
 
 	//Render
 	ImGui::Render();

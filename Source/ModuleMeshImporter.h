@@ -28,6 +28,8 @@ struct GameObject {
 
 	bool is_Textured;
 
+	std::vector<GameObject*> ChildObjects;
+
 };
 
 class ModuleMeshImporter : public Module

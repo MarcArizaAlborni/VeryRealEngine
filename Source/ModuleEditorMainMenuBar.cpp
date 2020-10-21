@@ -79,11 +79,12 @@ void ModuleEditorMainMenuBar::CreateMainMenuBar_Edit() {
 //-----------VIEW-----------
 void ModuleEditorMainMenuBar::CreateMainMenuBar_View() {
 
-	if (ImGui::BeginMenu("View"))
+	if (ImGui::BeginMenu("Window"))
 	{
 		ImGui::MenuItem("Console", "1", &show_console_window); //  We need to get 1 as input to close It
-		ImGui::MenuItem("Configuration", "4", &show_config_window); // We need to get 4 as input to close It
-		ImGui::MenuItem("Show GameObject Hierarchy", "2", &show_hierarchy_window);
+		ImGui::MenuItem("Configuration", "2", &show_config_window); // We need to get 4 as input to close It
+		ImGui::MenuItem("Show GameObject Hierarchy", "3", &show_hierarchy_window);
+		ImGui::MenuItem("Show GameObject Inspector", "4", &show_inspector_window);
 		if (App->input->keyboard[SDL_SCANCODE_4]) {
 
 			// Condition to enable/disable when clicking 4

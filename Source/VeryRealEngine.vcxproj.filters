@@ -83,7 +83,10 @@
       <Filter>Source\Modules\Importers</Filter>
     </ClCompile>
     <ClCompile Include="ModuleHierarchy.cpp">
-      <Filter>Source\Modules</Filter>
+      <Filter>Source\Modules\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleInspector.cpp">
+      <Filter>Source\Modules\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -514,7 +517,10 @@
       <Filter>Source\Modules\Importers</Filter>
     </ClInclude>
     <ClInclude Include="ModuleHierarchy.h">
-      <Filter>Source\Modules</Filter>
+      <Filter>Source\Modules\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleInspector.h">
+      <Filter>Source\Modules\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -565,6 +571,9 @@
     </Filter>
     <Filter Include="Source\Windows &amp; Menus\MainMenu">
       <UniqueIdentifier>{19780105-9ec4-4a41-9a1c-aac8e4a87310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Modules\GameObjects">
+      <UniqueIdentifier>{27439aec-a8d4-4e96-bb1e-14f52d6533dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

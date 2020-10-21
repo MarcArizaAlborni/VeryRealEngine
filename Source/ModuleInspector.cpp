@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleHierarchy.h"
+#include "ModuleInspector.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -11,52 +11,51 @@
 #include "libraries/SDL/include/SDL_opengl.h"
 
 
-ModuleHierarchyGameObject::ModuleHierarchyGameObject(Application* app, const char* name, bool start_enabled) : Module(app, name, start_enabled)
+ModuleInspectorGameObject::ModuleInspectorGameObject(Application* app, const char* name, bool start_enabled) : Module(app, name, start_enabled)
 {
-	
 
-	
+
+
 }
 
-ModuleHierarchyGameObject::~ModuleHierarchyGameObject()
+ModuleInspectorGameObject::~ModuleInspectorGameObject()
 {}
 
 
-bool ModuleHierarchyGameObject::Start()
+bool ModuleInspectorGameObject::Start()
 {
-	
-	
+
+
 
 	return true;
 }
 
-update_status ModuleHierarchyGameObject::Update(float dt)
+update_status ModuleInspectorGameObject::Update(float dt)
 {
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleHierarchyGameObject::CleanUp()
+bool ModuleInspectorGameObject::CleanUp()
 {
-	
+
 
 	return true;
 }
 
-void ModuleHierarchyGameObject::CreateHierarchyWindow()
+void ModuleInspectorGameObject::CreateInspectorWindow()
 {
-	if (App->mainMenubar->show_hierarchy_window) {
-		ImGui::Begin("Hierarchy",&App->mainMenubar->show_hierarchy_window);
-
-	     
+	if (App->mainMenubar->show_inspector_window) {
+		ImGui::Begin("Inspector", &App->mainMenubar->show_inspector_window);
 
 
-		
+
 		ImGui::End();
 
 	}
+	
 }
 
-void ModuleHierarchyGameObject::CreateConsolelog(const char file[], int line, const char* format, ...)
+void ModuleInspectorGameObject::CreateConsolelog(const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];
 	static char tmp_string2[4096];

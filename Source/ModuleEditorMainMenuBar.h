@@ -33,6 +33,8 @@ public:
 
 	bool show_hierarchy_window;
 
+	bool show_inspector_window;
+
 	
 
 	bool drawplane;

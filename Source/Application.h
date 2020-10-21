@@ -23,6 +23,7 @@
 #include "libraries/json/json.hpp"
 #include "SaveAndLoad.h"
 #include "ModuleHierarchy.h"
+#include "ModuleInspector.h"
 
 
 
@@ -47,6 +48,7 @@ public:
 	ModuleEditorConfiguration* configWindow;
 	ModuleEditorConsole* console;
 	ModuleHierarchyGameObject* hierarchy;
+	ModuleInspectorGameObject* inspector;
 
 	//SaveLoad* LoadSaveMod;
 	
