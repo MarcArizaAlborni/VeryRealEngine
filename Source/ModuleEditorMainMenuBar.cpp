@@ -19,6 +19,13 @@ ModuleEditorMainMenuBar::ModuleEditorMainMenuBar(Application* app, const char* n
 ModuleEditorMainMenuBar::~ModuleEditorMainMenuBar()
 {}
 
+bool ModuleEditorMainMenuBar::Start()
+{
+	show_about_window = false;
+	
+	return true;
+}
+
 // ----------------------------MENU BAR-------------------------------------
 //Creation
 void ModuleEditorMainMenuBar::CreateMainMenuBar() {

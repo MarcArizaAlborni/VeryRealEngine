@@ -13,6 +13,8 @@ public:
 	ModuleEditorMainMenuBar(Application* app, const char* name = "null", bool start_enabled = true);
 	~ModuleEditorMainMenuBar();
 
+	bool Start();
+
 	// ------------------Main Bar------------------
 	void CreateMainMenuBar();
 	void CreateMainMenuBar_File();

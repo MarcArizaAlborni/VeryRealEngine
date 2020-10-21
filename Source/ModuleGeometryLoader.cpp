@@ -33,14 +33,12 @@ bool ModuleGeometryLoader::Init()
 
 bool ModuleGeometryLoader::Start()
 {
-
 	return true;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleGeometryLoader::PreUpdate(float dt)
 {
-
 	return UPDATE_CONTINUE;
 }
 
@@ -50,12 +48,6 @@ update_status ModuleGeometryLoader::Update(float dt)
 
 	std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
 	for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
-
-		//GameObject* MeshT;
-		
-		/*MeshInfo* MeshToDraw = *IteratorLoaded;
-		MeshToDraw->MeshData.mesh_name;*/
-		//DrawMesh(MeshToDraw);
 
 		DrawMesh(*IteratorLoaded);
 
