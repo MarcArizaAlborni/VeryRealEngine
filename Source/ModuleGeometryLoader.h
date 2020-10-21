@@ -10,6 +10,7 @@
 #define MAX_LIGHTS 8
 
 struct MeshInfo;
+struct GameObject;
 
 class ModuleGeometryLoader : public Module
 {
@@ -34,7 +35,7 @@ public:
 	void DrawCylinder();
 
 	//Meshes
-	void DrawMesh(const MeshInfo* mesh);
+	void DrawMesh(const GameObject* mesh);
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);

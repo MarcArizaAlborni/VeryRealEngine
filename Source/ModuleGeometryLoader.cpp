@@ -48,10 +48,10 @@ update_status ModuleGeometryLoader::Update(float dt)
 {
 	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 
-	std::vector<MeshInfo*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
+	std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
 	for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 
-		GameObject* MeshT;
+		//GameObject* MeshT;
 		
 		/*MeshInfo* MeshToDraw = *IteratorLoaded;
 		MeshToDraw->MeshData.mesh_name;*/
@@ -109,9 +109,10 @@ void ModuleGeometryLoader::DrawPlane()
 }
 
 // Draw mesh with vertex and index
-void ModuleGeometryLoader::DrawMesh(const MeshInfo* mesh)
+void ModuleGeometryLoader::DrawMesh(const GameObject* mesh)
 {
-	if (mesh->index != nullptr) {
+	
+	if (mesh->MeshData.index != nullptr) {
 
 		/*glPushMatrix();
 		glScalef(0.5,0.5,0.5);
@@ -126,7 +127,7 @@ void ModuleGeometryLoader::DrawMesh(const MeshInfo* mesh)
 		//Bind buffers
 		glEnableClientState(GL_VERTEX_ARRAY);
 
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertex);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.id_vertex);
 
 
 
@@ -137,9 +138,9 @@ void ModuleGeometryLoader::DrawMesh(const MeshInfo* mesh)
 		glBindTexture(GL_TEXTURE_2D, App->renderer3D->CheckerTexture);
 		//glActiveTexture(GL_TEXTURE0);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_index);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->MeshData.id_index);
 
-		glDrawElements(GL_TRIANGLES, mesh->num_index, GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, mesh->MeshData.num_index, GL_UNSIGNED_INT, nullptr);
 
 		//TURN OFF
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

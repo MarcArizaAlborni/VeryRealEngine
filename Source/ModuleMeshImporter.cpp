@@ -40,7 +40,7 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 {
 	LOGFIX("Importing Model");
 	MeshInfo* ourMesh = new MeshInfo();
-
+	GameObject* ourGameObject = new GameObject();
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (scene != nullptr && scene->HasMeshes()) {
@@ -79,9 +79,9 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 			if (ourMesh->index != nullptr)
 				//siCalled to create an Index Buffer so we can draw multiple objects
 				App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);
-			
+			ourGameObject->MeshData = *ourMesh;
 			//Add to mesh list for when we draw each mesh
-			MeshesOnScene.push_back(ourMesh);
+			MeshesOnScene.push_back(ourGameObject);
 		}
 
 		//Free memory

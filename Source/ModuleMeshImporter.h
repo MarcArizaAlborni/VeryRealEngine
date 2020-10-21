@@ -6,17 +6,7 @@
 #include "glmath.h"
 
 // Class Mesh
-struct GameObject {
 
-	
-
-	std::string mesh_name;
-
-	bool is_Selected;
-
-	bool is_Textured;
-
-};
 
 struct MeshInfo
 {
@@ -26,13 +16,19 @@ struct MeshInfo
 	uint id_vertex = 0; // unique vertex in VRAM
 	uint num_vertex = 0;
 	float* vertex=nullptr;
-	
-	GameObject MeshData;
-
-	
 };
 
+struct GameObject {
+     
+	MeshInfo MeshData;
 
+	std::string mesh_name;
+
+	bool is_Selected;
+
+	bool is_Textured;
+
+};
 
 class ModuleMeshImporter : public Module
 {
@@ -50,7 +46,7 @@ public:
 	MeshInfo* LoadMesh(char* file_path);
 
 	//Mesh Import variables 
-	std::vector<MeshInfo*> MeshesOnScene;
+	std::vector<GameObject*> MeshesOnScene;
 
 
 	//------------ CONSOLE STUFF
