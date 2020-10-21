@@ -111,7 +111,6 @@ bool ModuleRenderer3D::Init()
 bool ModuleRenderer3D::Start()
 {
 		//App->meshimporter->LoadMesh("Assets/Models/Warrior/warrior.FBX");
-	CheckerTexture=App->textureImporter->LoadTextureCheckers();
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	return true;

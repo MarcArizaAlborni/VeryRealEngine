@@ -90,7 +90,6 @@ void ModuleGeometryLoader::DrawCube()
 void ModuleGeometryLoader::DrawPyramid()
 {
 	App->meshimporter->LoadMesh("Assets/Models/Primitives/Pyramid.FBX");
-	
 }
 
 void ModuleGeometryLoader::DrawSphere()
@@ -132,11 +131,6 @@ void ModuleGeometryLoader::DrawMesh(const GameObject* mesh)
 
 
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-
-
-		glBindTexture(GL_TEXTURE_2D, App->renderer3D->CheckerTexture);
-		//glActiveTexture(GL_TEXTURE0);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->MeshData.id_index);
 
