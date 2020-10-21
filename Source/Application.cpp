@@ -11,7 +11,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	window = new ModuleWindow(this);
 	camera = new ModuleCamera3D(this);
 	input = new ModuleInput(this );
-	hierarchy = new ModuleHierarchy(this);
+	hierarchy = new ModuleHierarchyGameObject(this);
 	editor = new ModuleEditor(this);
 	mainMenubar = new ModuleEditorMainMenuBar(this);
 	configWindow = new ModuleEditorConfiguration(this);

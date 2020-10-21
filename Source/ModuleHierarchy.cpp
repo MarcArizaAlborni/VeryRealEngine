@@ -2,18 +2,27 @@
 #include "Application.h"
 #include "ModuleHierarchy.h"
 
-ModuleHierarchy::ModuleHierarchy(Application* app, const char* name, bool start_enabled) : Module(app, name, start_enabled)
+#include "libraries/ImGUI/imgui.h"
+#include "libraries/ImGUI/imgui_internal.h"
+#include "libraries/ImGUI/imgui_impl_sdl.h"
+#include "libraries/ImGUI/imgui_impl_opengl3.h"
+
+#include "libraries/Glew/include/GL/glew.h" 
+#include "libraries/SDL/include/SDL_opengl.h"
+
+
+ModuleHierarchyGameObject::ModuleHierarchyGameObject(Application* app, const char* name, bool start_enabled) : Module(app, name, start_enabled)
 {
 	
 
 	
 }
 
-ModuleHierarchy::~ModuleHierarchy()
+ModuleHierarchyGameObject::~ModuleHierarchyGameObject()
 {}
 
 
-bool ModuleHierarchy::Start()
+bool ModuleHierarchyGameObject::Start()
 {
 	
 	
@@ -21,29 +30,37 @@ bool ModuleHierarchy::Start()
 	return true;
 }
 
-update_status ModuleHierarchy::Update(float dt)
+update_status ModuleHierarchyGameObject::Update(float dt)
 {
 
-	if (ShowHierarchyWindow == true) {
+	
 
-		HierarchyWindow();
-	}
+	
+	
 
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleHierarchy::CleanUp()
+bool ModuleHierarchyGameObject::CleanUp()
 {
 	
 
 	return true;
 }
 
-void ModuleHierarchy::HierarchyWindow()
+void ModuleHierarchyGameObject::CreateHierarchyWindow()
 {
+	if (App->mainMenubar->show_hierarchy_window) {
+		ImGui::Begin("Hierarchy",&App->mainMenubar->show_hierarchy_window);
+		
+
+
+		ImGui::End();
+
+	}
 }
 
-void ModuleHierarchy::CreateConsolelog(const char file[], int line, const char* format, ...)
+void ModuleHierarchyGameObject::CreateConsolelog(const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];
 	static char tmp_string2[4096];
