@@ -82,6 +82,9 @@
     <ClCompile Include="ModuleTextureImporter.cpp">
       <Filter>Source\Modules\Importers</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleHierarchy.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -509,6 +512,9 @@
     </ClInclude>
     <ClInclude Include="ModuleTextureImporter.h">
       <Filter>Source\Modules\Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleHierarchy.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

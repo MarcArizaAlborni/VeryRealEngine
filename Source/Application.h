@@ -22,6 +22,7 @@
 #include <vector>
 #include "libraries/json/json.hpp"
 #include "SaveAndLoad.h"
+#include "ModuleHierarchy.h"
 
 
 
@@ -45,6 +46,7 @@ public:
 	ModuleEditorMainMenuBar* mainMenubar;
 	ModuleEditorConfiguration* configWindow;
 	ModuleEditorConsole* console;
+	ModuleHierarchy* hierarchy;
 
 	//SaveLoad* LoadSaveMod;
 	

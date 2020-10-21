@@ -215,6 +215,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="ModuleCamera3D.h" />
     <ClInclude Include="ModuleEditor.h" />
+    <ClInclude Include="ModuleHierarchy.h" />
     <ClInclude Include="ModuleMeshImporter.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="ModuleTextureImporter.h" />
@@ -248,6 +249,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleEditor.cpp" />
+    <ClCompile Include="ModuleHierarchy.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleMeshImporter.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
