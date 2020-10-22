@@ -19,7 +19,7 @@ public:
 
 	void CreateHierarchyWindow();
 
-	void InspectorInfo(const char* text, int uid);
+	void InspectorInfo(std::string text, int uid);
 	//Hierarchy Window Bools
 
 	bool ShowHierarchyWindow;

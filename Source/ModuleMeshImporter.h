@@ -28,6 +28,8 @@ struct GameObject {
 
 	bool is_Textured;
 
+	int item_id;
+
 	std::vector<GameObject*> ChildObjects;
 
 };
