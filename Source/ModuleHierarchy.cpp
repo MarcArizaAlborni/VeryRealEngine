@@ -107,26 +107,33 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     ImGui::AlignTextToFramePadding();
     //ImGui::Text("my sailor is rich");
     ImGui::NextColumn();
+  
+    ImGui::SameLine(0,20.0f);
+   
+    
+    ImGui::Checkbox("Draw in Inspector", &Object->ToBeDrawInspector);
+        
+    
 
     if (node_open)
     {
 
-        App->inspector->ShowSelectedObjectInfo(Object);
-
-        std::vector<GameObject*>::iterator IteratorChild = App->meshimporter->MeshesOnScene.begin();
-
-        for (int childNum = 0; childNum < Object->ChildObjects.size(); ++childNum) {
-
-            GameObject* Mesh = *IteratorChild;
-
-            
-            //static float placeholder_members[8] = { 0.0f, 0.0f, 1.0f, 3.1416f, 100.0f, 999.0f };
-          //  for (int i = 0; i < 8; i++)
-            
+       // App->inspector->ShowSelectedObjectInfo(Object);
+        if(Object->ChildObjects.size()>0){
+            std::vector<GameObject*>::iterator IteratorChild = App->meshimporter->MeshesOnScene.begin();
+           
+            for (int childNum = 0; childNum < Object->ChildObjects.size(); ++childNum) {
+           
+                GameObject* Mesh = *IteratorChild;
+           
+           
+                //static float placeholder_members[8] = { 0.0f, 0.0f, 1.0f, 3.1416f, 100.0f, 999.0f };
+              //  for (int i = 0; i < 8; i++)
+           
                 ImGui::PushID(childNum); // Use field index as identifier.
                 if (childNum < 4)
                 {
-                    InspectorInfo(Mesh, Mesh->item_id);
+                    // InspectorInfo(Mesh, Mesh->item_id);
                 }
                 else
                 {
@@ -143,8 +150,11 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
                     ImGui::NextColumn();
                 }
                 ImGui::PopID();
-           // }
-        }
+                // }
+            }
+           
+         }
+
         ImGui::TreePop();
     }
     ImGui::PopID();

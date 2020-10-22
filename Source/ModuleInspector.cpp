@@ -44,120 +44,134 @@ bool ModuleInspectorGameObject::CleanUp()
 
 void ModuleInspectorGameObject::CreateInspectorWindow()
 {
-	if (App->mainMenubar->show_inspector_window) {
-		ImGui::Begin("Inspector", &App->mainMenubar->show_inspector_window);
+	ImGui::Begin("Inspector", &App->mainMenubar->show_inspector_window);
+	//std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
+	bool SomethingDrawn = false; // if there isnt an object in the list or if none of them
+	//has ToBeDrawInspector==true we print a message saying theres nothing to draw
+	GameObject* ItemToDraw;
+	for (std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin(); IteratorLoaded != App->meshimporter->MeshesOnScene.end(); ++IteratorLoaded) {
+		 ItemToDraw = *IteratorLoaded;
 		
-		
-		if (ObjectToBeShownInspector == NULL) {
+		if (ItemToDraw->ToBeDrawInspector==true) {
+			
 
-			
-			ImGui::SetWindowFontScale(1.5);
-			ImGui::Text("No object Selected");
-			ImGui::SetWindowFontScale(1.0);
-			
-			
-		}
-		else {
+			if (SomethingDrawn == true) {
+				ImGui::Text("");
+				ImGui::Text("");
+				
 
-			ImGui::SetWindowFontScale(1.5);
-			ImGui::Text("General Information");
-			ImGui::SetWindowFontScale(1.0);
+				ImGui::Separator();
+				ImGui::Separator();
+				ImGui::Separator();
+				ImGui::Separator();
+			}
 
 			const char* Name;
-			Name = ObjectToBeShownInspector->mesh_name.c_str();
+			Name = ItemToDraw->mesh_name.c_str();
 
-			ImGui::Text(Name = ObjectToBeShownInspector->mesh_name.c_str());
+			ImGui::Text(Name);
 
-			int ChildAmount;
-			
-			ImGui::Text("Child Amount  %d", ChildAmount = ObjectToBeShownInspector->ChildObjects.size());
+				ImGui::SetWindowFontScale(1.5);
+				ImGui::Text("General Information");
+				ImGui::SetWindowFontScale(1.0);
 
+				
 
-			ImGui::Text("Currently Textured:");
-			ImGui::SameLine(0.0f, 10.0f);
+				int ChildAmount;
 
-			if (ObjectToBeShownInspector->is_Textured == true) {
-
-				ImGui::Text("True");
-			}
-			else {
-				ImGui::Text("False");
-			}
-
-			ImGui::Text("Currently Wireframed:");
-			ImGui::SameLine(0.0f, 10.0f);
-			if (ObjectToBeShownInspector->is_Wireframed == true) {
-
-				ImGui::Text("True");
-			}
-			else {
-				ImGui::Text("False");
-			}
-
-			ImGui::Text("Item Id:");
-			ImGui::SameLine(0.0f, 10.0f);
-			ImGui::Text("%d", ObjectToBeShownInspector->item_id);
+				ImGui::Text("Child Amount  %d", ChildAmount = ItemToDraw->ChildObjects.size());
 
 
-			ImGui::Separator();
+				ImGui::Text("Currently Textured:");
+				ImGui::SameLine(0.0f, 10.0f);
 
-			ImGui::SetWindowFontScale(1.5);
-			ImGui::Text("Transformation");
-			ImGui::SetWindowFontScale(1.0);
+				if (ItemToDraw->is_Textured == true) {
 
-			ImGui::Text("Position:");
-			ImGui::SameLine(0.0f, 10.0f);
-			ImGui::Text("NO IDEA");
+					ImGui::Text("True");
+				}
+				else {
+					ImGui::Text("False");
+				}
 
-			ImGui::Text("Rotation:");
-			ImGui::SameLine(0.0f, 10.0f);
-			ImGui::Text("NO IDEA");
+				ImGui::Text("Currently Wireframed:");
+				ImGui::SameLine(0.0f, 10.0f);
+				if (ItemToDraw->is_Wireframed == true) {
 
-			ImGui::Text("Scale:");
-			ImGui::SameLine(0.0f, 10.0f);
-			ImGui::Text("NO IDEA");
+					ImGui::Text("True");
+				}
+				else {
+					ImGui::Text("False");
+				}
 
-			ImGui::Separator();
-
-			ImGui::SetWindowFontScale(1.5);
-			ImGui::Text("Mesh Information");
-			ImGui::SetWindowFontScale(1.0);
-
-			ImGui::Text("Index Amount:");
-			ImGui::SameLine(0.0f, 10.0f);
-			ImGui::Text("%d", ObjectToBeShownInspector->MeshData.num_index);
-
-			ImGui::Text("Vertex Amount:");
-			ImGui::SameLine(0.0f, 10.0f);
-			ImGui::Text("%d", ObjectToBeShownInspector->MeshData.num_vertex);
-
-			ImGui::Text("Id Index:");
-			ImGui::SameLine(0.0f, 10.0f);
-			ImGui::Text("%d", ObjectToBeShownInspector->MeshData.id_index);
-
-			ImGui::Text("Id Vertex:");
-			ImGui::SameLine(0.0f, 10.0f);
-			ImGui::Text("%d", ObjectToBeShownInspector->MeshData.id_vertex);
-
-			
-
-			ImGui::Separator();
-
-			ImGui::SetWindowFontScale(1.5);
-			ImGui::Text("Textures");
-			ImGui::SetWindowFontScale(1.0);
+				ImGui::Text("Item Id:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("%d", ItemToDraw->item_id);
 
 
+				ImGui::Separator();
 
+				ImGui::SetWindowFontScale(1.5);
+				ImGui::Text("Transformation");
+				ImGui::SetWindowFontScale(1.0);
+
+				ImGui::Text("Position:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("NO IDEA");
+
+				ImGui::Text("Rotation:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("NO IDEA");
+
+				ImGui::Text("Scale:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("NO IDEA");
+
+				ImGui::Separator();
+
+				ImGui::SetWindowFontScale(1.5);
+				ImGui::Text("Mesh Information");
+				ImGui::SetWindowFontScale(1.0);
+
+				ImGui::Text("Index Amount:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("%d", ItemToDraw->MeshData.num_index);
+
+				ImGui::Text("Vertex Amount:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("%d", ItemToDraw->MeshData.num_vertex);
+
+				ImGui::Text("Id Index:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("%d", ItemToDraw->MeshData.id_index);
+
+				ImGui::Text("Id Vertex:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("%d", ItemToDraw->MeshData.id_vertex);
+
+				ImGui::Separator();
+
+				ImGui::SetWindowFontScale(1.5);
+				ImGui::Text("Textures");
+				ImGui::SetWindowFontScale(1.0);
+
+				SomethingDrawn = true;
+
+				//++IteratorLoaded;
 
 		}
 
+	}
+
+	if (SomethingDrawn == false) {
+		
 		
 
-
-		ImGui::End();
-
+		ImGui::SetWindowFontScale(1.5);
+		ImGui::Text("No object Selected");
+		ImGui::SetWindowFontScale(1.0);
 	}
+
+	ImGui::End();
 	
 }
 

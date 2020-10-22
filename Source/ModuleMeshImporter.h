@@ -38,6 +38,8 @@ struct GameObject {
 
 	float coord_pos_mod[3];
 
+	bool ToBeDrawInspector;
+
 
 
 };
