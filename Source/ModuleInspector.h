@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "glmath.h"
 
+struct GameObject;
 class ModuleInspectorGameObject : public Module
 {
 public:
@@ -15,10 +16,12 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	//Hierarchy Window Functions
+	//Inspector Window Functions
 
 	void CreateInspectorWindow();
-	//Hierarchy Window Bools
+	void ShowSelectedObjectInfo(GameObject* object);
+	GameObject* ObjectToBeShownInspector = NULL;
+	//Inspector Window Bools
 
 	bool ShowInspectorWindow;
 

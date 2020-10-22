@@ -18,7 +18,7 @@ public:
 	//Hierarchy Window Functions
 
 	void CreateHierarchyWindow();
-
+	
 	void InspectorInfo(GameObject* Object, int uid);
 	//Hierarchy Window Bools
 

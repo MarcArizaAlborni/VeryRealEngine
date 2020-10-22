@@ -28,9 +28,13 @@ struct GameObject {
 
 	bool is_Textured; // if this mesh is currently textured
 
+	bool is_Wireframed; // if this mesh is currently using wireframe to be drawn
+
 	int item_id; // id given to each mesh to able to manage game object lists more eficiently
 
 	std::vector<GameObject*> ChildObjects; // vector of child game objects inside of a game object
+
+
 
 };
 

@@ -20,6 +20,8 @@ bool ModuleMeshImporter::Start()
 {
 	bool ret = true;
 
+	
+
 	return ret;
 }
 
@@ -76,9 +78,11 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 			App->renderer3D->GenerateVertexBuffer(ourMesh->id_vertex, ourMesh->num_vertex, ourMesh->vertex);
 
 
-			if (ourMesh->index != nullptr)
+			if (ourMesh->index != nullptr) {
 				//siCalled to create an Index Buffer so we can draw multiple objects
 				App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);
+			}
+
 			ourGameObject->MeshData = *ourMesh;
 			//Add to mesh list for when we draw each mesh
 			bool ParentFound = false;
@@ -91,7 +95,7 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 				if (meshParent->is_Selected == true) {
 					ParentFound = true;
 					AddMeshToListMeshesOnScene(ourGameObject, true, meshParent);
-					++IteratorToAddMesh;
+					count = App->meshimporter->MeshesOnScene.size();
 				}
 				else {
 					ParentFound = false;

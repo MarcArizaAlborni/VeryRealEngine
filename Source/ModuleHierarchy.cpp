@@ -110,6 +110,9 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
 
     if (node_open)
     {
+
+        App->inspector->ShowSelectedObjectInfo(Object);
+
         std::vector<GameObject*>::iterator IteratorChild = App->meshimporter->MeshesOnScene.begin();
 
         for (int childNum = 0; childNum < Object->ChildObjects.size(); ++childNum) {

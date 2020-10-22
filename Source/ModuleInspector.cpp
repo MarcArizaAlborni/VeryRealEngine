@@ -46,13 +46,115 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 {
 	if (App->mainMenubar->show_inspector_window) {
 		ImGui::Begin("Inspector", &App->mainMenubar->show_inspector_window);
+		
+		
+		if (ObjectToBeShownInspector == NULL) {
 
+			
+			ImGui::SetWindowFontScale(1.5);
+			ImGui::Text("No object Selected");
+			ImGui::SetWindowFontScale(1.0);
+			
+			
+		}
+		else {
+
+			ImGui::SetWindowFontScale(1.5);
+			ImGui::Text("General Information");
+			ImGui::SetWindowFontScale(1.0);
+
+			const char* Name;
+			Name = ObjectToBeShownInspector->mesh_name.c_str();
+
+			ImGui::Text(Name = ObjectToBeShownInspector->mesh_name.c_str());
+
+			int ChildAmount;
+			
+			ImGui::Text("Child Amount  %d", ChildAmount = ObjectToBeShownInspector->ChildObjects.size());
+
+
+			ImGui::Text("Currently Textured:");
+			ImGui::SameLine(0.0f, 10.0f);
+
+			if (ObjectToBeShownInspector->is_Textured == true) {
+
+				ImGui::Text("True");
+			}
+			else {
+				ImGui::Text("False");
+			}
+
+			ImGui::Text("Currently Wireframed:");
+			ImGui::SameLine(0.0f, 10.0f);
+			if (ObjectToBeShownInspector->is_Wireframed == true) {
+
+				ImGui::Text("True");
+			}
+			else {
+				ImGui::Text("False");
+			}
+
+			ImGui::Text("Item Id:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("%d", ObjectToBeShownInspector->item_id);
+
+
+			ImGui::Separator();
+
+			ImGui::SetWindowFontScale(1.5);
+			ImGui::Text("Transformation");
+			ImGui::SetWindowFontScale(1.0);
+
+			ImGui::Separator();
+
+			ImGui::SetWindowFontScale(1.5);
+			ImGui::Text("Mesh Information");
+			ImGui::SetWindowFontScale(1.0);
+
+			ImGui::Text("Index Amount:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("%d", ObjectToBeShownInspector->MeshData.num_index);
+
+			ImGui::Text("Vertex Amount:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("%d", ObjectToBeShownInspector->MeshData.num_vertex);
+
+			ImGui::Text("Id Index:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("%d", ObjectToBeShownInspector->MeshData.id_index);
+
+			ImGui::Text("Id Vertex:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("%d", ObjectToBeShownInspector->MeshData.id_vertex);
+
+			
+
+			ImGui::Separator();
+
+			ImGui::SetWindowFontScale(1.5);
+			ImGui::Text("Textures");
+			ImGui::SetWindowFontScale(1.0);
+
+
+
+
+		}
+
+		
 
 
 		ImGui::End();
 
 	}
 	
+}
+
+void ModuleInspectorGameObject::ShowSelectedObjectInfo(GameObject* object)
+{
+
+	// THIS ONLY COPIES INFORMATION IT DOESNT MODIFY THE OBJECT ITSELF SO LATER ON WE WILL HAVE TO CHANGE THIS TO BE ABLE TO MODIFY ITEMS FROM THE INSPECTOR
+	ObjectToBeShownInspector = object;
+
 }
 
 void ModuleInspectorGameObject::CreateConsolelog(const char file[], int line, const char* format, ...)
