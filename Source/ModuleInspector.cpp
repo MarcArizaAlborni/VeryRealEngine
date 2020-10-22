@@ -105,6 +105,18 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 			ImGui::Text("Transformation");
 			ImGui::SetWindowFontScale(1.0);
 
+			ImGui::Text("Position:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("NO IDEA");
+
+			ImGui::Text("Rotation:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("NO IDEA");
+
+			ImGui::Text("Scale:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("NO IDEA");
+
 			ImGui::Separator();
 
 			ImGui::SetWindowFontScale(1.5);
