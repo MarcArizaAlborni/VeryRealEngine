@@ -76,7 +76,7 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
             GameObject* Mesh = *IteratorLoaded;
            
 
-           InspectorInfo(Mesh->mesh_name, count);
+           InspectorInfo(Mesh, count);
 
             IteratorLoaded++;
         }
@@ -91,18 +91,18 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
 	}
 }
 
-void ModuleHierarchyGameObject::InspectorInfo(std::string text, int uid)
+void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
 {
    
     ImGui::PushID(uid);
 
     const char* prefix;
 
-    prefix=text.c_str();
+    prefix = Object->mesh_name.c_str();
 
     // Text and Tree nodes are less high than framed widgets, using AlignTextToFramePadding() we add vertical spacing to make the tree lines equal high.
     ImGui::AlignTextToFramePadding();
-    bool node_open = ImGui::TreeNode("", "%s_%u", prefix, uid);
+    bool node_open = ImGui::TreeNode("this does nothing it seems", "%s_%u", prefix, uid);
     ImGui::NextColumn();
     ImGui::AlignTextToFramePadding();
     //ImGui::Text("my sailor is rich");
@@ -110,29 +110,37 @@ void ModuleHierarchyGameObject::InspectorInfo(std::string text, int uid)
 
     if (node_open)
     {
-        static float placeholder_members[8] = { 0.0f, 0.0f, 1.0f, 3.1416f, 100.0f, 999.0f };
-        for (int i = 0; i < 8; i++)
-        {
-            ImGui::PushID(i); // Use field index as identifier.
-            if (i < 2)
-            {
-                InspectorInfo("Child", 424242);
-            }
-            else
-            {
-                // Here we use a TreeNode to highlight on hover (we could use e.g. Selectable as well)
-                ImGui::AlignTextToFramePadding();
-                ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Bullet;
-               // ImGui::TreeNodeEx("Field", flags, "Field_%d", i);
-                ImGui::NextColumn();
-                ImGui::SetNextItemWidth(-1);
-               /* if (i >= 5)
-                    ImGui::InputFloat("##value", &placeholder_members[i], 1.0f);
+        std::vector<GameObject*>::iterator IteratorChild = App->meshimporter->MeshesOnScene.begin();
+
+        for (int childNum = 0; childNum < Object->ChildObjects.size(); ++childNum) {
+
+            GameObject* Mesh = *IteratorChild;
+
+            
+            //static float placeholder_members[8] = { 0.0f, 0.0f, 1.0f, 3.1416f, 100.0f, 999.0f };
+          //  for (int i = 0; i < 8; i++)
+            
+                ImGui::PushID(childNum); // Use field index as identifier.
+                if (childNum < 4)
+                {
+                    InspectorInfo(Mesh, Mesh->item_id);
+                }
                 else
-                    ImGui::DragFloat("##value", &placeholder_members[i], 0.01f);*/
-                ImGui::NextColumn();
-            }
-            ImGui::PopID();
+                {
+                    // Here we use a TreeNode to highlight on hover (we could use e.g. Selectable as well)
+                    ImGui::AlignTextToFramePadding();
+                    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Bullet;
+                    // ImGui::TreeNodeEx("Field", flags, "Field_%d", i);
+                    ImGui::NextColumn();
+                    ImGui::SetNextItemWidth(-1);
+                    /* if (i >= 5)
+                         ImGui::InputFloat("##value", &placeholder_members[i], 1.0f);
+                     else
+                         ImGui::DragFloat("##value", &placeholder_members[i], 0.01f);*/
+                    ImGui::NextColumn();
+                }
+                ImGui::PopID();
+           // }
         }
         ImGui::TreePop();
     }

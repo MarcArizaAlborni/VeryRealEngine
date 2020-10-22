@@ -81,7 +81,29 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 				App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);
 			ourGameObject->MeshData = *ourMesh;
 			//Add to mesh list for when we draw each mesh
-			MeshesOnScene.push_back(ourGameObject);
+			bool ParentFound = false;
+			std::vector<GameObject*>::iterator IteratorToAddMesh = App->meshimporter->MeshesOnScene.begin();
+			for (int count = 0; count < MeshesOnScene.size(); ++count) {
+
+				
+				GameObject* meshParent = *IteratorToAddMesh;
+
+				if (meshParent->is_Selected == true) {
+					ParentFound = true;
+					AddMeshToListMeshesOnScene(ourGameObject, true, meshParent);
+					++IteratorToAddMesh;
+				}
+				else {
+					ParentFound = false;
+					++IteratorToAddMesh;
+
+				}
+			}
+
+			
+			if (ParentFound == false) {
+				AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
+			}
 		}
 
 		//Free memory
@@ -89,6 +111,37 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 	}
 
 	return ourMesh;
+}
+
+void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent)
+{
+	if (isChildfrom == true && parent !=NULL) {
+		
+			std::vector<GameObject*>::iterator IteratorToAdd = App->meshimporter->MeshesOnScene.begin();
+			for (int count = 0; count < MeshesOnScene.size(); ++count) {
+
+				GameObject* parentObj = *IteratorToAdd;
+				if (parent->item_id == parentObj->item_id) {
+
+					parentObj->ChildObjects.push_back(Object);
+				}
+			}
+	}
+	else {
+		int size = MeshesOnScene.size();
+
+		Object->item_id = size;
+
+		Object->is_Selected = false;
+		Object->is_Textured = false;
+		
+		
+
+		MeshesOnScene.push_back(Object);
+	}
+
+
+
 }
 
 void ModuleMeshImporter::CreateConsolelog(const char file[], int line, const char* format, ...)

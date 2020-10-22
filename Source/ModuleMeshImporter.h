@@ -20,17 +20,17 @@ struct MeshInfo
 
 struct GameObject {
      
-	MeshInfo MeshData;
+	MeshInfo MeshData; //Information about vertex and index related to the mesh
 
-	std::string mesh_name;
+	std::string mesh_name; // Name given to the mesh that will be shown in the engine to the user
 
-	bool is_Selected;
+	bool is_Selected; // if this mesh is currently selected 
 
-	bool is_Textured;
+	bool is_Textured; // if this mesh is currently textured
 
-	int item_id;
+	int item_id; // id given to each mesh to able to manage game object lists more eficiently
 
-	std::vector<GameObject*> ChildObjects;
+	std::vector<GameObject*> ChildObjects; // vector of child game objects inside of a game object
 
 };
 
@@ -46,11 +46,18 @@ public:
 
 public:
 
+	// LIST MESH STUFF
+
 	//Mesh Import functions 
 	MeshInfo* LoadMesh(char* file_path);
 
-	//Mesh Import variables 
+	//List of meshes active
 	std::vector<GameObject*> MeshesOnScene;
+	
+	// Add a mesh to the list
+
+	//Object to add, if its a child and who is the parent
+	void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent);
 
 
 	//------------ CONSOLE STUFF
