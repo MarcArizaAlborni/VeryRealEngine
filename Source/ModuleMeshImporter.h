@@ -16,6 +16,8 @@ struct MeshInfo
 	uint id_vertex = 0; // unique vertex in VRAM
 	uint num_vertex = 0;
 	float* vertex=nullptr;
+
+	
 };
 
 struct GameObject {
@@ -33,6 +35,8 @@ struct GameObject {
 	int item_id; // id given to each mesh to able to manage game object lists more eficiently
 
 	std::vector<GameObject*> ChildObjects; // vector of child game objects inside of a game object
+
+	float coord_pos_mod[3];
 
 
 

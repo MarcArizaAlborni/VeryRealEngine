@@ -23,7 +23,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 
 	LoadSave = new LoadSaveMod(this);
 
-	geometryloader = new ModuleGeometryLoader(this);
+	geometrymanager = new ModuleGeometryManager(this);
 	renderer3D = new ModuleRenderer3D(this);
 	
 	// The order of calls is very important!
@@ -47,7 +47,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	AddModule(LoadSave);
 	
 	AddModule(renderer3D);
-	AddModule(geometryloader);
+	AddModule(geometrymanager);
 	
 }
 

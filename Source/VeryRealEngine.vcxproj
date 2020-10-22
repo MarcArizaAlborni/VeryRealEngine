@@ -89,7 +89,7 @@
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="ModuleEditorConfiguration.h" />
     <ClInclude Include="ModuleEditorConsole.h" />
-    <ClInclude Include="ModuleGeometryLoader.h" />
+    <ClInclude Include="ModuleGeometryManager.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GoodClass.h" />
@@ -236,7 +236,7 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="ModuleEditorConfiguration.cpp" />
     <ClCompile Include="ModuleEditorConsole.cpp" />
-    <ClCompile Include="ModuleGeometryLoader.cpp" />
+    <ClCompile Include="ModuleGeometryManager.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="GoodClass.cpp" />
     <ClCompile Include="libraries\ImGui\imgui.cpp" />

@@ -49,6 +49,8 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 
 		int MESH_TOTAL_AMOUNT = scene->mNumMeshes;
 
+
+
 		for (int i = 0; i < MESH_TOTAL_AMOUNT; ++i) {
 
 			aiMesh* MeshToLoad = scene->mMeshes[i];
@@ -57,6 +59,12 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 			ourMesh->vertex = new float[ourMesh->num_vertex * 3];
 			memcpy(ourMesh->vertex, MeshToLoad->mVertices, sizeof(float) * ourMesh->num_vertex * 3);
 
+			/*ourGameObject->MeshData.mesh_values = MeshToLoad;
+
+			if (file_path == "Assets/Models/Primitives/Pyramid.FBX") {
+				aiVector3D coords = { 0,0,0 };
+				ourGameObject->MeshData.mesh_values->mVertices = 0;
+			}*/
 
 			if (MeshToLoad->HasFaces()) {
 
