@@ -66,14 +66,10 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::Separator();
 			}
 
-			ImGui::SetWindowFontScale(1.5);
 			const char* Name;
 			Name = ItemToDraw->mesh_name.c_str();
-			//ImGui::Text(Name);
-			ImGui::TextColored({ 255,255,0,1 },Name);
-			ImGui::SetWindowFontScale(1.0);
 
-			
+			ImGui::Text(Name);
 
 				ImGui::SetWindowFontScale(1.5);
 				ImGui::Text("General Information");

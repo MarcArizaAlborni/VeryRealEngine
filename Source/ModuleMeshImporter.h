@@ -68,10 +68,6 @@ public:
 
 	//Object to add, if its a child and who is the parent
 	void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent);
-	
-private:
-	
-public:
 
 
 	//------------ CONSOLE STUFF

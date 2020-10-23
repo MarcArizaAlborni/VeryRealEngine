@@ -127,14 +127,11 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 
 void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent)
 {
-	int NameCount= App->meshimporter->MeshesOnScene.size() + 1;
-
 	if (isChildfrom == true && parent !=NULL) {
-		
 		
 			std::vector<GameObject*>::iterator IteratorToAdd = App->meshimporter->MeshesOnScene.begin();
 			for (int count = 0; count < MeshesOnScene.size(); ++count) {
-				
+
 				GameObject* parentObj = *IteratorToAdd;
 				if (parent->item_id == parentObj->item_id) {
 
@@ -143,15 +140,6 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 			}
 	}
 	else {
-
-		std::string NameToAdd = std::to_string(NameCount);
-		
-		/*const char* NameToAdd= ("Object", "_%u", NameCount);*/
-
-		Object->mesh_name = ("Object_") + NameToAdd;
-
-
-		
 		int size = MeshesOnScene.size();
 
 		Object->item_id = size;
@@ -159,6 +147,8 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 		Object->is_Selected = false;
 		Object->is_Textured = false;
 		
+		
+
 		MeshesOnScene.push_back(Object);
 	}
 
