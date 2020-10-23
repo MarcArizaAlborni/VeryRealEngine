@@ -87,6 +87,14 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Definitions.h" />
+    <ClInclude Include="libraries\DevIL\include\config.h" />
+    <ClInclude Include="libraries\DevIL\include\devil_internal_exports.h" />
+    <ClInclude Include="libraries\DevIL\include\il.h" />
+    <ClInclude Include="libraries\DevIL\include\ilu.h" />
+    <ClInclude Include="libraries\DevIL\include\ilut.h" />
+    <ClInclude Include="libraries\DevIL\include\ilut_config.h" />
+    <ClInclude Include="libraries\DevIL\include\ilu_region.h" />
+    <ClInclude Include="libraries\DevIL\include\il_wrap.h" />
     <ClInclude Include="ModuleEditorConfiguration.h" />
     <ClInclude Include="ModuleEditorConsole.h" />
     <ClInclude Include="ModuleGeometryManager.h" />
@@ -271,6 +279,7 @@
     <None Include="libraries\Assimp\Assimp\include\quaternion.inl" />
     <None Include="libraries\Assimp\Assimp\include\vector2.inl" />
     <None Include="libraries\Assimp\Assimp\include\vector3.inl" />
+    <None Include="libraries\DevIL\include\config.h.win" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,6 +17,10 @@ struct MeshInfo
 	uint num_vertex = 0;
 	float* vertex=nullptr;
 
+	float* texcoords = nullptr;
+	uint num_texcoords = 0;
+	uint texcoords_id = 0;
+
 	
 };
 

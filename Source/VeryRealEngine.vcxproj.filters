@@ -522,6 +522,30 @@
     <ClInclude Include="ModuleGeometryManager.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="libraries\DevIL\include\config.h">
+      <Filter>Source\External Libraries\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\DevIL\include\devil_internal_exports.h">
+      <Filter>Source\External Libraries\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\DevIL\include\il.h">
+      <Filter>Source\External Libraries\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\DevIL\include\il_wrap.h">
+      <Filter>Source\External Libraries\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\DevIL\include\ilu.h">
+      <Filter>Source\External Libraries\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\DevIL\include\ilu_region.h">
+      <Filter>Source\External Libraries\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\DevIL\include\ilut.h">
+      <Filter>Source\External Libraries\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\DevIL\include\ilut_config.h">
+      <Filter>Source\External Libraries\Devil</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -575,6 +599,9 @@
     <Filter Include="Source\Modules\GameObjects">
       <UniqueIdentifier>{27439aec-a8d4-4e96-bb1e-14f52d6533dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\External Libraries\Devil">
+      <UniqueIdentifier>{366b7c83-a60d-4d80-84b7-f9093efbd506}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="libraries\Assimp\Assimp\include\.editorconfig">
@@ -600,6 +627,9 @@
     </None>
     <None Include="libraries\Assimp\Assimp\include\vector3.inl">
       <Filter>Source\External Libraries\Assimp</Filter>
+    </None>
+    <None Include="libraries\DevIL\include\config.h.win">
+      <Filter>Source\External Libraries\Devil</Filter>
     </None>
   </ItemGroup>
 </Project>

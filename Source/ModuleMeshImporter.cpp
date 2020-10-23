@@ -7,6 +7,10 @@
 #include "libraries/Assimp/Assimp/include/postprocess.h"
 #pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
 
+#include "libraries/Glew/include/GL/glew.h"
+
+#include <gl/GLU.h>
+
 ModuleMeshImporter::ModuleMeshImporter(Application* app, const char* name, bool start_enabled) : Module(app,"Importer", start_enabled)
 {
 
@@ -81,6 +85,19 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 
 				}
 
+			}
+
+			if (MeshToLoad->HasTextureCoords(0))
+			{
+				ourMesh->num_texcoords = MeshToLoad->mNumVertices;
+				ourMesh->texcoords = new float[ourMesh->num_texcoords * 3];
+
+				memcpy(ourMesh->texcoords, MeshToLoad->mTextureCoords[0], sizeof(float) * ourMesh->num_texcoords * 3);
+
+				glGenBuffers(1, (GLuint*)&ourMesh->texcoords_id);
+				glBindBuffer(GL_ARRAY_BUFFER, ourMesh->texcoords_id);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * ourMesh->num_texcoords * 3, ourMesh->texcoords, GL_STATIC_DRAW);
+				glBindBuffer(GL_ARRAY_BUFFER, 0);
 			}
 			//CALLED TO CREATE A VERTEX BUFFER SO WE CAN DRAW MULTIPLE OBJECTS
 			App->renderer3D->GenerateVertexBuffer(ourMesh->id_vertex, ourMesh->num_vertex, ourMesh->vertex);
