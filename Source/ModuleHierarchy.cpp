@@ -102,7 +102,7 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
 
     // Text and Tree nodes are less high than framed widgets, using AlignTextToFramePadding() we add vertical spacing to make the tree lines equal high.
     ImGui::AlignTextToFramePadding();
-    bool node_open = ImGui::TreeNode("this does nothing it seems", "%s_%u", prefix, uid);
+    bool node_open = ImGui::TreeNode("this does nothing it seems", "%s", prefix, uid);
     ImGui::NextColumn();
     ImGui::AlignTextToFramePadding();
     //ImGui::Text("my sailor is rich");
