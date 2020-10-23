@@ -120,8 +120,6 @@ void ModuleGeometryLoader::DrawMesh(const GameObject* mesh)
 
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.id_vertex);
 
-
-
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->MeshData.id_index);

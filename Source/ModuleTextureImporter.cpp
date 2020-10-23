@@ -21,10 +21,23 @@ ModuleTextureImporter::ModuleTextureImporter(Application* app, const char* name,
 ModuleTextureImporter::~ModuleTextureImporter()
 {}
 
-
-uint ModuleTextureImporter::LoadTextureCheckers()
+TextureInfo::TextureInfo(uint id, uint w, uint h)
 {
-	uint TextureValue;
+	texture_id = id;
+	width = w;
+	height = h;
+}
+TextureInfo::TextureInfo(uint id, uint w, uint h, std::string name_)
+{
+	texture_id = id;
+	width = w;
+	height = h;
+	tex_name = name_;
+}
+
+bool ModuleTextureImporter::LoadTextureCheckers()
+{
+	
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
 		for (int j = 0; j < CHECKERS_WIDTH; j++) {
@@ -36,9 +49,22 @@ uint ModuleTextureImporter::LoadTextureCheckers()
 		}
 	}
 
-	TextureValue = SetUpTexture(checkerImage, CHECKERS_WIDTH, CHECKERS_HEIGHT, GL_RGBA, GL_RGBA, GL_TEXTURE_2D, GL_NEAREST, GL_REPEAT, true);
+	/*TextureValue = SetUpTexture(checkerImage, CHECKERS_WIDTH, CHECKERS_HEIGHT, GL_RGBA, GL_RGBA, GL_TEXTURE_2D, GL_NEAREST, GL_REPEAT, true);*/
+	uint TextureValue = 0;
 
-	return TextureValue;
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &TextureValue);
+	glBindTexture(GL_TEXTURE_2D, TextureValue);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);
+
+	checkers_texture = new TextureInfo(TextureValue, CHECKERS_WIDTH, CHECKERS_HEIGHT, "Checkers");
+
+	return true;
 }
 
 void ModuleTextureImporter::ImportTexture()
@@ -75,9 +101,6 @@ uint ModuleTextureImporter::SetUpTexture(const void* ImageInfo, int TexWidth, in
 }
 
 
-
-
-
 void ModuleTextureImporter::CreateConsolelog(const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];
@@ -93,21 +116,5 @@ void ModuleTextureImporter::CreateConsolelog(const char file[], int line, const 
 
 
 	App->console->ConsoleLogs.push_back(tmp_string2);
-}
-
-bool LoadTexturesCheckers()
-{
-	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
-	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
-		for (int j = 0; j < CHECKERS_WIDTH; j++) {
-			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-			checkerImage[i][j][0] = (GLubyte)c;
-			checkerImage[i][j][1] = (GLubyte)c;
-			checkerImage[i][j][2] = (GLubyte)c;
-			checkerImage[i][j][3] = (GLubyte)255;
-		}
-	}
-
-	return true;
 }
 
