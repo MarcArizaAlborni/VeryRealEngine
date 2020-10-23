@@ -21,19 +21,6 @@ ModuleTextureImporter::ModuleTextureImporter(Application* app, const char* name,
 ModuleTextureImporter::~ModuleTextureImporter()
 {}
 
-TextureInfo::TextureInfo(uint id, uint w, uint h)
-{
-	texture_id = id;
-	width = w;
-	height = h;
-}
-TextureInfo::TextureInfo(uint id, uint w, uint h, std::string name_)
-{
-	texture_id = id;
-	width = w;
-	height = h;
-	tex_name = name_;
-}
 
 bool ModuleTextureImporter::LoadTextureCheckers()
 {
@@ -61,8 +48,6 @@ bool ModuleTextureImporter::LoadTextureCheckers()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
 		0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);
-
-	checkers_texture = new TextureInfo(TextureValue, CHECKERS_WIDTH, CHECKERS_HEIGHT, "Checkers");
 
 	return true;
 }
