@@ -20,6 +20,8 @@ bool ModuleMeshImporter::Start()
 {
 	bool ret = true;
 
+	
+
 	return ret;
 }
 
@@ -47,6 +49,8 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 
 		int MESH_TOTAL_AMOUNT = scene->mNumMeshes;
 
+
+
 		for (int i = 0; i < MESH_TOTAL_AMOUNT; ++i) {
 
 			aiMesh* MeshToLoad = scene->mMeshes[i];
@@ -55,6 +59,12 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 			ourMesh->vertex = new float[ourMesh->num_vertex * 3];
 			memcpy(ourMesh->vertex, MeshToLoad->mVertices, sizeof(float) * ourMesh->num_vertex * 3);
 
+			/*ourGameObject->MeshData.mesh_values = MeshToLoad;
+
+			if (file_path == "Assets/Models/Primitives/Pyramid.FBX") {
+				aiVector3D coords = { 0,0,0 };
+				ourGameObject->MeshData.mesh_values->mVertices = 0;
+			}*/
 
 			if (MeshToLoad->HasFaces()) {
 
@@ -76,12 +86,36 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 			App->renderer3D->GenerateVertexBuffer(ourMesh->id_vertex, ourMesh->num_vertex, ourMesh->vertex);
 
 
-			if (ourMesh->index != nullptr)
+			if (ourMesh->index != nullptr) {
 				//siCalled to create an Index Buffer so we can draw multiple objects
 				App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);
+			}
+
 			ourGameObject->MeshData = *ourMesh;
 			//Add to mesh list for when we draw each mesh
-			MeshesOnScene.push_back(ourGameObject);
+			bool ParentFound = false;
+			std::vector<GameObject*>::iterator IteratorToAddMesh = App->meshimporter->MeshesOnScene.begin();
+			for (int count = 0; count < MeshesOnScene.size(); ++count) {
+
+				
+				GameObject* meshParent = *IteratorToAddMesh;
+
+				if (meshParent->is_Selected == true) {
+					ParentFound = true;
+					AddMeshToListMeshesOnScene(ourGameObject, true, meshParent);
+					count = App->meshimporter->MeshesOnScene.size();
+				}
+				else {
+					ParentFound = false;
+					++IteratorToAddMesh;
+
+				}
+			}
+
+			
+			if (ParentFound == false) {
+				AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
+			}
 		}
 
 		//Free memory
@@ -89,6 +123,47 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 	}
 
 	return ourMesh;
+}
+
+void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent)
+{
+	int NameCount= App->meshimporter->MeshesOnScene.size() + 1;
+
+	if (isChildfrom == true && parent !=NULL) {
+		
+		
+			std::vector<GameObject*>::iterator IteratorToAdd = App->meshimporter->MeshesOnScene.begin();
+			for (int count = 0; count < MeshesOnScene.size(); ++count) {
+				
+				GameObject* parentObj = *IteratorToAdd;
+				if (parent->item_id == parentObj->item_id) {
+
+					parentObj->ChildObjects.push_back(Object);
+				}
+			}
+	}
+	else {
+
+		std::string NameToAdd = std::to_string(NameCount);
+		
+		/*const char* NameToAdd= ("Object", "_%u", NameCount);*/
+
+		Object->mesh_name = ("Object_") + NameToAdd;
+
+
+		
+		int size = MeshesOnScene.size();
+
+		Object->item_id = size;
+
+		Object->is_Selected = false;
+		Object->is_Textured = false;
+		
+		MeshesOnScene.push_back(Object);
+	}
+
+
+
 }
 
 void ModuleMeshImporter::CreateConsolelog(const char file[], int line, const char* format, ...)

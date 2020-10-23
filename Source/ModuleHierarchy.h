@@ -18,8 +18,8 @@ public:
 	//Hierarchy Window Functions
 
 	void CreateHierarchyWindow();
-
-	void InspectorInfo(std::string text, int uid);
+	
+	void InspectorInfo(GameObject* Object, int uid);
 	//Hierarchy Window Bools
 
 	bool ShowHierarchyWindow;

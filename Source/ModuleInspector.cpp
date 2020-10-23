@@ -44,15 +44,147 @@ bool ModuleInspectorGameObject::CleanUp()
 
 void ModuleInspectorGameObject::CreateInspectorWindow()
 {
-	if (App->mainMenubar->show_inspector_window) {
-		ImGui::Begin("Inspector", &App->mainMenubar->show_inspector_window);
+	ImGui::Begin("Inspector", &App->mainMenubar->show_inspector_window);
+	//std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
+	bool SomethingDrawn = false; // if there isnt an object in the list or if none of them
+	//has ToBeDrawInspector==true we print a message saying theres nothing to draw
+	GameObject* ItemToDraw;
+	for (std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin(); IteratorLoaded != App->meshimporter->MeshesOnScene.end(); ++IteratorLoaded) {
+		 ItemToDraw = *IteratorLoaded;
+		
+		if (ItemToDraw->ToBeDrawInspector==true) {
+			
+
+			if (SomethingDrawn == true) {
+				ImGui::Text("");
+				ImGui::Text("");
+				
+
+				ImGui::Separator();
+				ImGui::Separator();
+				ImGui::Separator();
+				ImGui::Separator();
+			}
+
+			ImGui::SetWindowFontScale(1.5);
+			const char* Name;
+			Name = ItemToDraw->mesh_name.c_str();
+			//ImGui::Text(Name);
+			ImGui::TextColored({ 255,255,0,1 },Name);
+			ImGui::SetWindowFontScale(1.0);
+
+			
+
+				ImGui::SetWindowFontScale(1.5);
+				ImGui::Text("General Information");
+				ImGui::SetWindowFontScale(1.0);
+
+				
+
+				int ChildAmount;
+
+				ImGui::Text("Child Amount  %d", ChildAmount = ItemToDraw->ChildObjects.size());
 
 
+				ImGui::Text("Currently Textured:");
+				ImGui::SameLine(0.0f, 10.0f);
 
-		ImGui::End();
+				if (ItemToDraw->is_Textured == true) {
+
+					ImGui::Text("True");
+				}
+				else {
+					ImGui::Text("False");
+				}
+
+				ImGui::Text("Currently Wireframed:");
+				ImGui::SameLine(0.0f, 10.0f);
+				if (ItemToDraw->is_Wireframed == true) {
+
+					ImGui::Text("True");
+				}
+				else {
+					ImGui::Text("False");
+				}
+
+				ImGui::Text("Item Id:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("%d", ItemToDraw->item_id);
+
+
+				ImGui::Separator();
+
+				ImGui::SetWindowFontScale(1.5);
+				ImGui::Text("Transformation");
+				ImGui::SetWindowFontScale(1.0);
+
+				ImGui::Text("Position:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("NO IDEA");
+
+				ImGui::Text("Rotation:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("NO IDEA");
+
+				ImGui::Text("Scale:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("NO IDEA");
+
+				ImGui::Separator();
+
+				ImGui::SetWindowFontScale(1.5);
+				ImGui::Text("Mesh Information");
+				ImGui::SetWindowFontScale(1.0);
+
+				ImGui::Text("Index Amount:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("%d", ItemToDraw->MeshData.num_index);
+
+				ImGui::Text("Vertex Amount:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("%d", ItemToDraw->MeshData.num_vertex);
+
+				ImGui::Text("Id Index:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("%d", ItemToDraw->MeshData.id_index);
+
+				ImGui::Text("Id Vertex:");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("%d", ItemToDraw->MeshData.id_vertex);
+
+				ImGui::Separator();
+
+				ImGui::SetWindowFontScale(1.5);
+				ImGui::Text("Textures");
+				ImGui::SetWindowFontScale(1.0);
+
+				SomethingDrawn = true;
+
+				//++IteratorLoaded;
+
+		}
 
 	}
+
+	if (SomethingDrawn == false) {
+		
+		
+
+		ImGui::SetWindowFontScale(1.5);
+		ImGui::Text("No object Selected");
+		ImGui::SetWindowFontScale(1.0);
+	}
+
+	ImGui::End();
 	
+}
+
+void ModuleInspectorGameObject::ShowSelectedObjectInfo(GameObject* object)
+{
+
+	// THIS ONLY COPIES INFORMATION IT DOESNT MODIFY THE OBJECT ITSELF SO LATER ON WE WILL HAVE TO CHANGE THIS TO BE ABLE TO MODIFY ITEMS FROM THE INSPECTOR
+	ObjectToBeShownInspector = object;
+
 }
 
 void ModuleInspectorGameObject::CreateConsolelog(const char file[], int line, const char* format, ...)

@@ -121,31 +121,31 @@ update_status ModuleEditor::PostUpdate(float dt)
 
 	if (App->mainMenubar->drawplane)
 	{
-		App->geometryloader->DrawPlane();
+		App->geometrymanager->DrawPlane();
 		App->mainMenubar->drawplane = false;
 	}
 
 	if (App->mainMenubar->drawcube)
 	{
-		App->geometryloader->DrawCube();
+		App->geometrymanager->DrawCube();
 		App->mainMenubar->drawcube = false;
 	}
 
 	if (App->mainMenubar->drawpyramid)
 	{
-		App->geometryloader->DrawPyramid();
+		App->geometrymanager->DrawPyramid();
 		App->mainMenubar->drawpyramid = false;
 	}
 
 	if (App->mainMenubar->drawcylinder)
 	{
-		App->geometryloader->DrawCylinder();
+		App->geometrymanager->DrawCylinder();
 		App->mainMenubar->drawcylinder = false;
 	}
 
 	if (App->mainMenubar->drawsphere)
 	{
-		App->geometryloader->DrawSphere();
+		App->geometrymanager->DrawSphere();
 		App->mainMenubar->drawsphere = false;
 	}
 

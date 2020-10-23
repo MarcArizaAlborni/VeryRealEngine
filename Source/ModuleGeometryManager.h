@@ -12,11 +12,11 @@
 struct MeshInfo;
 struct GameObject;
 
-class ModuleGeometryLoader : public Module
+class ModuleGeometryManager : public Module
 {
 public:
-	ModuleGeometryLoader(Application* app, const char* name = "null", bool start_enabled = true);
-	~ModuleGeometryLoader();
+	ModuleGeometryManager(Application* app, const char* name = "null", bool start_enabled = true);
+	~ModuleGeometryManager();
 
 	bool Init();
 	bool Start();

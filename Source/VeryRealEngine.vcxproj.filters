@@ -67,9 +67,6 @@
     <ClCompile Include="ModuleMeshImporter.cpp">
       <Filter>Source\Modules\Importers</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleGeometryLoader.cpp">
-      <Filter>Source\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleEditorConfiguration.cpp">
       <Filter>Source\Windows &amp; Menus</Filter>
     </ClCompile>
@@ -87,6 +84,9 @@
     </ClCompile>
     <ClCompile Include="ModuleInspector.cpp">
       <Filter>Source\Modules\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleGeometryManager.cpp">
+      <Filter>Source\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -501,9 +501,6 @@
     <ClInclude Include="ModuleMeshImporter.h">
       <Filter>Source\Modules\Importers</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleGeometryLoader.h">
-      <Filter>Source\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleEditorConfiguration.h">
       <Filter>Source\Windows &amp; Menus</Filter>
     </ClInclude>
@@ -521,6 +518,9 @@
     </ClInclude>
     <ClInclude Include="ModuleInspector.h">
       <Filter>Source\Modules\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleGeometryManager.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

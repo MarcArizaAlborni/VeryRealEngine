@@ -14,7 +14,7 @@
 #include "ModuleEditorConfiguration.h"
 #include "ModuleEditorConsole.h"
 #include "ModuleRenderer3D.h"
-#include "ModuleGeometryLoader.h"
+#include "ModuleGeometryManager.h"
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
 #include "ModuleTextureImporter.h"
@@ -41,7 +41,7 @@ public:
 	ModuleTextureImporter* textureImporter;
 	ModuleMeshImporter* meshimporter;
 	LoadSaveMod* LoadSave;
-	ModuleGeometryLoader* geometryloader;
+	ModuleGeometryManager* geometrymanager;
 
 	//Windows & Menus
 	ModuleEditorMainMenuBar* mainMenubar;
