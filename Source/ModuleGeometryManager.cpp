@@ -49,7 +49,9 @@ update_status ModuleGeometryManager::Update(float dt)
 	std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
 	for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 
-		DrawMesh(*IteratorLoaded);
+		//right now we only load the house texture
+		DrawTextureOnMesh(*IteratorLoaded,App->textureImporter->mTextureID);
+		//DrawMesh(*IteratorLoaded);
 
 		IteratorLoaded++;
 	}
@@ -102,37 +104,22 @@ void ModuleGeometryManager::DrawPlane()
 // Draw mesh with vertex and index
 void ModuleGeometryManager::DrawMesh(const GameObject* mesh)
 {
-	//You need to know the model geometry too if you want to calculate some kind of geometric center.
-	//For example calculating the bounding box center: loop through all untransformed vertices and find minimal and maximal X,Y,Z values.
-	//Their averages will define the bounding box center. Then you can apply the position and scale transformation to this point, and you get the transformed center.
 	
-	if (mesh->MeshData.index != nullptr) {
+	glEnableClientState(GL_VERTEX_ARRAY);
 
-		glPushMatrix();
-		//glScalef(0.5,0.5,0.5);
-		//glRotatef(90, -1.0, 0.0, 0.0);
-		//glRotatef(45, 0.0, 0.0, 1.0);
-		glTranslatef(-20.0, 0.0, 0.0);
+	//Bind buffers
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.id_vertex);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->MeshData.id_index);
 
+	//Draw
+	glDrawElements(GL_TRIANGLES, mesh->MeshData.num_index, GL_UNSIGNED_INT, nullptr);
 
-		//Bind buffers
-		glEnableClientState(GL_VERTEX_ARRAY);
+	//Unbind buffers
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.id_vertex);
-
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->MeshData.id_index);
-
-		glDrawElements(GL_TRIANGLES, mesh->MeshData.num_index, GL_UNSIGNED_INT, nullptr);
-
-		//TURN OFF
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		glDisableClientState(GL_VERTEX_ARRAY);
-
-		glPopMatrix();
-	}
+	glDisableClientState(GL_VERTEX_ARRAY);
 
 	//if (mesh->MeshData.index != nullptr) {
 
@@ -170,6 +157,27 @@ void ModuleGeometryManager::DrawMesh(const GameObject* mesh)
 
 	//	glPopMatrix();
 	//}
+}
+
+void ModuleGeometryManager::DrawTextureOnMesh(const GameObject* mesh, const uint texture_id)
+{
+	//CAREFULL IF THERE ISNT A TEXTURE LOADED IT CAN CRASH
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	//Bind Buffers
+	glBindTexture(GL_TEXTURE_2D, texture_id); // Texture
+	glActiveTexture(GL_TEXTURE0);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id); // Texture Coordinates
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+
+	//Draw
+	DrawMesh(mesh); // Once we have binded the necessary stuff for textured rendering, we render
+
+	//Unbind Buffers
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 void ModuleGeometryManager::CreateConsolelog(const char file[], int line, const char* format, ...)

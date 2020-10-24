@@ -36,6 +36,7 @@ public:
 
 	//Meshes
 	void DrawMesh(const GameObject* mesh);
+	void DrawTextureOnMesh(const GameObject* mesh, const uint texture_id = 0);
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
