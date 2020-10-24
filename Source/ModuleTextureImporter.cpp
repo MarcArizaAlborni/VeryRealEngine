@@ -10,6 +10,15 @@
 
 #include <gl/GLU.h>
 
+#include "libraries/DevIL/include/il.h"
+#include "libraries/DevIL/include/ilu.h"
+#include "libraries/DevIL/include/ilut.h"
+
+// Include DevIL libs
+#pragma comment (lib, "libraries/DevIL/libx86/DevIL.lib")
+#pragma comment (lib, "libraries/DevIL/libx86/ILU.lib")
+#pragma comment (lib, "libraries/DevIL/libx86/ILUT.lib")
+
 #define CHECKERS_WIDTH 64
 #define CHECKERS_HEIGHT 64
 
@@ -52,37 +61,136 @@ bool ModuleTextureImporter::LoadTextureCheckers()
 	return true;
 }
 
+bool ModuleTextureImporter::LoadTexture(const char* path)
+{
+
+	ilInit();
+	iluInit();
+	ilutInit();
+	//Texture loading success
+	bool textureLoaded = false;
+
+	//Generate and set current image ID
+	ILuint imgID = 0;
+	ilGenImages(1, &imgID);
+	ilBindImage(imgID);
+
+	std::string PathStr;
+	PathStr = path;
+	
+
+	//Load image
+	ILboolean success = ilLoadImage(PathStr.c_str());
+
+	//Image loaded successfully
+	if (success == IL_TRUE)
+	{
+		//Convert image to RGBA
+		success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+		if (success == IL_TRUE)
+		{
+			//Create texture from file pixels
+			textureLoaded = loadTextureFromPixels32((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT));
+		}
+
+		//Delete file from memory
+		ilDeleteImages(1, &imgID);
+	}
+
+	//Report error
+	if (!textureLoaded)
+	{
+		printf("Unable to load %s\n", PathStr.c_str());
+	}
+
+	return textureLoaded;
+	
+}
+
+bool ModuleTextureImporter::loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height)
+{
+	//Free texture if it exists
+	freeTexture();
+
+	//Get texture dimensions
+	mTextureWidth = width;
+	mTextureHeight = height;
+
+	//Generate texture ID
+	glGenTextures(1, &mTextureID);
+
+	//Bind texture ID
+	glBindTexture(GL_TEXTURE_2D, mTextureID);
+
+	//Generate texture
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+	//Set texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	//Unbind texture
+	glBindTexture(GL_TEXTURE_2D, NULL);
+
+	//Check for error
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		printf("Error loading texture from %p pixels! %s\n", pixels, gluErrorString(error));
+		return false;
+	}
+
+	return true;
+	
+}
+
+
 void ModuleTextureImporter::ImportTexture()
 {
+	
 }
 
 uint ModuleTextureImporter::SetUpTexture(const void* ImageInfo, int TexWidth, int TexHeight, int Border, int intFormat, uint format, uint Target, int FilterTypus, int WrapType)
 {
-	GLuint Texture_Id;
-	std::string FilterType; // GL_NEAREST and GL_LINEAR no implementation for mipmaps yet so these two are the only choices
-	std::string TextureType = "2D";
+	//GLuint Texture_Id;
+	//std::string FilterType; // GL_NEAREST and GL_LINEAR no implementation for mipmaps yet so these two are the only choices
+	//std::string TextureType = "2D";
 
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &Texture_Id);
-	glBindTexture(Target, Texture_Id);
-	glTexParameteri(Target, GL_TEXTURE_WRAP_S, FilterTypus);
-	glTexParameteri(Target, GL_TEXTURE_WRAP_T, FilterTypus);
+	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	//glGenTextures(1, &Texture_Id);
+	//glBindTexture(Target, Texture_Id);
+	//glTexParameteri(Target, GL_TEXTURE_WRAP_S, FilterTypus);
+	//glTexParameteri(Target, GL_TEXTURE_WRAP_T, FilterTypus);
 
-	if (FilterTypus == GL_LINEAR) {
-		FilterType.assign("Linear");
-		glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	//if (FilterTypus == GL_LINEAR) {
+	//	FilterType.assign("Linear");
+	//	glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//	glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
+	//}
+	//else if (FilterTypus == GL_NEAREST) {
+	//	FilterType.assign("Nearest");
+ //       glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+ //       glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	//	
+	//}
+	//glTexImage2D(Target, 0, intFormat, TexWidth, TexHeight, 0, format, GL_UNSIGNED_BYTE, ImageInfo);
+	//glBindTexture(Target, 0);
+	//return Texture_Id;
+	return 1;
+}
+
+void ModuleTextureImporter::freeTexture()
+{
+	//Delete texture
+	if (mTextureID != 0)
+	{
+		glDeleteTextures(1, &mTextureID);
+		mTextureID = 0;
 	}
-	else if (FilterTypus == GL_NEAREST) {
-		FilterType.assign("Nearest");
-        glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		
-	}
-	glTexImage2D(Target, 0, intFormat, TexWidth, TexHeight, 0, format, GL_UNSIGNED_BYTE, ImageInfo);
-	glBindTexture(Target, 0);
-	return Texture_Id;
+
+	mTextureWidth = 0;
+	mTextureHeight = 0;
 }
 
 
