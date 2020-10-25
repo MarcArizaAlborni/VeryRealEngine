@@ -71,15 +71,27 @@ public:
 	bool CleanUp();
 
 	void RequestBrowser(const char* url) const;
-	
 
 	float GetDT();
 
 public:
 
-	std::vector<float>			ms_log;
+	Timer					last_sec_frame_time;
+	Timer					frame_time;
+
 	std::vector<float>			fps_log;
-	int							max_FPS = 0;
+	std::vector<float>			ms_log;
+
+	uint					frame_count = 0;
+	uint					prev_last_sec_frame_count = 0;
+	uint					last_sec_frame_count = 0;
+
+	int						capped_ms = -1;
+	int						max_framerateCap = 60;
+	int						Bars = 100; // Histogram bars
+
+	std::string name;
+
 
 private:
 

@@ -99,17 +99,58 @@ bool Application::Init()
 
 
 
-
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
+	frame_count++;
+	last_sec_frame_count++;
 
+	dt = (float)frame_time.ReadSec();
+	frame_time.Start();
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
 
+	uint last_frame_ms = frame_time.Read();
+	uint frames_on_last_update = prev_last_sec_frame_count;
+
+	fps_log.push_back(frames_on_last_update);
+	if (fps_log.size() > Bars)
+	{
+		fps_log.erase(fps_log.begin());
+	}
+		
+	ms_log.push_back(last_frame_ms);
+	if (ms_log.size() > Bars)
+	{
+		ms_log.erase(ms_log.begin());
+	}
+		
+
+	if (max_framerateCap > 0)
+	{
+		capped_ms = 1000 / max_framerateCap;
+	}
+		
+	else
+	{
+		capped_ms = 0;
+	}
+		
+
+	if (capped_ms > 0 && last_frame_ms < capped_ms)
+	{
+		SDL_Delay(capped_ms - last_frame_ms);
+	}
+		
 }
 
 
@@ -186,7 +227,6 @@ float Application::GetDT()
 {
 	return dt;
 }
-
 
 // SAVE & LOAD
 

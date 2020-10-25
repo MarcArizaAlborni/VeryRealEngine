@@ -64,7 +64,13 @@ void ModuleEditorConfiguration::CreateConfigWindow_Application() {
 		ImGui::InputTextWithHint("Organization", "Enter Text Here", str1, IM_ARRAYSIZE(str1));
 
 
-		ImGui::SliderInt("MAX FPS", &App->max_FPS, 0, 120);
+		ImGui::Separator();
+
+		ImGui::SliderInt("Max FPS", &App->max_framerateCap, 1, 60);
+
+		ImGui::Text("Limit Framerate:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", App->max_framerateCap);
 		if (ImGui::Checkbox("VSync", &vSync)) {
 			if (vSync) {
 				SDL_GL_SetSwapInterval(1);
@@ -79,6 +85,12 @@ void ModuleEditorConfiguration::CreateConfigWindow_Application() {
 		ImGui::PlotHistogram("##framerate", &App->fps_log[0], App->fps_log.size(), 0, title, 0.0f, 140.0f, ImVec2(310, 100));
 		sprintf_s(title, 25, "Milliseconds %.1f", App->ms_log[App->ms_log.size() - 1]);
 		ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));*/
+
+		char title[25];
+		sprintf_s(title, 25, "Framerate %.1f", App->fps_log[App->fps_log.size() - 1]);
+		ImGui::PlotHistogram("##framerate", &App->fps_log[0], App->fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		sprintf_s(title, 25, "Milliseconds %0.1f", App->ms_log[App->ms_log.size() - 1]);
+		ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
 
 		// Memory --------------------
 	}

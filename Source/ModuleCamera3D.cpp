@@ -2,6 +2,9 @@
 #include "Application.h"
 #include "ModuleCamera3D.h"
 
+#include "libraries/MathGeoLib/include/Math/MathFunc.h"
+#include "libraries/MathGeoLib/include/Geometry/LineSegment.h"
+
 ModuleCamera3D::ModuleCamera3D(Application* app, const char* name, bool start_enabled) : Module(app,name, start_enabled)
 {
 	CalculateViewMatrix();
@@ -38,25 +41,58 @@ bool ModuleCamera3D::CleanUp()
 update_status ModuleCamera3D::Update(float dt)
 {
 
+	// Movement Camera
 	vec3 newPos(0, 0, 0);
-	float speed = 0.8f * dt;
+	float speed = 4.0f * dt;
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+	if (App->input->GetKey(SDL_SCANCODE_KP_7) == KEY_REPEAT) newPos.y += speed;
+	if (App->input->GetKey(SDL_SCANCODE_KP_9) == KEY_REPEAT) newPos.y -= speed;
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-	//if (App->input->GetMouseButton(SDL_MOUSEWHEEL_NORMAL) < 0) newPos -= Z * speed;
-	//if (App->input->GetMouseButton(SDL_MOUSEWHEEL_NORMAL) > 0) newPos -= Z * speed;
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+	if (App->input->GetKey(SDL_SCANCODE_KP_8) == KEY_REPEAT) newPos -= Z * speed;
+	if (App->input->GetKey(SDL_SCANCODE_KP_5) == KEY_REPEAT) newPos += Z * speed;
 
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+	if (App->input->GetKey(SDL_SCANCODE_KP_4) == KEY_REPEAT) newPos -= X * speed;
+	if (App->input->GetKey(SDL_SCANCODE_KP_6) == KEY_REPEAT) newPos += X * speed;
 
 	Position += newPos;
 	Reference += newPos;
+
+	// Wheel Zoom
+	if (App->input->GetMouseZ() != 0)
+	{
+		vec3 Distance = Position - Reference;
+		vec3 newPos = { 0,0,0 };
+
+		if (App->input->GetMouseZ() > 0 || App->input->GetMouseZ() < 0)
+		{
+			newPos -= Z * App->input->GetMouseZ() * length(Distance) / (1 / zoomValue * 4);
+			Position += newPos;
+		}
+
+		Position += newPos;
+	}
+
+	//Left Click (altenative for the arrows)
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_ResizeAll);
+
+		int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();
+
+		if (dx != 0 || dy != 0)
+		{
+			newPos -= Y * dy * App->GetDT() * wheelSpeedValue;
+			newPos += X * dx * App->GetDT() * wheelSpeedValue;
+		}
+
+		Position += newPos;
+		Reference += newPos;
+	}
+
 	// Mouse motion ----------------
 
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
@@ -98,6 +134,11 @@ update_status ModuleCamera3D::Update(float dt)
 	CalculateViewMatrix();
 
 	return UPDATE_CONTINUE;
+}
+
+void ModuleCamera3D(float dt_z)
+{
+	
 }
 
 // -----------------------------------------------------------------

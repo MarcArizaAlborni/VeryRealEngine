@@ -28,6 +28,9 @@ public:
 
 	vec3 X, Y, Z, Position, Reference;
 
+	float wheelSpeedValue = 0.5f; // sensitivity left click 
+	float zoomValue = 0.5f; //sensitivity of the zoom
+
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
