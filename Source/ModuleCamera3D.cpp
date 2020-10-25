@@ -76,7 +76,7 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 
 	//Left Click (altenative for the arrows)
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
 	{
 		ImGui::SetMouseCursor(ImGuiMouseCursor_ResizeAll);
 
