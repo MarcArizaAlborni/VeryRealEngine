@@ -16,7 +16,7 @@ public:
 	bool LoadTextureCheckers();
 	
 	bool LoadTexture(const char* path);
-	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height);
+	bool TextureBuffersLoad(GLuint* pixels, GLuint width, GLuint height);
 	void ImportTexture();
 	uint SetUpTexture(const void* ImageInfo, int TexWidth, int TexHeight,int Border, int intFormat, uint format, uint Target, int FilterTypus, int WrapType);
 	void freeTexture();

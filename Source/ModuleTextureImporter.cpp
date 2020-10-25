@@ -90,7 +90,7 @@ bool ModuleTextureImporter::LoadTexture(const char* path)
 		if (success == IL_TRUE)
 		{
 			//Create texture from file pixels
-			textureLoaded = loadTextureFromPixels32((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT));
+			textureLoaded = TextureBuffersLoad((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT));
 		}
 
 		//Delete file from memory
@@ -107,7 +107,7 @@ bool ModuleTextureImporter::LoadTexture(const char* path)
 	
 }
 
-bool ModuleTextureImporter::loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height)
+bool ModuleTextureImporter::TextureBuffersLoad(GLuint* pixels, GLuint width, GLuint height)
 {
 	//Free texture if it exists
 	freeTexture();

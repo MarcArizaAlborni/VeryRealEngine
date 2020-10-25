@@ -20,6 +20,8 @@ struct MeshInfo
 	float* texcoords = nullptr;
 	uint num_texcoords = 0;
 	uint texcoords_id = 0;
+	
+	GLuint TextureName;
 
 	
 };

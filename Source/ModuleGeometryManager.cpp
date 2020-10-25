@@ -50,6 +50,7 @@ update_status ModuleGeometryManager::Update(float dt)
 	for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 
 		//right now we only load the house texture
+		
 		DrawTextureOnMesh(*IteratorLoaded,App->textureImporter->mTextureID);
 		//DrawMesh(*IteratorLoaded);
 
