@@ -108,6 +108,8 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 				App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);
 			}
 
+			App->renderer3D->GenerateVertexBuffer(ourMesh->texcoords_id, ourMesh->num_texcoords * 2, ourMesh->texcoords);
+
 			ourGameObject->MeshData = *ourMesh;
 			//Add to mesh list for when we draw each mesh
 			bool ParentFound = false;

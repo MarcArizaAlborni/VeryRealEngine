@@ -208,6 +208,14 @@ void ModuleRenderer3D::GenerateIndexBuffer(uint& id_index, const int& size, cons
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+void ModuleRenderer3D::GenerateVertexTexBuffer(uint& id_vertexTex, const int& sizeTex, const float* vertexTex) //Textures
+{
+	glGenBuffers(1, (GLuint*)&(id_vertexTex));
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertexTex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sizeTex, vertexTex, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 void ModuleRenderer3D::CreateConsolelog(const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];

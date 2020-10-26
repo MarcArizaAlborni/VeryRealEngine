@@ -28,6 +28,7 @@ public:
 
 	void GenerateVertexBuffer(uint& id_vertex, const int& size, const float* vertex);
 	void GenerateIndexBuffer(uint& id_index, const int& size, const uint* index);
+	void GenerateVertexTexBuffer(uint& id_vertex, const int& size, const float* vertex);
 
 public:
 
