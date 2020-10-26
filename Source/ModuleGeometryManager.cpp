@@ -97,6 +97,27 @@ void ModuleGeometryManager::DrawCylinder()
 	App->meshimporter->LoadMesh("Assets/Models/Primitives/Cylinder.FBX");
 }
 
+void ModuleGeometryManager::Transform_Mesh_Translation(GLfloat x, GLfloat y, GLfloat z)
+{
+	glPushMatrix();
+	glTranslatef(x, y, z);
+	glPopMatrix();
+}
+
+void ModuleGeometryManager::Transform_Mesh_Scale(GLfloat x, GLfloat y, GLfloat z)
+{
+	glPushMatrix();
+	glScalef(x, y, z);
+	glPopMatrix();
+}
+
+void ModuleGeometryManager::Transform_Mesh_Rotation(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
+{
+	glPushMatrix();
+	glRotatef(angle, x, y, z);
+	glPopMatrix();
+}
+
 void ModuleGeometryManager::DrawPlane()
 {
 	App->meshimporter->LoadMesh("Assets/Models/Primitives/Plane.FBX");
@@ -105,11 +126,14 @@ void ModuleGeometryManager::DrawPlane()
 // Draw mesh with vertex and index
 void ModuleGeometryManager::DrawMesh(const GameObject* mesh)
 {
-	glPushMatrix();
+	
+	Transform_Mesh_Translation(mesh->Mesh_Transform_Modifiers.Translation_Vec3[0],mesh->Mesh_Transform_Modifiers.Translation_Vec3[1], mesh->Mesh_Transform_Modifiers.Translation_Vec3[2]);
+	Transform_Mesh_Scale(mesh->Mesh_Transform_Modifiers.Scale_Vec3[0], mesh->Mesh_Transform_Modifiers.Scale_Vec3[1], mesh->Mesh_Transform_Modifiers.Scale_Vec3[2]);
+	Transform_Mesh_Rotation(mesh->Mesh_Transform_Modifiers.Rotation_Vec3[0], mesh->Mesh_Transform_Modifiers.Scale_Vec3[1],mesh->Mesh_Transform_Modifiers.Scale_Vec3[2], mesh->Mesh_Transform_Modifiers.Scale_Vec3[3]);
 	//glScalef(0.5,0.5,0.5);
-	//	//glRotatef(90, -1.0, 0.0, 0.0);
-	//	//glRotatef(45, 0.0, 0.0, 1.0);
-	//	//glTranslatef(-20.0, 0.0, 0.0);
+	//glRotatef(90, -1.0, 0.0, 0.0);
+	////	//glRotatef(45, 0.0, 0.0, 1.0);
+ //   glTranslatef(-20.0, 0.0, 0.0);
 	
 	glEnableClientState(GL_VERTEX_ARRAY);
 

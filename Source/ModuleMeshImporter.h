@@ -7,6 +7,14 @@
 
 // Class Mesh
 
+struct MeshTransformation {
+
+	GLfloat Translation_Vec3[3] = { 0.0f,0.0f,0.0f };
+
+	GLfloat Rotation_Vec3[4] = { 0.0f,0.0f,0.0f,0.0f };
+
+	GLfloat Scale_Vec3[3] = { 0.0f,0.0f,0.0f };
+};
 
 struct MeshInfo
 {
@@ -42,11 +50,9 @@ struct GameObject {
 
 	std::vector<GameObject*> ChildObjects; // vector of child game objects inside of a game object
 
-	float coord_pos_mod[3];
+	MeshTransformation Mesh_Transform_Modifiers;
 
 	bool ToBeDrawInspector;
-
-
 
 };
 

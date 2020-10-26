@@ -6,6 +6,7 @@
 #include "glmath.h"
 #include "Primitive.h"
 #include "Light.h"
+#include "libraries/Glew/include/GL/glew.h"
 
 #define MAX_LIGHTS 8
 
@@ -33,6 +34,12 @@ public:
 	void DrawPyramid();
 	void DrawSphere();
 	void DrawCylinder();
+
+	//Transformations
+
+	void Transform_Mesh_Translation(GLfloat x, GLfloat y, GLfloat z);
+	void Transform_Mesh_Scale(GLfloat x, GLfloat y, GLfloat z);
+	void Transform_Mesh_Rotation(GLfloat angle,GLfloat x, GLfloat y, GLfloat z);
 
 	//Meshes
 	void DrawMesh(const GameObject* mesh);
