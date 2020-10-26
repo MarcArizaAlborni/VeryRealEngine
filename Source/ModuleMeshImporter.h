@@ -31,6 +31,7 @@ struct MeshInfo
 	
 	GLuint TextureName;
 
+
 	
 };
 
@@ -42,9 +43,11 @@ struct GameObject {
 
 	bool is_Selected; // if this mesh is currently selected 
 
-	bool is_Textured; // if this mesh is currently textured
+	bool is_Textured=true; // if this mesh is currently textured
 
-	bool is_Wireframed; // if this mesh is currently using wireframe to be drawn
+	bool is_Drawn=true; // if this mesh should be rendered
+
+	bool is_Wireframed=false; // if this mesh is currently using wireframe to be drawn
 
 	int item_id; // id given to each mesh to able to manage game object lists more eficiently
 

@@ -93,15 +93,13 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 					ImGui::Text("False");
 				}
 
-				ImGui::Text("Currently Wireframed:");
-				ImGui::SameLine(0.0f, 10.0f);
-				if (ItemToDraw->is_Wireframed == true) {
+				/*ImGui::Text("Currently Wireframed:");
+				ImGui::SameLine(0.0f, 10.0f);*/
+				
 
-					ImGui::Text("True");
-				}
-				else {
-					ImGui::Text("False");
-				}
+				ImGui::Checkbox("Wireframed", &ItemToDraw->is_Wireframed);
+
+				ImGui::Checkbox("Draw", &ItemToDraw->is_Drawn);
 
 				ImGui::Text("Item Id:");
 				ImGui::SameLine(0.0f, 10.0f);

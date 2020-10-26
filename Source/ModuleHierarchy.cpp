@@ -111,8 +111,24 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     ImGui::SameLine(0,20.0f);
    
     
-    ImGui::Checkbox("Draw in Inspector", &Object->ToBeDrawInspector);
-        
+    
+        if (ImGui::Checkbox("Draw in Inspector", &Object->ToBeDrawInspector)) {
+
+            
+            std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
+            for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
+                
+                GameObject* Item2 = *IteratorLoaded;
+               
+                if (Object->item_id != Item2->item_id) {
+                    Item2->ToBeDrawInspector = false;
+                }
+
+                IteratorLoaded++;
+            }
+
+        }
+    
     
 
     if (node_open)

@@ -48,10 +48,11 @@ update_status ModuleGeometryManager::Update(float dt)
 
 	std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
 	for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
-
+		GameObject* Item = *IteratorLoaded;
 		//right now we only load the house texture
-		
-		DrawTextureOnMesh(*IteratorLoaded,App->textureImporter->mTextureID);
+		if (Item->is_Drawn == true) {
+			DrawTextureOnMesh(*IteratorLoaded, App->textureImporter->mTextureID);
+		}
 		//DrawMesh(*IteratorLoaded);
 
 		IteratorLoaded++;
@@ -191,6 +192,12 @@ void ModuleGeometryManager::DrawMesh(const GameObject* mesh)
 
 void ModuleGeometryManager::DrawTextureOnMesh(const GameObject* mesh, const uint texture_id)
 {
+	if (mesh->is_Wireframed == true) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
 	//CAREFULL IF THERE ISNT A TEXTURE LOADED IT CAN CRASH
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
@@ -208,6 +215,8 @@ void ModuleGeometryManager::DrawTextureOnMesh(const GameObject* mesh, const uint
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void ModuleGeometryManager::CreateConsolelog(const char file[], int line, const char* format, ...)
