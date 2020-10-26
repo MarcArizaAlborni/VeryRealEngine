@@ -151,43 +151,7 @@ void ModuleGeometryManager::DrawMesh(const GameObject* mesh)
 
 	glPopMatrix();
 
-  
-	//if (mesh->MeshData.index != nullptr) {
-
-	//	glPushMatrix();
-	//	//glScalef(0.5,0.5,0.5);
-	//	//glRotatef(90, -1.0, 0.0, 0.0);
-	//	//glRotatef(45, 0.0, 0.0, 1.0);
-	//	//glTranslatef(-20.0, 0.0, 0.0);
-	//	
-	//	//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	//	//Bind Buffers
-	//	//glBindTexture(GL_TEXTURE_2D, App->textureImporter->mTextureID); // Texture
-	//	//glActiveTexture(GL_TEXTURE0);
-	//	//glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.num_texcoords); // Texture Coordinates
-	//	//glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-	//	
-
-	//	glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.id_vertex);
-
-	//	glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-	//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->MeshData.id_index);
-
-	//	glDrawElements(GL_TRIANGLES, mesh->MeshData.num_index, GL_UNSIGNED_INT, nullptr);
-
-	//	//TURN OFF
-	//	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	//
-	//	//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	//	glDisableClientState(GL_VERTEX_ARRAY);
-	//	//glEnd();
-	//	
-
-	//	glPopMatrix();
-	//}
+ 
 }
 
 void ModuleGeometryManager::DrawTextureOnMesh(const GameObject* mesh, const uint texture_id)
@@ -208,8 +172,9 @@ void ModuleGeometryManager::DrawTextureOnMesh(const GameObject* mesh, const uint
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id); // Texture Coordinates
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-	//Draw
-	DrawMesh(mesh); // Once we have binded the necessary stuff for textured rendering, we render
+	
+
+	DrawMesh(mesh); 
 
 	//Unbind Buffers
 	glBindBuffer(GL_ARRAY_BUFFER, 0);

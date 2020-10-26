@@ -49,6 +49,8 @@ struct GameObject {
 
 	bool is_Wireframed=false; // if this mesh is currently using wireframe to be drawn
 
+	bool is_Checkered = false;
+
 	int item_id; // id given to each mesh to able to manage game object lists more eficiently
 
 	std::vector<GameObject*> ChildObjects; // vector of child game objects inside of a game object

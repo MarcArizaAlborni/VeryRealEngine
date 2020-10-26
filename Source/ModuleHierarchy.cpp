@@ -105,7 +105,7 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     bool node_open;
     if (node_open= ImGui::TreeNode("Node ID", "%s_%u", prefix, uid)) {
 
-        Object->ToBeDrawInspector = true;
+        //Object->ToBeDrawInspector = true;
     }
     ImGui::NextColumn();
     ImGui::AlignTextToFramePadding();

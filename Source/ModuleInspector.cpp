@@ -161,6 +161,22 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::Text("Textures");
 				ImGui::SetWindowFontScale(1.0);
 
+
+				ImGui::Checkbox("Checkered", &ItemToDraw->is_Checkered);
+
+
+					
+				
+				if (ItemToDraw->is_Checkered == true) {
+					ItemToDraw->is_Textured = false;
+				}
+
+				ImGui::Checkbox("Textured", &ItemToDraw->is_Textured);
+
+				if (ItemToDraw->is_Textured == true) {
+					ItemToDraw->is_Checkered = false;
+				}
+
 				SomethingDrawn = true;
 
 				//++IteratorLoaded;
