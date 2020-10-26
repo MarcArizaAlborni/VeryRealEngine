@@ -116,21 +116,27 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 
 				ImGui::Text("Position:");
 				ImGui::SameLine(0.0f, 10.0f);
-				ImGui::Text("x:%.3f  y:%.3f  z:%.3f",ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[0], ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[1], 
+				ImGui::Text("x:%.3f  y:%.3f  z:%.3f",
+					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[0], 
+					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[1], 
 					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[2]);
 
 				ImGui::Text("Rotation:");
 				ImGui::SameLine();
-				ImGui::Text("angle: %.1f x:%.3f  y:%.3f  z:%.3f", ItemToDraw->Mesh_Transform_Modifiers.Rotation_Vec3[0], ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[1],
-					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[2], ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[3]);
+				ImGui::Text("angle: %.1f x:%.3f  y:%.3f  z:%.3f",
+					ItemToDraw->Mesh_Transform_Modifiers.Rotation_Vec3[0], 
+					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[1],
+					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[2], 
+					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[3]);
 
 				ImGui::Text("Scale:");
 				ImGui::SameLine(0.0f, 10.0f);
-				ImGui::Text("x:%.3f  y:%.3f  z:%.3f", ItemToDraw->Mesh_Transform_Modifiers.Scale_Vec3[0], ItemToDraw->Mesh_Transform_Modifiers.Scale_Vec3[1],
+				ImGui::Text("x:%.3f  y:%.3f  z:%.3f", 
+					ItemToDraw->Mesh_Transform_Modifiers.Scale_Vec3[0], 
+					ItemToDraw->Mesh_Transform_Modifiers.Scale_Vec3[1],
 					ItemToDraw->Mesh_Transform_Modifiers.Scale_Vec3[2]);
 
 				ImGui::Separator();
-
 				ImGui::SetWindowFontScale(1.5);
 				ImGui::Text("Mesh Information");
 				ImGui::SetWindowFontScale(1.0);
