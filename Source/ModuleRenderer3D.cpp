@@ -63,6 +63,8 @@ bool ModuleRenderer3D::Init()
 		{
 			LOGFIX("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
+
+
 		}
 
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
