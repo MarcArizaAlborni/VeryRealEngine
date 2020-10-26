@@ -28,7 +28,7 @@ public:
 
 	vec3 X, Y, Z, Position, Reference;
 
-	float wheelSpeedValue = 0.5f; // sensitivity left click 
+	float wheelSpeedValue = 0.8f; // sensitivity left click 
 	float zoomValue = 0.5f; //sensitivity of the zoom
 
 private:
