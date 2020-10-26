@@ -55,9 +55,6 @@
     <ClCompile Include="Primitive.cpp">
       <Filter>Source\Helper</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleEditor.cpp">
-      <Filter>Source\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="SaveAndLoad.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
@@ -68,25 +65,28 @@
       <Filter>Source\Modules\Importers</Filter>
     </ClCompile>
     <ClCompile Include="ModuleEditorConfiguration.cpp">
-      <Filter>Source\Windows &amp; Menus</Filter>
+      <Filter>Source\Modules\UI\Windows &amp; Menus</Filter>
     </ClCompile>
     <ClCompile Include="ModuleEditorMainMenuBar.cpp">
-      <Filter>Source\Windows &amp; Menus\MainMenu</Filter>
+      <Filter>Source\Modules\UI\Windows &amp; Menus\MainMenu</Filter>
     </ClCompile>
     <ClCompile Include="ModuleEditorConsole.cpp">
-      <Filter>Source\Windows &amp; Menus</Filter>
+      <Filter>Source\Modules\UI\Windows &amp; Menus</Filter>
     </ClCompile>
     <ClCompile Include="ModuleTextureImporter.cpp">
       <Filter>Source\Modules\Importers</Filter>
     </ClCompile>
     <ClCompile Include="ModuleHierarchy.cpp">
-      <Filter>Source\Modules\GameObjects</Filter>
+      <Filter>Source\Modules\UI\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="ModuleInspector.cpp">
-      <Filter>Source\Modules\GameObjects</Filter>
+      <Filter>Source\Modules\UI\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="ModuleGeometryManager.cpp">
       <Filter>Source\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleEditor.cpp">
+      <Filter>Source\Modules\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,9 +155,6 @@
     </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Source\Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleEditor.h">
-      <Filter>Source\Modules</Filter>
     </ClInclude>
     <ClInclude Include="SaveAndLoad.h">
       <Filter>Source\Modules</Filter>
@@ -502,22 +499,22 @@
       <Filter>Source\Modules\Importers</Filter>
     </ClInclude>
     <ClInclude Include="ModuleEditorConfiguration.h">
-      <Filter>Source\Windows &amp; Menus</Filter>
+      <Filter>Source\Modules\UI\Windows &amp; Menus</Filter>
     </ClInclude>
     <ClInclude Include="ModuleEditorMainMenuBar.h">
-      <Filter>Source\Windows &amp; Menus\MainMenu</Filter>
+      <Filter>Source\Modules\UI\Windows &amp; Menus\MainMenu</Filter>
     </ClInclude>
     <ClInclude Include="ModuleEditorConsole.h">
-      <Filter>Source\Windows &amp; Menus</Filter>
+      <Filter>Source\Modules\UI\Windows &amp; Menus</Filter>
     </ClInclude>
     <ClInclude Include="ModuleTextureImporter.h">
       <Filter>Source\Modules\Importers</Filter>
     </ClInclude>
     <ClInclude Include="ModuleHierarchy.h">
-      <Filter>Source\Modules\GameObjects</Filter>
+      <Filter>Source\Modules\UI\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="ModuleInspector.h">
-      <Filter>Source\Modules\GameObjects</Filter>
+      <Filter>Source\Modules\UI\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="ModuleGeometryManager.h">
       <Filter>Source\Modules</Filter>
@@ -545,6 +542,9 @@
     </ClInclude>
     <ClInclude Include="libraries\DevIL\include\ilut_config.h">
       <Filter>Source\External Libraries\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleEditor.h">
+      <Filter>Source\Modules\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -575,9 +575,6 @@
     <Filter Include="Source\Tools">
       <UniqueIdentifier>{e93f45d5-40fd-47b0-8bc4-55e21e63badb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Windows &amp; Menus">
-      <UniqueIdentifier>{6aa6277a-a672-45d7-a44f-cd9f2161acfe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\External Libraries\Json">
       <UniqueIdentifier>{5d054494-53f5-41af-aa3c-dd10d0f46fec}</UniqueIdentifier>
     </Filter>
@@ -593,14 +590,20 @@
     <Filter Include="Source\Modules\Importers">
       <UniqueIdentifier>{724f06ac-0cc8-4bd6-b74c-e91b8fd4e9d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Windows &amp; Menus\MainMenu">
-      <UniqueIdentifier>{19780105-9ec4-4a41-9a1c-aac8e4a87310}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Modules\GameObjects">
-      <UniqueIdentifier>{27439aec-a8d4-4e96-bb1e-14f52d6533dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\External Libraries\Devil">
       <UniqueIdentifier>{366b7c83-a60d-4d80-84b7-f9093efbd506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Modules\UI">
+      <UniqueIdentifier>{64f4eb75-1a4d-4f1e-8399-be5519456ac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Modules\UI\GameObjects">
+      <UniqueIdentifier>{27439aec-a8d4-4e96-bb1e-14f52d6533dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Modules\UI\Windows &amp; Menus">
+      <UniqueIdentifier>{6aa6277a-a672-45d7-a44f-cd9f2161acfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Modules\UI\Windows &amp; Menus\MainMenu">
+      <UniqueIdentifier>{19780105-9ec4-4a41-9a1c-aac8e4a87310}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
