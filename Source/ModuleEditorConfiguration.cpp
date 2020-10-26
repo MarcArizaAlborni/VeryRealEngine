@@ -66,7 +66,7 @@ void ModuleEditorConfiguration::CreateConfigWindow_Application() {
 
 		ImGui::Separator();
 
-		ImGui::SliderInt("Max FPS", &App->max_framerateCap, 1, 60);
+		ImGui::SliderInt("Max FPS", &App->max_framerateCap, 1, 120);
 
 		ImGui::Text("Limit Framerate:");
 		ImGui::SameLine();
