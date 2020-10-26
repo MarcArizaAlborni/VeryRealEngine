@@ -193,6 +193,7 @@ void ModuleGeometryManager::DrawMesh(const GameObject* mesh)
 void ModuleGeometryManager::DrawTextureOnMesh(const GameObject* mesh, const uint texture_id)
 {
 	if (mesh->is_Wireframed == true) {
+		glLineWidth(3);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 	else {
