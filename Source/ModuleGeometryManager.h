@@ -13,6 +13,11 @@
 struct MeshInfo;
 struct GameObject;
 
+struct VectorTransformations {
+
+	GLfloat angle,x,y,z;
+
+};
 class ModuleGeometryManager : public Module
 {
 public:
@@ -37,13 +42,13 @@ public:
 
 	//Transformations
 
-	void Transform_Mesh_Translation(GLfloat x, GLfloat y, GLfloat z);
-	void Transform_Mesh_Scale(GLfloat x, GLfloat y, GLfloat z);
-	void Transform_Mesh_Rotation(GLfloat angle,GLfloat x, GLfloat y, GLfloat z);
+	void Transform_Mesh_Translation(GameObject* mesh,GLfloat Current[3], GLfloat New[3]);
+	void Transform_Mesh_Scale(GameObject* mesh, GLfloat Current[3], GLfloat New[3]);
+	void Transform_Mesh_Rotation(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
 
 	//Meshes
-	void DrawMesh(const GameObject* mesh);
-	void DrawTextureOnMesh(const GameObject* mesh, const uint texture_id = 0);
+	void DrawMesh( GameObject* mesh);
+	void DrawTextureOnMesh( GameObject* mesh, const uint texture_id = 0);
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);

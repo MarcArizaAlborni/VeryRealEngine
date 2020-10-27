@@ -98,26 +98,29 @@ void ModuleGeometryManager::DrawCylinder()
 	App->meshimporter->LoadMesh("Assets/Models/Primitives/Cylinder.FBX");
 }
 
-void ModuleGeometryManager::Transform_Mesh_Translation(GLfloat x, GLfloat y, GLfloat z)
+
+
+void ModuleGeometryManager::Transform_Mesh_Translation(GameObject* mesh,GLfloat Current[3], GLfloat New[3])
 {
 	glPushMatrix();
-	glTranslatef(x, y, z);
+	glTranslatef(Current[0] + New[0], Current[1] + New[1], Current[2] + New[2]);
 	glPopMatrix();
 }
 
-void ModuleGeometryManager::Transform_Mesh_Scale(GLfloat x, GLfloat y, GLfloat z)
+void ModuleGeometryManager::Transform_Mesh_Scale(GameObject* mesh, GLfloat Current[3] , GLfloat New[3])
 {
 	glPushMatrix();
-	glScalef(x, y, z);
+	glScalef(Current[0]+ New[0], Current[1]+ New[1], Current[2]+ New[2]);
 	glPopMatrix();
 }
 
-void ModuleGeometryManager::Transform_Mesh_Rotation(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
+void ModuleGeometryManager::Transform_Mesh_Rotation(GameObject* mesh, VectorTransformations Current, VectorTransformations New)
 {
 	glPushMatrix();
-	glRotatef(angle, x, y, z);
+	glRotatef(Current.angle + New.angle, Current.x + New.x, Current.y + New.y, Current.z + New.z);
 	glPopMatrix();
 }
+
 
 void ModuleGeometryManager::DrawPlane()
 {
@@ -125,12 +128,22 @@ void ModuleGeometryManager::DrawPlane()
 }
 
 // Draw mesh with vertex and index
-void ModuleGeometryManager::DrawMesh(const GameObject* mesh)
+void ModuleGeometryManager::DrawMesh( GameObject* mesh)
 {
+	GLfloat Null_Array[] = { 0,0,0,0 };
 	
-	Transform_Mesh_Translation(mesh->Mesh_Transform_Modifiers.Translation_Vec3[0],mesh->Mesh_Transform_Modifiers.Translation_Vec3[1], mesh->Mesh_Transform_Modifiers.Translation_Vec3[2]);
-	Transform_Mesh_Scale(mesh->Mesh_Transform_Modifiers.Scale_Vec3[0], mesh->Mesh_Transform_Modifiers.Scale_Vec3[1], mesh->Mesh_Transform_Modifiers.Scale_Vec3[2]);
-	Transform_Mesh_Rotation(mesh->Mesh_Transform_Modifiers.Rotation_Vec3[0], mesh->Mesh_Transform_Modifiers.Scale_Vec3[1],mesh->Mesh_Transform_Modifiers.Scale_Vec3[2], mesh->Mesh_Transform_Modifiers.Scale_Vec3[3]);
+	VectorTransformations ZeroArray;
+
+	ZeroArray = { 0,0,0,0 };
+	
+	glPushMatrix();
+	glRotatef(90,1,0,1);
+	glPopMatrix();
+
+
+	Transform_Mesh_Translation(mesh, mesh->Mesh_Transform_Modifiers.Translation_Vec3,Null_Array);
+	Transform_Mesh_Scale(mesh,mesh->Mesh_Transform_Modifiers.Scale_Vec3, Null_Array);
+	Transform_Mesh_Rotation(mesh,mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
 	
 	
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -149,12 +162,12 @@ void ModuleGeometryManager::DrawMesh(const GameObject* mesh)
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 
-	glPopMatrix();
+	
 
  
 }
 
-void ModuleGeometryManager::DrawTextureOnMesh(const GameObject* mesh, const uint texture_id)
+void ModuleGeometryManager::DrawTextureOnMesh( GameObject* mesh, const uint texture_id)
 {
 	if (mesh->is_Wireframed == true) {
 		glLineWidth(3);
