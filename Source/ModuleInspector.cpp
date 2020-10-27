@@ -122,10 +122,33 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::Text("Rotation:");
 				ImGui::SameLine();
 				ImGui::Text("angle: %.1f x:%.3f  y:%.3f  z:%.3f",
-					ItemToDraw->Mesh_Transform_Modifiers.Rotation_Vec3[0], 
-					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[1],
-					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[2], 
-					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[3]);
+					ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.angle, 
+					ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.x,
+					ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.y,
+					ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.z);
+
+				if (ImGui::Button("Add Rot +1 angle")) {
+					ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.angle += 5;
+					
+				}
+
+				if (ImGui::Button("Add Rot +1 x")) {
+					
+					ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.x += 5;
+					
+				}
+
+				if (ImGui::Button("Add Rot +1 y")) {
+					
+					ItemToDraw->Mesh_Transform_Modifiers.Rotation_Vec4[2] += 5;
+				
+				}
+
+				if (ImGui::Button("Add Rot +1 z")) {
+					
+					ItemToDraw->Mesh_Transform_Modifiers.Rotation_Vec4[3] += 5;
+				}
+
 
 				ImGui::Text("Scale:");
 				ImGui::SameLine(0.0f, 10.0f);

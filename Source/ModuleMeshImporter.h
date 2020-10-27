@@ -7,13 +7,19 @@
 
 // Class Mesh
 
+struct VectorTransformations;
 struct MeshTransformation {
 
 	GLfloat Translation_Vec3[3] = { 0.0f,0.0f,0.0f };
 
-	GLfloat Rotation_Vec3[4] = { 0.0f,0.0f,0.0f,0.0f };
+	GLfloat Rotation_Vec4[4] = { 0.0f,0.0f,0.0f,0.0f };
 
 	GLfloat Scale_Vec3[3] = { 0.0f,0.0f,0.0f };
+
+	VectorTransformations VectorTranslation;
+	VectorTransformations VectorRotation;
+	VectorTransformations Scale;
+
 };
 
 struct MeshInfo
