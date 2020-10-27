@@ -99,7 +99,6 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 
 	// Mouse motion ----------------
-
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
@@ -133,6 +132,24 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		Position = Reference + Z * length(Position);
+	}
+
+	//Center to object
+	std::vector<GameObject*>::iterator IteratorToAddMesh = App->meshimporter->MeshesOnScene.begin();
+	GameObject* selected_mesh;
+	for (int count = 0; count < App->meshimporter->MeshesOnScene.size(); ++count)
+	{
+		selected_mesh = *IteratorToAddMesh;
+		if (selected_mesh->ToBeDrawInspector == true)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+			{
+				CenterToObject();
+				LOGFIX("Mesh Selected");
+			}
+		}
+		
+		++IteratorToAddMesh;
 	}
 
 	// Recalculate matrix -------------
@@ -198,6 +215,11 @@ void ModuleCamera3D::CalculateViewMatrix()
 {
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
 	ViewMatrixInverse = inverse(ViewMatrix);
+}
+
+void ModuleCamera3D::CenterToObject()
+{
+	LookAt({ 0,0,0 });
 }
 
 void ModuleCamera3D::CreateConsolelog(const char file[], int line, const char* format, ...)

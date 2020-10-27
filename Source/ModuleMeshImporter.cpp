@@ -87,6 +87,7 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 
 			}
 
+
 			if (MeshToLoad->HasTextureCoords(0))
 			{
 				ourMesh->num_texcoords = MeshToLoad->mNumVertices;
@@ -102,6 +103,7 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 			//CALLED TO CREATE A VERTEX BUFFER SO WE CAN DRAW MULTIPLE OBJECTS
 			App->renderer3D->GenerateVertexBuffer(ourMesh->id_vertex, ourMesh->num_vertex, ourMesh->vertex);
 
+			App->renderer3D->GenerateVertexTexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->vertex);
 
 			if (ourMesh->index != nullptr) {
 				//siCalled to create an Index Buffer so we can draw multiple objects
