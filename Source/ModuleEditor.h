@@ -24,6 +24,9 @@ private:
 	SDL_WindowFlags window_flags;
 	SDL_GLContext gl_context;
 
+	//------------------ Main Docking--------------
+	bool MainWindow(char* id, bool dock = true, ImGuiWindowFlags windowFlags = ImGuiWindowFlags_None);
+
 	// ---------------About Window---------------
 	void CreateAboutWindow();
 
@@ -32,7 +35,7 @@ private:
 
 	//Window Bools
 	bool show_demo_window;
-	bool show_main_window;
+	bool show_main_dockSpace = true;
 
 	// Window Manager Bools
 	bool OnInit;

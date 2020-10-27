@@ -45,40 +45,42 @@ bool ModuleInspectorGameObject::CleanUp()
 
 void ModuleInspectorGameObject::CreateInspectorWindow()
 {
-	ImGui::Begin("Inspector", &App->mainMenubar->show_inspector_window);
+	if (App->mainMenubar->show_inspector_window)
+	{
+		ImGui::Begin("Inspector", &App->mainMenubar->show_inspector_window);
 
-	
-	//std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
-	bool SomethingDrawn = false; // if there isnt an object in the list or if none of them
-	//has ToBeDrawInspector==true we print a message saying theres nothing to draw
-	GameObject* ItemToDraw;
-	for (std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin(); IteratorLoaded != App->meshimporter->MeshesOnScene.end(); ++IteratorLoaded) {
-		 ItemToDraw = *IteratorLoaded;
-		
-		if (ItemToDraw->ToBeDrawInspector==true) {
-			
 
-			if (SomethingDrawn == true) {
-				ImGui::Text("");
-				ImGui::Text("");
-				
+		//std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
+		bool SomethingDrawn = false; // if there isnt an object in the list or if none of them
+		//has ToBeDrawInspector==true we print a message saying theres nothing to draw
+		GameObject* ItemToDraw;
+		for (std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin(); IteratorLoaded != App->meshimporter->MeshesOnScene.end(); ++IteratorLoaded) {
+			ItemToDraw = *IteratorLoaded;
 
-				ImGui::Separator();
-				ImGui::Separator();
-				ImGui::Separator();
-				ImGui::Separator();
-			}
+			if (ItemToDraw->ToBeDrawInspector == true) {
 
-			const char* Name;
-			Name = ItemToDraw->mesh_name.c_str();
 
-			ImGui::Text(Name);
+				if (SomethingDrawn == true) {
+					ImGui::Text("");
+					ImGui::Text("");
+
+
+					ImGui::Separator();
+					ImGui::Separator();
+					ImGui::Separator();
+					ImGui::Separator();
+				}
+
+				const char* Name;
+				Name = ItemToDraw->mesh_name.c_str();
+
+				ImGui::Text(Name);
 
 				ImGui::SetWindowFontScale(1.5);
 				ImGui::Text("General Information");
 				ImGui::SetWindowFontScale(1.0);
 
-				
+
 
 				int ChildAmount;
 
@@ -98,7 +100,7 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 
 				/*ImGui::Text("Currently Wireframed:");
 				ImGui::SameLine(0.0f, 10.0f);*/
-				
+
 
 				ImGui::Checkbox("Wireframed", &ItemToDraw->is_Wireframed);
 
@@ -116,12 +118,13 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::SetWindowFontScale(1.0);
 
 				ImGui::Text("Position:");
-			
+
 				
+
 				ImGui::InputFloat("X:", &ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.x);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.x);
-				
+
 
 				ImGui::InputFloat("Y", &ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.y);
 				ImGui::SameLine(0.0f, 0.0f);
@@ -130,14 +133,13 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::InputFloat("Z", &ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.z);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.z);
-			
 
 
 
 				ImGui::Text("Rotation:");
-				
+
 				//IMGUI INPUT NO FUNCIONA SI EL NOM DE LA ULTIMA VARIALBE ES IGUAL no te ni puta idea de programar
-			
+
 				ImGui::InputFloat("Angle:", &ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.angle);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.angle);
@@ -154,11 +156,11 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::InputFloat("Z", &ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.z);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.z);
-				
+
 
 				ImGui::Text("Scale:");
-				
-			
+
+
 				ImGui::InputFloat("X:", &ItemToDraw->Mesh_Transform_Modifiers.VectorScale.x);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorScale.x);
@@ -206,8 +208,8 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::Checkbox("Checkered", &ItemToDraw->is_Checkered);
 
 
-					
-				
+
+
 				if (ItemToDraw->is_Checkered == true) {
 					ItemToDraw->is_Textured = false;
 				}
@@ -222,20 +224,21 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 
 				//++IteratorLoaded;
 
+			}
+
 		}
 
+		if (SomethingDrawn == false) {
+
+
+
+			ImGui::SetWindowFontScale(1.5);
+			ImGui::Text("No object Selected");
+			ImGui::SetWindowFontScale(1.0);
+		}
+
+		ImGui::End();
 	}
-
-	if (SomethingDrawn == false) {
-		
-		
-
-		ImGui::SetWindowFontScale(1.5);
-		ImGui::Text("No object Selected");
-		ImGui::SetWindowFontScale(1.0);
-	}
-
-	ImGui::End();
 	
 }
 

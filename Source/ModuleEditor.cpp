@@ -112,7 +112,6 @@ bool ModuleEditor::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleEditor::Update(float dt)
 {
-
 	return UPDATE_CONTINUE;
 }
 
@@ -173,12 +172,15 @@ update_status ModuleEditor::PostUpdate(float dt)
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
+
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	if (show_demo_window)
 		ImGui::ShowDemoWindow(&show_demo_window);
 
-
-	App->mainMenubar->CreateMainMenuBar();
+	if (MainWindow("Main Window", show_main_dockSpace, ImGuiWindowFlags_MenuBar)) {
+		App->mainMenubar->CreateMainMenuBar();
+		ImGui::End();
+	}
 	App->configWindow->CreateConfigWindow();
 	CreateAboutWindow();
 	App->console->CreateConsoleWindow();
@@ -211,8 +213,35 @@ update_status ModuleEditor::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+// Main docking
+bool ModuleEditor::MainWindow(char* id, bool docking, ImGuiWindowFlags windowFlags)
+{
+	ImGuiViewport* viewport = ImGui::GetWindowViewport();
+	ImGui::SetNextWindowPos(viewport->Pos);
+	ImGui::SetNextWindowSize(viewport->Size);
+	ImGui::SetNextWindowViewport(viewport->ID);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+	windowFlags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+	windowFlags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+	windowFlags |= ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoBackground;
 
+	static bool open = true;
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	open = ImGui::Begin(id, &open, windowFlags);
+	ImGui::PopStyleVar(3);
 
+	if (docking) {
+
+		ImGuiIO& io = ImGui::GetIO();
+		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable) {
+			ImGuiID dockspace_id = ImGui::GetID(id);
+			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
+		}
+	}
+
+	return open;
+}
 
 
 // ------------------------ABOUT--------------------
