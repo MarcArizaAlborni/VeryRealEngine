@@ -145,15 +145,15 @@ update_status ModuleCamera3D::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 			{
 				CenterToObject();
-				LOGFIX("Mesh Selected");
+				LOGFIX("Centering Object");
 			}
 
 			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 			{
 				if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 				{
-					Orbit();
-					LOGFIX("Mesh Selected");
+					//Orbit()
+					
 				}
 			}
 		}
@@ -233,13 +233,6 @@ void ModuleCamera3D::CenterToObject()
 
 void ModuleCamera3D::Orbit() {
 
-
-	/*float3 ref_to_curr_pos = Position - reference;
-	Quat rot = rot.FromEulerXYZ(-dy * DEGTORAD * sensitivity, dx * DEGTORAD * sensitivity, 0);
-
-	float3 ref_saved = reference;
-	Move(reference + (rot * ref_to_curr_pos));                     
-	LookAt(ref_saved);*/
 }
 
 void ModuleCamera3D::CreateConsolelog(const char file[], int line, const char* format, ...)
