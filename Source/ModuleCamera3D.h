@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "glmath.h"
 
+
 class ModuleCamera3D : public Module
 {
 public:
@@ -20,6 +21,7 @@ public:
 	void Move(const vec3& Movement);
 
 	void CenterToObject();
+	void Orbit();
 
 	float* GetViewMatrix();
 

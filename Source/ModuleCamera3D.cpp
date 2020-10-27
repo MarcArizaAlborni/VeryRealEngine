@@ -147,6 +147,15 @@ update_status ModuleCamera3D::Update(float dt)
 				CenterToObject();
 				LOGFIX("Mesh Selected");
 			}
+
+			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+			{
+				if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
+				{
+					Orbit();
+					LOGFIX("Mesh Selected");
+				}
+			}
 		}
 		
 		++IteratorToAddMesh;
@@ -220,6 +229,17 @@ void ModuleCamera3D::CalculateViewMatrix()
 void ModuleCamera3D::CenterToObject()
 {
 	LookAt({ 0,0,0 });
+}
+
+void ModuleCamera3D::Orbit() {
+
+
+	/*float3 ref_to_curr_pos = Position - reference;
+	Quat rot = rot.FromEulerXYZ(-dy * DEGTORAD * sensitivity, dx * DEGTORAD * sensitivity, 0);
+
+	float3 ref_saved = reference;
+	Move(reference + (rot * ref_to_curr_pos));                     
+	LookAt(ref_saved);*/
 }
 
 void ModuleCamera3D::CreateConsolelog(const char file[], int line, const char* format, ...)
