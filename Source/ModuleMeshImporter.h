@@ -20,6 +20,8 @@ struct MeshTransformation {
 	VectorTransformations VectorRotation;
 	VectorTransformations Scale;
 
+	
+
 };
 
 struct MeshInfo

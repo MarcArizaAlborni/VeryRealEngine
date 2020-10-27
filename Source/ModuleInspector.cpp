@@ -115,9 +115,32 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::Text("Position:");
 				ImGui::SameLine(0.0f, 10.0f);
 				ImGui::Text("x:%.3f  y:%.3f  z:%.3f",
-					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[0], 
-					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[1], 
-					ItemToDraw->Mesh_Transform_Modifiers.Translation_Vec3[2]);
+					ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.x,
+					ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.y,
+					ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.z);
+
+				//float xpos = ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.x;
+				ImGui::InputFloat("X", &ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.x);
+
+				
+				
+
+				if (ImGui::Button("Add Pos +1 x")) {
+
+					ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.x += 5;
+
+				}
+
+				if (ImGui::Button("Add Pos +1 y")) {
+
+					ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.y += 5;
+
+				}
+
+				if (ImGui::Button("Add Pos +1 z")) {
+
+					ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.z += 5;
+				}
 
 				ImGui::Text("Rotation:");
 				ImGui::SameLine();
@@ -134,19 +157,19 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 
 				if (ImGui::Button("Add Rot +1 x")) {
 					
-					ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.x += 5;
+					ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.x += 0.1;
 					
 				}
 
 				if (ImGui::Button("Add Rot +1 y")) {
 					
-					ItemToDraw->Mesh_Transform_Modifiers.Rotation_Vec4[2] += 5;
+					ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.y += 0.1;
 				
 				}
 
 				if (ImGui::Button("Add Rot +1 z")) {
 					
-					ItemToDraw->Mesh_Transform_Modifiers.Rotation_Vec4[3] += 5;
+					ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.z += 0.1;
 				}
 
 
