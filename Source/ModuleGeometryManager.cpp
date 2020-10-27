@@ -100,25 +100,27 @@ void ModuleGeometryManager::DrawCylinder()
 
 
 
-void ModuleGeometryManager::Transform_Mesh_Translation(GameObject* mesh,GLfloat Current[3], GLfloat New[3])
+void ModuleGeometryManager::Transform_Mesh_Translation(GameObject* mesh, VectorTransformations Current, VectorTransformations New)
 {
 	glPushMatrix();
-	glTranslatef(Current[0] + New[0], Current[1] + New[1], Current[2] + New[2]);
-	glPopMatrix();
+	glTranslatef( Current.x + New.x, Current.y + New.y, Current.z + New.z);
+	
 }
 
 void ModuleGeometryManager::Transform_Mesh_Scale(GameObject* mesh, GLfloat Current[3] , GLfloat New[3])
 {
 	glPushMatrix();
 	glScalef(Current[0]+ New[0], Current[1]+ New[1], Current[2]+ New[2]);
-	glPopMatrix();
+	
 }
 
 void ModuleGeometryManager::Transform_Mesh_Rotation(GameObject* mesh, VectorTransformations Current, VectorTransformations New)
 {
+	
 	glPushMatrix();
 	glRotatef(Current.angle + New.angle, Current.x + New.x, Current.y + New.y, Current.z + New.z);
-	glPopMatrix();
+
+	LOGFIX("ME GUSTAN LAS PATATAS");
 }
 
 
@@ -136,13 +138,19 @@ void ModuleGeometryManager::DrawMesh( GameObject* mesh)
 
 	ZeroArray = { 0,0,0,0 };
 	
-	glPushMatrix();
-	glRotatef(90,1,0,1);
-	glPopMatrix();
+   //glPushMatrix();
+	////glScalef(0.5, 0.5, 0.5);
+	//glRotatef(90, -1.0, 0.0, 0.0);
+	////glRotatef(45, 0.0, 0.0, 1.0);
+
+	//
+
+	//glTranslatef(-5.0, 0.0, 0.0);
+	
 
 
-	Transform_Mesh_Translation(mesh, mesh->Mesh_Transform_Modifiers.Translation_Vec3,Null_Array);
-	Transform_Mesh_Scale(mesh,mesh->Mesh_Transform_Modifiers.Scale_Vec3, Null_Array);
+	Transform_Mesh_Translation(mesh, mesh->Mesh_Transform_Modifiers.VectorTranslation, ZeroArray);
+	//Transform_Mesh_Scale(mesh,mesh->Mesh_Transform_Modifiers.Scale_Vec3, Null_Array);
 	Transform_Mesh_Rotation(mesh,mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
 	
 	
@@ -163,7 +171,7 @@ void ModuleGeometryManager::DrawMesh( GameObject* mesh)
 	glDisableClientState(GL_VERTEX_ARRAY);
 
 	
-
+	glPopMatrix();
  
 }
 

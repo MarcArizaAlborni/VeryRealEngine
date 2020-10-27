@@ -18,7 +18,9 @@ struct MeshTransformation {
 
 	VectorTransformations VectorTranslation;
 	VectorTransformations VectorRotation;
-	VectorTransformations Scale;
+	VectorTransformations VectorScale;
+
+	
 
 };
 

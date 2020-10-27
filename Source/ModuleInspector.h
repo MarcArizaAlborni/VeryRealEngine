@@ -24,7 +24,7 @@ public:
 	//Inspector Window Bools
 
 	bool ShowInspectorWindow;
-
+	float testoa;
 
 
 	//------------ CONSOLE STUFF
