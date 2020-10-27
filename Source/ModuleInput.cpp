@@ -1,7 +1,16 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
-#include "libraries/Glew/include/GL/glew.h"
+
+
+#include "libraries/ImGUI/imgui.h"
+#include "libraries/ImGUI/imgui_internal.h"
+#include "libraries/ImGUI/imgui_impl_sdl.h"
+#include "libraries/ImGUI/imgui_impl_opengl3.h"
+
+#include "libraries/Glew/include/GL/glew.h" 
+#include "libraries/SDL/include/SDL_opengl.h"
+
 
 #define MAX_KEYS 300
 
@@ -84,11 +93,14 @@ update_status ModuleInput::PreUpdate(float dt)
 	}
 
 	mouse_x_motion = mouse_y_motion = 0;
-
+	
+	
 	bool quit = false;
 	SDL_Event e;
+	
 	while (SDL_PollEvent(&e))
 	{
+		ImGui_ImplSDL2_ProcessEvent(&e);
 		switch (e.type)
 		{
 		case SDL_MOUSEWHEEL:
