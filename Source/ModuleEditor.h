@@ -32,6 +32,7 @@ private:
 
 	//Window Bools
 	bool show_demo_window;
+	bool show_main_window;
 
 	// Window Manager Bools
 	bool OnInit;

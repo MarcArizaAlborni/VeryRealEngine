@@ -42,8 +42,6 @@ void ModuleEditorMainMenuBar::CreateMainMenuBar() {
 
 		ImGui::EndMainMenuBar();
 	}
-
-
 }
 
 //CREATION OF SUBMENUS

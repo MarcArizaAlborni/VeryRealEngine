@@ -63,6 +63,8 @@ bool ModuleEditor::Start()
 		style.WindowRounding = 0.0f;
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
+
+
 	// States
 	show_demo_window = true;
 
@@ -110,10 +112,7 @@ bool ModuleEditor::CleanUp()
 update_status ModuleEditor::Update(float dt)
 {
 
-
-
-
-	return UPDATE_STOP;
+	return UPDATE_CONTINUE;
 }
 
 update_status ModuleEditor::PostUpdate(float dt)
@@ -208,7 +207,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 
 	OnInit = false;
 
-	return UPDATE_STOP;
+	return UPDATE_CONTINUE;
 }
 
 
