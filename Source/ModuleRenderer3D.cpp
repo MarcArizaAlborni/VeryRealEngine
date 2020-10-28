@@ -192,15 +192,15 @@ void ModuleRenderer3D::OnResize(int width, int height)
 }
 
 
-void ModuleRenderer3D::GenerateVertexBuffer(uint& size, uint& id_vertex, float* vertex)
+void ModuleRenderer3D::GenerateVertexBuffer(uint& id_vertex, const int& size, const float* vertex)
 {
 	glGenBuffers(1, (GLuint*)&(id_vertex));
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * size, vertex, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * size * 3, vertex, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ModuleRenderer3D::GenerateIndexBuffer(uint& id_index, uint& size, const uint* index)
+void ModuleRenderer3D::GenerateIndexBuffer(uint& id_index, const int& size, const uint* index)
 {
 	glGenBuffers(1, (GLuint*)&(id_index));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
@@ -208,11 +208,11 @@ void ModuleRenderer3D::GenerateIndexBuffer(uint& id_index, uint& size, const uin
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ModuleRenderer3D::GenerateVertexTexBuffer(float* text_coords, uint& num_text_coords, uint& id_text_coords) //Textures
+void ModuleRenderer3D::GenerateVertexTexBuffer(uint& id_vertexTex, const int& sizeTex, const float* vertexTex) //Textures
 {
-	glGenBuffers(1, (GLuint*)&(id_text_coords));
-	glBindBuffer(GL_ARRAY_BUFFER, id_text_coords);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_text_coords * 2, text_coords, GL_STATIC_DRAW);
+	glGenBuffers(1, (GLuint*)&(id_vertexTex));
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertexTex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sizeTex, vertexTex, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 

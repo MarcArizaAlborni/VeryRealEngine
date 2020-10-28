@@ -26,9 +26,9 @@ public:
 
 	void OnResize(int width, int height);
 
-	void GenerateVertexBuffer(uint& size, uint& id_vertex, float* vertex);
-	void GenerateIndexBuffer(uint& id_index, uint& size, const uint* index);
-	void GenerateVertexTexBuffer(float* text_coords, uint& num_text_coords, uint& id_text_coords);
+	void GenerateVertexBuffer(uint& id_vertex, const int& size, const float* vertex);
+	void GenerateIndexBuffer(uint& id_index, const int& size, const uint* index);
+	void GenerateVertexTexBuffer(uint& id_vertex, const int& size, const float* vertex);
 
 public:
 
