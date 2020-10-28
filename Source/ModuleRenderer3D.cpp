@@ -112,17 +112,48 @@ bool ModuleRenderer3D::Init()
 
 bool ModuleRenderer3D::Start()
 {
-	bool loaded = App->textureImporter->LoadTexture("Assets/Textures/Baker_house.png");
+	/*bool loaded = App->textureImporter->LoadTexture("Assets/Textures/Baker_house.png");
 	if (loaded) {
 		LOGFIX("Texture File Loaded");
 	}
 	else {
 		LOGFIX("Error Loading Texture!");
-	}
+	}*/
+
+	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Textures/Baker_house.png");
+	App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.fbx");
+
+	App->meshimporter->MeshesOnScene.at(0)->TextureData = App->textureImporter->TextureHouse;
+	App->meshimporter->MeshesOnScene.at(1)->TextureData = App->textureImporter->TextureHouse;
+
 		//App->meshimporter->LoadMesh("Assets/Models/Warrior/warrior.FBX");
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	return true;
+}
+
+void ModuleRenderer3D::GenerateVertexBuffer(Vertex_Sub* vertex, uint& size, uint& id_vertex)
+{
+	glGenBuffers(1, (GLuint*)&(id_vertex));
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex_Sub) * size, vertex, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void ModuleRenderer3D::GenerateIndexBuffer(uint* index, uint& size, uint& id_index)
+{
+	glGenBuffers(1, (GLuint*)&(id_index));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * size, index, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void ModuleRenderer3D::GenerateTextBuffer(float* text_coords, uint& num_text_coords, uint& id_text_coords)
+{
+	glGenBuffers(1, (GLuint*)&(id_text_coords));
+	glBindBuffer(GL_ARRAY_BUFFER, id_text_coords);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_text_coords * 2, text_coords, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 // PreUpdate: clear buffer
@@ -192,29 +223,29 @@ void ModuleRenderer3D::OnResize(int width, int height)
 }
 
 
-void ModuleRenderer3D::GenerateVertexBuffer(uint& id_vertex, const int& size, const float* vertex)
-{
-	glGenBuffers(1, (GLuint*)&(id_vertex));
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * size * 3, vertex, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-void ModuleRenderer3D::GenerateIndexBuffer(uint& id_index, const int& size, const uint* index)
-{
-	glGenBuffers(1, (GLuint*)&(id_index));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * size, index, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-void ModuleRenderer3D::GenerateVertexTexBuffer(uint& id_vertexTex, const int& sizeTex, const float* vertexTex) //Textures
-{
-	glGenBuffers(1, (GLuint*)&(id_vertexTex));
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertexTex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sizeTex, vertexTex, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
+//void ModuleRenderer3D::GenerateVertexBuffer(uint& id_vertex, const int& size, Vertex_Sub* vertex)
+//{
+//	glGenBuffers(1, (GLuint*)&(id_vertex));
+//	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
+//	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * size * 3, vertex, GL_STATIC_DRAW);
+//	glBindBuffer(GL_ARRAY_BUFFER, 0);
+//}
+//
+//void ModuleRenderer3D::GenerateIndexBuffer(uint& id_index, const int& size, const uint* index)
+//{
+//	glGenBuffers(1, (GLuint*)&(id_index));
+//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
+//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * size, index, GL_STATIC_DRAW);
+//	glBindBuffer(GL_ARRAY_BUFFER, 0);
+//}
+//
+//void ModuleRenderer3D::GenerateVertexTexBuffer(uint& id_vertexTex, const int& sizeTex, const float* vertexTex) //Textures
+//{
+//	glGenBuffers(1, (GLuint*)&(id_vertexTex));
+//	glBindBuffer(GL_ARRAY_BUFFER, id_vertexTex);
+//	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sizeTex, vertexTex, GL_STATIC_DRAW);
+//	glBindBuffer(GL_ARRAY_BUFFER, 0);
+//}
 
 void ModuleRenderer3D::CreateConsolelog(const char file[], int line, const char* format, ...)
 {

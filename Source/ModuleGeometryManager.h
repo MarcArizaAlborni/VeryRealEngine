@@ -47,8 +47,9 @@ public:
 	void Transform_Mesh_Rotation(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
 
 	//Meshes
+	void DrawMeshTextured(GameObject* mesh);
 	void DrawMesh( GameObject* mesh);
-	void DrawTextureOnMesh( GameObject* mesh, const uint texture_id = 0);
+	void DrawTextureOnMesh( GameObject* mesh);
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);

@@ -42,77 +42,85 @@ update_status ModuleMeshImporter::Update(float dt)
 }
 
 // Load a mesh with index and vertex
-MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
+void ModuleMeshImporter::LoadMesh(char* file_path)
 {
-	LOGFIX("Importing Model");
-	MeshInfo* ourMesh = new MeshInfo();
-	GameObject* ourGameObject = new GameObject();
+	LOGFIX("Importing Model...");	
+
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 
 	if (scene != nullptr && scene->HasMeshes()) {
 
-		int MESH_TOTAL_AMOUNT = scene->mNumMeshes;
-
-
-
-		for (int i = 0; i < MESH_TOTAL_AMOUNT; ++i) {
+		//MeshInfo* ourMesh = new MeshInfo();
+		GameObject* ourGameObject = new GameObject();
+		
+		for (int i = 0; i < scene->mNumMeshes; ++i) {
 
 			aiMesh* MeshToLoad = scene->mMeshes[i];
 
-			ourMesh->num_vertex = MeshToLoad->mNumVertices;
-			ourMesh->vertex = new float[ourMesh->num_vertex * 3];
-			memcpy(ourMesh->vertex, MeshToLoad->mVertices, sizeof(float) * ourMesh->num_vertex * 3);
+			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
+			ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
+			//memcpy(ourGameObject->MeshData.vertex, MeshToLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
 
-			/*ourGameObject->MeshData.mesh_values = MeshToLoad;
+			for (uint X = 0; X < MeshToLoad->mNumVertices; ++X)
+			{
+				ourGameObject->MeshData.vertex[X].x = MeshToLoad->mVertices[X].x;
+				ourGameObject->MeshData.vertex[X].y = MeshToLoad->mVertices[X].y;
+				ourGameObject->MeshData.vertex[X].z = MeshToLoad->mVertices[X].z;
+			}
 
-			if (file_path == "Assets/Models/Primitives/Pyramid.FBX") {
-				aiVector3D coords = { 0,0,0 };
-				ourGameObject->MeshData.mesh_values->mVertices = 0;
-			}*/
-
+		
 			if (MeshToLoad->HasFaces()) {
 
-				ourMesh->num_index = MeshToLoad->mNumFaces * 3;
-				ourMesh->index = new uint[ourMesh->num_index];
+				ourGameObject->MeshData.num_index = MeshToLoad->mNumFaces * 3;
+				ourGameObject->MeshData.index = new uint[ourGameObject->MeshData.num_index];
 
 				for (int c = 0; c < MeshToLoad->mNumFaces; ++c) {
 
 					//IF MESHES HAVE TRIS
 					if (MeshToLoad->mFaces[c].mNumIndices == 3) {
 
-						memcpy(&ourMesh->index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+						memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
 					}
 
 				}
 
 			}
 
-
 			if (MeshToLoad->HasTextureCoords(0))
 			{
-				ourMesh->num_texcoords = MeshToLoad->mNumVertices;
-				ourMesh->texcoords = new float[ourMesh->num_texcoords * 2];
+				ourGameObject->MeshData.num_texcoords = MeshToLoad->mNumVertices;
+				ourGameObject->MeshData.texcoords = new float[ourGameObject->MeshData.num_texcoords * 2];
 
-				memcpy(ourMesh->texcoords, MeshToLoad->mTextureCoords[0], sizeof(float) * ourMesh->num_texcoords * 2);
+				for (int Z = 0; Z< ourGameObject->MeshData.num_texcoords; ++Z) {
 
-				glGenBuffers(1, (GLuint*)&ourMesh->texcoords_id);
-				glBindBuffer(GL_ARRAY_BUFFER, ourMesh->texcoords_id);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * ourMesh->num_texcoords * 2, ourMesh->texcoords, GL_STATIC_DRAW);
-				glBindBuffer(GL_ARRAY_BUFFER, 0);
+					ourGameObject->MeshData.texcoords[Z * 2] = MeshToLoad->mTextureCoords[0][Z].x;
+					ourGameObject->MeshData.texcoords[(Z * 2)+1] = MeshToLoad->mTextureCoords[0][Z].y;
+
+				}
+				//memcpy(ourGameObject->MeshData.texcoords, MeshToLoad->mTextureCoords[0], sizeof(float) * ourGameObject->MeshData.num_texcoords * 2);
+
+				/*glGenBuffers(1, (GLuint*)&ourGameObject->MeshData.texcoords_id);
+				glBindBuffer(GL_ARRAY_BUFFER, ourGameObject->MeshData.texcoords_id);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * ourGameObject->MeshData.num_texcoords * 2, ourGameObject->MeshData.texcoords, GL_STATIC_DRAW);
+				glBindBuffer(GL_ARRAY_BUFFER, 0);*/
 			}
 			//CALLED TO CREATE A VERTEX BUFFER SO WE CAN DRAW MULTIPLE OBJECTS
-			App->renderer3D->GenerateVertexBuffer(ourMesh->id_vertex, ourMesh->num_vertex, ourMesh->vertex);
+			//App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.id_vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.vertex);
 
-			App->renderer3D->GenerateVertexTexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->vertex);
+			//App->renderer3D->GenerateVertexTexBuffer(ourGameObject->MeshData.id_index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.vertex);
 
-			if (ourMesh->index != nullptr) {
-				//siCalled to create an Index Buffer so we can draw multiple objects
-				App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);
-			}
+			//if (ourGameObject->MeshData.index != nullptr) {
+			//	//siCalled to create an Index Buffer so we can draw multiple objects
+			//	App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.id_index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.index);
+			//}
 
-			App->renderer3D->GenerateVertexBuffer(ourMesh->texcoords_id, ourMesh->num_texcoords * 2, ourMesh->texcoords);
+			//App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.texcoords_id, ourGameObject->MeshData.num_texcoords * 2, ourGameObject->MeshData.texcoords);
 
-			ourGameObject->MeshData = *ourMesh;
+			App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
+			App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
+			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
+
+			
 			//Add to mesh list for when we draw each mesh
 			bool ParentFound = false;
 			std::vector<GameObject*>::iterator IteratorToAddMesh = App->meshimporter->MeshesOnScene.begin();
@@ -143,8 +151,10 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 		aiReleaseImport(scene);
 	}
 
-	return ourMesh;
+	
 }
+
+
 
 void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent)
 {

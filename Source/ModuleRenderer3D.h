@@ -10,7 +10,7 @@
 #define MAX_LIGHTS 8
 
 struct MeshInfo;
-
+struct Vertex_Sub;
 class ModuleRenderer3D : public Module
 {
 public:
@@ -26,9 +26,9 @@ public:
 
 	void OnResize(int width, int height);
 
-	void GenerateVertexBuffer(uint& id_vertex, const int& size, const float* vertex);
-	void GenerateIndexBuffer(uint& id_index, const int& size, const uint* index);
-	void GenerateVertexTexBuffer(uint& id_vertex, const int& size, const float* vertex);
+	void GenerateVertexBuffer(Vertex_Sub* vertex, uint& size, uint& id_vertex);
+	void GenerateIndexBuffer(uint* index, uint& size, uint& id_index);
+	void GenerateTextBuffer(float* text_coords, uint& num_text_coords, uint& id_text_coords);
 
 public:
 

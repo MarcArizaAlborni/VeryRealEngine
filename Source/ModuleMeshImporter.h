@@ -8,6 +8,8 @@
 // Class Mesh
 
 struct VectorTransformations;
+struct TextureInfo;
+
 struct MeshTransformation {
 
 	GLfloat Translation_Vec3[3] = { 0.0f,0.0f,0.0f };
@@ -24,6 +26,11 @@ struct MeshTransformation {
 
 };
 
+struct Vertex_Sub {
+
+	float x, y, z;
+};
+
 struct MeshInfo
 {
 	uint id_index=0; // index in VRAM
@@ -31,7 +38,7 @@ struct MeshInfo
 	uint* index = nullptr;
 	uint id_vertex = 0; // unique vertex in VRAM
 	uint num_vertex = 0;
-	float* vertex=nullptr;
+	Vertex_Sub* vertex=nullptr;
 
 	float* texcoords = nullptr;
 	uint num_texcoords = 0;
@@ -39,8 +46,9 @@ struct MeshInfo
 	
 	GLuint TextureName;
 
-
 	
+
+    
 };
 
 struct GameObject {
@@ -67,6 +75,8 @@ struct GameObject {
 
 	bool ToBeDrawInspector;
 
+	TextureInfo TextureData;
+
 };
 
 class ModuleMeshImporter : public Module
@@ -84,7 +94,7 @@ public:
 	// LIST MESH STUFF
 
 	//Mesh Import functions 
-	MeshInfo* LoadMesh(char* file_path);
+	void LoadMesh(char* file_path);
 
 	//List of meshes active
 	std::vector<GameObject*> MeshesOnScene;
