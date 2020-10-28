@@ -61,89 +61,69 @@ bool ModuleTextureImporter::LoadTextureCheckers()
 	return true;
 }
 
-bool ModuleTextureImporter::LoadTexture(const char* path)
+TextureInfo ModuleTextureImporter::LoadTexture(const char* path) const
 {
 
 	ilInit();
 	iluInit();
 	ilutInit();
-	//Texture loading success
-	bool textureLoaded = false;
 
-	//Generate and set current image ID
-	ILuint imgID = 0;
-	ilGenImages(1, &imgID);
-	ilBindImage(imgID);
+	TextureInfo id_texture;
+	uint id_img = 0;
 
-	std::string PathStr;
-	PathStr = path;
-	
-
-	//Load image
-	ILboolean success = ilLoadImage(PathStr.c_str());
-
-	//Image loaded successfully
-	if (success == IL_TRUE)
+	if (path != nullptr)
 	{
-		//Convert image to RGBA
-		success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
-		if (success == IL_TRUE)
+		ilGenImages(1, (ILuint*)&id_img);
+		ilBindImage(id_img);
+
+		if (ilLoadImage(path))
 		{
-			//Create texture from file pixels
-			textureLoaded = TextureBuffersLoad((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT));
+			ILinfo ImgInfo;
+			iluGetImageInfo(&ImgInfo);
+
+			if (ImgInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+				iluFlipImage();
+
+			if (ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
+			{
+				//Create Texture
+				id_texture.id = CreateTexture(ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), ilGetInteger(IL_IMAGE_FORMAT), ilGetInteger(IL_IMAGE_FORMAT));
+			}	
 		}
-
-		//Delete file from memory
-		ilDeleteImages(1, &imgID);
 	}
-
-	//Report error
-	if (!textureLoaded)
-	{
-		printf("Unable to load %s\n", PathStr.c_str());
-	}
-
-	return textureLoaded;
+	
+	return id_texture;
 	
 }
 
-bool ModuleTextureImporter::TextureBuffersLoad(GLuint* pixels, GLuint width, GLuint height)
+uint ModuleTextureImporter::CreateTexture(const void* text, uint width, uint height, int format, uint format2) const
 {
-	//Free texture if it exists
-	freeTexture();
+	uint id_texture = 0;
 
-	//Get texture dimensions
-	mTextureWidth = width;
-	mTextureHeight = height;
+	glGenTextures(1, (GLuint*)&id_texture);
+	glBindTexture(GL_TEXTURE_2D, id_texture);
 
-	//Generate texture ID
-	glGenTextures(1, &mTextureID);
-
-	//Bind texture ID
-	glBindTexture(GL_TEXTURE_2D, mTextureID);
-
-	//Generate texture
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-
-	//Set texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-	//Unbind texture
-	glBindTexture(GL_TEXTURE_2D, NULL);
-
-	//Check for error
-	GLenum error = glGetError();
-	if (error != GL_NO_ERROR)
+	//Enabling anisotropic filtering
+	if (glewIsSupported("GL_EXT_texture_filter_anisotropic"))
 	{
-		printf("Error loading texture from %p pixels! %s\n", pixels, gluErrorString(error));
-		return false;
+		float max_anisotropy;
+		glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &max_anisotropy);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, max_anisotropy);
 	}
 
-	return true;
-	
-}
+	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, text);
+	glGenerateMipmap(GL_TEXTURE_2D);
 
+	//Unbind Texture
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	return id_texture;
+}
 
 void ModuleTextureImporter::ImportTexture()
 {

@@ -1,11 +1,18 @@
 #pragma once
-#ifndef __ModuleTextureImporters_H__
-#define __ModuleTextureImporters_H__
+#ifndef __ModuleTextureImporter_H__
+#define __ModuleTextureImporter_H__
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
 #include "libraries/Glew/include/GL/glew.h"
 
+struct TextureInfo
+{
+	uint id;
+	uint width;
+	uint height;
+	std::string path;
+};
 
 class ModuleTextureImporter : public Module
 {
@@ -15,8 +22,8 @@ public:
 
 	bool LoadTextureCheckers();
 	
-	bool LoadTexture(const char* path);
-	bool TextureBuffersLoad(GLuint* pixels, GLuint width, GLuint height);
+	TextureInfo LoadTexture(const char* path) const;
+	uint CreateTexture(const void* texture, uint width, uint height, int format, uint format2) const;
 	void ImportTexture();
 	uint SetUpTexture(const void* ImageInfo, int TexWidth, int TexHeight,int Border, int intFormat, uint format, uint Target, int FilterTypus, int WrapType);
 	void freeTexture();
@@ -28,6 +35,7 @@ public:
 
 public:
 
+	TextureInfo new_texture;
 	//Texture name
 	GLuint mTextureID;
 
