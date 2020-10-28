@@ -51,7 +51,7 @@ update_status ModuleGeometryManager::Update(float dt)
 		GameObject* Item = *IteratorLoaded;
 		//right now we only load the house texture
 		if (Item->is_Drawn == true) {
-			DrawTextureOnMesh(*IteratorLoaded, App->textureImporter->new_texture.id);
+			DrawTextureOnMesh(*IteratorLoaded, App->textureImporter->mTextureID);
 		}
 		//DrawMesh(*IteratorLoaded);
 

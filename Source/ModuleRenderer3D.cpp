@@ -112,18 +112,13 @@ bool ModuleRenderer3D::Init()
 
 bool ModuleRenderer3D::Start()
 {
-	/*bool loaded = App->textureImporter->LoadTexture("Assets/Textures/Baker_house.png");
+	bool loaded = App->textureImporter->LoadTexture("Assets/Textures/Baker_house.png");
 	if (loaded) {
 		LOGFIX("Texture File Loaded");
 	}
 	else {
 		LOGFIX("Error Loading Texture!");
-	}*/
-
-	App->textureImporter->new_texture = App->textureImporter->LoadTexture("Assets/Textures/Baker_house.png");
-
-	App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.FBX");
-
+	}
 		//App->meshimporter->LoadMesh("Assets/Models/Warrior/warrior.FBX");
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -164,7 +159,9 @@ update_status ModuleRenderer3D::Update(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	
 
+	
 	SDL_GL_SwapWindow(App->window->window);
 
 	return UPDATE_CONTINUE;
