@@ -87,30 +87,30 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 
 			}
 
-
 			if (MeshToLoad->HasTextureCoords(0))
 			{
 				ourMesh->num_texcoords = MeshToLoad->mNumVertices;
 				ourMesh->texcoords = new float[ourMesh->num_texcoords * 2];
 
-				memcpy(ourMesh->texcoords, MeshToLoad->mTextureCoords[0], sizeof(float) * ourMesh->num_texcoords * 2);
-
-				glGenBuffers(1, (GLuint*)&ourMesh->texcoords_id);
-				glBindBuffer(GL_ARRAY_BUFFER, ourMesh->texcoords_id);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * ourMesh->num_texcoords * 2, ourMesh->texcoords, GL_STATIC_DRAW);
-				glBindBuffer(GL_ARRAY_BUFFER, 0);
+				for (int i = 0; i < ourMesh->num_texcoords; ++i)
+				{
+					ourMesh->texcoords[i * 2] = MeshToLoad->mTextureCoords[0][i].x;
+					ourMesh->texcoords[(i * 2) + 1] = MeshToLoad->mTextureCoords[0][i].y;
+				}
 			}
+
 			//CALLED TO CREATE A VERTEX BUFFER SO WE CAN DRAW MULTIPLE OBJECTS
 			App->renderer3D->GenerateVertexBuffer(ourMesh->id_vertex, ourMesh->num_vertex, ourMesh->vertex);
 
 			App->renderer3D->GenerateVertexTexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->vertex);
+
+			App->renderer3D->GenerateVertexBuffer(ourMesh->texcoords_id, ourMesh->num_texcoords * 2, ourMesh->texcoords);
 
 			if (ourMesh->index != nullptr) {
 				//siCalled to create an Index Buffer so we can draw multiple objects
 				App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);
 			}
 
-			App->renderer3D->GenerateVertexBuffer(ourMesh->texcoords_id, ourMesh->num_texcoords * 2, ourMesh->texcoords);
 
 			ourGameObject->MeshData = *ourMesh;
 			//Add to mesh list for when we draw each mesh
@@ -172,9 +172,6 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 
 		MeshesOnScene.push_back(Object);
 	}
-
-
-
 }
 
 void ModuleMeshImporter::CreateConsolelog(const char file[], int line, const char* format, ...)
