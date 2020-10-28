@@ -100,7 +100,7 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 			}
 
 			//CALLED TO CREATE A VERTEX BUFFER SO WE CAN DRAW MULTIPLE OBJECTS
-			App->renderer3D->GenerateVertexBuffer(ourMesh->id_vertex, ourMesh->num_vertex, ourMesh->vertex);
+			App->renderer3D->GenerateVertexBuffer( ourMesh->num_vertex, ourMesh->id_vertex, ourMesh->vertex);
 
 			/*App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);*/
 			if (ourMesh->index != nullptr) {
@@ -108,7 +108,7 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 				App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);
 			}
 
-			App->renderer3D->GenerateVertexTexBuffer(ourMesh->texcoords_id, ourMesh->num_texcoords * 2, ourMesh->texcoords);
+			App->renderer3D->GenerateVertexTexBuffer(ourMesh->texcoords, ourMesh->num_texcoords, ourMesh->texcoords_id);
 
 			
 
