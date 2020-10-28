@@ -91,13 +91,13 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 			if (MeshToLoad->HasTextureCoords(0))
 			{
 				ourMesh->num_texcoords = MeshToLoad->mNumVertices;
-				ourMesh->texcoords = new float[ourMesh->num_texcoords * 3];
+				ourMesh->texcoords = new float[ourMesh->num_texcoords * 2];
 
-				memcpy(ourMesh->texcoords, MeshToLoad->mTextureCoords[0], sizeof(float) * ourMesh->num_texcoords * 3);
+				memcpy(ourMesh->texcoords, MeshToLoad->mTextureCoords[0], sizeof(float) * ourMesh->num_texcoords * 2);
 
 				glGenBuffers(1, (GLuint*)&ourMesh->texcoords_id);
 				glBindBuffer(GL_ARRAY_BUFFER, ourMesh->texcoords_id);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * ourMesh->num_texcoords * 3, ourMesh->texcoords, GL_STATIC_DRAW);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * ourMesh->num_texcoords * 2, ourMesh->texcoords, GL_STATIC_DRAW);
 				glBindBuffer(GL_ARRAY_BUFFER, 0);
 			}
 			//CALLED TO CREATE A VERTEX BUFFER SO WE CAN DRAW MULTIPLE OBJECTS

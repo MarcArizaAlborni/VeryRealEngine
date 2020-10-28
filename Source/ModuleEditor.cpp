@@ -65,6 +65,7 @@ bool ModuleEditor::Start()
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
 
+	io.WantCaptureMouse;
 
 	// States
 	show_demo_window = true;
