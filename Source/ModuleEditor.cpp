@@ -65,8 +65,6 @@ bool ModuleEditor::Start()
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
 
-	io.WantCaptureMouse;
-
 	// States
 	show_demo_window = true;
 
@@ -178,15 +176,19 @@ update_status ModuleEditor::PostUpdate(float dt)
 	if (show_demo_window)
 		ImGui::ShowDemoWindow(&show_demo_window);
 
-	if (MainWindow("Main Window", show_main_dockSpace, ImGuiWindowFlags_MenuBar)) {
-		App->mainMenubar->CreateMainMenuBar();
-		ImGui::End();
-	}
-	App->configWindow->CreateConfigWindow();
-	CreateAboutWindow();
-	App->console->CreateConsoleWindow();
-	App->hierarchy->CreateHierarchyWindow();
-	App->inspector->CreateInspectorWindow();
+	
+		if (MainWindow("Main Window", show_main_dockSpace, ImGuiWindowFlags_MenuBar)) {
+			App->mainMenubar->CreateMainMenuBar();
+			ImGui::End();
+		}
+		App->configWindow->CreateConfigWindow();
+		CreateAboutWindow();
+		App->console->CreateConsoleWindow();
+		App->hierarchy->CreateHierarchyWindow();
+		App->inspector->CreateInspectorWindow();
+	
+
+	
 
 	//Render
 	ImGui::Render();

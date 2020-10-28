@@ -41,128 +41,133 @@ bool ModuleCamera3D::CleanUp()
 update_status ModuleCamera3D::Update(float dt)
 {
 
-	// Movement Camera
-	vec3 newPos(0, 0, 0);
-	float speed = 20.0f * dt;
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 40.0f * dt;
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-	if (App->input->GetKey(SDL_SCANCODE_KP_7) == KEY_REPEAT) newPos.y += speed;
-	if (App->input->GetKey(SDL_SCANCODE_KP_9) == KEY_REPEAT) newPos.y -= speed;
-
-	//if ((App->input->GetKey(SDL_SCANCODE_KP_8) == KEY_REPEAT) && (App->input->GetKey(SDL_BUTTON_LEFT) == SDL_MOUSEBUTTONDOWN))newPos -= Z * speed;
-
-	if (App->input->GetKey(SDL_SCANCODE_KP_8) == KEY_REPEAT) newPos -= Z * speed;
-	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-	if (App->input->GetKey(SDL_SCANCODE_KP_5) == KEY_REPEAT) newPos += Z * speed;
-	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
-
-	if (App->input->GetKey(SDL_SCANCODE_KP_4) == KEY_REPEAT) newPos -= X * speed;
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-	if (App->input->GetKey(SDL_SCANCODE_KP_6) == KEY_REPEAT) newPos += X * speed;
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
-
-	Position += newPos;
-	Reference += newPos;
-
-	// Wheel Zoom
-	if (App->input->GetMouseZ() != 0)
+	if (io.WantCaptureMouse == false)
 	{
-		vec3 Distance = Position - Reference;
-		vec3 newPos = { 0,0,0 };
+		// Movement Camera
+		vec3 newPos(0, 0, 0);
+		float speed = 20.0f * dt;
+		if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+			speed = 40.0f * dt;
 
-		if (App->input->GetMouseZ() > 0 || App->input->GetMouseZ() < 0)
-		{
-			newPos -= Z * App->input->GetMouseZ() * length(Distance) / (1 / zoomValue * 4);
-			Position += newPos;
-		}
+		if (App->input->GetKey(SDL_SCANCODE_KP_7) == KEY_REPEAT) newPos.y += speed;
+		if (App->input->GetKey(SDL_SCANCODE_KP_9) == KEY_REPEAT) newPos.y -= speed;
 
-		Position += newPos;
-	}
+		//if ((App->input->GetKey(SDL_SCANCODE_KP_8) == KEY_REPEAT) && (App->input->GetKey(SDL_BUTTON_LEFT) == SDL_MOUSEBUTTONDOWN))newPos -= Z * speed;
 
-	//Left Click (altenative for the arrows)
-	if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
-	{
-		ImGui::SetMouseCursor(ImGuiMouseCursor_ResizeAll);
+		if (App->input->GetKey(SDL_SCANCODE_KP_8) == KEY_REPEAT) newPos -= Z * speed;
+		else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+		if (App->input->GetKey(SDL_SCANCODE_KP_5) == KEY_REPEAT) newPos += Z * speed;
+		else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
 
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
-
-		if (dx != 0 || dy != 0)
-		{
-			newPos -= Y * dy * App->GetDT() * wheelSpeedValue;
-			newPos += X * dx * App->GetDT() * wheelSpeedValue;
-		}
+		if (App->input->GetKey(SDL_SCANCODE_KP_4) == KEY_REPEAT) newPos -= X * speed;
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+		if (App->input->GetKey(SDL_SCANCODE_KP_6) == KEY_REPEAT) newPos += X * speed;
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
 		Position += newPos;
 		Reference += newPos;
-	}
 
-	// Mouse motion ----------------
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-	{
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
-
-		float Sensitivity = 0.25f;
-
-		Position -= Reference;
-
-		if (dx != 0)
+		// Wheel Zoom
+		if (App->input->GetMouseZ() != 0)
 		{
-			float DeltaX = (float)dx * Sensitivity;
+			vec3 Distance = Position - Reference;
+			vec3 newPos = { 0,0,0 };
 
-			X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-			Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-		}
-
-		if (dy != 0)
-		{
-			float DeltaY = (float)dy * Sensitivity;
-
-			Y = rotate(Y, DeltaY, X);
-			Z = rotate(Z, DeltaY, X);
-
-			if (Y.y < 0.0f)
+			if (App->input->GetMouseZ() > 0 || App->input->GetMouseZ() < 0)
 			{
-				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-				Y = cross(Z, X);
-			}
-		}
-
-		Position = Reference + Z * length(Position);
-	}
-
-	//Center to object
-	std::vector<GameObject*>::iterator IteratorToAddMesh = App->meshimporter->MeshesOnScene.begin();
-	GameObject* selected_mesh;
-	for (int count = 0; count < App->meshimporter->MeshesOnScene.size(); ++count)
-	{
-		selected_mesh = *IteratorToAddMesh;
-		if (selected_mesh->ToBeDrawInspector == true)
-		{
-			if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
-			{
-				CenterToObject();
-				LOGFIX("Centering Object");
+				newPos -= Z * App->input->GetMouseZ() * length(Distance) / (1 / zoomValue * 4);
+				Position += newPos;
 			}
 
-			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+			Position += newPos;
+		}
+
+		//Left Click (altenative for the arrows)
+		if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
+		{
+			ImGui::SetMouseCursor(ImGuiMouseCursor_ResizeAll);
+
+			int dx = -App->input->GetMouseXMotion();
+			int dy = -App->input->GetMouseYMotion();
+
+			if (dx != 0 || dy != 0)
 			{
-				if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
+				newPos -= Y * dy * App->GetDT() * wheelSpeedValue;
+				newPos += X * dx * App->GetDT() * wheelSpeedValue;
+			}
+
+			Position += newPos;
+			Reference += newPos;
+		}
+
+		// Mouse motion ----------------
+		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		{
+			int dx = -App->input->GetMouseXMotion();
+			int dy = -App->input->GetMouseYMotion();
+
+			float Sensitivity = 0.25f;
+
+			Position -= Reference;
+
+			if (dx != 0)
+			{
+				float DeltaX = (float)dx * Sensitivity;
+
+				X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			}
+
+			if (dy != 0)
+			{
+				float DeltaY = (float)dy * Sensitivity;
+
+				Y = rotate(Y, DeltaY, X);
+				Z = rotate(Z, DeltaY, X);
+
+				if (Y.y < 0.0f)
 				{
-					//Orbit()
-					
+					Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+					Y = cross(Z, X);
 				}
 			}
-		}
-		
-		++IteratorToAddMesh;
-	}
 
-	// Recalculate matrix -------------
-	CalculateViewMatrix();
+			Position = Reference + Z * length(Position);
+		}
+
+		//Center to object
+		std::vector<GameObject*>::iterator IteratorToAddMesh = App->meshimporter->MeshesOnScene.begin();
+		GameObject* selected_mesh;
+		for (int count = 0; count < App->meshimporter->MeshesOnScene.size(); ++count)
+		{
+			selected_mesh = *IteratorToAddMesh;
+			if (selected_mesh->ToBeDrawInspector == true)
+			{
+				if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+				{
+					CenterToObject();
+					LOGFIX("Centering Object");
+				}
+
+				if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+				{
+					if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
+					{
+						//Orbit()
+
+					}
+				}
+			}
+
+			++IteratorToAddMesh;
+		}
+
+		// Recalculate matrix -------------
+		CalculateViewMatrix();
+	}
 
 	return UPDATE_CONTINUE;
 }
