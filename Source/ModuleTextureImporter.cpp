@@ -224,9 +224,11 @@ void ModuleTextureImporter::freeTexture()
 	mTextureHeight = 0;
 }
 
-void ModuleTextureImporter::LoadCheckersTexture()
+TextureInfo ModuleTextureImporter::LoadCheckersTexture()
 {
 	GLubyte checkImage[64][64][4];
+
+
 
 	for (int i = 0; i < CHECKERS_WIDTH; i++)
 	{
@@ -257,7 +259,7 @@ void ModuleTextureImporter::LoadCheckersTexture()
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 
-	
+	return TextureCheckers;
 }
 
 

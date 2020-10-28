@@ -31,7 +31,7 @@ public:
 	void ImportTexture();
 	uint SetUpTexture(const void* ImageInfo, int TexWidth, int TexHeight,int Border, int intFormat, uint format, uint Target, int FilterTypus, int WrapType);
 	void freeTexture();
-	void LoadCheckersTexture();
+	TextureInfo LoadCheckersTexture();
 
 	
 

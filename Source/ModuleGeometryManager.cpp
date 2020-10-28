@@ -138,16 +138,39 @@ void ModuleGeometryManager::DrawPlane()
 
 void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glBindBuffer(GL_ARRAY_BUFFER,mesh->MeshData.id_vertex);
+	GLfloat Null_Array[] = { 0,0,0,0 };
+
+	VectorTransformations ZeroArray;
+
+	ZeroArray = { 0,0,0,0 };
+
+	if (mesh->is_Wireframed == true) {
+		glLineWidth(3);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+
+	//Transform_Mesh_Translation(mesh, mesh->Mesh_Transform_Modifiers.VectorTranslation, ZeroArray);
+	//Transform_Mesh_Scale(mesh, mesh->Mesh_Transform_Modifiers.Scale_Vec3, Null_Array);
+	//Transform_Mesh_Rotation(mesh, mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
+
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	glBindTexture(GL_TEXTURE_2D, mesh->TextureData.texture_id);
+	if (mesh->is_Textured == true) {
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id);
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+		glBindTexture(GL_TEXTURE_2D, mesh->TextureData.texture_id);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id);
+		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,mesh->MeshData.id_index);
 	glDrawElements(GL_TRIANGLES,mesh->MeshData.num_index, GL_UNSIGNED_INT, nullptr);
@@ -164,26 +187,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 // Draw mesh with vertex and index
 void ModuleGeometryManager::DrawMesh( GameObject* mesh)
 {
-	GLfloat Null_Array[] = { 0,0,0,0 };
 	
-	VectorTransformations ZeroArray;
-
-	ZeroArray = { 0,0,0,0 };
-	
-   //glPushMatrix();
-	////glScalef(0.5, 0.5, 0.5);
-	//glRotatef(90, -1.0, 0.0, 0.0);
-	////glRotatef(45, 0.0, 0.0, 1.0);
-
-	//
-
-	//glTranslatef(-5.0, 0.0, 0.0);
-	
-
-
-	Transform_Mesh_Translation(mesh, mesh->Mesh_Transform_Modifiers.VectorTranslation, ZeroArray);
-	//Transform_Mesh_Scale(mesh,mesh->Mesh_Transform_Modifiers.Scale_Vec3, Null_Array);
-	Transform_Mesh_Rotation(mesh,mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
 	
 	
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -209,13 +213,7 @@ void ModuleGeometryManager::DrawMesh( GameObject* mesh)
 
 void ModuleGeometryManager::DrawTextureOnMesh( GameObject* mesh)
 {
-	if (mesh->is_Wireframed == true) {
-		glLineWidth(3);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
+	
 	//CAREFULL IF THERE ISNT A TEXTURE LOADED IT CAN CRASH
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 

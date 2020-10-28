@@ -121,6 +121,7 @@ bool ModuleRenderer3D::Start()
 	}*/
 
 	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Textures/Baker_house.png");
+	App->textureImporter->TextureCheckers = App->textureImporter->LoadCheckersTexture();
 	App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.fbx");
 
 	App->meshimporter->MeshesOnScene.at(0)->TextureData = App->textureImporter->TextureHouse;
