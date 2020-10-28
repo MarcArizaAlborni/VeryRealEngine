@@ -73,9 +73,9 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 uint ModuleTextureImporter::SetUpTexture(const void* texture, uint width, uint height, int format, uint format2)
 {
 	
-	uint id_texture = 0;
+	GLuint id_texture = 0;
 
-	glGenTextures(1, (GLuint*)&id_texture);
+	glGenTextures(1, &id_texture);
 	glBindTexture(GL_TEXTURE_2D, id_texture);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -243,7 +243,7 @@ TextureInfo ModuleTextureImporter::LoadCheckersTexture()
 		}
 	}
 
-	
+	//me cago en las putas texturas de los hyevos
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glGenTextures(1, &TextureCheckers.texture_id);

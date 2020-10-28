@@ -52,22 +52,15 @@ void ModuleMeshImporter::LoadMesh(char* file_path)
 
 		//MeshInfo* ourMesh = new MeshInfo();
 		GameObject* ourGameObject = new GameObject();
+		aiMesh* MeshToLoad;
 		
 		for (int i = 0; i < scene->mNumMeshes; ++i) {
 
-			aiMesh* MeshToLoad = scene->mMeshes[i];
+			MeshToLoad = scene->mMeshes[i];
 
 			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
 			ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
-			//memcpy(ourGameObject->MeshData.vertex, MeshToLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
-
-			for (uint X = 0; X < MeshToLoad->mNumVertices; ++X)
-			{
-				ourGameObject->MeshData.vertex[X].x = MeshToLoad->mVertices[X].x;
-				ourGameObject->MeshData.vertex[X].y = MeshToLoad->mVertices[X].y;
-				ourGameObject->MeshData.vertex[X].z = MeshToLoad->mVertices[X].z;
-			}
-
+			memcpy(ourGameObject->MeshData.vertex, MeshToLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
 		
 			if (MeshToLoad->HasFaces()) {
 
@@ -81,9 +74,7 @@ void ModuleMeshImporter::LoadMesh(char* file_path)
 
 						memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
 					}
-
 				}
-
 			}
 
 			if (MeshToLoad->HasTextureCoords(0))
@@ -94,39 +85,19 @@ void ModuleMeshImporter::LoadMesh(char* file_path)
 				for (int Z = 0; Z< ourGameObject->MeshData.num_texcoords; ++Z) {
 
 					ourGameObject->MeshData.texcoords[Z * 2] = MeshToLoad->mTextureCoords[0][Z].x;
-					ourGameObject->MeshData.texcoords[(Z * 2)+1] = MeshToLoad->mTextureCoords[0][Z].y;
-
+					ourGameObject->MeshData.texcoords[(Z * 2) + 1] = MeshToLoad->mTextureCoords[0][Z].y;
 				}
-				//memcpy(ourGameObject->MeshData.texcoords, MeshToLoad->mTextureCoords[0], sizeof(float) * ourGameObject->MeshData.num_texcoords * 2);
-
-				/*glGenBuffers(1, (GLuint*)&ourGameObject->MeshData.texcoords_id);
-				glBindBuffer(GL_ARRAY_BUFFER, ourGameObject->MeshData.texcoords_id);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * ourGameObject->MeshData.num_texcoords * 2, ourGameObject->MeshData.texcoords, GL_STATIC_DRAW);
-				glBindBuffer(GL_ARRAY_BUFFER, 0);*/
 			}
-			//CALLED TO CREATE A VERTEX BUFFER SO WE CAN DRAW MULTIPLE OBJECTS
-			//App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.id_vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.vertex);
-
-			//App->renderer3D->GenerateVertexTexBuffer(ourGameObject->MeshData.id_index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.vertex);
-
-			//if (ourGameObject->MeshData.index != nullptr) {
-			//	//siCalled to create an Index Buffer so we can draw multiple objects
-			//	App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.id_index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.index);
-			//}
-
-			//App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.texcoords_id, ourGameObject->MeshData.num_texcoords * 2, ourGameObject->MeshData.texcoords);
-
+			
 			App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
 			App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
 			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
 
-			
 			//Add to mesh list for when we draw each mesh
 			bool ParentFound = false;
 			std::vector<GameObject*>::iterator IteratorToAddMesh = App->meshimporter->MeshesOnScene.begin();
 			for (int count = 0; count < MeshesOnScene.size(); ++count) {
 
-				
 				GameObject* meshParent = *IteratorToAddMesh;
 
 				if (meshParent->is_Selected == true) {
@@ -140,7 +111,6 @@ void ModuleMeshImporter::LoadMesh(char* file_path)
 
 				}
 			}
-
 			
 			if (ParentFound == false) {
 				AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
