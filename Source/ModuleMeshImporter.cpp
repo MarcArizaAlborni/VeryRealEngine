@@ -102,15 +102,15 @@ MeshInfo* ModuleMeshImporter::LoadMesh(char* file_path)
 			//CALLED TO CREATE A VERTEX BUFFER SO WE CAN DRAW MULTIPLE OBJECTS
 			App->renderer3D->GenerateVertexBuffer(ourMesh->id_vertex, ourMesh->num_vertex, ourMesh->vertex);
 
-			/*App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);*/
+			App->renderer3D->GenerateVertexTexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->vertex);
+
+			App->renderer3D->GenerateVertexBuffer(ourMesh->texcoords_id, ourMesh->num_texcoords * 2, ourMesh->texcoords);
+
 			if (ourMesh->index != nullptr) {
 				//siCalled to create an Index Buffer so we can draw multiple objects
 				App->renderer3D->GenerateIndexBuffer(ourMesh->id_index, ourMesh->num_index, ourMesh->index);
 			}
 
-			App->renderer3D->GenerateVertexTexBuffer(ourMesh->texcoords_id, ourMesh->num_texcoords * 2, ourMesh->texcoords);
-
-			
 
 			ourGameObject->MeshData = *ourMesh;
 			//Add to mesh list for when we draw each mesh
