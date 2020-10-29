@@ -6,6 +6,7 @@
 #include "glmath.h"
 
 struct GameObject;
+struct TextureInfo;
 class ModuleInspectorGameObject : public Module
 {
 public:

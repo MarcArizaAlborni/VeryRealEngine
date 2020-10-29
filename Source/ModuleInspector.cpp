@@ -98,8 +98,9 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 					ImGui::Text("False");
 				}
 
-				/*ImGui::Text("Currently Wireframed:");
-				ImGui::SameLine(0.0f, 10.0f);*/
+				
+
+
 
 
 				ImGui::Checkbox("Wireframed", &ItemToDraw->is_Wireframed);
@@ -121,16 +122,16 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 
 				
 
-				ImGui::InputFloat("X:", &ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.x);
+				ImGui::InputFloat("X pos:", &ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.x);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.x);
 
 
-				ImGui::InputFloat("Y", &ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.y);
+				ImGui::InputFloat("Y pos", &ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.y);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.y);
 
-				ImGui::InputFloat("Z", &ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.z);
+				ImGui::InputFloat("Z pos", &ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.z);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorTranslation.z);
 
@@ -144,16 +145,16 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.angle);
 
-				ImGui::InputFloat("X:", &ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.x);
+				ImGui::InputFloat("X rot:", &ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.x);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.x);
 
 
-				ImGui::InputFloat("Y", &ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.y);
+				ImGui::InputFloat("Y rot", &ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.y);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.y);
 
-				ImGui::InputFloat("Z", &ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.z);
+				ImGui::InputFloat("Z rot", &ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.z);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorRotation.z);
 
@@ -161,16 +162,16 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::Text("Scale:");
 
 
-				ImGui::InputFloat("X:", &ItemToDraw->Mesh_Transform_Modifiers.VectorScale.x);
+				ImGui::InputFloat("X scale:", &ItemToDraw->Mesh_Transform_Modifiers.VectorScale.x);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorScale.x);
 
 
-				ImGui::InputFloat("Y", &ItemToDraw->Mesh_Transform_Modifiers.VectorScale.y);
+				ImGui::InputFloat("Y scale", &ItemToDraw->Mesh_Transform_Modifiers.VectorScale.y);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorScale.y);
 
-				ImGui::InputFloat("Z", &ItemToDraw->Mesh_Transform_Modifiers.VectorScale.z);
+				ImGui::InputFloat("Z scale", &ItemToDraw->Mesh_Transform_Modifiers.VectorScale.z);
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorScale.z);
 
@@ -219,8 +220,12 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::Text("Texture Name: ");
 				ImGui::SameLine(0.0f, 10.0f);
 				const char* nameTexture = ItemToDraw->TextureData.texture_name.c_str();
-
 				ImGui::Text("%s", nameTexture);
+
+				ImGui::Text("Texture Path:");
+				ImGui::SameLine(0.0f, 10.0f);
+				const char* pathnameTexture = ItemToDraw->TextureData.texture_path.c_str();
+				ImGui::Text("%s", pathnameTexture);
 
 				
 				ImGui::Text("%d", ItemToDraw->TextureData.width);
@@ -236,8 +241,26 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::SameLine(0.0f, 10.0f);
 				ImGui::Text("%d", ItemToDraw->TextureData.texture_id);
 
+				
+
+				
+				
+				/*if(ImGui::CollapsingHeader("Available Textures")) {
+
+					std::vector<TextureInfo*>::iterator IteratorLoaded = App->textureImporter->AvailableTextures.begin();
+					for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
+					  
+						TextureInfo* TextureSelected = *IteratorLoaded;
 
 
+						const char* nameTextureval = TextureSelected->texture_name.c_str();
+						ImGui::Text("%s", nameTextureval);
+					
+						++IteratorLoaded;
+					}
+				}*/
+				
+				
 				
 
 				

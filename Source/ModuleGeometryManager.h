@@ -43,7 +43,7 @@ public:
 	//Transformations
 
 	void Transform_Mesh_Translation(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
-	void Transform_Mesh_Scale(GameObject* mesh, GLfloat Current[3], GLfloat New[3]);
+	void Transform_Mesh_Scale(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
 	void Transform_Mesh_Rotation(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
 
 	//Meshes

@@ -92,7 +92,7 @@ void ModuleGeometryManager::DrawCube()
 
 void ModuleGeometryManager::DrawPyramid()
 {
-	App->meshimporter->LoadMesh("Assets/Models/Primitives/Pyramid.FBX");
+	//App->meshimporter->LoadMesh("Assets/Models/Primitives/Pyramid.FBX");
 }
 
 void ModuleGeometryManager::DrawSphere()
@@ -114,10 +114,10 @@ void ModuleGeometryManager::Transform_Mesh_Translation(GameObject* mesh, VectorT
 	
 }
 
-void ModuleGeometryManager::Transform_Mesh_Scale(GameObject* mesh, GLfloat Current[3] , GLfloat New[3])
+void ModuleGeometryManager::Transform_Mesh_Scale(GameObject* mesh, VectorTransformations Current, VectorTransformations New)
 {
 	glPushMatrix();
-	glScalef(Current[0]+ New[0], Current[1]+ New[1], Current[2]+ New[2]);
+	glScalef(Current.x + New.x, Current.y + New.y, Current.z + New.z);
 	
 }
 
@@ -142,7 +142,9 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	GLfloat Null_Array[] = { 0,0,0,0 };
 
 	VectorTransformations ZeroArray;
+	VectorTransformations OneArray;
 
+	OneArray = { 1,1,1,1 };
 	ZeroArray = { 0,0,0,0 };
 
 	if (mesh->is_Wireframed == true) {
@@ -153,9 +155,9 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	//Transform_Mesh_Translation(mesh, mesh->Mesh_Transform_Modifiers.VectorTranslation, ZeroArray);
-	//Transform_Mesh_Scale(mesh, mesh->Mesh_Transform_Modifiers.Scale_Vec3, Null_Array);
-	//Transform_Mesh_Rotation(mesh, mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
+	Transform_Mesh_Translation(mesh, mesh->Mesh_Transform_Modifiers.VectorTranslation, ZeroArray);
+	Transform_Mesh_Scale(mesh, mesh->Mesh_Transform_Modifiers.VectorScale, OneArray);
+	Transform_Mesh_Rotation(mesh, mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
 
 
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -195,7 +197,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	
+	glPopMatrix();
 	
 }
 

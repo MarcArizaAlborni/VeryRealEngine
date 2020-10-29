@@ -13,6 +13,7 @@ struct TextureInfo {
 	uint height = 0;
 	uint texture_id = 0;
 	std::string texture_name="";
+	std::string texture_path = "";
 
 
 };

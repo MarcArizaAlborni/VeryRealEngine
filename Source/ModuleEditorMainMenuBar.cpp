@@ -25,6 +25,7 @@ bool ModuleEditorMainMenuBar::Start()
 	show_hierarchy_window = true;
 	show_console_window = true;
 	show_inspector_window = true;
+	show_config_window = true;
 	return true;
 }
 
@@ -155,7 +156,7 @@ void ModuleEditorMainMenuBar::CreateInsertPrimitivesWindow()
 			}
 			if (ImGui::MenuItem("Pyramid"))
 			{
-				LOGFIX("Creating : Pyramid");
+				LOGFIX("Pyramid Currently Not Available");
 				drawpyramid = true;
 			}
 			if (ImGui::MenuItem("Cylinder"))

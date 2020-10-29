@@ -58,7 +58,7 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 
 			InfoTexture.width = ImgInfo.Width;
 			InfoTexture.height = ImgInfo.Height;
-
+			InfoTexture.texture_path = path;
 
 			if (ImgInfo.Origin == IL_ORIGIN_UPPER_LEFT)
 				iluFlipImage();

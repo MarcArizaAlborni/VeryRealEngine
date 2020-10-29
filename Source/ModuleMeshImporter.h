@@ -16,7 +16,7 @@ struct MeshTransformation {
 
 	GLfloat Rotation_Vec4[4] = { 0.0f,0.0f,0.0f,0.0f };
 
-	GLfloat Scale_Vec3[3] = { 0.0f,0.0f,0.0f };
+	GLfloat Scale_Vec3[3] = { 1.0f,1.0f,1.0f };
 
 	VectorTransformations VectorTranslation;
 	VectorTransformations VectorRotation;
