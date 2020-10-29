@@ -115,19 +115,19 @@ bool ModuleRenderer3D::Start()
 	glEnable(GL_DEPTH_TEST);
 
 	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Textures/Baker_house.png");
-	App->textureImporter->TextureHousita = App->textureImporter->LoadTextureImage("Assets/Textures/house2tex.png");
-	App->textureImporter->TextureEarth = App->textureImporter->LoadTextureImage("Assets/Textures/earthtex.png");
+	//App->textureImporter->TextureHousita = App->textureImporter->LoadTextureImage("Assets/Textures/house2tex.png");
+	//App->textureImporter->TextureEarth = App->textureImporter->LoadTextureImage("Assets/Textures/earthtex.png");
 
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadCheckersTexture();
 	App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.fbx");
-	App->meshimporter->LoadMesh("Assets/Models/house2.fbx");
-	App->meshimporter->LoadMesh("Assets/Models/earth.fbx");
+	//App->meshimporter->LoadMesh("Assets/Models/house2.fbx");
+	//App->meshimporter->LoadMesh("Assets/Models/earth.fbx");
 
 
 	App->meshimporter->MeshesOnScene.at(0)->TextureData = App->textureImporter->TextureHouse;
 	App->meshimporter->MeshesOnScene.at(1)->TextureData = App->textureImporter->TextureHouse;
-	App->meshimporter->MeshesOnScene.at(2)->TextureData = App->textureImporter->TextureHousita;
-	App->meshimporter->MeshesOnScene.at(3)->TextureData = App->textureImporter->TextureEarth;
+	//App->meshimporter->MeshesOnScene.at(2)->TextureData = App->textureImporter->TextureHousita;
+	//App->meshimporter->MeshesOnScene.at(3)->TextureData = App->textureImporter->TextureEarth;
 
 
 

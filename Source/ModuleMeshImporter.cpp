@@ -51,20 +51,30 @@ void ModuleMeshImporter::LoadMesh(char* file_path)
 	if (scene != nullptr && scene->HasMeshes()) {
 
 		//MeshInfo* ourMesh = new MeshInfo();
-		GameObject* ourGameObject = new GameObject();
-		aiMesh* MeshToLoad;
+		
+		
 		
 		for (int i = 0; i < scene->mNumMeshes; ++i) {
 
-			MeshToLoad = scene->mMeshes[i];
+			GameObject* ourGameObject = new GameObject();
+			//GameObject* ourGameObject;
+
+			aiMesh* MeshToLoad = scene->mMeshes[i];
+
+			MeshToLoad->mNumVertices = scene->mMeshes[i]->mNumVertices;
 
 			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
+
+			
 			ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
 			memcpy(ourGameObject->MeshData.vertex, MeshToLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
 		
 			if (MeshToLoad->HasFaces()) {
 
-				ourGameObject->MeshData.num_index = MeshToLoad->mNumFaces * 3;
+				ourGameObject->MeshData.num_index = MeshToLoad->mNumFaces * 3; //aixo
+
+				int a = 0;
+
 				ourGameObject->MeshData.index = new uint[ourGameObject->MeshData.num_index];
 
 				for (int c = 0; c < MeshToLoad->mNumFaces; ++c) {
@@ -99,28 +109,10 @@ void ModuleMeshImporter::LoadMesh(char* file_path)
 			App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
 			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
-			//Add to mesh list for when we draw each mesh
-			bool ParentFound = false;
-			std::vector<GameObject*>::iterator IteratorToAddMesh = App->meshimporter->MeshesOnScene.begin();
-			for (int count = 0; count < MeshesOnScene.size(); ++count) {
 
-				GameObject* meshParent = *IteratorToAddMesh;
-
-				if (meshParent->is_Selected == true) {
-					ParentFound = true;
-					AddMeshToListMeshesOnScene(ourGameObject, true, meshParent);
-					count = App->meshimporter->MeshesOnScene.size();
-				}
-				else {
-					ParentFound = false;
-					++IteratorToAddMesh;
-
-				}
-			}
 			
-			if (ParentFound == false) {
-				AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
-			}
+
+			AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
 		}
 
 		//Free memory
@@ -147,7 +139,7 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 			}
 	}
 	else {
-		int size = MeshesOnScene.size();
+		int size = MeshesOnScene.size() +1;
 
 		Object->item_id = size;
 
