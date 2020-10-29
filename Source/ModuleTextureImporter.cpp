@@ -56,6 +56,10 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 			ILinfo ImgInfo;
 			iluGetImageInfo(&ImgInfo);
 
+			InfoTexture.width = ImgInfo.Width;
+			InfoTexture.height = ImgInfo.Height;
+
+
 			if (ImgInfo.Origin == IL_ORIGIN_UPPER_LEFT)
 				iluFlipImage();
 
@@ -261,6 +265,12 @@ TextureInfo ModuleTextureImporter::LoadCheckersTexture()
 
 
 	return TextureCheckers;
+}
+
+void ModuleTextureImporter::AddTextureToList(TextureInfo* texture,const char* name)
+{
+	App->textureImporter->TextureHouse.texture_name = name;
+	App->textureImporter->AvailableTextures.push_back(&App->textureImporter->TextureHouse);
 }
 
 

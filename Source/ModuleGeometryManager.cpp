@@ -162,7 +162,15 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 
+	if (mesh->is_Checkered == true) {
 
+
+
+		glBindTexture(GL_TEXTURE_2D,App->textureImporter->TextureCheckers.texture_id);
+
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id);
+		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	}
 	
 
 	if (mesh->is_Textured == true) {

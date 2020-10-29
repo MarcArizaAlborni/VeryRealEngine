@@ -34,6 +34,8 @@ public:
 	void freeTexture();
 	TextureInfo LoadCheckersTexture();
 
+	void AddTextureToList(TextureInfo* texture,const char* name);
+
 	std::vector<TextureInfo*> AvailableTextures;
 
 	//------------ CONSOLE STUFF

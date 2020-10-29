@@ -174,9 +174,6 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				ImGui::SameLine(0.0f, 0.0f);
 				ImGui::Text(":%.3f", ItemToDraw->Mesh_Transform_Modifiers.VectorScale.z);
 
-
-
-
 				ImGui::Separator();
 				ImGui::SetWindowFontScale(1.5);
 				ImGui::Text("Mesh Information");
@@ -207,9 +204,6 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 
 				ImGui::Checkbox("Checkered", &ItemToDraw->is_Checkered);
 
-
-
-
 				if (ItemToDraw->is_Checkered == true) {
 					ItemToDraw->is_Textured = false;
 				}
@@ -220,9 +214,36 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 					ItemToDraw->is_Checkered = false;
 				}
 
-				SomethingDrawn = true;
 
-				//++IteratorLoaded;
+
+				ImGui::Text("Texture Name: ");
+				ImGui::SameLine(0.0f, 10.0f);
+				const char* nameTexture = ItemToDraw->TextureData.texture_name.c_str();
+
+				ImGui::Text("%s", nameTexture);
+
+				
+				ImGui::Text("%d", ItemToDraw->TextureData.width);
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("Texture Width");
+			
+			
+				ImGui::Text("%d", ItemToDraw->TextureData.height);
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("Texture Height");
+
+				ImGui::Text("Texture id");
+				ImGui::SameLine(0.0f, 10.0f);
+				ImGui::Text("%d", ItemToDraw->TextureData.texture_id);
+
+
+
+				
+
+				
+
+				////////////////////////// 
+				SomethingDrawn = true;
 
 			}
 

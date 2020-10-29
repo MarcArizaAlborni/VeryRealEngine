@@ -114,13 +114,19 @@ bool ModuleRenderer3D::Start()
 {
 	glEnable(GL_DEPTH_TEST);
 
+	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Textures/checkers.png");
+	App->textureImporter->AddTextureToList(&App->textureImporter->TextureCheckers, "Checkers");
+
 	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Textures/Baker_house.png");
-	App->textureImporter->TextureHouse.texture_name = "Nice House";
-	App->textureImporter->AvailableTextures.push_back(&App->textureImporter->TextureHouse);
+	App->textureImporter->AddTextureToList(&App->textureImporter->TextureHouse,"Baker House");
+
+	
 	//App->textureImporter->TextureHousita = App->textureImporter->LoadTextureImage("Assets/Textures/house2tex.png");
 	//App->textureImporter->TextureEarth = App->textureImporter->LoadTextureImage("Assets/Textures/earthtex.png");
 
-	App->textureImporter->TextureCheckers = App->textureImporter->LoadCheckersTexture();
+	
+	
+
 	App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.fbx");
 	//App->meshimporter->LoadMesh("Assets/Models/house2.fbx");
 	//App->meshimporter->LoadMesh("Assets/Models/earth.fbx");
