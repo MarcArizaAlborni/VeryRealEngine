@@ -22,7 +22,9 @@ ModuleEditorMainMenuBar::~ModuleEditorMainMenuBar()
 bool ModuleEditorMainMenuBar::Start()
 {
 	show_about_window = false;
-	
+	show_hierarchy_window = true;
+	show_console_window = true;
+	show_inspector_window = true;
 	return true;
 }
 

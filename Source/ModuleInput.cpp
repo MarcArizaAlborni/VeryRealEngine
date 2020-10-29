@@ -153,6 +153,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 				if (Drop_Path.find_last_of('.fbx') != std::string::npos) {
 
+					LOGFIX("Importing Module with DropFile %s", Drop_Path);
 					 const char* path_file = Drop_Path.c_str();
 					App->meshimporter->LoadMesh(path_file);
 					SDL_free((char*)path_file);
@@ -161,11 +162,11 @@ update_status ModuleInput::PreUpdate(float dt)
 
 
 				if (Drop_Path.find_last_of('.png') != std::string::npos) {
-
+					LOGFIX("Importing Texture with DropFile %s", Drop_Path);
 					const char* path_file = Drop_Path.c_str();
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
 					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
-					SDL_free((char*)path_file);
+					
 
 
 					std::vector<GameObject*>::iterator MeshTextureIterator = App->meshimporter->MeshesOnScene.begin();
@@ -186,10 +187,9 @@ update_status ModuleInput::PreUpdate(float dt)
 								
 									GameObject* ChildTexturedMesh;
 
-
+									ChildTexturedMesh = *ChildMeshTextureIterator;
 
 									ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
-
 
 									++ChildMeshTextureIterator;
 								}
@@ -202,7 +202,7 @@ update_status ModuleInput::PreUpdate(float dt)
 					
 					}
 
-
+					SDL_free((char*)path_file);
 				}
 				
 

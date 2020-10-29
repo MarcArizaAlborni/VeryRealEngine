@@ -22,7 +22,7 @@ public:
 	void InspectorInfo(GameObject* Object, int uid);
 	//Hierarchy Window Bools
 
-	bool ShowHierarchyWindow;
+	//bool ShowHierarchyWindow;
 
 	
 

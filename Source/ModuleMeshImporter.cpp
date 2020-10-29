@@ -44,7 +44,7 @@ update_status ModuleMeshImporter::Update(float dt)
 // Load a mesh with index and vertex
 void ModuleMeshImporter::LoadMesh(const char* file_path)
 {
-	LOGFIX("Importing Model...");	
+	LOGFIX("Importing Model %s...",file_path);	
 
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 
@@ -52,13 +52,22 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 		//MeshInfo* ourMesh = new MeshInfo();
 		
-		
+		bool is_a_Parent = false;
 		
 		for (int i = 0; i < scene->mNumMeshes; ++i) {
 
+			
 			GameObject* ourGameObject = new GameObject();
 			//GameObject* ourGameObject;
+			GameObject* ParentGameObject = new GameObject();
+			if (scene->mNumMeshes > 1) {
+				
 
+				AddMeshToListMeshesOnScene(ourGameObject,false,nullptr);
+
+
+				is_a_Parent = true;
+			}
 			aiMesh* MeshToLoad = scene->mMeshes[i];
 
 			MeshToLoad->mNumVertices = scene->mMeshes[i]->mNumVertices;
@@ -111,8 +120,14 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 
 			
+			if (is_a_Parent == true) {
+				AddMeshToListMeshesOnScene(ourGameObject, true, ParentGameObject);
+			}
+			else {
+				AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
+			}
 
-			AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
+			
 		}
 
 		//Free memory

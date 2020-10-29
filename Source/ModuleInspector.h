@@ -23,7 +23,7 @@ public:
 	GameObject* ObjectToBeShownInspector = NULL;
 	//Inspector Window Bools
 
-	bool ShowInspectorWindow;
+	//bool ShowInspectorWindow;
 	float testoa;
 
 

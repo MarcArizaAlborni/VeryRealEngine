@@ -9,10 +9,10 @@
 struct TextureInfo {
 
 	
-	uint width;
-	uint height;
-	uint texture_id;
-	std::string texture_name;
+	uint width=0;
+	uint height = 0;
+	uint texture_id = 0;
+	std::string texture_name="";
 
 
 };
@@ -47,11 +47,11 @@ public:
 	TextureInfo TextureHousita;
 
 	//Texture name
-	GLuint mTextureID;
+	GLuint mTextureID=0;
 
 	//Texture dimensions
-	GLuint mTextureWidth;
-	GLuint mTextureHeight;
+	GLuint mTextureWidth=0;
+	GLuint mTextureHeight=0;
 
 };
 

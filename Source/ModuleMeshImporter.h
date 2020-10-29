@@ -28,7 +28,7 @@ struct MeshTransformation {
 
 struct Vertex_Sub {
 
-	float x, y, z;
+	float x = 0, y = 0, z=0;
 };
 
 struct MeshInfo
@@ -44,14 +44,10 @@ struct MeshInfo
 	uint num_texcoords = 0;
 	uint texcoords_id = 0;
 	
-	GLuint TextureName;
+	GLuint TextureName=0;
 
-	float* normals;
-	uint id_normals;
-
-	
-
-    
+	float* normals=0;
+	uint id_normals=0;
 };
 
 struct GameObject {
@@ -70,13 +66,13 @@ struct GameObject {
 
 	bool is_Checkered = false;
 
-	int item_id; // id given to each mesh to able to manage game object lists more eficiently
+	int item_id=0; // id given to each mesh to able to manage game object lists more eficiently
 
 	std::vector<GameObject*> ChildObjects; // vector of child game objects inside of a game object
 
 	MeshTransformation Mesh_Transform_Modifiers;
 
-	bool ToBeDrawInspector;
+	bool ToBeDrawInspector=false;
 
 	TextureInfo TextureData;
 
