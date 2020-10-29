@@ -144,7 +144,7 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 		Object->item_id = size;
 
 		Object->is_Selected = false;
-		Object->is_Textured = false;
+		Object->is_Textured = true;
 		
 		
 

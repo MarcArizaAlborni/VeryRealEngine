@@ -15,7 +15,7 @@ enum KEY_STATE
 	KEY_REPEAT,
 	KEY_UP
 };
-
+struct TextureInfo;
 class ModuleInput : public Module
 {
 public:

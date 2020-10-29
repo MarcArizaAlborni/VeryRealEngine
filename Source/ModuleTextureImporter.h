@@ -12,6 +12,7 @@ struct TextureInfo {
 	uint width;
 	uint height;
 	uint texture_id;
+	std::string texture_name;
 
 
 };
@@ -33,7 +34,7 @@ public:
 	void freeTexture();
 	TextureInfo LoadCheckersTexture();
 
-	
+	std::vector<TextureInfo*> AvailableTextures;
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);

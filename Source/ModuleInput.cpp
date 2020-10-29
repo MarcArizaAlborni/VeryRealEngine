@@ -146,7 +146,7 @@ update_status ModuleInput::PreUpdate(float dt)
 		case SDL_DROPFILE:
 
 
-			
+			TextureInfo ImportedTexture;
 			
 			Drop_Path = e.drop.file;
 			if (Drop_Path != "") {
@@ -159,27 +159,30 @@ update_status ModuleInput::PreUpdate(float dt)
 
 				}
 
-				if (Drop_Path.find_last_of('.FBX') != std::string::npos) {
-
-					const char* path_file = Drop_Path.c_str();
-					App->meshimporter->LoadMesh(path_file);
-					SDL_free((char*)path_file);
-
-				}
-
-				if (Drop_Path.find_last_of('.PNG') != std::string::npos) {
-
-					const char* path_file = Drop_Path.c_str();
-					App->textureImporter->LoadTexture(path_file);
-					SDL_free((char*)path_file);
-
-				}
 
 				if (Drop_Path.find_last_of('.png') != std::string::npos) {
 
 					const char* path_file = Drop_Path.c_str();
-					App->textureImporter->LoadTexture(path_file);
+					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
+					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
 					SDL_free((char*)path_file);
+
+
+					std::vector<GameObject*>::iterator MeshTextureIterator = App->meshimporter->MeshesOnScene.begin();
+					for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
+					
+						GameObject* Texture;
+
+						Texture = *MeshTextureIterator;
+						if (Texture->ToBeDrawInspector == true) {
+
+							Texture->TextureData.texture_id = ImportedTexture.texture_id;
+						}
+
+						++MeshTextureIterator;
+					
+					}
+
 
 				}
 				
