@@ -171,12 +171,31 @@ update_status ModuleInput::PreUpdate(float dt)
 					std::vector<GameObject*>::iterator MeshTextureIterator = App->meshimporter->MeshesOnScene.begin();
 					for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 					
-						GameObject* Texture;
+						GameObject* TexturedMesh;
 
-						Texture = *MeshTextureIterator;
-						if (Texture->ToBeDrawInspector == true) {
+						TexturedMesh = *MeshTextureIterator;
+						if (TexturedMesh->ToBeDrawInspector == true) {
 
-							Texture->TextureData.texture_id = ImportedTexture.texture_id;
+							TexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+
+
+							if (TexturedMesh->ChildObjects.size() > 0) {
+
+								std::vector<GameObject*>::iterator ChildMeshTextureIterator = TexturedMesh->ChildObjects.begin();
+								for (int b = 0; b < TexturedMesh->ChildObjects.size(); ++b) {
+								
+									GameObject* ChildTexturedMesh;
+
+
+
+									ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+
+
+									++ChildMeshTextureIterator;
+								}
+
+
+							}
 						}
 
 						++MeshTextureIterator;
