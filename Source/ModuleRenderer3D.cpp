@@ -112,13 +112,7 @@ bool ModuleRenderer3D::Init()
 
 bool ModuleRenderer3D::Start()
 {
-	/*bool loaded = App->textureImporter->LoadTexture("Assets/Textures/Baker_house.png");
-	if (loaded) {
-		LOGFIX("Texture File Loaded");
-	}
-	else {
-		LOGFIX("Error Loading Texture!");
-	}*/
+	glEnable(GL_DEPTH_TEST);
 
 	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Textures/Baker_house.png");
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadCheckersTexture();
@@ -157,10 +151,20 @@ void ModuleRenderer3D::GenerateTextBuffer(float* text_coords, uint& num_text_coo
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+void ModuleRenderer3D::GenerateNormalBuffer(GameObject* mesh, float& normals)
+{
+	uint val = 0;
+	glGenBuffers(1, (GLuint*)&(mesh->MeshData.id_normals));
+	glBindBuffer(GL_ARRAY_BUFFER, (GLuint)&(mesh->MeshData.id_normals));
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->MeshData.id_normals * 3, mesh->MeshData.normals, GL_STATIC_DRAW);
+}
+
+
+
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
-	
+	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -179,7 +183,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 update_status ModuleRenderer3D::Update(float dt)
 {
-
+	glEnable(GL_DEPTH_TEST);
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
@@ -191,7 +195,7 @@ update_status ModuleRenderer3D::Update(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	
+	glEnable(GL_DEPTH_TEST);
 
 	
 	SDL_GL_SwapWindow(App->window->window);

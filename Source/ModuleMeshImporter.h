@@ -46,6 +46,9 @@ struct MeshInfo
 	
 	GLuint TextureName;
 
+	float* normals;
+	uint id_normals;
+
 	
 
     

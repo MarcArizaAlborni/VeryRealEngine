@@ -77,6 +77,12 @@ void ModuleMeshImporter::LoadMesh(char* file_path)
 				}
 			}
 
+			if (scene->mMeshes[i]->HasNormals()) {
+
+				ourGameObject->MeshData.normals = new float[ourGameObject->MeshData.num_vertex * 3];
+				memcpy(ourGameObject->MeshData.normals, scene->mMeshes[i]->mNormals, sizeof(float) * ourGameObject->MeshData.num_vertex* 3);
+			}
+
 			if (MeshToLoad->HasTextureCoords(0))
 			{
 				ourGameObject->MeshData.num_texcoords = MeshToLoad->mNumVertices;
@@ -92,7 +98,7 @@ void ModuleMeshImporter::LoadMesh(char* file_path)
 			App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
 			App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
 			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
-
+			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 			//Add to mesh list for when we draw each mesh
 			bool ParentFound = false;
 			std::vector<GameObject*>::iterator IteratorToAddMesh = App->meshimporter->MeshesOnScene.begin();
