@@ -41,8 +41,9 @@ public:
 
 public:
 	TextureInfo TextureCheckers;
-	
+	TextureInfo TextureEarth;
 	TextureInfo TextureHouse;
+	TextureInfo TextureHousita;
 
 	//Texture name
 	GLuint mTextureID;
