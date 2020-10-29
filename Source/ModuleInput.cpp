@@ -145,11 +145,47 @@ update_status ModuleInput::PreUpdate(float dt)
 		}
 		case SDL_DROPFILE:
 
+
+			
 			
 			Drop_Path = e.drop.file;
-			if (Drop_Path != NULL) {
-				App->meshimporter->LoadMesh(Drop_Path);
-				SDL_free(Drop_Path);
+			if (Drop_Path != "") {
+
+				if (Drop_Path.find_last_of('.fbx') != std::string::npos) {
+
+					 const char* path_file = Drop_Path.c_str();
+					App->meshimporter->LoadMesh(path_file);
+					SDL_free((char*)path_file);
+
+				}
+
+				if (Drop_Path.find_last_of('.FBX') != std::string::npos) {
+
+					const char* path_file = Drop_Path.c_str();
+					App->meshimporter->LoadMesh(path_file);
+					SDL_free((char*)path_file);
+
+				}
+
+				if (Drop_Path.find_last_of('.PNG') != std::string::npos) {
+
+					const char* path_file = Drop_Path.c_str();
+					App->textureImporter->LoadTexture(path_file);
+					SDL_free((char*)path_file);
+
+				}
+
+				if (Drop_Path.find_last_of('.png') != std::string::npos) {
+
+					const char* path_file = Drop_Path.c_str();
+					App->textureImporter->LoadTexture(path_file);
+					SDL_free((char*)path_file);
+
+				}
+				
+
+
+
 			}
 
 			break;
@@ -173,6 +209,8 @@ update_status ModuleInput::Update(float dt)
 
 	return update_status::UPDATE_CONTINUE;
 }
+
+
 
 // Called before quitting
 bool ModuleInput::CleanUp()

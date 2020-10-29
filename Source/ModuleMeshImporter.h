@@ -97,7 +97,7 @@ public:
 	// LIST MESH STUFF
 
 	//Mesh Import functions 
-	void LoadMesh(char* file_path);
+	void LoadMesh(const char* file_path);
 
 	//List of meshes active
 	std::vector<GameObject*> MeshesOnScene;
