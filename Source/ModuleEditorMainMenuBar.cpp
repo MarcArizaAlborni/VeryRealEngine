@@ -154,11 +154,11 @@ void ModuleEditorMainMenuBar::CreateInsertPrimitivesWindow()
 				LOGFIX("Creating : Cube");
 				drawcube = true;
 			}
-			if (ImGui::MenuItem("Pyramid"))
+			/*if (ImGui::MenuItem("Pyramid"))
 			{
 				LOGFIX("Pyramid Currently Not Available");
 				drawpyramid = true;
-			}
+			}*/
 			if (ImGui::MenuItem("Cylinder"))
 			{
 				LOGFIX("Creating : Cylinder");
