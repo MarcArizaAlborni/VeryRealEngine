@@ -78,49 +78,67 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     // Text and Tree nodes are less high than framed widgets, using AlignTextToFramePadding() we add vertical spacing to make the tree lines equal high.
     ImGui::AlignTextToFramePadding();
     bool node_open;
-    if (node_open= ImGui::TreeNode("Node ID", "%s_%u", prefix, uid)) {
+    if (node_open = ImGui::TreeNode("Node ID", "%s_%u", prefix, uid)) {
 
     }
     ImGui::NextColumn();
     ImGui::AlignTextToFramePadding();
     ImGui::NextColumn();
-    ImGui::SameLine(0,20.0f);
-   
+    ImGui::SameLine(0, 20.0f);
+
     GameObject* Item2 = new GameObject();
     GameObject* Item4 = new GameObject();
     bool has_been_found = false;
-        if (ImGui::Checkbox("Draw in Inspector", &Object->ToBeDrawInspector)) {
+    if (ImGui::Checkbox("Draw in Inspector", &Object->ToBeDrawInspector)) {
 
-            std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
-            for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
-                
-                Item2 = *IteratorLoaded;
+        std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
+        for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 
-                if (Object->item_id != Item2->item_id) {
-                    Item2->ToBeDrawInspector = false;
-                }
+            Item2 = *IteratorLoaded;
 
-                if (Item2->ChildObjects.size() > 0) {
-                    GameObject* Item3 = new GameObject();
-                    std::vector<GameObject*>::iterator ChildIteratorLoadedIns = Item2->ChildObjects.begin();
-                    for (int c = 0; c < Item2->ChildObjects.size(); ++c) {
-                    
-                        Item3 = *ChildIteratorLoadedIns;
-                        if (Object->item_id != Item3->item_id) {
-                            Item3->ToBeDrawInspector = false;
-                            Item2->ToBeDrawInspector = false;
-                        }
-                        ++ChildIteratorLoadedIns;
-                    }
-                }
-
-                IteratorLoaded++;
+            if (Object->item_id != Item2->item_id) {
+                Item2->ToBeDrawInspector = false;
             }
+
+            if (Item2->ChildObjects.size() > 0) {
+                GameObject* Item3 = new GameObject();
+                std::vector<GameObject*>::iterator ChildIteratorLoadedIns = Item2->ChildObjects.begin();
+                for (int c = 0; c < Item2->ChildObjects.size(); ++c) {
+
+                    Item3 = *ChildIteratorLoadedIns;
+                    if (Object->item_id != Item3->item_id) {
+                        Item3->ToBeDrawInspector = false;
+                        Item2->ToBeDrawInspector = false;
+                    }
+                    ++ChildIteratorLoadedIns;
+                }
+            }
+
+            IteratorLoaded++;
         }
+    }
 
-        ImGui::SameLine();
+    
 
-        ImGui::ImageButton();
+
+    if (IconDrawHierarchy == true) {
+
+        if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyOpen.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
+             (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
+
+            int abc = 0;
+        }
+    }
+    else {
+        if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyClosed.texture_id, { (float)App->textureImporter->DrawIconHierarchyClosed.width,
+            (float)App->textureImporter->DrawIconHierarchyClosed.height })) {
+
+            int abc = 0;
+        }
+    }
+
+
+
 
     if (node_open)
     {

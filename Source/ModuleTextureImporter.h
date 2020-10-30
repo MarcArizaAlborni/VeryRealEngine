@@ -44,11 +44,17 @@ public:
 	void CreateConsolelog(const char file[], int line, const char* format, ...);
 
 public:
+	//Textures
 	TextureInfo TextureCheckers;
 	TextureInfo TextureEarth;
 	TextureInfo TextureHouse;
 	TextureInfo TextureHousita;
+	
 
+
+	//Icons
+	TextureInfo DrawIconHierarchyOpen;
+	TextureInfo DrawIconHierarchyClosed;
 	//Texture name
 	GLuint mTextureID=0;
 
