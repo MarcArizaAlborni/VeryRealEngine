@@ -163,7 +163,6 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 		ImGui::SameLine(0.0f, 0.0f);
 		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorTranslation.x);
 
-
 		ImGui::InputFloat("Y pos", &item->Mesh_Transform_Modifiers.VectorTranslation.y);
 		ImGui::SameLine(0.0f, 0.0f);
 		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorTranslation.y);
@@ -182,7 +181,6 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 		ImGui::SameLine(0.0f, 0.0f);
 		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorRotation.x);
 
-
 		ImGui::InputFloat("Y rot", &item->Mesh_Transform_Modifiers.VectorRotation.y);
 		ImGui::SameLine(0.0f, 0.0f);
 		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorRotation.y);
@@ -196,7 +194,6 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 		ImGui::InputFloat("X scale:", &item->Mesh_Transform_Modifiers.VectorScale.x);
 		ImGui::SameLine(0.0f, 0.0f);
 		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorScale.x);
-
 
 		ImGui::InputFloat("Y scale", &item->Mesh_Transform_Modifiers.VectorScale.y);
 		ImGui::SameLine(0.0f, 0.0f);
@@ -238,7 +235,6 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 		ImGui::Text("Textures");
 		ImGui::SetWindowFontScale(1.0);
 
-
 		ImGui::Checkbox("Checkered", &item->is_Checkered);
 
 		if (item->is_Checkered == true) {
@@ -275,11 +271,9 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 			ImGui::Text("No texture Selected");
 		}
 
-
 		ImGui::Text("%d", item->TextureData.width);
 		ImGui::SameLine(0.0f, 10.0f);
 		ImGui::Text("Texture Width");
-
 
 		ImGui::Text("%d", item->TextureData.height);
 		ImGui::SameLine(0.0f, 10.0f);
@@ -288,6 +282,8 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 		ImGui::Text("Texture id");
 		ImGui::SameLine(0.0f, 10.0f);
 		ImGui::Text("%d", item->TextureData.texture_id);
+
+		ImGui::Image((void*)(intptr_t)item->TextureData.texture_id, { 200,200 });
 
 }
 
