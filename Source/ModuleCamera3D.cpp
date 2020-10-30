@@ -166,7 +166,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 			GameObject* selected_mesh_child;
 
-			for (int count2 = 0; count2 < App->meshimporter->MeshesOnScene.size(); ++count2)
+			for (int count2 = 0; count2 < selected_mesh->ChildObjects.size(); ++count2)
 			{
 				selected_mesh_child = *IteratorToAddMesh2;
 				if (selected_mesh_child->ToBeDrawInspector == true)
@@ -181,15 +181,15 @@ update_status ModuleCamera3D::Update(float dt)
 					{
 						if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 						{
-							//Orbit()
+							
 
 						}
 					}
 				}
-				++IteratorToAddMesh;
+				++IteratorToAddMesh2;
 			}
 
-			
+			++IteratorToAddMesh;
 		}
 		// Recalculate matrix -------------
 		CalculateViewMatrix();
