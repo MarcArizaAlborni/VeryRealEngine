@@ -120,8 +120,8 @@ bool ModuleRenderer3D::Start()
 	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Textures/Baker_house.png");
 	App->textureImporter->AddTextureToList(&App->textureImporter->TextureHouse,"Baker House");
 
-	App->textureImporter->DrawIconHierarchyOpen = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_open_hierarchy_icon.png.png");
-	App->textureImporter->DrawIconHierarchyClosed = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_closed_hierarchy_icon.png.png");
+	App->textureImporter->DrawIconHierarchyOpen = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_open_hierarchy_icon.png");
+	App->textureImporter->DrawIconHierarchyClosed = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_closed_hierarchy_icon.png");
 	//App->textureImporter->TextureHousita = App->textureImporter->LoadTextureImage("Assets/Textures/house2tex.png");
 	//App->textureImporter->TextureEarth = App->textureImporter->LoadTextureImage("Assets/Textures/earthtex.png");
 
