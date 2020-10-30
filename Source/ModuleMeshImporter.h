@@ -76,6 +76,8 @@ struct GameObject {
 
 	TextureInfo TextureData;
 
+	bool is_EmptyParent;
+
 };
 
 class ModuleMeshImporter : public Module

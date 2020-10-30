@@ -52,22 +52,18 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 		//MeshInfo* ourMesh = new MeshInfo();
 		
-		bool is_a_Parent = false;
+		
+
+		
+		
 		
 		for (int i = 0; i < scene->mNumMeshes; ++i) {
 
 			
 			GameObject* ourGameObject = new GameObject();
 			//GameObject* ourGameObject;
-			GameObject* ParentGameObject = new GameObject();
-			if (scene->mNumMeshes > 1) {
-				
-
-				AddMeshToListMeshesOnScene(ourGameObject,false,nullptr);
-
-
-				is_a_Parent = true;
-			}
+			//GameObject* ParentGameObject = new GameObject();
+			
 			aiMesh* MeshToLoad = scene->mMeshes[i];
 
 			MeshToLoad->mNumVertices = scene->mMeshes[i]->mNumVertices;
@@ -120,12 +116,10 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 
 			
-			if (is_a_Parent == true) {
-				AddMeshToListMeshesOnScene(ourGameObject, true, ParentGameObject);
-			}
-			else {
+			
+			
 				AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
-			}
+			
 
 			
 		}

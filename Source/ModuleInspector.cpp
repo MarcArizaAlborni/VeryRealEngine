@@ -222,10 +222,18 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 				const char* nameTexture = ItemToDraw->TextureData.texture_name.c_str();
 				ImGui::Text("%s", nameTexture);
 
-				ImGui::Text("Texture Path:");
-				ImGui::SameLine(0.0f, 10.0f);
-				const char* pathnameTexture = ItemToDraw->TextureData.texture_path.c_str();
-				ImGui::Text("%s", pathnameTexture);
+				if (ItemToDraw->is_Textured) {
+					ImGui::Text("Texture Path:");
+					ImGui::SameLine(0.0f, 10.0f);
+					const char* pathnameTexture = ItemToDraw->TextureData.texture_path.c_str();
+					ImGui::Text("%s", pathnameTexture);
+				}
+				else if (ItemToDraw->is_Checkered) {
+					ImGui::Text("Texture Path:");
+					ImGui::SameLine(0.0f, 10.0f);
+					
+					ImGui::Text("Checkered Texture");
+				}
 
 				
 				ImGui::Text("%d", ItemToDraw->TextureData.width);
