@@ -56,7 +56,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 			GameObject* ItemParentMesh = new GameObject();
 			ItemParentMesh->is_Drawn = false;
 			ItemParentMesh->is_EmptyParent = true;
-			AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL);
+			AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL,true);
 			ParentHasFound = true;
 
 		}
@@ -133,7 +133,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 
 
-void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent )
+void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent,bool parentFound )
 {
 	if (isChildfrom == true) {
 
@@ -149,11 +149,12 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 
 			Object->is_Selected = false;
 			Object->is_Textured = true;
-
+			//Object->mesh_name = "Empty Parent";
 			itemParent->ChildObjects.push_back(Object);
 			
 	}
 	else {
+
 		int size = MeshesOnScene.size() +1;
 
 		Object->item_id = size;
@@ -161,6 +162,9 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 		Object->is_Selected = false;
 		Object->is_Textured = true;
 		
+		if (parentFound) {
+			Object->mesh_name = "Empty Parent";
+		}
 		
 
 		MeshesOnScene.push_back(Object);

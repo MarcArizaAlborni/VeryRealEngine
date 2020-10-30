@@ -135,12 +135,15 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
                 if (Item2->ChildObjects.size() > 0) {
                     GameObject* Item3 = new GameObject();
                     std::vector<GameObject*>::iterator ChildIteratorLoadedIns = Item2->ChildObjects.begin();
-                    for (int c = 0; c < App->meshimporter->MeshesOnScene.size(); ++c) {
+                    for (int c = 0; c < Item2->ChildObjects.size(); ++c) {
                     
                         Item3 = *ChildIteratorLoadedIns;
                         if (Object->item_id != Item3->item_id) {
                             Item3->ToBeDrawInspector = false;
+                            Item2->ToBeDrawInspector = false;
+
                         }
+                        ++ChildIteratorLoadedIns;
                     }
                 }
 
