@@ -76,6 +76,8 @@ struct GameObject {
 
 	TextureInfo TextureData;
 
+	bool is_EmptyParent;
+
 };
 
 class ModuleMeshImporter : public Module
@@ -101,7 +103,7 @@ public:
 	// Add a mesh to the list
 
 	//Object to add, if its a child and who is the parent
-	void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent);
+	void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent=NULL,bool parentfound=false);
 
 
 	//------------ CONSOLE STUFF

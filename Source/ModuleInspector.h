@@ -22,6 +22,7 @@ public:
 	void CreateInspectorWindow();
 	void ShowSelectedObjectInfo(GameObject* object);
 	GameObject* ObjectToBeShownInspector = NULL;
+	void DrawInspectorWindowInfo(GameObject* item);
 	//Inspector Window Bools
 
 	//bool ShowInspectorWindow;

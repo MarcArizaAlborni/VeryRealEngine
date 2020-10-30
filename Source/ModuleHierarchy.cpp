@@ -114,25 +114,42 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
   
     ImGui::SameLine(0,20.0f);
    
-    
-    
+    GameObject* Item2 = new GameObject();
+    GameObject* Item4 = new GameObject();
+    bool has_been_found = false;
         if (ImGui::Checkbox("Draw in Inspector", &Object->ToBeDrawInspector)) {
 
-            
+           
+           
             std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
             for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
                 
-                GameObject* Item2 = *IteratorLoaded;
 
-                
-               
+                Item2 = *IteratorLoaded;
+
                 if (Object->item_id != Item2->item_id) {
                     Item2->ToBeDrawInspector = false;
                 }
 
+
+                if (Item2->ChildObjects.size() > 0) {
+                    GameObject* Item3 = new GameObject();
+                    std::vector<GameObject*>::iterator ChildIteratorLoadedIns = Item2->ChildObjects.begin();
+                    for (int c = 0; c < Item2->ChildObjects.size(); ++c) {
+                    
+                        Item3 = *ChildIteratorLoadedIns;
+                        if (Object->item_id != Item3->item_id) {
+                            Item3->ToBeDrawInspector = false;
+                            Item2->ToBeDrawInspector = false;
+
+                        }
+                        ++ChildIteratorLoadedIns;
+                    }
+                }
+
+               
                 IteratorLoaded++;
             }
-
         }
     
     
@@ -140,13 +157,14 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     if (node_open)
     {
 
+        GameObject* Mesh = new GameObject();
        // App->inspector->ShowSelectedObjectInfo(Object);
         if(Object->ChildObjects.size()>0){
-            std::vector<GameObject*>::iterator IteratorChild = App->meshimporter->MeshesOnScene.begin();
+            std::vector<GameObject*>::iterator IteratorChild = Object->ChildObjects.begin();
            
             for (int childNum = 0; childNum < Object->ChildObjects.size(); ++childNum) {
            
-                GameObject* Mesh = *IteratorChild;
+                Mesh = *IteratorChild;
            
            
                 //static float placeholder_members[8] = { 0.0f, 0.0f, 1.0f, 3.1416f, 100.0f, 999.0f };
@@ -155,7 +173,7 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
                 ImGui::PushID(childNum); // Use field index as identifier.
                 if (childNum < 4)
                 {
-                    // InspectorInfo(Mesh, Mesh->item_id);
+                     InspectorInfo(Mesh, Mesh->item_id);
                 }
                 else
                 {
@@ -173,6 +191,7 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
                 }
                 ImGui::PopID();
                 // }
+                ++IteratorChild;
             }
            
          }

@@ -133,8 +133,9 @@ bool ModuleRenderer3D::Start()
 
 
 
-	App->meshimporter->MeshesOnScene.at(0)->TextureData = App->textureImporter->TextureHouse;
-	App->meshimporter->MeshesOnScene.at(1)->TextureData = App->textureImporter->TextureHouse;
+	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;
+	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;
+	//App->meshimporter->MeshesOnScene.at(1)->TextureData = App->textureImporter->TextureHouse;
 	//App->meshimporter->MeshesOnScene.at(2)->TextureData = App->textureImporter->TextureHousita;
 	//App->meshimporter->MeshesOnScene.at(3)->TextureData = App->textureImporter->TextureEarth;
 
