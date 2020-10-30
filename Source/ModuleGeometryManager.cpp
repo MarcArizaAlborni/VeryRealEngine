@@ -27,7 +27,6 @@ bool ModuleGeometryManager::Init()
 	LOGFIX("Creating geometrymanager context");
 	bool ret = true;
 
-
 	return ret;
 }
 
@@ -45,26 +44,32 @@ update_status ModuleGeometryManager::PreUpdate(float dt)
 update_status ModuleGeometryManager::Update(float dt)
 {
 	glColor4f(0.5f, 0.5, 0.5f, 1.0f);
-
+	GameObject* Item = new GameObject();
+	GameObject* Item2 = new GameObject();
 	std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
 	for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
-		GameObject* Item = *IteratorLoaded;
-		//right now we only load the house texture
-		if (Item->is_Drawn == true) {
-			//DrawTextureOnMesh(*IteratorLoaded);
+		Item=*IteratorLoaded;
 
+		if (Item->ChildObjects.empty()) {
 
-			DrawMeshTextured(*IteratorLoaded);
-
-
-
-			//DrawMesh(*IteratorLoaded);
+			if (Item->is_Drawn == true) {
+				DrawMeshTextured(*IteratorLoaded);
+			}
 		}
-		//DrawMesh(*IteratorLoaded);
+		else {
+			std::vector<GameObject*>::iterator IteratorChild = Item->ChildObjects.begin();
+			for (int b = 0; b < Item->ChildObjects.size(); ++b) {
+				Item2 = *IteratorChild;
+				if (Item2->is_Drawn == true) {
 
-		IteratorLoaded++;
+					DrawMeshTextured(*IteratorChild);
+				}
+			
+				++IteratorChild;
+			}
+		}
+		++IteratorLoaded;
 	}
-
 	return UPDATE_CONTINUE;
 }
 
@@ -79,7 +84,6 @@ update_status ModuleGeometryManager::PostUpdate(float dt)
 bool ModuleGeometryManager::CleanUp()
 {
 	LOGFIX("Destroying geometrymanager");
-
 	return true;
 }
 
@@ -159,14 +163,10 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	Transform_Mesh_Scale(mesh, mesh->Mesh_Transform_Modifiers.VectorScale, OneArray);
 	Transform_Mesh_Rotation(mesh, mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
 
-
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-
 	if (mesh->is_Checkered == true) {
-
-
 
 		glBindTexture(GL_TEXTURE_2D,App->textureImporter->TextureCheckers.texture_id);
 
@@ -202,56 +202,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 }
 
 // Draw mesh with vertex and index
-void ModuleGeometryManager::DrawMesh( GameObject* mesh)
-{
-	
-	
-	
-	glEnableClientState(GL_VERTEX_ARRAY);
 
-	//Bind buffers
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.id_vertex);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->MeshData.id_index);
-
-	//Draw
-	glDrawElements(GL_TRIANGLES, mesh->MeshData.num_index, GL_UNSIGNED_INT, nullptr);
-
-	//Unbind buffers
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-
-	
-	glPopMatrix();
- 
-}
-
-void ModuleGeometryManager::DrawTextureOnMesh( GameObject* mesh)
-{
-	
-	//CAREFULL IF THERE ISNT A TEXTURE LOADED IT CAN CRASH
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	//Bind Buffers
-	glBindTexture(GL_TEXTURE_2D, mesh->TextureData.texture_id); // Texture
-	glActiveTexture(GL_TEXTURE0);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id); // Texture Coordinates
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-
-	
-
-	DrawMesh(mesh); 
-
-	//Unbind Buffers
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-}
 
 void ModuleGeometryManager::CreateConsolelog(const char file[], int line, const char* format, ...)
 {

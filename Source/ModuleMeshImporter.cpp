@@ -50,19 +50,20 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 	if (scene != nullptr && scene->HasMeshes()) {
 
-		//MeshInfo* ourMesh = new MeshInfo();
-		
-		
+		bool ParentHasFound=false;
+		if (scene->mNumMeshes > 1) {
 
-		
-		
-		
+			GameObject* ItemParentMesh = new GameObject();
+			ItemParentMesh->is_Drawn = false;
+			ItemParentMesh->is_EmptyParent = true;
+			AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL);
+			ParentHasFound = true;
+
+		}
+
 		for (int i = 0; i < scene->mNumMeshes; ++i) {
 
-			
 			GameObject* ourGameObject = new GameObject();
-			//GameObject* ourGameObject;
-			//GameObject* ParentGameObject = new GameObject();
 			
 			aiMesh* MeshToLoad = scene->mMeshes[i];
 
@@ -70,8 +71,8 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
 
-			
 			ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
+
 			memcpy(ourGameObject->MeshData.vertex, MeshToLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
 		
 			if (MeshToLoad->HasFaces()) {
@@ -115,15 +116,14 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 
-			
-			
-			
+
+			if (ParentHasFound == true) {
+				AddMeshToListMeshesOnScene(ourGameObject, true, NULL);
+			}
+			else {
 				AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
-			
-
-			
+			}
 		}
-
 		//Free memory
 		aiReleaseImport(scene);
 	}
@@ -133,19 +133,25 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 
 
-void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent)
+void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent )
 {
-	if (isChildfrom == true && parent !=NULL) {
+	if (isChildfrom == true) {
+
 		
-			std::vector<GameObject*>::iterator IteratorToAdd = App->meshimporter->MeshesOnScene.begin();
-			for (int count = 0; count < MeshesOnScene.size(); ++count) {
+		
+			std::vector<GameObject*>::reverse_iterator IteratorToAddParent = App->meshimporter->MeshesOnScene.rbegin();
+			
+			GameObject* itemParent = *IteratorToAddParent;
 
-				GameObject* parentObj = *IteratorToAdd;
-				if (parent->item_id == parentObj->item_id) {
+			int size2 = itemParent->ChildObjects.size() + 1;
 
-					parentObj->ChildObjects.push_back(Object);
-				}
-			}
+			Object->item_id = size2;
+
+			Object->is_Selected = false;
+			Object->is_Textured = true;
+
+			itemParent->ChildObjects.push_back(Object);
+			
 	}
 	else {
 		int size = MeshesOnScene.size() +1;
