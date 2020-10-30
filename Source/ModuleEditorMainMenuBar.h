@@ -37,7 +37,7 @@ public:
 
 	bool show_popup_want_close;
 	bool show_popup_want_close2;
-
+	bool show_popup_want_close3;
 	
 
 	bool drawplane;
