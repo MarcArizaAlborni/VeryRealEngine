@@ -50,7 +50,15 @@ public:
 	TextureInfo TextureHouse;
 	TextureInfo TextureHousita;
 	
-
+	TextureInfo GwynAccessories;
+	TextureInfo GwynClothes;
+	TextureInfo GwynClothesB;
+	TextureInfo GwynClothesC;
+	TextureInfo GwynCrown;
+	TextureInfo GwynHair;
+	TextureInfo GwynMantle;
+	TextureInfo GwynSkin;
+	TextureInfo GwynSword;
 
 	//Icons
 	TextureInfo DrawIconHierarchyOpen;
