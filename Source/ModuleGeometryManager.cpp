@@ -9,6 +9,9 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+#include "libraries/MathGeoLib/include/MathGeoLib.h"
+#include "libraries/MathGeoLib/include/MathBuildConfig.h"
+
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -32,6 +35,7 @@ bool ModuleGeometryManager::Init()
 
 bool ModuleGeometryManager::Start()
 {
+
 	return true;
 }
 
@@ -174,6 +178,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 	}
 	
+	DrawFaceNormals(mesh);
 
 	if (mesh->is_Textured == true) {
 		
@@ -201,7 +206,91 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	
 }
 
-// Draw mesh with vertex and index
+// Draw normals with faces and triangles
+void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
+{
+
+	if (object->showFaceNormals == true)
+	{
+		float3 middle;
+		float3 normals;
+
+		float3 vertex1, vertex2, vertex3;
+
+		for (int i = 0; i < object->MeshData.num_index; i += 3)
+		{
+			Vertex_Sub vert1 = object->MeshData.vertex[object->MeshData.index[i]];
+			Vertex_Sub vert2 = object->MeshData.vertex[object->MeshData.index[i + 1]];
+			Vertex_Sub vert3 = object->MeshData.vertex[object->MeshData.index[i + 2]];
+
+
+			vertex1.x = vert1.x;
+			vertex1.y = vert1.y;
+			vertex1.z = vert1.z;
+
+			vertex2.x = vert2.x;
+			vertex2.y = vert2.y;
+			vertex2.z = vert2.z;
+
+			vertex3.x = vert3.x;
+			vertex3.y = vert3.y;
+			vertex3.z = vert3.z;
+
+			middle.x = (vertex1.x + vertex2.x + vertex3.x) / 3;
+			middle.y = (vertex1.y + vertex2.y + vertex3.y) / 3;
+			middle.z = (vertex1.z + vertex2.z + vertex3.z) / 3;
+
+			float3 edge_a;
+			edge_a.x = vertex2.x - vertex1.x;
+			edge_a.y = vertex2.y - vertex1.y;
+			edge_a.z = vertex2.z - vertex1.z;
+
+			float3 edge_b;
+			edge_b.x = vertex3.x - vertex1.x;
+			edge_b.y = vertex3.y - vertex1.y;
+			edge_b.z = vertex3.z - vertex1.z;
+
+			//Cross product
+			normals.x = (edge_a.y * edge_b.z - edge_a.z * edge_b.y);
+			normals.y = (edge_a.z * edge_b.x - edge_a.x * edge_b.z);
+			normals.z = (edge_a.x * edge_b.y - edge_a.y * edge_b.x);
+
+			float3 normal2;
+
+			//Normalize Vectors
+			normal2.x = normals.x * normals.x;
+			normal2.y = normals.y * normals.y;
+			normal2.z = normals.z * normals.z;
+
+			float normal3 = normal2.x + normal2.y + normal2.z;
+
+			float normal4 = normal3 / Sqrt(normal3);
+
+			float3 normal_last;
+
+
+			
+
+
+			normal_last.x = normal3 / Sqrt(normal3);
+			normal_last.y = normal3 / Sqrt(normal3);
+			normal_last.z = normal3 / Sqrt(normal3);
+
+			glBegin(GL_LINES);
+			glColor3f(255, 192, 203);
+			glVertex3f(middle.x, middle.y, middle.z);
+			glVertex3f(middle.x + normal4, middle.y + normal4, middle.z + normal4);
+
+			/*glVertex3f(mid.x + normal.x , mid.y + normal.y ,mid.z + normal.z;*/
+
+		}
+
+		glEnd();
+	}
+		
+
+}
+
 
 
 void ModuleGeometryManager::CreateConsolelog(const char file[], int line, const char* format, ...)

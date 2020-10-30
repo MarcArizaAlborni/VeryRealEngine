@@ -78,6 +78,8 @@ struct GameObject {
 
 	bool is_EmptyParent;
 
+	bool showFaceNormals = false;
+
 };
 
 class ModuleMeshImporter : public Module

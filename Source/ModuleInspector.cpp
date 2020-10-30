@@ -230,6 +230,9 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 		ImGui::Text("%d", item->MeshData.id_vertex);
 
 		ImGui::Separator();
+
+		ImGui::Checkbox("Show Face Normals", &item->showFaceNormals);
+
 		//TEXTURES INFO
 		ImGui::SetWindowFontScale(1.5);
 		ImGui::Text("Textures");
