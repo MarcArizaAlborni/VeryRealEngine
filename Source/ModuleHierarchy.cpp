@@ -118,11 +118,12 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
             }
         }
 
-     
-    
+        ImGui::SameLine();
+
+        ImGui::ImageButton();
+
     if (node_open)
     {
-
         GameObject* Mesh = new GameObject();
        // App->inspector->ShowSelectedObjectInfo(Object);
         if(Object->ChildObjects.size()>0){
