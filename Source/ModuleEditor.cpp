@@ -196,16 +196,67 @@ update_status ModuleEditor::PostUpdate(float dt)
 			ImGui::SetNextWindowSize({ 300,150 });
 			ImGui::SetNextWindowPos({ 625, 300 });
 
-			ImGui::Begin("VeryReal Engine", &App->mainMenubar->show_popup_want_close, ImGuiWindowFlags_NoCollapse 
+			ImGui::Begin("VeryReal Engine", &App->mainMenubar->show_popup_want_close, ImGuiWindowFlags_NoCollapse
 				| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
 			ImGui::Separator();
 			ImGui::Text("Are you sure you want to exit the Engine?");
+			ImGui::Spacing();
+			ImGui::Text("");
+			ImGui::Spacing();
+			ImGui::Text("");
+			ImGui::Spacing();
+			ImGui::Text("");
+			ImGui::Spacing();
+			ImGui::Spacing();
+			if (ImGui::Button("Yes", { 80,20 }))
+			{
+				App->mainMenubar->show_popup_want_close2 = true;
+			}
+
+			ImGui::SameLine(0.0F, 125.0f);
+			if (ImGui::Button("No", { 80,20 }))
+			{
+				App->mainMenubar->show_popup_want_close = false;
+			}
 
 			ImGui::End();
-			
 		}
 
+		if (App->mainMenubar->show_popup_want_close2 == true)
+		{
+			ImGui::SetNextWindowSize({ 350,150 });
+			ImGui::SetNextWindowPos({ 725, 400 });
+
+			ImGui::Begin("VeryReal Engine.", &App->mainMenubar->show_popup_want_close2, ImGuiWindowFlags_NoCollapse
+				| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+
+			ImGui::Separator();
+			ImGui::Text("Are you really sure you want to exit the Engine?");
+			ImGui::Spacing();
+			ImGui::Text("");
+			/*ImGui::Image((void*)(intptr_t)App->textureImporter->cat_crying, { 100,100 }); */
+			ImGui::Spacing();
+			ImGui::Text("");
+			ImGui::Spacing();
+			ImGui::Text("");
+			ImGui::Spacing();
+			ImGui::Spacing();
+			if (ImGui::Button("YES!!", { 80,20 }))
+			{
+				App->input->ExitEngine = true;
+			}
+
+			ImGui::SameLine(0.0F, 172.0f);
+			if (ImGui::Button("No", { 80,20 }))
+			{
+				App->mainMenubar->show_popup_want_close = false;
+				App->mainMenubar->show_popup_want_close2 = false;
+			}
+
+			ImGui::End();
+
+		}
 	
 
 	//Render

@@ -63,6 +63,9 @@ public:
 	//Icons
 	TextureInfo DrawIconHierarchyOpen;
 	TextureInfo DrawIconHierarchyClosed;
+
+	//Images Imgui
+	TextureInfo cat_crying;
 	//Texture name
 	GLuint mTextureID=0;
 

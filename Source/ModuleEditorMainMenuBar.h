@@ -36,9 +36,7 @@ public:
 	bool show_inspector_window;
 
 	bool show_popup_want_close;
-
-	bool close;
-	bool stay;
+	bool show_popup_want_close2;
 
 	
 
