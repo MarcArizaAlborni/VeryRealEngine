@@ -70,6 +70,8 @@ Information:
 Innovation:
 
 - In the hierarchy window, you can use the "eye" icon to enable/disable draw for a mesh to make it easier for the user.
+- Transformation input for meshes (position,rotation,scale)
+
 
 
 

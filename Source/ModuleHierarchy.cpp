@@ -152,7 +152,7 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
                 Mesh = *IteratorChild;
           
                 ImGui::PushID(childNum);
-                if (childNum < 4)
+                if (childNum < Object->ChildObjects.size()+1) // Amount of childrens displayed in the editor
                 {
                      InspectorInfo(Mesh, Mesh->item_id);
                 }
@@ -168,6 +168,8 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
                     ImGui::NextColumn();
                 }
                 ImGui::PopID();
+
+                
                
                 ++IteratorChild;
             }

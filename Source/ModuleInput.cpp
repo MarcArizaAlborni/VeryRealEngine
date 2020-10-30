@@ -204,6 +204,50 @@ update_status ModuleInput::PreUpdate(float dt)
 
 					SDL_free((char*)path_file);
 				}
+
+				if (Drop_Path.find_last_of('.dds') != std::string::npos) {
+					LOGFIX("Importing Texture with DropFile %s", Drop_Path);
+					const char* path_file = Drop_Path.c_str();
+					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
+					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
+
+
+
+					std::vector<GameObject*>::iterator MeshTextureIterator = App->meshimporter->MeshesOnScene.begin();
+					for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
+
+						GameObject* TexturedMesh;
+
+						TexturedMesh = *MeshTextureIterator;
+						if (TexturedMesh->ToBeDrawInspector == true) {
+
+							TexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+
+
+							if (TexturedMesh->ChildObjects.size() > 0) {
+
+								std::vector<GameObject*>::iterator ChildMeshTextureIterator = TexturedMesh->ChildObjects.begin();
+								for (int b = 0; b < TexturedMesh->ChildObjects.size(); ++b) {
+
+									GameObject* ChildTexturedMesh;
+
+									ChildTexturedMesh = *ChildMeshTextureIterator;
+
+									ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+
+									++ChildMeshTextureIterator;
+								}
+
+
+							}
+						}
+
+						++MeshTextureIterator;
+
+					}
+
+					SDL_free((char*)path_file);
+				}
 				
 
 
