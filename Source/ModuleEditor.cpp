@@ -235,7 +235,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 			ImGui::Text("Are you really sure you want to exit the Engine?");
 			ImGui::Spacing();
 			ImGui::Text("");
-			/*ImGui::Image((void*)(intptr_t)App->textureImporter->cat_crying, { 100,100 }); */
+			ImGui::Image((void*)(intptr_t)App->textureImporter->cat_crying.texture_id, { 100,100 }); 
 			ImGui::Spacing();
 			ImGui::Text("");
 			ImGui::Spacing();
