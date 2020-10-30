@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleEditorMainMenuBar.h"
+#include "Globals.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -111,6 +112,7 @@ bool ModuleEditor::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleEditor::Update(float dt)
 {
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -187,6 +189,22 @@ update_status ModuleEditor::PostUpdate(float dt)
 		App->hierarchy->CreateHierarchyWindow();
 		App->inspector->CreateInspectorWindow();
 	
+
+		//Popups close
+		if (App->mainMenubar->show_popup_want_close == true)
+		{
+			ImGui::SetNextWindowSize({ 300,150 });
+			ImGui::SetNextWindowPos({ 625, 300 });
+
+			ImGui::Begin("VeryReal Engine", &App->mainMenubar->show_popup_want_close, ImGuiWindowFlags_NoCollapse 
+				| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+
+			ImGui::Separator();
+			ImGui::Text("Are you sure you want to exit the Engine?");
+
+			ImGui::End();
+			
+		}
 
 	
 

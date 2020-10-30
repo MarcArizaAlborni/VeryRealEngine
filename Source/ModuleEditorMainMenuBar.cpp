@@ -26,6 +26,10 @@ bool ModuleEditorMainMenuBar::Start()
 	show_console_window = true;
 	show_inspector_window = true;
 	show_config_window = true;
+	show_popup_want_close = false;
+
+	close = false;
+	stay = false;
 	return true;
 }
 
@@ -56,7 +60,7 @@ void ModuleEditorMainMenuBar::CreateMainMenuBar_File() {
 	{
 		if (ImGui::MenuItem("Quit", "ESC")) {
 
-			App->input->ExitEngine = true;
+			show_popup_want_close = true;
 		}
 		ImGui::EndMenu();
 	}
