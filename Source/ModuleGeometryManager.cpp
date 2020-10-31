@@ -239,8 +239,8 @@ void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
 
 	if (object->showFaceNormals == true)
 	{
-		float3 middle;
-		float3 normals;
+		float3 face;
+		vec3 normals;
 
 		float3 vertex1, vertex2, vertex3;
 
@@ -263,52 +263,32 @@ void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
 			vertex3.y = vert3.y;
 			vertex3.z = vert3.z;
 
-			middle.x = (vertex1.x + vertex2.x + vertex3.x) / 3;
-			middle.y = (vertex1.y + vertex2.y + vertex3.y) / 3;
-			middle.z = (vertex1.z + vertex2.z + vertex3.z) / 3;
+			face.x = (vertex1.x + vertex2.x + vertex3.x) / 3;
+			face.y = (vertex1.y + vertex2.y + vertex3.y) / 3;
+			face.z = (vertex1.z + vertex2.z + vertex3.z) / 3;
 
-			float3 edge_a;
+			vec3 edge_a;
 			edge_a.x = vertex2.x - vertex1.x;
 			edge_a.y = vertex2.y - vertex1.y;
 			edge_a.z = vertex2.z - vertex1.z;
 
-			float3 edge_b;
+			vec3 edge_b;
 			edge_b.x = vertex3.x - vertex1.x;
 			edge_b.y = vertex3.y - vertex1.y;
 			edge_b.z = vertex3.z - vertex1.z;
 
 			//Cross product
-			normals.x = (edge_a.y * edge_b.z - edge_a.z * edge_b.y);
-			normals.y = (edge_a.z * edge_b.x - edge_a.x * edge_b.z);
-			normals.z = (edge_a.x * edge_b.y - edge_a.y * edge_b.x);
-
-			float3 normal2;
-
-			//Normalize Vectors
-			normal2.x = normals.x * normals.x;
-			normal2.y = normals.y * normals.y;
-			normal2.z = normals.z * normals.z;
-
-			float normal3 = normal2.x + normal2.y + normal2.z;
-
-			float normal4 = normal3 / Sqrt(normal3);
-
-			float3 normal_last;
-
-
+			normals = cross(edge_a, edge_b);
+			vec3 final_normal;
+			final_normal=normalize(normals);
 			
-
-
-			normal_last.x = normal3 / Sqrt(normal3);
-			normal_last.y = normal3 / Sqrt(normal3);
-			normal_last.z = normal3 / Sqrt(normal3);
 
 			glBegin(GL_LINES);
 			glColor3f(255, 192, 203);
-			glVertex3f(middle.x, middle.y, middle.z);
-			glVertex3f(middle.x + normal4, middle.y + normal4, middle.z + normal4);
+			glVertex3f(face.x, face.y, face.z);
+			glVertex3f(face.x + final_normal.x, face.y + final_normal.y, face.z + final_normal.z);
 
-			/*glVertex3f(mid.x + normal.x , mid.y + normal.y ,mid.z + normal.z;*/
+			
 
 		}
 
