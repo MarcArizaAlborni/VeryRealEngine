@@ -10,6 +10,7 @@
 #include "libraries/Glew/include/GL/glew.h" 
 #include "libraries/SDL/include/SDL_opengl.h"
 
+#include "libraries/mmgr/mmgr.h"
 
 ModuleHierarchyGameObject::ModuleHierarchyGameObject(Application* app, const char* name, bool start_enabled) : Module(app, name, start_enabled)
 {
@@ -86,8 +87,8 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     ImGui::NextColumn();
     ImGui::SameLine(0, 20.0f);
 
-    GameObject* Item2 = new GameObject();
-    GameObject* Item4 = new GameObject();
+    GameObject* Item2;
+    GameObject* Item4;
     bool has_been_found = false;
     if (ImGui::Checkbox("Draw in Inspector", &Object->ToBeDrawInspector)) {
 
@@ -101,7 +102,7 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
             }
 
             if (Item2->ChildObjects.size() > 0) {
-                GameObject* Item3 = new GameObject();
+                GameObject* Item3;
                 std::vector<GameObject*>::iterator ChildIteratorLoadedIns = Item2->ChildObjects.begin();
                 for (int c = 0; c < Item2->ChildObjects.size(); ++c) {
 
@@ -138,11 +139,9 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     }
 
 
-
-
     if (node_open)
     {
-        GameObject* Mesh = new GameObject();
+        GameObject* Mesh;
        // App->inspector->ShowSelectedObjectInfo(Object);
         if(Object->ChildObjects.size()>0){
             std::vector<GameObject*>::iterator IteratorChild = Object->ChildObjects.begin();

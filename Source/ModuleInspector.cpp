@@ -10,6 +10,10 @@
 #include "libraries/Glew/include/GL/glew.h" 
 #include "libraries/SDL/include/SDL_opengl.h"
 
+#include "libraries/mmgr/mmgr.h"
+
+
+
 
 ModuleInspectorGameObject::ModuleInspectorGameObject(Application* app, const char* name, bool start_enabled) : Module(app, name, start_enabled)
 {
@@ -64,7 +68,7 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 			}
 			else if (ItemToDraw->ChildObjects.size() > 0) {
 
-				GameObject* ChildFoundDraw = new GameObject();
+				GameObject* ChildFoundDraw;
 				std::vector<GameObject*>::iterator ChildIteratorLoaded = ItemToDraw->ChildObjects.begin();
 				for (int itB=0; itB < ItemToDraw->ChildObjects.size(); ++itB) {
 

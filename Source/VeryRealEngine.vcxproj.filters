@@ -88,6 +88,9 @@
     <ClCompile Include="ModuleEditor.cpp">
       <Filter>Source\Modules\UI</Filter>
     </ClCompile>
+    <ClCompile Include="libraries\mmgr\mmgr.cpp">
+      <Filter>Source\External Libraries\mmgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -546,6 +549,12 @@
     <ClInclude Include="ModuleEditor.h">
       <Filter>Source\Modules\UI</Filter>
     </ClInclude>
+    <ClInclude Include="libraries\mmgr\mmgr.h">
+      <Filter>Source\External Libraries\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\mmgr\nommgr.h">
+      <Filter>Source\External Libraries\mmgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -604,6 +613,9 @@
     </Filter>
     <Filter Include="Source\Modules\UI\Windows &amp; Menus\MainMenu">
       <UniqueIdentifier>{19780105-9ec4-4a41-9a1c-aac8e4a87310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\External Libraries\mmgr">
+      <UniqueIdentifier>{31d518dd-d8a8-4d62-bbca-694d72a7f896}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
