@@ -157,6 +157,8 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 		ImGui::Text("Transformation");
 		ImGui::SetWindowFontScale(1.0);
 
+		ImGui::Checkbox("Move Family", &item->is_FamilyMove);
+
 		ImGui::Text("Position:");
 
 		ImGui::InputFloat("X pos:", &item->Mesh_Transform_Modifiers.VectorTranslation.x);

@@ -47,6 +47,30 @@ update_status ModuleGeometryManager::PreUpdate(float dt)
 
 update_status ModuleGeometryManager::Update(float dt)
 {
+	GameObject* MoveAsFamily = new GameObject();
+	GameObject* MoveAsFamilyChild = new GameObject();
+	std::vector<GameObject*>::iterator IteratorPositionModifierFamily = App->meshimporter->MeshesOnScene.begin();
+	for (int t = 0; t < App->meshimporter->MeshesOnScene.size(); ++t) {
+	
+		MoveAsFamily = *IteratorPositionModifierFamily;
+
+		if (MoveAsFamily->is_FamilyMove){
+
+			std::vector<GameObject*>::iterator IteratorModifierFamilyChild = MoveAsFamily->ChildObjects.begin();
+			for (int u = 0; u < MoveAsFamily->ChildObjects.size(); ++u) {
+
+				MoveAsFamilyChild = *IteratorModifierFamilyChild;
+
+				MoveAsFamilyChild->Mesh_Transform_Modifiers.VectorRotation = MoveAsFamily->Mesh_Transform_Modifiers.VectorRotation;
+				MoveAsFamilyChild->Mesh_Transform_Modifiers.VectorScale = MoveAsFamily->Mesh_Transform_Modifiers.VectorScale;
+				MoveAsFamilyChild->Mesh_Transform_Modifiers.VectorTranslation = MoveAsFamily->Mesh_Transform_Modifiers.VectorTranslation;
+
+				++IteratorModifierFamilyChild;
+			}
+		}
+		++IteratorPositionModifierFamily;
+	}
+
 	glColor4f(0.5f, 0.5, 0.5f, 1.0f);
 	GameObject* Item = new GameObject();
 	GameObject* Item2 = new GameObject();

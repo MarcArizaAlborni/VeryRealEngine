@@ -71,6 +71,8 @@ Innovation:
 
 - In the hierarchy window, you can use the "eye" icon to enable/disable draw for a mesh to make it easier for the user.
 - Transformation input for meshes (position,rotation,scale)
+- Textures are printed in the inspector for an actual view of the texture
+- Enhanced dynamic application exit system to give the user the best posible experience.
 
 
 

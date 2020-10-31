@@ -12,17 +12,9 @@ struct TextureInfo;
 
 struct MeshTransformation {
 
-	GLfloat Translation_Vec3[3] = { 0.0f,0.0f,0.0f };
-
-	GLfloat Rotation_Vec4[4] = { 0.0f,0.0f,0.0f,0.0f };
-
-	GLfloat Scale_Vec3[3] = { 1.0f,1.0f,1.0f };
-
 	VectorTransformations VectorTranslation;
 	VectorTransformations VectorRotation;
 	VectorTransformations VectorScale;
-
-	
 
 };
 
@@ -79,6 +71,8 @@ struct GameObject {
 	bool is_EmptyParent;
 
 	bool showFaceNormals = false;
+
+	bool is_FamilyMove = false;
 
 };
 
