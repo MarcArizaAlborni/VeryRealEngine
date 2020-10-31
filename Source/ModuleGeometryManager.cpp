@@ -47,8 +47,8 @@ update_status ModuleGeometryManager::PreUpdate(float dt)
 
 update_status ModuleGeometryManager::Update(float dt)
 {
-	GameObject* MoveAsFamily = new GameObject();
-	GameObject* MoveAsFamilyChild = new GameObject();
+	GameObject* MoveAsFamily;
+	GameObject* MoveAsFamilyChild;
 	std::vector<GameObject*>::iterator IteratorPositionModifierFamily = App->meshimporter->MeshesOnScene.begin();
 	for (int t = 0; t < App->meshimporter->MeshesOnScene.size(); ++t) {
 	
@@ -72,8 +72,8 @@ update_status ModuleGeometryManager::Update(float dt)
 	}
 
 	glColor4f(0.5f, 0.5, 0.5f, 1.0f);
-	GameObject* Item = new GameObject();
-	GameObject* Item2 = new GameObject();
+	GameObject* Item;
+	GameObject* Item2;
 	std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
 	for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 		Item=*IteratorLoaded;
