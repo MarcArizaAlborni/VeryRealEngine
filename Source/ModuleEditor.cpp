@@ -11,7 +11,7 @@
 #include "libraries/Glew/include/GL/glew.h" 
 #include "libraries/SDL/include/SDL_opengl.h"
 
-#include "SaveAndLoad.h"
+
 
 #include "GoodClass.h"
 
@@ -151,11 +151,11 @@ update_status ModuleEditor::PostUpdate(float dt)
 
 	bool closeEngine = false;
 
-	if (App->input->keyboard[SDL_SCANCODE_P]) {
+	//if (App->input->keyboard[SDL_SCANCODE_P]) {
 
-		App->LoadSave->SaveintoFileConfig();
+	//	App->LoadSave->SaveintoFileConfig();
 
-	}
+	//}
 
 	SDL_Event event;
 	while (SDL_PollEvent(&event))

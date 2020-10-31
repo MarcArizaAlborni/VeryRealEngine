@@ -21,7 +21,11 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	textureImporter = new ModuleTextureImporter(this);
 	meshimporter = new ModuleMeshImporter(this);
 
-	LoadSave = new LoadSaveMod(this);
+	
+
+
+	filemanager = new ModuleFileManager(this);
+
 
 	geometrymanager = new ModuleGeometryManager(this);
 	renderer3D = new ModuleRenderer3D(this);
@@ -39,12 +43,12 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	AddModule(mainMenubar);
 	AddModule(configWindow);
 	AddModule(console);
-
+	AddModule(filemanager);
 	AddModule(textureImporter);
 	AddModule(meshimporter);
 	AddModule(hierarchy);
 	AddModule(inspector);
-	AddModule(LoadSave);
+
 	
 	AddModule(renderer3D);
 	AddModule(geometrymanager);

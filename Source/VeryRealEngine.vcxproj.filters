@@ -55,9 +55,6 @@
     <ClCompile Include="Primitive.cpp">
       <Filter>Source\Helper</Filter>
     </ClCompile>
-    <ClCompile Include="SaveAndLoad.cpp">
-      <Filter>Source\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="GoodClass.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
@@ -90,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="libraries\mmgr\mmgr.cpp">
       <Filter>Source\External Libraries\mmgr</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Source\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,9 +158,6 @@
     </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Source\Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="SaveAndLoad.h">
-      <Filter>Source\Modules</Filter>
     </ClInclude>
     <ClInclude Include="GoodClass.h">
       <Filter>Source\Modules</Filter>
@@ -554,6 +551,9 @@
     </ClInclude>
     <ClInclude Include="libraries\mmgr\nommgr.h">
       <Filter>Source\External Libraries\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

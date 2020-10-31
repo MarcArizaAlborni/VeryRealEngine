@@ -21,9 +21,9 @@
 #include "ModuleMeshImporter.h"
 #include <vector>
 #include "libraries/json/json.hpp"
-#include "SaveAndLoad.h"
 #include "ModuleHierarchy.h"
 #include "ModuleInspector.h"
+#include "FileManager.h"
 
 
 
@@ -40,9 +40,9 @@ public:
 	ModuleEditor* editor;
 	ModuleTextureImporter* textureImporter;
 	ModuleMeshImporter* meshimporter;
-	LoadSaveMod* LoadSave;
+	
 	ModuleGeometryManager* geometrymanager;
-
+	ModuleFileManager* filemanager;
 	//Windows & Menus
 	ModuleEditorMainMenuBar* mainMenubar;
 	ModuleEditorConfiguration* configWindow;

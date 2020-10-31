@@ -114,6 +114,9 @@ bool ModuleRenderer3D::Start()
 {
 	glEnable(GL_DEPTH_TEST);
 
+	//App->filemanager->StoreImportedFile("Assets/Models/House/BakerHouse.fbx");
+
+
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Textures/checkers.png");
 	App->textureImporter->AddTextureToList(&App->textureImporter->TextureCheckers, "Checkers");
 
@@ -246,7 +249,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 	
-
+	
 	return UPDATE_CONTINUE;
 }
 
