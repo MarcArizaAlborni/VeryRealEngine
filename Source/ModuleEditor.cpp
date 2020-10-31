@@ -151,11 +151,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 
 	bool closeEngine = false;
 
-	//if (App->input->keyboard[SDL_SCANCODE_P]) {
-
-	//	App->LoadSave->SaveintoFileConfig();
-
-	//}
+	
 
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
@@ -244,8 +240,8 @@ update_status ModuleEditor::PostUpdate(float dt)
 		
 			if (ImGui::Button("YES!!", { 80,20 }))
 			{
-				//App->input->ExitEngine = true;
-				App->mainMenubar->show_popup_want_close3 = true;
+				App->input->ExitEngine = true;
+				//App->mainMenubar->show_popup_want_close3 = true;
 			}
 
 			ImGui::SameLine(0.0F, 172.0f);
@@ -259,54 +255,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 
 		}
 
-		if (App->mainMenubar->show_popup_want_close3 == true)
-		{
-			ImGui::SetNextWindowSize({ 350,200 });
-			ImGui::SetNextWindowPos({ 700, 325 });
-
-			ImGui::Begin("VeryReal Engine Last window (for real)", &App->mainMenubar->show_popup_want_close2, ImGuiWindowFlags_NoCollapse
-				| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-
-			ImGui::Separator();
-			ImGui::Text("Ok Ok,tell the truth to finally leave the engine");
-			ImGui::Spacing();
-			ImGui::Text("     ");
-
 		
-			ImGui::Text("   ");
-			//ImGui::SameLine(0.0f, 10.0f);
-
-			if (ImGui::Button("Yes please, I want to Leave", { 350,20 }))
-			{
-				App->mainMenubar->show_popup_want_close = false;
-				App->mainMenubar->show_popup_want_close2 = false;
-				App->mainMenubar->show_popup_want_close3 = false;
-			}
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Text("     ");
-			ImGui::SameLine(0.0f, 25.0f);
-
-			if (ImGui::Button("Very Real Engine > Unreal Engine", { 250,20 }))
-			{
-				App->input->ExitEngine = true;
-			}
-			ImGui::Spacing();
-			ImGui::Text("   "); ImGui::SameLine(50.0f, 200.0f);
-			ImGui::Spacing();
-			if (ImGui::Button("No", { 80,20 }))
-			{
-				App->mainMenubar->show_popup_want_close = false;
-				App->mainMenubar->show_popup_want_close2 = false;
-				App->mainMenubar->show_popup_want_close3 = false;
-				
-			}
-
-			ImGui::End();
-
-		}
 	
 
 	//Render

@@ -157,6 +157,10 @@ update_status ModuleCamera3D::Update(float dt)
 					if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 					{
 						//Orbit()
+						LookAt({ selected_mesh->Mesh_Transform_Modifiers.VectorTranslation.x,
+							selected_mesh->Mesh_Transform_Modifiers.VectorTranslation.y,
+							selected_mesh->Mesh_Transform_Modifiers.VectorTranslation.z 
+						});
 
 					}
 				}
@@ -177,11 +181,13 @@ update_status ModuleCamera3D::Update(float dt)
 						LOGFIX("Centering Object");
 					}
 
+					
+
 					if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 					{
 						if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 						{
-							
+							CenterToObject(selected_mesh_child);
 
 						}
 					}
