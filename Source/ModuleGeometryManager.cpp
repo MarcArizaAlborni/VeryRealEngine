@@ -47,6 +47,9 @@ update_status ModuleGeometryManager::PreUpdate(float dt)
 
 update_status ModuleGeometryManager::Update(float dt)
 {
+
+
+
 	GameObject* MoveAsFamily;
 	GameObject* MoveAsFamilyChild;
 	std::vector<GameObject*>::iterator IteratorPositionModifierFamily = App->meshimporter->MeshesOnScene.begin();

@@ -31,6 +31,35 @@ bool ModuleHierarchyGameObject::Start()
 
 update_status ModuleHierarchyGameObject::Update(float dt)
 {
+    GameObject* itemp;
+    GameObject* itemp2;
+
+    std::vector<GameObject*>::iterator IteratorLoadedFamily = App->meshimporter->MeshesOnScene.begin();
+    for (int countb = 0; countb < App->meshimporter->MeshesOnScene.size(); ++countb) {
+    
+       itemp = *IteratorLoadedFamily;
+
+       if (itemp->is_FamilyMove) {
+
+           std::vector<GameObject*>::iterator IteratorLoadedFamilyChild = itemp->ChildObjects.begin();
+           for (int counta = 0; counta < itemp->ChildObjects.size(); ++counta) {
+
+               itemp2 = *IteratorLoadedFamilyChild;
+
+               itemp2->Mesh_Transform_Modifiers.VectorRotation = itemp->Mesh_Transform_Modifiers.VectorRotation;
+               itemp2->Mesh_Transform_Modifiers.VectorScale = itemp->Mesh_Transform_Modifiers.VectorScale;
+               itemp2->Mesh_Transform_Modifiers.VectorTranslation = itemp->Mesh_Transform_Modifiers.VectorTranslation;
+
+              
+
+           }
+
+       }
+
+        ++IteratorLoadedFamily;
+    }
+
+
 	return UPDATE_CONTINUE;
 }
 
@@ -56,6 +85,10 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
             GameObject* Mesh = *IteratorLoaded;
            
            InspectorInfo(Mesh, count);
+
+
+
+
 
             IteratorLoaded++;
         }
@@ -109,7 +142,7 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
                     Item3 = *ChildIteratorLoadedIns;
                     if (Object->item_id != Item3->item_id) {
                         Item3->ToBeDrawInspector = false;
-                        Item2->ToBeDrawInspector = false;
+                       //Item2->ToBeDrawInspector = false; 
                     }
                     ++ChildIteratorLoadedIns;
                 }
