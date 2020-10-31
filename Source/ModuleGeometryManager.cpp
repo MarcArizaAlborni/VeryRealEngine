@@ -294,6 +294,65 @@ void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
 
 		glEnd();
 	}
+
+
+	if (object->showVertexNormals == true)
+	{
+		float3 face;
+		vec3 normals;
+
+		float3 vertex1, vertex2, vertex3;
+
+		for (int i = 0; i < object->MeshData.num_index; i += 3)
+		{
+			Vertex_Sub vert1 = object->MeshData.vertex[object->MeshData.index[i]];
+			Vertex_Sub vert2 = object->MeshData.vertex[object->MeshData.index[i + 1]];
+			Vertex_Sub vert3 = object->MeshData.vertex[object->MeshData.index[i + 2]];
+
+
+			vertex1.x = vert1.x;
+			vertex1.y = vert1.y;
+			vertex1.z = vert1.z;
+
+			vertex2.x = vert2.x;
+			vertex2.y = vert2.y;
+			vertex2.z = vert2.z;
+
+			vertex3.x = vert3.x;
+			vertex3.y = vert3.y;
+			vertex3.z = vert3.z;
+
+			face.x = (vertex1.x + vertex2.x + vertex3.x) / 3;
+			face.y = (vertex1.y + vertex2.y + vertex3.y) / 3;
+			face.z = (vertex1.z + vertex2.z + vertex3.z) / 3;
+
+			vec3 edge_a;
+			edge_a.x = vertex2.x - vertex1.x;
+			edge_a.y = vertex2.y - vertex1.y;
+			edge_a.z = vertex2.z - vertex1.z;
+
+			vec3 edge_b;
+			edge_b.x = vertex3.x - vertex1.x;
+			edge_b.y = vertex3.y - vertex1.y;
+			edge_b.z = vertex3.z - vertex1.z;
+
+			//Cross product
+			normals = cross(edge_a, edge_b);
+			vec3 final_normal;
+			final_normal = normalize(normals);
+
+
+			glBegin(GL_LINES);
+			glColor3f(255, 192, 203);
+			//glVertex3f(face.x, face.y, face.z);
+			glVertex3f(face.x + final_normal.x, face.y + final_normal.y, face.z + final_normal.z);
+
+
+
+		}
+
+		glEnd();
+	}
 		
 
 }

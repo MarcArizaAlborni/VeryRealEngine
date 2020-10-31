@@ -72,6 +72,8 @@ struct GameObject {
 
 	bool showFaceNormals = false;
 
+	bool showVertexNormals = false;
+
 	bool is_FamilyMove = false;
 
 };
