@@ -45,7 +45,6 @@ public:
 	bool drawpyramid;
 	bool drawcylinder;
 	bool drawsphere;
-	bool drawgwyn;
 
 
 	//------------ CONSOLE STUFF

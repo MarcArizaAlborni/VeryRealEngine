@@ -85,7 +85,6 @@ bool ModuleEditor::Start()
 	App->mainMenubar->drawpyramid = false;
 	App->mainMenubar->drawcylinder = false;
 	App->mainMenubar->drawsphere = false;
-	App->mainMenubar->drawgwyn = false;
 	// HARDWARE DETECTION
 	App->configWindow->GetHardwareStatus();
 	App->console->LogsAmount = 0;
@@ -148,11 +147,6 @@ update_status ModuleEditor::PostUpdate(float dt)
 	{
 		App->geometrymanager->DrawSphere();
 		App->mainMenubar->drawsphere = false;
-	}
-
-	if (App->mainMenubar->drawgwyn) {
-		App->geometrymanager->DrawGwyn();
-		App->mainMenubar->drawgwyn = false;
 	}
 
 	bool closeEngine = false;

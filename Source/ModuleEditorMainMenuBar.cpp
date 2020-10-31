@@ -174,12 +174,6 @@ void ModuleEditorMainMenuBar::CreateInsertPrimitivesWindow()
 				LOGFIX("Creating : Sphere");
 				drawsphere = true;
 			}
-			if (ImGui::MenuItem("Estamos Flying"))
-			{
-				LOGFIX("Creating : Gwyn");
-				drawgwyn = true;
-			}
-			
 			ImGui::MenuItem("Import A mesh");
 			ImGui::EndMenu();
 

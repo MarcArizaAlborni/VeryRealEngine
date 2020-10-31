@@ -141,10 +141,6 @@ bool ModuleRenderer3D::Start()
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;
 	App->textureImporter->cat_crying = App->textureImporter->LoadTextureImage ("Assets/Textures/icons/cat.png ");
 
-
-
-	//GWYN
-
 	//App->textureImporter->GwynAccessories = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Accessories.dds");
 	//App->textureImporter->GwynClothes = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Clothing.dds");
 	//App->textureImporter->GwynClothesB = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/ClothingB.dds");

@@ -39,7 +39,6 @@ public:
 	void DrawPyramid();
 	void DrawSphere();
 	void DrawCylinder();
-	void DrawGwyn();
 
 	//Transformations
 
