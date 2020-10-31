@@ -44,7 +44,7 @@ update_status ModuleMeshImporter::Update(float dt)
 // Load a mesh with index and vertex
 void ModuleMeshImporter::LoadMesh(const char* file_path)
 {
-	LOGFIX("Importing Model %s...",file_path);	
+	//LOGFIX("Importing Model %s...",file_path);	
 
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 

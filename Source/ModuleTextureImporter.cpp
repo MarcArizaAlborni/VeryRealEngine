@@ -43,6 +43,7 @@ bool ModuleTextureImporter::Start()
 
 TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 {
+	//LOGFIX("Importing Texture %s...", path);
 	TextureInfo InfoTexture;
 	ILuint temp_id = 0;
 
@@ -71,6 +72,8 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 		}
 	}
 	
+	
+
 	return InfoTexture;
 }
 

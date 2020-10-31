@@ -69,8 +69,12 @@ Innovation:
 
 
 
-Important: When importing a texture with drag & drop, make sure the Draw on Inspector checkbox is selected for the mesh you want the texture to be applied to, if there are multople meshes that you want to be textured with the 
+Important: 
+- When importing a texture with drag & drop, make sure the Draw on Inspector checkbox is selected for the mesh you want the texture to be applied to, if there are multople meshes that you want to be textured with the 
 same texture, sadly the only curent way to do it is one by one selecting each mesh. (a fix will come in the following updates)
+
+- When importing a model with drag & drop, make sure there isnt any game object selected in the hierarchy (Draw on inspector checkbox), as it may lead to the selected mesh to its texture (its texture can be applied later without trouble)
+
 
 Enjoy :)
 
