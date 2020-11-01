@@ -347,7 +347,7 @@ void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
 			//glVertex3f(face.x, face.y, face.z);
 			glVertex3f(face.x + final_normal.x, face.y + final_normal.y, face.z + final_normal.z);
 
-
+			 // THIS IS THE vertex normals function //glBegin(GL_LINES);     glColor4f(1.0f, 1.0f, 0.0f, 1.0f);      for (uint i = 0; i < mesh->size[Mesh::vertex] * 3; i += 3) { glVertex3f(mesh->vertices[i], mesh->vertices[i + 1], mesh->vertices[i + 2]);         glVertex3f(mesh->vertices[i] + mesh->normals[i], mesh->vertices[i + 1] + mesh->normals[i + 1], mesh->vertices[i + 2] + mesh->normals[i + 2]); }      glColor4f(1.0f, 1.0f, 1.0f, 1.0f);     glEnd();
 
 		}
 
