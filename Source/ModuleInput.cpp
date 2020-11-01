@@ -163,12 +163,15 @@ update_status ModuleInput::PreUpdate(float dt)
 
 				std::size_t hasfound = Drop_Path.find_last_of(".png");
 				if (Drop_Path.find_last_of(".png") != std::string::npos) {
-					//LOGFIX("Importing Texture with DropFile %s", Drop_Path);
+					
 					const char* path_file = Drop_Path.c_str();
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
-					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
+					
 
 					if (ImportedTexture.width != 0 && ImportedTexture.height != 0) {
+						
+						LOGFIX("Importing Texture %s...", Drop_Path);
+						App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
 
 						std::vector<GameObject*>::iterator MeshTextureIterator = App->meshimporter->MeshesOnScene.begin();
 						for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
@@ -208,13 +211,14 @@ update_status ModuleInput::PreUpdate(float dt)
 				}
 
 				if (Drop_Path.find_last_of('.dds') != std::string::npos) {
-					//LOGFIX("Importing Texture with DropFile %s", Drop_Path);
+					
 					const char* path_file = Drop_Path.c_str();
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
-					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
+					
 
 					if (ImportedTexture.width != 0 && ImportedTexture.height != 0) {
-
+					
+						App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
 						std::vector<GameObject*>::iterator MeshTextureIterator = App->meshimporter->MeshesOnScene.begin();
 						for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 
