@@ -88,7 +88,7 @@
     <ClCompile Include="libraries\mmgr\mmgr.cpp">
       <Filter>Source\External Libraries\mmgr</Filter>
     </ClCompile>
-    <ClCompile Include="FileManager.cpp">
+    <ClCompile Include="FileSystem.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -552,7 +552,7 @@
     <ClInclude Include="libraries\mmgr\nommgr.h">
       <Filter>Source\External Libraries\mmgr</Filter>
     </ClInclude>
-    <ClInclude Include="FileManager.h">
+    <ClInclude Include="FileSystem.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>

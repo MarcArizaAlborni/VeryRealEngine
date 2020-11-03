@@ -16,40 +16,18 @@ struct SavedFiles {
 
 
 };
-class ModuleFileManager : public Module
+class ModuleFileSystem : public Module
 {
 public:
 
-	ModuleFileManager(Application* app, const char* name = "null", bool start_enabled = true);
-	~ModuleFileManager();
-
-	bool Init();
-
-	bool CleanUp();
-
-	update_status Update(float dt);
-
-	std::vector<GameObject*>ImportedFilesList;
-	//std::vector<const aiScene*>ImportedFilesList;
-	
-	void StoreImportedFile(char* filepath);
-
-	
+	ModuleFileSystem(Application* app, const char* name = "null", bool start_enabled = true);
+	~ModuleFileSystem();
 
 public:
-
-	
-	
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
 	void CreateConsolelog(const char file[], int line, const char* format, ...);
-	
-
-
-
-
-	
 };
 
 #endif
