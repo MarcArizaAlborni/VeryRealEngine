@@ -161,6 +161,15 @@ update_status ModuleInput::PreUpdate(float dt)
 
 				}
 
+				if (Drop_Path.find_last_of('.FBX') != std::string::npos) {
+
+					//LOGFIX("Importing Module with DropFile %s", Drop_Path);
+					const char* path_file = Drop_Path.c_str();
+					App->meshimporter->LoadMesh(path_file);
+					SDL_free((char*)path_file);
+
+				}
+
 				std::size_t hasfound = Drop_Path.find_last_of(".png");
 				if (Drop_Path.find_last_of(".png") != std::string::npos) {
 					

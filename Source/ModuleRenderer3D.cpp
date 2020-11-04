@@ -120,25 +120,26 @@ bool ModuleRenderer3D::Start()
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Textures/checkers.png");
 	App->textureImporter->AddTextureToList(&App->textureImporter->TextureCheckers, "Checkers");
 
-	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Textures/Baker_house.png");
-	App->textureImporter->AddTextureToList(&App->textureImporter->TextureHouse,"Baker House");
+	
 
 	App->textureImporter->DrawIconHierarchyOpen = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_open_hierarchy_icon.png");
 	App->textureImporter->DrawIconHierarchyClosed = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_closed_hierarchy_icon.png");
-	//App->textureImporter->TextureHousita = App->textureImporter->LoadTextureImage("Assets/Textures/house2tex.png");
-	//App->textureImporter->TextureEarth = App->textureImporter->LoadTextureImage("Assets/Textures/earthtex.png");
-
-	
 	
 
+	
+	// BAKER HOUSE FOR DRAW W/TEXTURES ON START
+
+	/*App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Textures/Baker_house.png");
+	App->textureImporter->AddTextureToList(&App->textureImporter->TextureHouse, "Baker House");
 	App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.fbx");
-	//App->meshimporter->LoadMesh("Assets/Models/house2.fbx");
-	//App->meshimporter->LoadMesh("Assets/Models/earth.fbx");
-
-
-
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;
-	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;
+	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;*/
+
+	// STREET FOR DRAW W/TEXTURES ON START
+
+	App->meshimporter->LoadMesh("Assets/Models/Street/Street environment_V01.FBX");
+
+
 	App->textureImporter->cat_crying = App->textureImporter->LoadTextureImage ("Assets/Textures/icons/cat.png ");
 
 	//App->textureImporter->GwynAccessories = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Accessories.dds");
