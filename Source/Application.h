@@ -23,7 +23,7 @@
 #include "libraries/json/json.hpp"
 #include "ModuleHierarchy.h"
 #include "ModuleInspector.h"
-#include "FileManager.h"
+#include "FileSystem.h"
 
 
 
@@ -42,7 +42,7 @@ public:
 	ModuleMeshImporter* meshimporter;
 	
 	ModuleGeometryManager* geometrymanager;
-	ModuleFileManager* filemanager;
+	ModuleFileSystem* filemanager;
 	//Windows & Menus
 	ModuleEditorMainMenuBar* mainMenubar;
 	ModuleEditorConfiguration* configWindow;
