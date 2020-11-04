@@ -66,6 +66,9 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 			GameObject* ourGameObject = new GameObject();
 			
 			aiMesh* MeshToLoad = scene->mMeshes[i];
+			
+			//ourGameObject->mesh_name=(std::string)MeshToLoad->mName;
+			ourGameObject->Mesh_Transform_Modifiers.VectorTranslation;
 
 			MeshToLoad->mNumVertices = scene->mMeshes[i]->mNumVertices;
 

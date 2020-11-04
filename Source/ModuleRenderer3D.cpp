@@ -300,31 +300,6 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 }
 
-
-//void ModuleRenderer3D::GenerateVertexBuffer(uint& id_vertex, const int& size, Vertex_Sub* vertex)
-//{
-//	glGenBuffers(1, (GLuint*)&(id_vertex));
-//	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-//	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * size * 3, vertex, GL_STATIC_DRAW);
-//	glBindBuffer(GL_ARRAY_BUFFER, 0);
-//}
-//
-//void ModuleRenderer3D::GenerateIndexBuffer(uint& id_index, const int& size, const uint* index)
-//{
-//	glGenBuffers(1, (GLuint*)&(id_index));
-//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_index);
-//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * size, index, GL_STATIC_DRAW);
-//	glBindBuffer(GL_ARRAY_BUFFER, 0);
-//}
-//
-//void ModuleRenderer3D::GenerateVertexTexBuffer(uint& id_vertexTex, const int& sizeTex, const float* vertexTex) //Textures
-//{
-//	glGenBuffers(1, (GLuint*)&(id_vertexTex));
-//	glBindBuffer(GL_ARRAY_BUFFER, id_vertexTex);
-//	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * sizeTex, vertexTex, GL_STATIC_DRAW);
-//	glBindBuffer(GL_ARRAY_BUFFER, 0);
-//}
-
 void ModuleRenderer3D::CreateConsolelog(const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];
