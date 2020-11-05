@@ -50,6 +50,10 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 	if (scene != nullptr && scene->HasMeshes()) {
 
+		aiNode* rootNodeScene=scene->mRootNode;
+
+		//LoadNodeInfo(scene, rootNodeScene);
+
 		bool ParentHasFound=false;
 		if (scene->mNumMeshes > 1) {
 
@@ -66,9 +70,37 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 			GameObject* ourGameObject = new GameObject();
 			
 			aiMesh* MeshToLoad = scene->mMeshes[i];
+
+			////////////////// TRYING TO MAKE MODELS LOAD POSITIONS
+
+			/*if (MeshToLoad->HasPositions()) {
+				vec3 MedianPoint = { 0,0,0 };
+				vec3 VertexPositionAdd = { 0,0,0 };
+
+				for (int m = 0; m < MeshToLoad->mNumVertices; ++m) {
+
+					VertexPositionAdd.x += MeshToLoad->mVertices->x;
+					VertexPositionAdd.y += MeshToLoad->mVertices->y;
+					VertexPositionAdd.z += MeshToLoad->mVertices->z;
+
+				}
+
+				MedianPoint.x = VertexPositionAdd.x / MeshToLoad->mNumVertices;
+				MedianPoint.y = VertexPositionAdd.y / MeshToLoad->mNumVertices;
+				MedianPoint.z = VertexPositionAdd.z / MeshToLoad->mNumVertices;
+
+				ourGameObject->Mesh_Transform_Modifiers.VectorTranslation.x = MedianPoint.x;
+				ourGameObject->Mesh_Transform_Modifiers.VectorTranslation.y = MedianPoint.y;
+				ourGameObject->Mesh_Transform_Modifiers.VectorTranslation.z = MedianPoint.z;
+				
+			}*/
+			
+
+			/////////////////
+
 			
 			//ourGameObject->mesh_name=(std::string)MeshToLoad->mName;
-			ourGameObject->Mesh_Transform_Modifiers.VectorTranslation;
+			
 
 			MeshToLoad->mNumVertices = scene->mMeshes[i]->mNumVertices;
 
@@ -135,6 +167,24 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 }
 
 
+
+vec3 ModuleMeshImporter::LoadNodeInfo(const aiScene* scene, aiNode* rootNode)
+{
+	vec3 RetVec = { 0,0,0 };
+	vec3 InitVec = { 1,1,1 };
+	aiMatrix4x4 TransformationMatr;
+
+	for (int i = 0; i < 4; ++i) {
+
+		for (int b = 0; b < 4; ++b) {
+
+			TransformationMatr[i][b] = rootNode->mTransformation[i][b];
+		}
+	}
+	
+	
+	return RetVec;
+}
 
 void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent,bool parentFound )
 {

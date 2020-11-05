@@ -9,6 +9,8 @@
 
 struct VectorTransformations;
 struct TextureInfo;
+struct aiScene;
+struct aiNode;
 
 struct MeshTransformation {
 
@@ -98,6 +100,9 @@ public:
 	//List of meshes active
 	std::vector<GameObject*> MeshesOnScene;
 	
+	// Load Assimp Node Info
+
+	vec3 LoadNodeInfo(const aiScene* scene, aiNode* rootNode);
 	// Add a mesh to the list
 
 	//Object to add, if its a child and who is the parent
