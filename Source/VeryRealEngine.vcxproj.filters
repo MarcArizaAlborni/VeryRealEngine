@@ -89,7 +89,10 @@
       <Filter>Source\External Libraries\mmgr</Filter>
     </ClCompile>
     <ClCompile Include="FileSystem.cpp">
-      <Filter>Source\Modules</Filter>
+      <Filter>Source\FileManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source\FileManagers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -553,7 +556,10 @@
       <Filter>Source\External Libraries\mmgr</Filter>
     </ClInclude>
     <ClInclude Include="FileSystem.h">
-      <Filter>Source\Modules</Filter>
+      <Filter>Source\FileManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Source\FileManagers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -616,6 +622,9 @@
     </Filter>
     <Filter Include="Source\External Libraries\mmgr">
       <UniqueIdentifier>{31d518dd-d8a8-4d62-bbca-694d72a7f896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FileManagers">
+      <UniqueIdentifier>{00a18c22-98ef-47f0-bb66-a033bffb0718}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

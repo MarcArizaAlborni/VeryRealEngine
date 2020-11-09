@@ -20,7 +20,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 
 	textureImporter = new ModuleTextureImporter(this);
 	meshimporter = new ModuleMeshImporter(this);
-
+	resources = new ResourceManager(this);
 	
 
 
@@ -48,6 +48,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	AddModule(meshimporter);
 	AddModule(hierarchy);
 	AddModule(inspector);
+	AddModule(resources);
 
 	
 	AddModule(renderer3D);
