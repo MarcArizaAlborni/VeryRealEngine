@@ -114,18 +114,10 @@ bool ModuleRenderer3D::Start()
 {
 	glEnable(GL_DEPTH_TEST);
 
-	//App->filemanager->StoreImportedFile("Assets/Models/House/BakerHouse.fbx");
-
+	LoadIconsTextures();
+	
 
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Models/Checkers/checkers.png");
-	//App->textureImporter->AddTextureToList(&App->textureImporter->TextureCheckers, "Checkers");
-
-	
-
-	App->textureImporter->DrawIconHierarchyOpen = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_open_hierarchy_icon.png");
-	App->textureImporter->DrawIconHierarchyClosed = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_closed_hierarchy_icon.png");
-	
-
 	
 	// BAKER HOUSE FOR DRAW W/TEXTURES ON START
 
@@ -139,8 +131,7 @@ bool ModuleRenderer3D::Start()
 
 	//App->meshimporter->LoadMesh("Assets/Models/Street/Street environment_V01.FBX");
 
-
-	App->textureImporter->cat_crying = App->textureImporter->LoadTextureImage ("Assets/Textures/icons/cat.png ");
+	// GWYN FOR DRAW W/TEXTURES ON START
 
 	//App->textureImporter->GwynAccessories = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Accessories.dds");
 	//App->textureImporter->GwynClothes = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Clothing.dds");
@@ -152,12 +143,8 @@ bool ModuleRenderer3D::Start()
 	//App->textureImporter->GwynSkin = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Skin.dds");
 	//App->textureImporter->GwynSword = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Sword.dds");
 
-	App->meshimporter->LoadedTexturesList.size();
-	App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_open_hierarchy_icon.png");
-	App->meshimporter->LoadedTexturesList.size();
-
 	//App->meshimporter->LoadMesh("Assets/Models/Gwyn.fbx");
-	////-1
+	////-1 TO THE POSITION OF THE ITEM IN LIST
 	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(0)->TextureData = App->textureImporter->GwynSword;
 	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(1)->TextureData = App->textureImporter->GwynAccessories;
 	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(2)->TextureData = App->textureImporter->GwynSword;
@@ -185,8 +172,6 @@ bool ModuleRenderer3D::Start()
 	
 
 
-	
-
 	//App->meshimporter->MeshesOnScene.at(1)->TextureData = App->textureImporter->TextureHouse;
 	//App->meshimporter->MeshesOnScene.at(2)->TextureData = App->textureImporter->TextureHousita;
 	//App->meshimporter->MeshesOnScene.at(3)->TextureData = App->textureImporter->TextureEarth;
@@ -194,7 +179,6 @@ bool ModuleRenderer3D::Start()
 
 
 
-		//App->meshimporter->LoadMesh("Assets/Models/Warrior/warrior.FBX");
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	return true;
@@ -315,4 +299,12 @@ void ModuleRenderer3D::CreateConsolelog(const char file[], int line, const char*
 
 
 	App->console->ConsoleLogs.push_back(tmp_string2);
+}
+
+void ModuleRenderer3D::LoadIconsTextures()
+{
+	App->textureImporter->DrawIconHierarchyOpen = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_open_hierarchy_icon.png");
+	App->textureImporter->DrawIconHierarchyClosed = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_closed_hierarchy_icon.png");
+	App->textureImporter->cat_crying = App->textureImporter->LoadTextureImage("Assets/Textures/icons/cat.png ");
+
 }
