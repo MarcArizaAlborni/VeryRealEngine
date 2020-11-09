@@ -47,7 +47,7 @@ update_status ModuleGeometryManager::PreUpdate(float dt)
 
 update_status ModuleGeometryManager::Update(float dt)
 {
-
+	App->meshimporter->LoadedTexturesList.size();
 
 
 	GameObject* MoveAsFamily;

@@ -98,7 +98,10 @@ public:
 	void LoadMesh(const char* file_path);
 
 	//List of meshes active
-	std::vector<GameObject*> MeshesOnScene;
+	std::vector<GameObject*> MeshesOnScene; //CurrentActive meshes list
+	std::vector<TextureInfo*> LoadedTexturesList; // Currently Loaded textures list
+
+
 	
 	// Load Assimp Node Info
 

@@ -45,6 +45,7 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 {
 	//LOGFIX("Importing Texture %s...", path);
 	TextureInfo InfoTexture;
+	TextureInfo* TextureInformation = new TextureInfo();
 	ILuint temp_id = 0;
 
 	if (path != nullptr)
@@ -57,9 +58,9 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 			ILinfo ImgInfo;
 			iluGetImageInfo(&ImgInfo);
 
-			InfoTexture.width = ImgInfo.Width;
-			InfoTexture.height = ImgInfo.Height;
-			InfoTexture.texture_path = path;
+			TextureInformation->width = ImgInfo.Width;
+			TextureInformation->height = ImgInfo.Height;
+			TextureInformation->texture_path = path;
 
 			if (ImgInfo.Origin == IL_ORIGIN_UPPER_LEFT)
 				iluFlipImage();
@@ -67,12 +68,45 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 			if (ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
 			{
 				//Create Texture
-				InfoTexture.texture_id = SetUpTexture(ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), ilGetInteger(IL_IMAGE_FORMAT), ilGetInteger(IL_IMAGE_FORMAT));
+				TextureInformation->texture_id = SetUpTexture(ilGetData(), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), ilGetInteger(IL_IMAGE_FORMAT), ilGetInteger(IL_IMAGE_FORMAT));
 			}	
+
+			///////////////Adding to list of textures loaded
+			bool is_loaded = false;
+			TextureInfo* TexturePath ;
+			if (App->meshimporter->LoadedTexturesList.size() > 0) {
+				std::vector<TextureInfo*>::iterator TextIt = App->meshimporter->LoadedTexturesList.begin();
+				for (int i = 0; i < App->meshimporter->LoadedTexturesList.size(); ++i) {
+
+					TexturePath = *TextIt;
+
+
+					if (TexturePath->texture_path.compare(TextureInformation->texture_path) == 0) {
+						is_loaded = true;
+						i = App->meshimporter->LoadedTexturesList.size();
+					}
+					else {
+						++TextIt;
+					}
+
+
+					
+				}
+			}
+			if (is_loaded == false) {
+
+				App->meshimporter->LoadedTexturesList.push_back(TextureInformation);
+			}
+
+			/////////////////////////
 		}
 	}
 	
-	
+	InfoTexture.height = TextureInformation->height;
+	InfoTexture.width = TextureInformation->width;
+	InfoTexture.texture_id = TextureInformation->texture_id;
+	InfoTexture.texture_name = TextureInformation->texture_name;
+	InfoTexture.texture_path = TextureInformation->texture_path;
 
 	return InfoTexture;
 }

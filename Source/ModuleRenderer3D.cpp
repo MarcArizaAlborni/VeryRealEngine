@@ -117,8 +117,8 @@ bool ModuleRenderer3D::Start()
 	//App->filemanager->StoreImportedFile("Assets/Models/House/BakerHouse.fbx");
 
 
-	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Textures/checkers.png");
-	App->textureImporter->AddTextureToList(&App->textureImporter->TextureCheckers, "Checkers");
+	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Models/Checkers/checkers.png");
+	//App->textureImporter->AddTextureToList(&App->textureImporter->TextureCheckers, "Checkers");
 
 	
 
@@ -129,11 +129,11 @@ bool ModuleRenderer3D::Start()
 	
 	// BAKER HOUSE FOR DRAW W/TEXTURES ON START
 
-	/*App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Textures/Baker_house.png");
+	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
 	App->textureImporter->AddTextureToList(&App->textureImporter->TextureHouse, "Baker House");
 	App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.fbx");
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;
-	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;*/
+	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;
 
 	// STREET FOR DRAW W/TEXTURES ON START
 
@@ -152,9 +152,9 @@ bool ModuleRenderer3D::Start()
 	//App->textureImporter->GwynSkin = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Skin.dds");
 	//App->textureImporter->GwynSword = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Sword.dds");
 
-
-
-
+	App->meshimporter->LoadedTexturesList.size();
+	App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_open_hierarchy_icon.png");
+	App->meshimporter->LoadedTexturesList.size();
 
 	//App->meshimporter->LoadMesh("Assets/Models/Gwyn.fbx");
 	////-1
