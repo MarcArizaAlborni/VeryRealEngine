@@ -192,7 +192,6 @@ update_status ModuleInput::PreUpdate(float dt)
 
 								TexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
 
-
 								if (TexturedMesh->ChildObjects.size() > 0) {
 
 									std::vector<GameObject*>::iterator ChildMeshTextureIterator = TexturedMesh->ChildObjects.begin();
@@ -208,6 +207,23 @@ update_status ModuleInput::PreUpdate(float dt)
 									}
 
 
+								}
+							}
+							else {
+
+								std::vector<GameObject*>::iterator ChildMeshTextureIterator2 = TexturedMesh->ChildObjects.begin();
+								for (int b = 0; b < TexturedMesh->ChildObjects.size(); ++b) {
+
+									GameObject* ChildTexturedMesh;
+
+
+									ChildTexturedMesh = *ChildMeshTextureIterator2;
+
+									if (ChildTexturedMesh->ToBeDrawInspector == true) {
+										ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+									}
+
+									++ChildMeshTextureIterator2;
 								}
 							}
 
