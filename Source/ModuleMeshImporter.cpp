@@ -55,6 +55,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 		//LoadNodeInfo(scene, rootNodeScene);
 
 		bool ParentHasFound=false;
+
 		if (scene->mNumMeshes > 1) {
 
 			GameObject* ItemParentMesh = new GameObject();
@@ -73,7 +74,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 			////////////////// TRYING TO MAKE MODELS LOAD POSITIONS
 
-			/*if (MeshToLoad->HasPositions()) {
+			if (MeshToLoad->HasPositions()) {
 				vec3 MedianPoint = { 0,0,0 };
 				vec3 VertexPositionAdd = { 0,0,0 };
 
@@ -93,7 +94,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 				ourGameObject->Mesh_Transform_Modifiers.VectorTranslation.y = MedianPoint.y;
 				ourGameObject->Mesh_Transform_Modifiers.VectorTranslation.z = MedianPoint.z;
 				
-			}*/
+			}
 			
 
 			/////////////////
