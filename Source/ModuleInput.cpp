@@ -145,41 +145,100 @@ update_status ModuleInput::PreUpdate(float dt)
 		}
 		case SDL_DROPFILE:
 
-
 			// FILE TYPE DIFFERENTATION IS NOT WORKING, WE ARE USING IF TEXTURE.HEIGHT/WIDTH==0 
 			TextureInfo ImportedTexture;
 			
 			Drop_Path = e.drop.file;
 			if (Drop_Path != "") {
 
-				if (Drop_Path.find_last_of('.fbx') != std::string::npos) {
+				//FBX IN LOWERCASE
+				if (CheckImportedFileType(".fbx", Drop_Path) != -1) {
 
-					//LOGFIX("Importing Module with DropFile %s", Drop_Path);
-					 const char* path_file = Drop_Path.c_str();
-					App->meshimporter->LoadMesh(path_file);
-					SDL_free((char*)path_file);
+						LOGFIX("Importing Mesh(fbx) with DropFile: Path-> %s", Drop_Path);
+						const char* path_file = Drop_Path.c_str();
+						App->meshimporter->LoadMesh(path_file);
+						SDL_free((char*)path_file);
 
 				}
+				//FBX IN CAPS
+				else if (CheckImportedFileType(".FBX", Drop_Path) != -1) {
 
-				if (Drop_Path.find_last_of('.FBX') != std::string::npos) {
-
-					//LOGFIX("Importing Module with DropFile %s", Drop_Path);
+					LOGFIX("Importing Mesh(FBX) with DropFile: Path-> %s", Drop_Path);
 					const char* path_file = Drop_Path.c_str();
 					App->meshimporter->LoadMesh(path_file);
 					SDL_free((char*)path_file);
 
 				}
 
-				std::size_t hasfound = Drop_Path.find_last_of(".png");
-				if (Drop_Path.find_last_of(".png") != std::string::npos) {
+				//PNG IN LOWERCASE
+
+				else if (CheckImportedFileType(".png", Drop_Path) != -1) {
 					
 					const char* path_file = Drop_Path.c_str();
+					LOGFIX("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
 					
 
-					if (ImportedTexture.width != 0 && ImportedTexture.height != 0) {
-						
-						LOGFIX("Importing Texture %s...", Drop_Path);
+					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
+
+					std::vector<GameObject*>::iterator MeshTextureIterator = App->meshimporter->MeshesOnScene.begin();
+					for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
+
+						GameObject* TexturedMesh;
+
+						TexturedMesh = *MeshTextureIterator;
+						if (TexturedMesh->ToBeDrawInspector == true) {
+
+							TexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+
+							if (TexturedMesh->ChildObjects.size() > 0) {
+
+								std::vector<GameObject*>::iterator ChildMeshTextureIterator = TexturedMesh->ChildObjects.begin();
+								for (int b = 0; b < TexturedMesh->ChildObjects.size(); ++b) {
+
+									GameObject* ChildTexturedMesh;
+
+									ChildTexturedMesh = *ChildMeshTextureIterator;
+
+									ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+
+									++ChildMeshTextureIterator;
+								}
+							}
+						}
+						else {
+
+							std::vector<GameObject*>::iterator ChildMeshTextureIterator2 = TexturedMesh->ChildObjects.begin();
+							for (int b = 0; b < TexturedMesh->ChildObjects.size(); ++b) {
+
+								GameObject* ChildTexturedMesh;
+
+
+								ChildTexturedMesh = *ChildMeshTextureIterator2;
+
+								if (ChildTexturedMesh->ToBeDrawInspector == true) {
+									ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+								}
+
+								++ChildMeshTextureIterator2;
+							}
+						}
+
+						++MeshTextureIterator;
+
+					}
+
+					SDL_free((char*)path_file);
+					
+				}
+
+				//PNG IN CAPS
+				else if (CheckImportedFileType(".PNG", Drop_Path) != -1) {
+
+					LOGFIX("Importing Texture(PNG) with DropFile: Path-> %s", Drop_Path);
+					const char* path_file = Drop_Path.c_str();
+					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
+
 						App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
 
 						std::vector<GameObject*>::iterator MeshTextureIterator = App->meshimporter->MeshesOnScene.begin();
@@ -205,7 +264,63 @@ update_status ModuleInput::PreUpdate(float dt)
 
 										++ChildMeshTextureIterator;
 									}
+								}
+							}
+							else {
 
+								std::vector<GameObject*>::iterator ChildMeshTextureIterator2 = TexturedMesh->ChildObjects.begin();
+								for (int b = 0; b < TexturedMesh->ChildObjects.size(); ++b) {
+
+									GameObject* ChildTexturedMesh;
+
+									ChildTexturedMesh = *ChildMeshTextureIterator2;
+
+									if (ChildTexturedMesh->ToBeDrawInspector == true) {
+										ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+									}
+
+									++ChildMeshTextureIterator2;
+								}
+							}
+
+							++MeshTextureIterator;
+
+						}
+
+						SDL_free((char*)path_file);
+					
+				}
+
+				//DDS IN LOWERCASE
+				else if (CheckImportedFileType(".dds", Drop_Path) != -1) {
+				LOGFIX("Importing Texture(dds) with DropFile: Path-> %s", Drop_Path);
+					const char* path_file = Drop_Path.c_str();
+					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
+				
+						App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
+						std::vector<GameObject*>::iterator MeshTextureIterator = App->meshimporter->MeshesOnScene.begin();
+						for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
+
+							GameObject* TexturedMesh;
+
+							TexturedMesh = *MeshTextureIterator;
+							if (TexturedMesh->ToBeDrawInspector == true) {
+
+								TexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+
+								if (TexturedMesh->ChildObjects.size() > 0) {
+
+									std::vector<GameObject*>::iterator ChildMeshTextureIterator = TexturedMesh->ChildObjects.begin();
+									for (int b = 0; b < TexturedMesh->ChildObjects.size(); ++b) {
+
+										GameObject* ChildTexturedMesh;
+
+										ChildTexturedMesh = *ChildMeshTextureIterator;
+
+										ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+
+										++ChildMeshTextureIterator;
+									}
 
 								}
 							}
@@ -232,20 +347,18 @@ update_status ModuleInput::PreUpdate(float dt)
 						}
 
 						SDL_free((char*)path_file);
-					}
+					
 				}
 
-				if (Drop_Path.find_last_of('.dds') != std::string::npos) {
-					
-					const char* path_file = Drop_Path.c_str();
-					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
-					
+				//DDS IN CAPS
+				else if (CheckImportedFileType(".DDS", Drop_Path) != -1) {
+				LOGFIX("Importing Texture(DDS) with DropFile: Path-> %s", Drop_Path);
+					   const char* path_file = Drop_Path.c_str();
+					   ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
 
-					if (ImportedTexture.width != 0 && ImportedTexture.height != 0) {
-					
-						App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
-						std::vector<GameObject*>::iterator MeshTextureIterator = App->meshimporter->MeshesOnScene.begin();
-						for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
+						 App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
+						 std::vector<GameObject*>::iterator MeshTextureIterator = App->meshimporter->MeshesOnScene.begin();
+						 for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 
 							GameObject* TexturedMesh;
 
@@ -253,7 +366,6 @@ update_status ModuleInput::PreUpdate(float dt)
 							if (TexturedMesh->ToBeDrawInspector == true) {
 
 								TexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
-
 
 								if (TexturedMesh->ChildObjects.size() > 0) {
 
@@ -269,16 +381,32 @@ update_status ModuleInput::PreUpdate(float dt)
 										++ChildMeshTextureIterator;
 									}
 
+								}
+							}
+							else {
 
+								std::vector<GameObject*>::iterator ChildMeshTextureIterator2 = TexturedMesh->ChildObjects.begin();
+								for (int b = 0; b < TexturedMesh->ChildObjects.size(); ++b) {
+
+									GameObject* ChildTexturedMesh;
+
+
+									ChildTexturedMesh = *ChildMeshTextureIterator2;
+
+									if (ChildTexturedMesh->ToBeDrawInspector == true) {
+										ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
+									}
+
+									++ChildMeshTextureIterator2;
 								}
 							}
 
 							++MeshTextureIterator;
 
-						}
+						 }
 
 						SDL_free((char*)path_file);
-					}
+					
 				}
 				
 
@@ -317,6 +445,30 @@ bool ModuleInput::CleanUp()
 	LOGFIX("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
+}
+
+int ModuleInput::CheckImportedFileType(std::string string1, std::string string2)
+{
+	int M = string1.length();
+	int N = string2.length();
+
+	
+	for (int i = 0; i <= N - M; i++) {
+
+		int j;
+
+		for (j = 0; j < M; j++) {
+			if (string2[i + j] != string1[j]) {
+				break;
+			}
+		}
+
+		if (j == M) {
+			return i;
+		}
+	}
+
+	return -1;
 }
 
 void ModuleInput::CreateConsolelog(const char file[], int line, const char* format, ...)

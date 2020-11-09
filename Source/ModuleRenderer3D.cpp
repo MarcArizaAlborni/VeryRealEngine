@@ -137,7 +137,7 @@ bool ModuleRenderer3D::Start()
 
 	// STREET FOR DRAW W/TEXTURES ON START
 
-	App->meshimporter->LoadMesh("Assets/Models/Street/Street environment_V01.FBX");
+	//App->meshimporter->LoadMesh("Assets/Models/Street/Street environment_V01.FBX");
 
 
 	App->textureImporter->cat_crying = App->textureImporter->LoadTextureImage ("Assets/Textures/icons/cat.png ");
