@@ -28,7 +28,7 @@ bool ModuleEditorMainMenuBar::Start()
 	show_config_window = true;
 	show_popup_want_close = false;
 	show_popup_want_close2 = false;
-
+	show_resources_window = true;
 
 	return true;
 }
@@ -91,6 +91,7 @@ void ModuleEditorMainMenuBar::CreateMainMenuBar_View() {
 		ImGui::MenuItem("Configuration", "2", &show_config_window); // We need to get 4 as input to close It
 		ImGui::MenuItem("Show GameObject Hierarchy", "3", &show_hierarchy_window);
 		ImGui::MenuItem("Show GameObject Inspector", "4", &show_inspector_window);
+		ImGui::MenuItem("Show Resources window", "5", &show_resources_window);
 		if (App->input->keyboard[SDL_SCANCODE_4]) {
 
 			// Condition to enable/disable when clicking 4

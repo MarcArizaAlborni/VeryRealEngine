@@ -184,6 +184,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 		App->console->CreateConsoleWindow();
 		App->hierarchy->CreateHierarchyWindow();
 		App->inspector->CreateInspectorWindow();
+		App->resources->CreateResourcesWindow();
 	
 		
 		//Popups close

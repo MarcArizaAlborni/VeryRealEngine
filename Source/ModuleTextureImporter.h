@@ -50,6 +50,7 @@ public:
 	TextureInfo TextureHouse;
 	TextureInfo TextureHousita;
 	
+	
 	TextureInfo GwynAccessories;
 	TextureInfo GwynClothes;
 	TextureInfo GwynClothesB;
@@ -63,6 +64,11 @@ public:
 	//Icons
 	TextureInfo DrawIconHierarchyOpen;
 	TextureInfo DrawIconHierarchyClosed;
+	
+	//Resources
+	TextureInfo MeshIcon;
+	TextureInfo TextureIcon;
+	TextureInfo FolderIcon;
 
 	//Images Imgui
 	TextureInfo cat_crying;

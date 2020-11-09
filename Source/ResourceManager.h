@@ -8,7 +8,20 @@
 
 struct aiScene;
 
+struct TextureInfo;
+struct MeshTransformation;
+struct Vertex_Sub;
+struct MeshInfo;
+struct GameObject;
 
+//struct ResourceType {
+//
+//	GameObject Mesh;
+//	TextureInfo Texture;
+//	bool is_texture = false;
+//	bool is_mesh = false;
+//
+//};
 class ResourceManager : public Module
 {
 public:
@@ -22,6 +35,11 @@ public:
 	update_status Update(float dt);
 	//update_status PostUpdate(float dt);
 	bool CleanUp();
+
+
+	void CreateResourcesWindow();
+
+	/*std::vector<ResourceType*> ResourcesList;*/
 
 public:
 

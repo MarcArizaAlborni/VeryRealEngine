@@ -306,5 +306,8 @@ void ModuleRenderer3D::LoadIconsTextures()
 	App->textureImporter->DrawIconHierarchyOpen = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_open_hierarchy_icon.png");
 	App->textureImporter->DrawIconHierarchyClosed = App->textureImporter->LoadTextureImage("Assets/Textures/icons/draw_closed_hierarchy_icon.png");
 	App->textureImporter->cat_crying = App->textureImporter->LoadTextureImage("Assets/Textures/icons/cat.png ");
+	App->textureImporter->MeshIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/mesh.png");
+	App->textureImporter->TextureIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/texture.png");
+	App->textureImporter->FolderIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/folder.png");
 
 }

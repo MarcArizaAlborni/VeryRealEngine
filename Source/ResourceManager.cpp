@@ -29,6 +29,19 @@ bool ResourceManager::CleanUp()
 	return true;
 }
 
+void ResourceManager::CreateResourcesWindow()
+{
+	if (App->mainMenubar->show_resources_window) {
+
+		ImGui::Begin("Resouces", &App->mainMenubar->show_resources_window);
+
+
+
+
+		ImGui::End();
+	}
+}
+
 void ResourceManager::CreateConsolelog(const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];
