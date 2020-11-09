@@ -53,7 +53,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 		aiNode* rootNodeScene=scene->mRootNode;
 
 		//LoadNodeInfo(scene, rootNodeScene);
-
+		
 		bool ParentHasFound=false;
 
 		if (scene->mNumMeshes > 1) {

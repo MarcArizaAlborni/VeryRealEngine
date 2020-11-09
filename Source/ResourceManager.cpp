@@ -35,7 +35,24 @@ void ResourceManager::CreateResourcesWindow()
 
 		ImGui::Begin("Resouces", &App->mainMenubar->show_resources_window);
 
+		if (App->meshimporter->LoadedTexturesList.size() > 0) {
 
+			TextureInfo* TextureToPrint;
+			std::vector<TextureInfo*>::iterator ItTex = App->meshimporter->LoadedTexturesList.begin();
+			for (int i = 0; i < App->meshimporter->LoadedTexturesList.size(); ++i) {
+
+				TextureToPrint = *ItTex;
+
+				ImGui::ImageButton((void*)(intptr_t)TextureToPrint->texture_id, { 50,50 });
+				
+					ImGui::SameLine();
+				
+				++ItTex;
+			}
+
+            
+
+		}
 
 
 		ImGui::End();

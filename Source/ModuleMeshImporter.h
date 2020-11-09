@@ -100,7 +100,7 @@ public:
 	//List of meshes active
 	std::vector<GameObject*> MeshesOnScene; //CurrentActive meshes list
 	std::vector<TextureInfo*> LoadedTexturesList; // Currently Loaded textures list
-
+	std::vector<GameObject*> LoadedMeshesList; //Currently Loaded textures list
 
 	
 	// Load Assimp Node Info
