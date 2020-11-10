@@ -310,5 +310,8 @@ void ModuleRenderer3D::LoadIconsTextures()
 	App->textureImporter->TextureIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/texture.png");
 	App->textureImporter->FolderIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/folder.png");
 	App->textureImporter->BackIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/back.png");
+	App->textureImporter->AddFolderIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/addfolder.png");
+	App->textureImporter->RemoveFolderIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/removefolder.png");
+	App->textureImporter->RenameFolderIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/renamefolder.png");
 
 }

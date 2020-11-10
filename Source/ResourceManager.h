@@ -44,9 +44,20 @@ public:
 	bool resource_display_mesh = true;
 	bool resource_display_folder = true;
 
+	//folder config
+	bool resource_remove_folder = false;
+	bool resource_add_folder = false;
+	bool resource_rename_folder = false;
+
+	void CreateDeleteFolderWindow();
+	void CreateAddFolderWindow();
+	void CreateRenameFolderWindow();
+
+
+
 	std::vector<Resource*> ResourceEntryList;
 	
-	void AddResourceChild(Resource* Parent, Resource* Child);
+
 	Resource* CheckFolderChilds(Resource* childtofind);
 	void ReadMainResourcesFolder();
 	void CreateNewResourceWindowEntry(Resource* ResourceToAdd);

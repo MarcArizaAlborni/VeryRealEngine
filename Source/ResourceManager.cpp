@@ -75,6 +75,30 @@ void ResourceManager::CreateResourcesWindow()
 		       ImGui::Checkbox("Show Meshes", &resource_display_mesh);
 			   ImGui::SameLine();
 			   ImGui::Checkbox("Show Folders", &resource_display_folder);
+
+			  // ImGui::SameLine();
+			   ImGui::SameLine();
+			   ImGui::Dummy(ImVec2(60.0f, 0.0f));
+			   ImGui::SameLine();
+			  //////////  GERARD VIGILA CON ESTOS 3 BOTONES SE PUEDE LIAR PARDA
+			 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->AddFolderIcon.texture_id, { 30,30 })) {
+			
+			 }
+			 ImGui::SameLine();
+
+			 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RemoveFolderIcon.texture_id, { 30,30 })) {
+
+				 //fs::remove_all("//Assets"); //GERARD VIGILA SOBRETODO CON ESTE BOTON QUE SE PUEDE LIAR MUY PARDA
+				 
+
+			 }
+			 ImGui::SameLine();
+			 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RenameFolderIcon.texture_id, { 30,30 })) {
+				
+				 
+				 //brutal crash here
+
+			 }
 		  
 		  
 		    std::vector<Resource*>::iterator ResIt = ResourceEntryList.begin();
@@ -89,6 +113,8 @@ void ResourceManager::CreateResourcesWindow()
 		    	if (App->input->CheckImportedFileType(".fbx", ItemR->Name) != -1) {
 					if (resource_display_mesh) {
 						//(ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 })) 
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 
 
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
@@ -100,6 +126,8 @@ void ResourceManager::CreateResourcesWindow()
 		    	else if (App->input->CheckImportedFileType(".FBX", ItemR->Name) != -1) {
 					if (resource_display_mesh) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -108,6 +136,8 @@ void ResourceManager::CreateResourcesWindow()
 		    	else if (App->input->CheckImportedFileType(".png", ItemR->Name) != -1) {
 					if (resource_display_textures) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -117,6 +147,8 @@ void ResourceManager::CreateResourcesWindow()
 		    	else if (App->input->CheckImportedFileType(".PNG", ItemR->Name) != -1) {
 					if (resource_display_textures) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -126,6 +158,8 @@ void ResourceManager::CreateResourcesWindow()
 		    	else if (App->input->CheckImportedFileType(".dds", ItemR->Name) != -1) {
 					if (resource_display_textures) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -135,6 +169,8 @@ void ResourceManager::CreateResourcesWindow()
 		    	else if (App->input->CheckImportedFileType(".DDS", ItemR->Name) != -1) {
 					if (resource_display_textures) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -170,13 +206,6 @@ void ResourceManager::CreateResourcesWindow()
 	}
 }
 
-void ResourceManager::AddResourceChild(Resource* Parent, Resource* Child)
-{
-
-
-
-
-}
 
 Resource* ResourceManager::CheckFolderChilds(Resource* child)
 {
@@ -354,7 +383,8 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						/*if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 })) {
 							ItemRC->ChildsToBeDrawnResources = true;
 						}*/
-
+						ImGui::Image((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -364,6 +394,8 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				else if (App->input->CheckImportedFileType(".FBX", ItemRC->Name) != -1) {
 					if (resource_display_mesh) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -372,6 +404,8 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				else if (App->input->CheckImportedFileType(".png", ItemRC->Name) != -1) {
 					if (resource_display_textures) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -381,6 +415,8 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				else if (App->input->CheckImportedFileType(".PNG", ItemRC->Name) != -1) {
 					if (resource_display_textures) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -390,6 +426,8 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				else if (App->input->CheckImportedFileType(".dds", ItemRC->Name) != -1) {
 					if (resource_display_textures) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -399,6 +437,8 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				else if (App->input->CheckImportedFileType(".DDS", ItemRC->Name) != -1) {
 					if (resource_display_textures) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -408,6 +448,8 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				else {
 					if (resource_display_folder) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->FolderIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->FolderIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 150,20 })) {
 							ItemRC->ChildsToBeDrawnResources = true;
 						}
