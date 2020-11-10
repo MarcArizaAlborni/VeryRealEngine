@@ -17,7 +17,7 @@ struct GameObject;
 struct Resource {
 
 	std::string Name = "Name";
-
+	bool ChildsToBeDrawnResources = false;
 	std::vector<Resource*> ResourceEntryChildsList;
 
 };
@@ -44,7 +44,15 @@ public:
 	bool resource_display_mesh = true;
 
 	std::vector<Resource*> ResourceEntryList;
-		
+	
+	void AddResourceChild(Resource* Parent, Resource* Child);
+	Resource* CheckFolderChilds(Resource* childtofind);
+	void ReadMainResourcesFolder();
+	void CreateNewResourceWindowEntry(Resource* ResourceToAdd);
+
+
+
+	void ResourceAddChildren(Resource* Parent);
 	
 public:
 

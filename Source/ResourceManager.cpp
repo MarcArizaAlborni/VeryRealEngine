@@ -22,41 +22,12 @@ ResourceManager::~ResourceManager()
 
 bool ResourceManager::Start()
 {
+	
 
-	std::string path = "Assets";
-	for (const auto& entry : fs::recursive_directory_iterator(path)) {
+	ReadMainResourcesFolder();
 
-		Resource* Item = new Resource();
-		std::string PathName = entry.path().string();
-		const char* PathName_C = PathName.c_str();
-
-
-		if (ResourceEntryList.size() == 0) {
-			Item->Name = path;
-			ResourceEntryList.push_back(Item);
-		}
-
-		if (App->input->CheckImportedFileType(".fbx", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".FBX", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".png", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".PNG", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".dds", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".DDS", PathName_C) != -1) {
-		}
-		else {
-			Item->Name = PathName;
-
-			ResourceEntryList.push_back(Item);
-		}
-
-		ResourceEntryList.size();
-
-	}
+	
+	
 	return true;
 }
 
@@ -80,34 +51,7 @@ void ResourceManager::CreateResourcesWindow()
 		ImGui::SameLine();
 		ImGui::Checkbox("Show Meshes", &resource_display_mesh);
 
-		/*if (resource_display_textures == true) {
-
-			if (App->meshimporter->LoadedTexturesList.size() > 0) {
-
-				TextureInfo* TextureToPrint;
-				std::vector<TextureInfo*>::iterator ItTex = App->meshimporter->LoadedTexturesList.begin();
-				for (int i = 0; i < App->meshimporter->LoadedTexturesList.size(); ++i) {
-
-					TextureToPrint = *ItTex;
-
-					ImGui::ImageButton((void*)(intptr_t)TextureToPrint->texture_id, { 50,50 });
-
-					ImGui::SameLine();
-
-					++ItTex;
-				}
-			}
-		}*/
-
 		
-
-		if (resource_display_mesh == true) {
-
-			
-		}
-
-		
-	
 		std::vector<Resource*>::iterator ResIt = ResourceEntryList.begin();
 		
 		for (int r = 0; r < ResourceEntryList.size(); ++r) {
@@ -117,18 +61,17 @@ void ResourceManager::CreateResourcesWindow()
 			const char* PathName_R = ItemR->Name.c_str();
 
 			if (App->input->CheckImportedFileType(".fbx", ItemR->Name) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
+				if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 })) {
+					ItemR->ChildsToBeDrawnResources = true;
+				}
 				ImGui::SameLine();
 				ImGui::Text(PathName_R);
-
 
 			}
 			else if (App->input->CheckImportedFileType(".FBX", ItemR->Name) != -1) {
 				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
 				ImGui::SameLine();
 				ImGui::Text(PathName_R);
-
-
 			}
 			else if (App->input->CheckImportedFileType(".png", ItemR->Name) != -1) {
 				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
@@ -161,73 +104,147 @@ void ResourceManager::CreateResourcesWindow()
 
 			}
 
-
 			++ResIt;
 		}
-		
-	
-		
-			/*std::string PathName=entry.path().string();
-			const char* PathName_C = PathName.c_str();*/
-			
-			/*if (App->input->CheckImportedFileType(".fbx", PathName_C) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_C);
 
-
-			}
-			else if (App->input->CheckImportedFileType(".FBX", PathName_C) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_C);
-
-
-			}
-			else if (App->input->CheckImportedFileType(".png", PathName_C) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_C);
-
-			}
-			else if (App->input->CheckImportedFileType(".PNG", PathName_C) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_C);
-
-			}
-			else if (App->input->CheckImportedFileType(".dds", PathName_C) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_C);
-
-			}
-			else if (App->input->CheckImportedFileType(".DDS", PathName_C) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_C);
-
-			}
-			else {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->FolderIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_C);
-
-			}*/
-
-			//delete Item;
 			ResourceEntryList.size();
-			
 		
-
-		
-		
-		
-
-		
-
 		ImGui::End();
 	}
+}
+
+void ResourceManager::AddResourceChild(Resource* Parent, Resource* Child)
+{
+
+
+
+
+}
+
+Resource* ResourceManager::CheckFolderChilds(Resource* child)
+{
+
+	std::string path = child->Name;
+	Resource* Item = new Resource();
+	for (const auto& entry : fs::directory_iterator(path)) {
+
+		
+		std::string PathName = entry.path().string();
+		const char* PathName_C = PathName.c_str();
+		Item->Name = PathName;
+		CreateNewResourceWindowEntry(Item);
+	}
+
+	return Item;
+
+}
+
+void ResourceManager::ReadMainResourcesFolder()
+{
+	std::string path = "Assets";
+	for (const auto& entry : fs::directory_iterator(path)) {
+
+		Resource* Item = new Resource();
+		
+		std::string PathName = entry.path().string();
+		const char* PathName_C = PathName.c_str();
+
+
+		if (App->input->CheckImportedFileType(".fbx", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".FBX", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".png", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".PNG", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".dds", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".DDS", PathName_C) != -1) {
+		}
+		else {
+
+			Item->Name = PathName;
+			//CheckFolderChilds(Item);
+			ResourceEntryList.push_back(Item);
+		}
+
+		std::vector<Resource*>::iterator IteratorRes = ResourceEntryList.begin();
+		for (int pos = 0; pos < ResourceEntryList.size(); ++pos) {
+
+			Resource* ResItem = *IteratorRes;
+			ResourceAddChildren(ResItem);
+			++IteratorRes;
+		}
+
+
+	}
+}
+
+void ResourceManager::CreateNewResourceWindowEntry(Resource* ResourceToAdd)
+{
+	if (App->input->CheckImportedFileType(".fbx", ResourceToAdd->Name) != -1) {
+		//Item->Name = PathName;
+		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
+	}
+	else if (App->input->CheckImportedFileType(".FBX", ResourceToAdd->Name) != -1) {
+		//Item->Name = PathName;
+		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
+	}
+	else if (App->input->CheckImportedFileType(".png", ResourceToAdd->Name) != -1) {
+		//Item->Name = PathName;
+		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
+	}
+	else if (App->input->CheckImportedFileType(".PNG", ResourceToAdd->Name) != -1) {
+		//Item->Name = PathName;
+		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
+	}
+	else if (App->input->CheckImportedFileType(".dds", ResourceToAdd->Name) != -1) {
+		//Item->Name = PathName;
+		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
+	}
+	else if (App->input->CheckImportedFileType(".DDS", ResourceToAdd->Name) != -1) {
+		//Item->Name = PathName;
+		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
+	}
+	else {
+		ResourceToAdd=CheckFolderChilds(ResourceToAdd);
+		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
+	}
+
+}
+
+void ResourceManager::ResourceAddChildren(Resource* Parent)
+{
+
+	std::string path = Parent->Name;
+	
+	for (const auto& entry : fs::directory_iterator(path)) {
+		Resource* Item = new Resource();
+
+		std::string PathName = entry.path().string();
+		const char* PathName_C = PathName.c_str();
+		Item->Name = PathName;
+		if (App->input->CheckImportedFileType(".fbx", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".FBX", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".png", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".PNG", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".dds", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".DDS", PathName_C) != -1) {
+		}
+		else {
+
+			ResourceAddChildren(Item);
+		}
+		Parent->ResourceEntryChildsList.push_back(Item);
+		
+	}
+
 }
 
 void ResourceManager::CreateConsolelog(const char file[], int line, const char* format, ...)
