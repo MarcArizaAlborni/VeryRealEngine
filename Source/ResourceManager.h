@@ -49,21 +49,23 @@ public:
 	bool resource_add_folder = false;
 	bool resource_rename_folder = false;
 
+
+	bool resource_remove_folder_window = false;
+	bool resource_add_folder_window = false;
+	bool resource_rename_folder_window = false;
+
 	void CreateDeleteFolderWindow();
 	void CreateAddFolderWindow();
 	void CreateRenameFolderWindow();
 
-
+	
 
 	std::vector<Resource*> ResourceEntryList;
 	
 
-	Resource* CheckFolderChilds(Resource* childtofind);
+	
 	void ReadMainResourcesFolder();
-	void CreateNewResourceWindowEntry(Resource* ResourceToAdd);
-
-
-
+	
 	void ResourceAddChildren(Resource* Parent);
 
 	void DrawResourcesItems(Resource* Parent);

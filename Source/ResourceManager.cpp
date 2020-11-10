@@ -33,6 +33,7 @@ bool ResourceManager::Start()
 
 update_status ResourceManager::Update(float dt)
 {
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -80,9 +81,10 @@ void ResourceManager::CreateResourcesWindow()
 			   ImGui::SameLine();
 			   ImGui::Dummy(ImVec2(60.0f, 0.0f));
 			   ImGui::SameLine();
+
 			  //////////  GERARD VIGILA CON ESTOS 3 BOTONES SE PUEDE LIAR PARDA
 			 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->AddFolderIcon.texture_id, { 30,30 })) {
-			
+				 resource_add_folder = true;
 			 }
 			 ImGui::SameLine();
 
@@ -90,13 +92,14 @@ void ResourceManager::CreateResourcesWindow()
 
 				 //fs::remove_all("//Assets"); //GERARD VIGILA SOBRETODO CON ESTE BOTON QUE SE PUEDE LIAR MUY PARDA
 				 
-
+				 resource_remove_folder = true;
 			 }
 			 ImGui::SameLine();
 			 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RenameFolderIcon.texture_id, { 30,30 })) {
 				
 				 
-				 //brutal crash here
+				 //BRUTAL CRASH HERE
+				 //resource_rename_folder = true;
 
 			 }
 		  
@@ -203,26 +206,60 @@ void ResourceManager::CreateResourcesWindow()
 		    ImGui::End();
 	        
 		}
+		CreateAddFolderWindow();
+		CreateRenameFolderWindow();
+		CreateDeleteFolderWindow();
 	}
 }
 
 
-Resource* ResourceManager::CheckFolderChilds(Resource* child)
-{
 
-	std::string path = child->Name;
-	Resource* Item = new Resource();
-	for (const auto& entry : fs::directory_iterator(path)) {
+
+void ResourceManager::CreateDeleteFolderWindow()
+{
+	if (resource_remove_folder) {
+
+		ImGui::Begin("Remove Folder ",&resource_remove_folder);
+		//std::string path;
+		//
+		//	//std::string FolderName;
+		//	//const char* FolderName_C = FolderName.c_str();
+		//	const char* FolderName;
+		//	char TextBuffer[256] = "";
+		//	const char* name;
+		//	//ImGui::ShowDemoWindow();
+		//	if (ImGui::InputText("Delete Folder", TextBuffer, IM_ARRAYSIZE(TextBuffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
+		//		name = TextBuffer;
+		//		ImGui::Text(name);
+
+		//		fs::remove(name);
+		//	}
+
+		//	fs::remove("h");
+		
+		ImGui::End();
+
+		//resource_remove_folder = false;
+	}
+}
+
+void ResourceManager::CreateAddFolderWindow()
+{
+	if (resource_add_folder) {
+
+
+		resource_add_folder = false;
+	}
+}
+
+void ResourceManager::CreateRenameFolderWindow()
+{
+	if (resource_rename_folder) {
 
 		
-		std::string PathName = entry.path().string();
-		const char* PathName_C = PathName.c_str();
-		Item->Name = PathName;
-		CreateNewResourceWindowEntry(Item);
+
+		resource_rename_folder = false;
 	}
-
-	return Item;
-
 }
 
 void ResourceManager::ReadMainResourcesFolder()
@@ -267,38 +304,7 @@ void ResourceManager::ReadMainResourcesFolder()
 	}
 }
 
-void ResourceManager::CreateNewResourceWindowEntry(Resource* ResourceToAdd)
-{
-	if (App->input->CheckImportedFileType(".fbx", ResourceToAdd->Name) != -1) {
-		//Item->Name = PathName;
-		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
-	}
-	else if (App->input->CheckImportedFileType(".FBX", ResourceToAdd->Name) != -1) {
-		//Item->Name = PathName;
-		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
-	}
-	else if (App->input->CheckImportedFileType(".png", ResourceToAdd->Name) != -1) {
-		//Item->Name = PathName;
-		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
-	}
-	else if (App->input->CheckImportedFileType(".PNG", ResourceToAdd->Name) != -1) {
-		//Item->Name = PathName;
-		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
-	}
-	else if (App->input->CheckImportedFileType(".dds", ResourceToAdd->Name) != -1) {
-		//Item->Name = PathName;
-		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
-	}
-	else if (App->input->CheckImportedFileType(".DDS", ResourceToAdd->Name) != -1) {
-		//Item->Name = PathName;
-		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
-	}
-	else {
-		ResourceToAdd=CheckFolderChilds(ResourceToAdd);
-		ResourceToAdd->ResourceEntryChildsList.push_back(ResourceToAdd);
-	}
 
-}
 
 void ResourceManager::ResourceAddChildren(Resource* Parent)
 {
@@ -467,7 +473,10 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 			ImGui::End();
 
 		}
+		
 	}
+
+	
 
 }
 
@@ -489,72 +498,3 @@ void ResourceManager::CreateConsolelog(const char file[], int line, const char* 
 }
 
 
-/*if (App->mainMenubar->show_resources_window) {
-
-
-		ImGui::Begin("Resouces", &App->mainMenubar->show_resources_window);
-
-		ImGui::Checkbox("Show Textures", &resource_display_textures);
-		ImGui::SameLine();
-		ImGui::Checkbox("Show Meshes", &resource_display_mesh);
-
-
-		std::vector<Resource*>::iterator ResIt = ResourceEntryList.begin();
-
-		for (int r = 0; r < ResourceEntryList.size(); ++r) {
-
-			Resource* ItemR = *ResIt;
-
-			const char* PathName_R = ItemR->Name.c_str();
-
-			if (App->input->CheckImportedFileType(".fbx", ItemR->Name) != -1) {
-				if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 })) {
-					ItemR->ChildsToBeDrawnResources = true;
-				}
-				ImGui::SameLine();
-				ImGui::Text(PathName_R);
-
-			}
-			else if (App->input->CheckImportedFileType(".FBX", ItemR->Name) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_R);
-			}
-			else if (App->input->CheckImportedFileType(".png", ItemR->Name) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_R);
-
-			}
-			else if (App->input->CheckImportedFileType(".PNG", ItemR->Name) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_R);
-
-			}
-			else if (App->input->CheckImportedFileType(".dds", ItemR->Name) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_R);
-
-			}
-			else if (App->input->CheckImportedFileType(".DDS", ItemR->Name) != -1) {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_R);
-
-			}
-			else {
-				ImGui::ImageButton((void*)(intptr_t)App->textureImporter->FolderIcon.texture_id, { 50,50 });
-				ImGui::SameLine();
-				ImGui::Text(PathName_R);
-
-			}
-
-			++ResIt;
-		}
-
-			ResourceEntryList.size();
-
-		ImGui::End();
-	}*/
