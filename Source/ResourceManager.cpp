@@ -218,25 +218,39 @@ void ResourceManager::CreateResourcesWindow()
 void ResourceManager::CreateDeleteFolderWindow()
 {
 	if (resource_remove_folder) {
+		std::string path = "Assets";
+		for (const auto& entry : fs::directory_iterator(path)) {
 
-		ImGui::Begin("Remove Folder ",&resource_remove_folder);
-		//std::string path;
-		//
-		//	//std::string FolderName;
-		//	//const char* FolderName_C = FolderName.c_str();
-		//	const char* FolderName;
-		//	char TextBuffer[256] = "";
-		//	const char* name;
-		//	//ImGui::ShowDemoWindow();
-		//	if (ImGui::InputText("Delete Folder", TextBuffer, IM_ARRAYSIZE(TextBuffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
-		//		name = TextBuffer;
-		//		ImGui::Text(name);
+			
 
-		//		fs::remove(name);
-		//	}
+			
 
-		//	fs::remove("h");
+
+		}
 		
+		ImGui::Begin("Remove Folder ",&resource_remove_folder);
+		
+	
+		
+
+			//std::string FolderName;
+			//const char* FolderName_C = FolderName.c_str();
+			const char* FolderName;
+
+			const char* name;
+			//ImGui::ShowDemoWindow();
+			if (ImGui::InputText("Delete Folder", TextBuffer, IM_ARRAYSIZE(TextBuffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
+				name = TextBuffer;
+				
+
+				
+			}
+			
+			//ImGui::Text(name);
+		
+			
+			
+
 		ImGui::End();
 
 		//resource_remove_folder = false;
@@ -300,7 +314,7 @@ void ResourceManager::ReadMainResourcesFolder()
 			++IteratorRes;
 		}
 
-
+		
 	}
 }
 
@@ -334,6 +348,7 @@ void ResourceManager::ResourceAddChildren(Resource* Parent)
 			ResourceAddChildren(Item);
 		}
 		Parent->ResourceEntryChildsList.push_back(Item);
+		
 		
 	}
 

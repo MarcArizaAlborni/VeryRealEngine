@@ -69,7 +69,8 @@ public:
 	void ResourceAddChildren(Resource* Parent);
 
 	void DrawResourcesItems(Resource* Parent);
-	
+private:
+	char TextBuffer[256] = "";
 public:
 
 	//------------ CONSOLE STUFF
