@@ -56,6 +56,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <StructMemberAlignment>Default</StructMemberAlignment>
       <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH</PreprocessorDefinitions>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

@@ -14,14 +14,13 @@ struct Vertex_Sub;
 struct MeshInfo;
 struct GameObject;
 
-//struct ResourceType {
-//
-//	GameObject Mesh;
-//	TextureInfo Texture;
-//	bool is_texture = false;
-//	bool is_mesh = false;
-//
-//};
+struct Resource {
+
+	std::string Name = "Name";
+
+	std::vector<Resource*> ResourceEntryChildsList;
+
+};
 class ResourceManager : public Module
 {
 public:
@@ -37,10 +36,16 @@ public:
 	bool CleanUp();
 
 
+// Items for resource window
+
 	void CreateResourcesWindow();
 
-	/*std::vector<ResourceType*> ResourcesList;*/
+	bool resource_display_textures = true;
+	bool resource_display_mesh = true;
 
+	std::vector<Resource*> ResourceEntryList;
+		
+	
 public:
 
 	//------------ CONSOLE STUFF

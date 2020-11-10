@@ -74,7 +74,7 @@ public:
 	int mouse_y_motion;
 	//int mouse_z_motion;
 
-private:
+
 
 	int CheckImportedFileType(std::string string1, std::string string2);
 
