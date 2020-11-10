@@ -42,6 +42,7 @@ public:
 
 	bool resource_display_textures = true;
 	bool resource_display_mesh = true;
+	bool resource_display_folder = true;
 
 	std::vector<Resource*> ResourceEntryList;
 	
@@ -53,6 +54,8 @@ public:
 
 
 	void ResourceAddChildren(Resource* Parent);
+
+	void DrawResourcesItems(Resource* Parent);
 	
 public:
 

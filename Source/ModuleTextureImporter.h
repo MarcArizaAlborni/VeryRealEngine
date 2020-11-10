@@ -69,6 +69,7 @@ public:
 	TextureInfo MeshIcon;
 	TextureInfo TextureIcon;
 	TextureInfo FolderIcon;
+	TextureInfo BackIcon;
 
 	//Images Imgui
 	TextureInfo cat_crying;

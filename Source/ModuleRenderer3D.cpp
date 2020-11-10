@@ -309,5 +309,6 @@ void ModuleRenderer3D::LoadIconsTextures()
 	App->textureImporter->MeshIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/mesh.png");
 	App->textureImporter->TextureIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/texture.png");
 	App->textureImporter->FolderIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/folder.png");
+	App->textureImporter->BackIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/back.png");
 
 }
