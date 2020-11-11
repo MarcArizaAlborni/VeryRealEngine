@@ -17,7 +17,7 @@ struct GameObject;
 struct Resource {
 
 	std::string Name = "Name";
-
+	bool ChildsToBeDrawnResources = false;
 	std::vector<Resource*> ResourceEntryChildsList;
 
 };
@@ -42,10 +42,35 @@ public:
 
 	bool resource_display_textures = true;
 	bool resource_display_mesh = true;
+	bool resource_display_folder = true;
+
+	//folder config
+	bool resource_remove_folder = false;
+	bool resource_add_folder = false;
+	bool resource_rename_folder = false;
+
+
+	bool resource_remove_folder_window = false;
+	bool resource_add_folder_window = false;
+	bool resource_rename_folder_window = false;
+
+	void CreateDeleteFolderWindow();
+	void CreateAddFolderWindow();
+	void CreateRenameFolderWindow();
+
+	
 
 	std::vector<Resource*> ResourceEntryList;
-		
 	
+
+	
+	void ReadMainResourcesFolder();
+	
+	void ResourceAddChildren(Resource* Parent);
+
+	void DrawResourcesItems(Resource* Parent);
+private:
+	char TextBuffer[256] = "";
 public:
 
 	//------------ CONSOLE STUFF

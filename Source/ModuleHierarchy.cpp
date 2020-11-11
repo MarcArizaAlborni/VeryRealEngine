@@ -164,8 +164,8 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
         }
     }
     else {
-        if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyClosed.texture_id, { (float)App->textureImporter->DrawIconHierarchyClosed.width,
-            (float)App->textureImporter->DrawIconHierarchyClosed.height })) {
+        if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyClosed.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
+            (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
 
             Object->is_Drawn = true;
         }
