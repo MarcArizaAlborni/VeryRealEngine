@@ -162,7 +162,6 @@ void ModuleGeometryManager::Transform_Mesh_Rotation(GameObject* mesh, VectorTran
 	glPushMatrix();
 	glRotatef(Current.angle + New.angle, Current.x + New.x, Current.y + New.y, Current.z + New.z);
 
-	//LOGFIX("ME GUSTAN LAS PATATAS");
 }
 
 
