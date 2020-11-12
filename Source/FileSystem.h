@@ -6,7 +6,17 @@
 #include <iomanip>
 #include <fstream>
 
+struct aiScene;
+struct aiNode;
 
+
+
+struct StoredFile {
+
+	const aiScene* Scene;
+	bool is_EmptyParent = false;
+
+};
 struct FileSystemPaths {
 
 
@@ -23,6 +33,8 @@ public:
 
 	bool GenerateLibraryFile(int id);
 
+	bool GenerateLibraryFile_Mesh(int id,  StoredFile Information);
+
 	bool Start();
 	
 	update_status Update(float dt);
@@ -34,6 +46,8 @@ public:
 	std::vector<std::string>ConvertedVec;
 	void ToBinary_String(std::string stringname);
 	void ToBinary_Number(int val );
+
+	
 
 
 private:

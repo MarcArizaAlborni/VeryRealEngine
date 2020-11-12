@@ -51,9 +51,10 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 	if (scene != nullptr && scene->HasMeshes()) {
 
 		aiNode* rootNodeScene=scene->mRootNode;
-
+		StoredFile InformationToSend;
+		InformationToSend.Scene = scene;
 		//LoadNodeInfo(scene, rootNodeScene);
-		
+		App->filemanager->GenerateLibraryFile_Mesh(9999, InformationToSend);
 		bool ParentHasFound=false;
 
 		if (scene->mNumMeshes > 1) {

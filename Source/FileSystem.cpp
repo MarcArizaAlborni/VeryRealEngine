@@ -75,31 +75,192 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 	int n;
 	int abc = 20000;
 	
-	struct threeNum num;
+	int id_index = 3; // index in VRAM
+	int num_index = 9765; // amount of indexes in a mesh
 	
+	int id_vertex = 67; // unique vertex in VRAM
+	int num_vertex = 1034; // amount of vertex in a mesh
+	
+
+	
+	int num_texcoords = 39; // amount of coordinates of the texture in the mesh
+	int texcoords_id = 165; // id of the coordinate of the texture in the mesh
+
+	const char* TextureName = "Mesh Object A"; // name of the current texture aplied to the mesh
+
+	
+	int id_normals = 9; // id of the normals in the mesh
+
+
+	struct threeNum num;
+	const char* Name = "Square";
+	const char* NameRet;
+
 
 	if ((fptr = fopen(FinalPath_C, "wb")) == NULL) {
 		
 	}
 	else {
-		fwrite(&abc, sizeof(int), 1, fptr);
-		
+		fwrite(&id_index, sizeof(int), 1, fptr);
+		fwrite(&num_index, sizeof(int), 1, fptr);
+		fwrite(&id_vertex, sizeof(int), 1, fptr);
+		fwrite(&num_vertex, sizeof(int), 1, fptr);
+		fwrite(&num_texcoords, sizeof(int), 1, fptr);
+		fwrite(&texcoords_id, sizeof(int), 1, fptr);
+		fwrite(&TextureName, sizeof(const char*), 1, fptr);
+		fwrite(&id_normals, sizeof(int), 1, fptr);
+	
+
 	}
 	
 	fclose(fptr);
 	
 	
+
+	int id_index2;
+	int num_index2; // amount of indexes in a mesh
+
+	int id_vertex2;// unique vertex in VRAM
+	int num_vertex2; // amount of vertex in a mesh
+
+
+
+	int num_texcoords2; // amount of coordinates of the texture in the mesh
+	int texcoords_id2; // id of the coordinate of the texture in the mesh
+
+	const char* TextureName2; // name of the current texture aplied to the mesh
+
+
+	int id_normals2; // id of the normals in the mesh
 	
 	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
 		
 	}
 	else {
-		fread(&num, sizeof(int), 1, fptr);
+		
 
-		LOGFIX("%d ", abc);
+		fread(&id_index2, sizeof(int), 1, fptr);
+		fread(&num_index2, sizeof(int), 1, fptr);
+		fread(&id_vertex2, sizeof(int), 1, fptr);
+		fread(&num_vertex2, sizeof(int), 1, fptr);
+		fread(&num_texcoords2, sizeof(int), 1, fptr);
+		fread(&texcoords_id2, sizeof(int), 1, fptr);
+		fread(&TextureName2, sizeof(const char*), 1, fptr);
+		fread(&id_normals2, sizeof(int), 1, fptr);
+
+		
+		
 	}
 
 	
+	fclose(fptr);
+
+
+	return true;
+}
+
+bool ModuleFileSystem::GenerateLibraryFile_Mesh(int id,  StoredFile Information)
+{
+	FILE* fptr;
+
+	//CREATE A FUNCTION TO CHECK EXISTENCE
+
+	// IF NO THEN CALL THIS FUNCTION  TO WRITE AND STOPRE INFO
+
+    //Generating the Name/Path of the file
+	std::string Direction = "Assets/Library/";
+	std::string Extension = ".waf";
+	std::string idconversion = std::to_string(id);
+	std::string FinalPath = Direction + idconversion + Extension;
+	const char* FinalPath_C = FinalPath.c_str();
+
+
+
+	//Managing All information from the meshes that have been send to be stored
+
+
+	Information;
+	//for(Information.Scene->mNumMeshes)
+	
+
+
+	int id_index = 3; // index in VRAM
+	int num_index = 9765; // amount of indexes in a mesh
+
+	int id_vertex = 67; // unique vertex in VRAM
+	int num_vertex = 1034; // amount of vertex in a mesh
+
+
+
+	int num_texcoords = 39; // amount of coordinates of the texture in the mesh
+	int texcoords_id = 165; // id of the coordinate of the texture in the mesh
+
+	const char* TextureName = "Mesh Object A"; // name of the current texture aplied to the mesh
+
+
+	int id_normals = 9; // id of the normals in the mesh
+
+
+	const char* Name = "Square";
+	const char* NameRet;
+
+
+	if ((fptr = fopen(FinalPath_C, "wb")) == NULL) {
+
+	}
+	else {
+		fwrite(&id_index, sizeof(int), 1, fptr);
+		fwrite(&num_index, sizeof(int), 1, fptr);
+		fwrite(&id_vertex, sizeof(int), 1, fptr);
+		fwrite(&num_vertex, sizeof(int), 1, fptr);
+		fwrite(&num_texcoords, sizeof(int), 1, fptr);
+		fwrite(&texcoords_id, sizeof(int), 1, fptr);
+		fwrite(&TextureName, sizeof(const char*), 1, fptr);
+		fwrite(&id_normals, sizeof(int), 1, fptr);
+
+
+	}
+
+	fclose(fptr);
+
+
+
+	int id_index2;
+	int num_index2; // amount of indexes in a mesh
+
+	int id_vertex2;// unique vertex in VRAM
+	int num_vertex2; // amount of vertex in a mesh
+
+
+
+	int num_texcoords2; // amount of coordinates of the texture in the mesh
+	int texcoords_id2; // id of the coordinate of the texture in the mesh
+
+	const char* TextureName2; // name of the current texture aplied to the mesh
+
+
+	int id_normals2; // id of the normals in the mesh
+
+	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
+
+	}
+	else {
+
+
+		fread(&id_index2, sizeof(int), 1, fptr);
+		fread(&num_index2, sizeof(int), 1, fptr);
+		fread(&id_vertex2, sizeof(int), 1, fptr);
+		fread(&num_vertex2, sizeof(int), 1, fptr);
+		fread(&num_texcoords2, sizeof(int), 1, fptr);
+		fread(&texcoords_id2, sizeof(int), 1, fptr);
+		fread(&TextureName2, sizeof(const char*), 1, fptr);
+		fread(&id_normals2, sizeof(int), 1, fptr);
+
+
+
+	}
+
+
 	fclose(fptr);
 
 
