@@ -21,6 +21,91 @@ ModuleFileSystem::~ModuleFileSystem()
 
 }
 
+bool ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
+{
+	//CHECKS IF THE FILE IS ALREADY STORED IN THE LIBARY
+
+	// RETURNS TRUE IF ITS ALREADY LISTED
+	// FALSE IF ITS NOT
+
+	if (StoredFilesListed.size() != 0) {
+
+		std::vector<StoredFile>::iterator IteratorFile = StoredFilesListed.begin();
+		for (int pos = 0; pos < StoredFilesListed.size(); ++pos) {
+
+			StoredFile File = *IteratorFile;
+
+			if (File.TypeOfItem == "mesh") {
+
+				if (File.Scene->mNumMeshes == Information.Scene->mNumMeshes) {
+
+					for (int item = 0; item < Information.Scene->mNumMeshes; ++item) {
+
+						aiMesh* MeshToCheck = Information.Scene->mMeshes[item];
+
+						aiMesh* MeshInList = File.Scene->mMeshes[item];
+
+						if (MeshInList->mNumVertices == MeshToCheck->mNumVertices) {
+
+							if (MeshInList->mNumFaces == MeshToCheck->mNumFaces) {
+
+								if (MeshInList->mVertices == MeshToCheck->mVertices) {
+
+									if (MeshInList->mFaces == MeshToCheck->mFaces) {
+
+										if (MeshInList->mTextureCoords == MeshToCheck->mTextureCoords) {
+
+										}
+										else {
+
+											item = Information.Scene->mNumMeshes;
+											pos = StoredFilesListed.size();
+											return true;
+										}
+									}
+									else {
+
+										item = Information.Scene->mNumMeshes;
+										pos = StoredFilesListed.size();
+										return true;
+									}
+								}
+								else {
+
+									item = Information.Scene->mNumMeshes;
+									pos = StoredFilesListed.size();
+									return true;
+								}
+							}
+							else {
+
+								item = Information.Scene->mNumMeshes;
+								pos = StoredFilesListed.size();
+								return true;
+							}
+						}
+						else {
+
+							item = Information.Scene->mNumMeshes;
+							pos = StoredFilesListed.size();
+							return true;
+						}
+					}
+				}
+				else {
+
+					pos = StoredFilesListed.size();
+					return true;
+				}
+			}
+			++IteratorFile;
+		}
+	}
+	
+
+	return false;
+}
+
 bool ModuleFileSystem::GenerateLibraryFile(int id)
 {
 	FILE* fptr;
@@ -161,11 +246,9 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 
 bool ModuleFileSystem::GenerateLibraryFile_Mesh(int id,  StoredFile Information)
 {
-	FILE* fptr;
+	FILE* fptr; //File 
 
-	//CREATE A FUNCTION TO CHECK EXISTENCE
-
-	// IF NO THEN CALL THIS FUNCTION  TO WRITE AND STOPRE INFO
+	
 
     //Generating the Name/Path of the file
 	std::string Direction = "Assets/Library/";
@@ -179,7 +262,7 @@ bool ModuleFileSystem::GenerateLibraryFile_Mesh(int id,  StoredFile Information)
 	//Managing All information from the meshes that have been send to be stored
 
 
-	Information;
+	
 	//for(Information.Scene->mNumMeshes)
 	
 

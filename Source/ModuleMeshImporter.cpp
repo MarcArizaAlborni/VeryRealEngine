@@ -53,14 +53,19 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 		aiNode* rootNodeScene=scene->mRootNode;
 		StoredFile InformationToSend;
 		InformationToSend.Scene = scene;
-		//LoadNodeInfo(scene, rootNodeScene);
-		App->filemanager->GenerateLibraryFile_Mesh(9999, InformationToSend);
+		bool ExistsinLibrary;
+
+		ExistsinLibrary=App->filemanager->CheckExistence_Mesh(InformationToSend);
+		if (ExistsinLibrary == false){
+			App->filemanager->GenerateLibraryFile_Mesh(App->GiveRandomNum_Undefined(), InformationToSend);
+		}
+		
 		bool ParentHasFound=false;
 
 		if (scene->mNumMeshes > 1) {
 
 			GameObject* ItemParentMesh = new GameObject();
-			ItemParentMesh->is_Drawn = false;
+			ItemParentMesh->is_Drawn = true;
 			ItemParentMesh->is_EmptyParent = true;
 			AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL,true);
 			ParentHasFound = true;

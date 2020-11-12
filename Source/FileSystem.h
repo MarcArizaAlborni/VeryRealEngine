@@ -15,6 +15,8 @@ struct StoredFile {
 
 	const aiScene* Scene;
 	bool is_EmptyParent = false;
+	int unique_id = 0;
+	std::string TypeOfItem = "";
 
 };
 struct FileSystemPaths {
@@ -30,13 +32,14 @@ public:
 	ModuleFileSystem(Application* app, const char* name = "null", bool start_enabled = true);
 	~ModuleFileSystem();
 
-
+	bool CheckExistence_Mesh(StoredFile Information);
 	bool GenerateLibraryFile(int id);
 
 	bool GenerateLibraryFile_Mesh(int id,  StoredFile Information);
 
 	bool Start();
 	
+	std::vector<StoredFile> StoredFilesListed;
 	update_status Update(float dt);
 	
 	bool CleanUp();
