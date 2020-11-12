@@ -6,6 +6,14 @@
 #include <fstream>
 #include "ModuleCamera3D.h"
 
+#include <random>
+#include "libraries/PCG/pcg_random.hpp"
+
+#include "libraries/PCG/pcg_extras.hpp"
+
+
+#define RAND_MAX 99999;
+
 Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 {
 	window = new ModuleWindow(this);
@@ -158,6 +166,22 @@ void Application::FinishUpdate()
 		
 }
 
+int Application::GenerateRandomIntRange(int first, int last)
+{
+	return 0;
+}
+
+int Application::GenerateRandomInt()
+{
+	return 0;
+}
+
+int Application::GetNumber() const
+{
+	return 0;
+}
+
+
 
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -218,8 +242,17 @@ bool Application::CleanUp()
 
 int Application::GiveRandomNum_Undefined()
 {
+	int Seed = std::rand();
+	std::srand(Seed);
+	
+	int Val1 = rand();
+	int Val2 = rand();
+	int Val3 = rand();
 
-	return 0;
+	
+	
+	int Ret = Val1 + Val2 + Val3;
+	return Ret;
 }
 
 int Application::GiveRandomNum_Defined(int Min, int Max)

@@ -96,7 +96,7 @@ public:
 
 
 	int GiveRandomNum_Undefined();
-	int GiveRandomNum_Defined(int Min, int Max);
+	int GiveRandomNum_Defined(int Max, int Min);
 
 private:
 
@@ -122,7 +122,9 @@ private:
 	
 	std::string SaveFileName;
 
-
+	int GenerateRandomIntRange(int first, int last);
+	int GenerateRandomInt();
+	int GetNumber() const;
 
 
 };

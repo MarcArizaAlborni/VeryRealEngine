@@ -26,15 +26,15 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 	FILE* fptr;
 
     
-	std::string Direction = "Assets/Libraries/";
+	std::string Direction = "Assets/Library/";
 	std::string Extension = ".waf";
 
 
 
 	const char* idconversion_C;
-	std::string idconversion;
 	
-	idconversion = std::to_string(id);
+	
+	std::string idconversion = std::to_string(id);
 
 	
 
@@ -73,7 +73,8 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 	};
 
 	int n;
-	int abc = 1999;
+	int abc = 20000;
+	
 	struct threeNum num;
 	
 
@@ -82,6 +83,7 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 	}
 	else {
 		fwrite(&abc, sizeof(int), 1, fptr);
+		
 	}
 	
 	fclose(fptr);
@@ -106,14 +108,21 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 
 bool ModuleFileSystem::Start()
 {
-	GenerateLibraryFile(100);
+	for (int times = 0; times <= 10; ++times) {
+		int val = App->GiveRandomNum_Undefined();
+
+		/*std::string ValueStr = std::to_string(val);
+		const char* val_C = ValueStr.c_str();*/
+
+
+		GenerateLibraryFile(val);
+	}
 
 	return true;
 }
 
 update_status ModuleFileSystem::Update(float dt)
 {
-	
 	
 	return UPDATE_CONTINUE;
 }
