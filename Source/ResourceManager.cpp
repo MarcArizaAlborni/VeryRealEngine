@@ -82,7 +82,7 @@ void ResourceManager::CreateResourcesWindow()
 			   ImGui::Dummy(ImVec2(60.0f, 0.0f));
 			   ImGui::SameLine();
 
-			  //////////  GERARD VIGILA CON ESTOS 3 BOTONES SE PUEDE LIAR PARDA
+			  // ZONA DE RIESGO
 			 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->AddFolderIcon.texture_id, { 30,30 })) {
 				 resource_add_folder = true;
 			 }
@@ -90,7 +90,7 @@ void ResourceManager::CreateResourcesWindow()
 
 			 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RemoveFolderIcon.texture_id, { 30,30 })) {
 
-				 //fs::remove_all("//Assets"); //GERARD VIGILA SOBRETODO CON ESTE BOTON QUE SE PUEDE LIAR MUY PARDA
+				 //fs::remove_all("//Assets"); 
 				 
 				 resource_remove_folder = true;
 			 }
