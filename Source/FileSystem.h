@@ -30,8 +30,10 @@ public:
 	bool CleanUp();
 
 public:
-
 	
+	std::vector<std::string>ConvertedVec;
+	void ToBinary_String(std::string stringname);
+	void ToBinary_Number(int val );
 
 public:
 

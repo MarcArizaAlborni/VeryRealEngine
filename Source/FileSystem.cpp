@@ -6,6 +6,8 @@
 #include "libraries/Assimp/Assimp/include/postprocess.h"
 #pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
 #include <fstream>
+#include <iostream>
+
 
 ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool start_enabled) : Module(app, "SaveLoad", start_enabled)
 {
@@ -37,19 +39,69 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 	std::string FinalPath = Direction + idconversion + Extension;
 	const char* FinalPath_C = FinalPath.c_str();
 
+	//std::fstream OurFile;
+	//
+	//OurFile.open(FinalPath_C, std::fstream::out|std::fstream::binary);
+	////OurFile << id;
+	//std::string textstr = std::to_string(id);
+	//const char* text; 
+	//
+	////ToBinary_String("aaaa");
+	//
+	//
+	////std::vector<std::string>::iterator  IteratorVec = ConvertedVec.begin();
 
+	///*for (int a = 0; a < ConvertedVec.size(); ++a) {
+	//	std::string word = *IteratorVec;
 
-	if ((fptr = fopen(FinalPath_C, "wb")) == NULL){
+	//	const char* word_C = word.c_str();
+	//	OurFile.write(word_C, sizeof(word_C));
 
+	//	++IteratorVec;
+	//}*/
 
-		return false;
+	//OurFile.write(FinalPath_C, FinalPath.length());
+	//
+	//OurFile.close();
+
+	
+	struct threeNum
+	{
+		int n1, n2, n3;
+	};
+
+	int n;
+	int abc = 1999;
+	struct threeNum num;
+	
+
+	if ((fptr = fopen(FinalPath_C, "wb")) == NULL) {
+		
 	}
-	else {
 
-		int a = 0;
-
-
+	for (n = 1; n < 5; ++n)
+	{
+		
+		fwrite(&abc, sizeof(int), 1, fptr);
 	}
+	fclose(fptr);
+	
+	
+	
+	
+
+	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
+		
+	}
+
+	for (n = 1; n < 5; ++n)
+	{
+		fread(&num, sizeof(int), 1, fptr);
+		//printf("n1: %d\tn2: %d\tn3: %d", num.n1, num.n2, num.n3);
+		LOGFIX("%d ",abc);
+	}
+	fclose(fptr);
+
 
 	return true;
 }
@@ -69,6 +121,41 @@ update_status ModuleFileSystem::Update(float dt)
 bool ModuleFileSystem::CleanUp()
 {
 	return true;
+}
+
+void ModuleFileSystem::ToBinary_String(std::string stringname)
+{
+	
+	ConvertedVec.clear();
+	int n = stringname.length();
+	
+	std::string item = "";
+	for (int i = 0; i <= n; i++)
+	{
+		// convert each char to 
+		// ASCII value 
+		int val = int(stringname[i]);
+
+		// Convert ASCII value to binary 
+		
+		while (val > 0)
+		{
+			(val % 2) ? item.push_back('1') :
+				item.push_back('0');
+			val /= 2;
+		}
+		
+		reverse(item.begin(), item.end());
+		
+
+
+		LOGFIX(item.c_str());
+
+		ConvertedVec.push_back(item);
+		
+
+	}
+	
 }
 
 void ModuleFileSystem::CreateConsolelog(const char file[], int line, const char* format, ...)
