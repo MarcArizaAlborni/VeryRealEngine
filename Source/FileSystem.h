@@ -35,6 +35,10 @@ public:
 	void ToBinary_String(std::string stringname);
 	void ToBinary_Number(int val );
 
+
+private:
+	
+
 public:
 
 	//------------ CONSOLE STUFF

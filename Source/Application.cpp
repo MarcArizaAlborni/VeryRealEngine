@@ -215,6 +215,19 @@ bool Application::CleanUp()
 	return ret;
 }
 
+
+int Application::GiveRandomNum_Undefined()
+{
+
+	return 0;
+}
+
+int Application::GiveRandomNum_Defined(int Min, int Max)
+{
+
+	return 0;
+}
+
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);

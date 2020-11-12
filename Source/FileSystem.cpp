@@ -9,6 +9,7 @@
 #include <iostream>
 
 
+
 ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool start_enabled) : Module(app, "SaveLoad", start_enabled)
 {
 	// WE ARE FINE FORMAT: THE FUTURE, TODAY
@@ -16,6 +17,7 @@ ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool star
 
 ModuleFileSystem::~ModuleFileSystem()
 {
+	
 
 }
 
@@ -23,7 +25,7 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 {
 	FILE* fptr;
 
-
+    
 	std::string Direction = "Assets/Libraries/";
 	std::string Extension = ".waf";
 
@@ -78,28 +80,24 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 	if ((fptr = fopen(FinalPath_C, "wb")) == NULL) {
 		
 	}
-
-	for (n = 1; n < 5; ++n)
-	{
-		
+	else {
 		fwrite(&abc, sizeof(int), 1, fptr);
 	}
+	
 	fclose(fptr);
 	
 	
 	
-	
-
 	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
 		
 	}
-
-	for (n = 1; n < 5; ++n)
-	{
+	else {
 		fread(&num, sizeof(int), 1, fptr);
-		//printf("n1: %d\tn2: %d\tn3: %d", num.n1, num.n2, num.n3);
-		LOGFIX("%d ",abc);
+
+		LOGFIX("%d ", abc);
 	}
+
+	
 	fclose(fptr);
 
 
@@ -115,6 +113,8 @@ bool ModuleFileSystem::Start()
 
 update_status ModuleFileSystem::Update(float dt)
 {
+	
+	
 	return UPDATE_CONTINUE;
 }
 

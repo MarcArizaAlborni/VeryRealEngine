@@ -95,6 +95,9 @@ public:
 	std::string name;
 
 
+	int GiveRandomNum_Undefined();
+	int GiveRandomNum_Defined(int Min, int Max);
+
 private:
 
 	void AddModule(Module* mod);
@@ -118,6 +121,9 @@ private:
 	
 	
 	std::string SaveFileName;
+
+
+
 
 };
 
