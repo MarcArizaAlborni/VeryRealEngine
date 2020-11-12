@@ -5,15 +5,70 @@
 #include "libraries/Assimp/Assimp/include/scene.h"
 #include "libraries/Assimp/Assimp/include/postprocess.h"
 #pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
+#include <fstream>
 
-ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool start_enabled) : Module(app,"SaveLoad", start_enabled)
+ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool start_enabled) : Module(app, "SaveLoad", start_enabled)
 {
-	
+	// WE ARE FINE FORMAT: THE FUTURE, TODAY
 }
 
 ModuleFileSystem::~ModuleFileSystem()
 {
+
+}
+
+bool ModuleFileSystem::GenerateLibraryFile(int id)
+{
+	FILE* fptr;
+
+
+	std::string Direction = "Assets/Libraries/";
+	std::string Extension = ".waf";
+
+
+
+	const char* idconversion_C;
+	std::string idconversion;
 	
+	idconversion = std::to_string(id);
+
+	
+
+	std::string FinalPath = Direction + idconversion + Extension;
+	const char* FinalPath_C = FinalPath.c_str();
+
+
+
+	if ((fptr = fopen(FinalPath_C, "wb")) == NULL){
+
+
+		return false;
+	}
+	else {
+
+		int a = 0;
+
+
+	}
+
+	return true;
+}
+
+bool ModuleFileSystem::Start()
+{
+	GenerateLibraryFile(100);
+
+	return true;
+}
+
+update_status ModuleFileSystem::Update(float dt)
+{
+	return UPDATE_CONTINUE;
+}
+
+bool ModuleFileSystem::CleanUp()
+{
+	return true;
 }
 
 void ModuleFileSystem::CreateConsolelog(const char file[], int line, const char* format, ...)
@@ -32,6 +87,8 @@ void ModuleFileSystem::CreateConsolelog(const char file[], int line, const char*
 
 	App->console->ConsoleLogs.push_back(tmp_string2);
 }
+
+
 
 //#include "Globals.h"
 //#include "Engine.h"

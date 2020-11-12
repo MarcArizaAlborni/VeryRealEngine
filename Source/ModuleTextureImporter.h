@@ -9,11 +9,11 @@
 struct TextureInfo {
 
 	
-	uint width=0;
-	uint height = 0;
-	uint texture_id = 0;
-	std::string texture_name="";
-	std::string texture_path = "";
+	uint width=0; // width of the texture
+	uint height = 0; // height of the texture
+	uint texture_id = 0; // id of the texture in opengl
+	std::string texture_name=""; // name of the texture
+	std::string texture_path = ""; // path to the texture file
 
 
 };

@@ -7,7 +7,11 @@
 #include <fstream>
 
 
+struct FileSystemPaths {
 
+
+
+};
 
 class ModuleFileSystem : public Module
 {
@@ -15,6 +19,19 @@ public:
 
 	ModuleFileSystem(Application* app, const char* name = "null", bool start_enabled = true);
 	~ModuleFileSystem();
+
+
+	bool GenerateLibraryFile(int id);
+
+	bool Start();
+	
+	update_status Update(float dt);
+	
+	bool CleanUp();
+
+public:
+
+	
 
 public:
 

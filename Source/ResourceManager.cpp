@@ -180,6 +180,17 @@ void ResourceManager::CreateResourcesWindow()
 					}
 		    
 		    	}
+				else if (App->input->CheckImportedFileType(".waf", ItemR->Name) != -1) {
+					if (resource_display_textures) {
+						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
+						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						ImGui::SameLine();
+						ImGui::Text(PathName_R);
+					}
+
+				}
 		    	else {
 					if (resource_display_folder) {
 						/*if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->FolderIcon.texture_id, { 50,50 })) {
@@ -299,6 +310,8 @@ void ResourceManager::ReadMainResourcesFolder()
 		}
 		else if (App->input->CheckImportedFileType(".DDS", PathName_C) != -1) {
 		}
+		else if (App->input->CheckImportedFileType(".waf", PathName_C) != -1) {
+		}
 		else {
 
 			Item->Name = PathName;
@@ -340,6 +353,8 @@ void ResourceManager::ResourceAddChildren(Resource* Parent)
 		else if (App->input->CheckImportedFileType(".PNG", PathName_C) != -1) {
 		}
 		else if (App->input->CheckImportedFileType(".dds", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".waf", PathName_C) != -1) {
 		}
 		else if (App->input->CheckImportedFileType(".DDS", PathName_C) != -1) {
 		}
@@ -456,6 +471,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 
 				}
 				else if (App->input->CheckImportedFileType(".DDS", ItemRC->Name) != -1) {
+					if (resource_display_textures) {
+						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+						ImGui::SameLine();
+						ImGui::Button(PathName_R, { 150,20 });
+						ImGui::SameLine();
+						ImGui::Text(PathName_R);
+					}
+
+				}
+				else if (App->input->CheckImportedFileType(".waf", ItemRC->Name) != -1) {
 					if (resource_display_textures) {
 						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });

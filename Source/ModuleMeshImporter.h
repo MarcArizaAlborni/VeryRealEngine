@@ -14,9 +14,9 @@ struct aiNode;
 
 struct MeshTransformation {
 
-	VectorTransformations VectorTranslation;
-	VectorTransformations VectorRotation;
-	VectorTransformations VectorScale;
+	VectorTransformations VectorTranslation; //Vector to determine the current position of the mesh in the world
+	VectorTransformations VectorRotation; //Vector to determine the current rotation of the mesh in the world
+	VectorTransformations VectorScale; //Vector to determine the current scale of the mesh in the world
 
 };
 
@@ -28,20 +28,20 @@ struct Vertex_Sub {
 struct MeshInfo
 {
 	uint id_index=0; // index in VRAM
-	uint num_index = 0;
-	uint* index = nullptr;
+	uint num_index = 0; // amount of indexes in a mesh
+	uint* index = nullptr; //id of the index
 	uint id_vertex = 0; // unique vertex in VRAM
-	uint num_vertex = 0;
-	Vertex_Sub* vertex=nullptr;
+	uint num_vertex = 0; // amount of vertex in a mesh
+	Vertex_Sub* vertex=nullptr; // id of the vertex
 
-	float* texcoords = nullptr;
-	uint num_texcoords = 0;
-	uint texcoords_id = 0;
+	float* texcoords = nullptr; //coordinates of the texture in the mesh
+	uint num_texcoords = 0; // amount of coordinates of the texture in the mesh
+	uint texcoords_id = 0; // id of the coordinate of the texture in the mesh
 	
-	GLuint TextureName=0;
+	GLuint TextureName=0; // name of the current texture aplied to the mesh
 
-	float* normals=0;
-	uint id_normals=0;
+	float* normals=0; // amount of normals in the mesh
+	uint id_normals=0; // id of the normals in the mesh
 };
 
 struct GameObject {
@@ -58,25 +58,25 @@ struct GameObject {
 
 	bool is_Wireframed=false; // if this mesh is currently using wireframe to be drawn
 
-	bool is_Checkered = false;
+	bool is_Checkered = false; // if the checkers texture is applied to the mesh
 
 	int item_id=0; // id given to each mesh to able to manage game object lists more eficiently
 
 	std::vector<GameObject*> ChildObjects; // vector of child game objects inside of a game object
 
-	MeshTransformation Mesh_Transform_Modifiers;
+	MeshTransformation Mesh_Transform_Modifiers; // vectors for mesh transformation
 
-	bool ToBeDrawInspector=false;
+	bool ToBeDrawInspector=false; // if the mesh info should be drawn in the inspector
 
-	TextureInfo TextureData;
+	TextureInfo TextureData; // information of the texture applied to the mesh
 
-	bool is_EmptyParent;
+	bool is_EmptyParent; // if the mesh is an empty parent or not
 
-	bool showFaceNormals = false;
+	bool showFaceNormals = false; //if we draw normals for faces 
 
-	bool showVertexNormals = false;
+	bool showVertexNormals = false; //if we draw normals for vertex
 
-	bool is_FamilyMove = false;
+	bool is_FamilyMove = false; // if we apply transformations to each member of the family of this mesh
 
 };
 
