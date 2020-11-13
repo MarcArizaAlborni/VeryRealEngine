@@ -32,7 +32,7 @@ public:
 	ModuleFileSystem(Application* app, const char* name = "null", bool start_enabled = true);
 	~ModuleFileSystem();
 
-	bool CheckExistence_Mesh(StoredFile Information);
+	int CheckExistence_Mesh(StoredFile Information);
 	bool GenerateLibraryFile(int id);
 
 	StoredFile GenerateLibraryFile_Mesh(int id,  StoredFile Information);

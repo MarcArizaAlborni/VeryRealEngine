@@ -289,6 +289,8 @@ void ResourceManager::CreateRenameFolderWindow()
 
 void ResourceManager::ReadMainResourcesFolder()
 {
+
+	
 	std::string path = "Assets";
 	for (const auto& entry : fs::directory_iterator(path)) {
 

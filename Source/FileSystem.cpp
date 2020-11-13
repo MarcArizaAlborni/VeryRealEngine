@@ -7,6 +7,8 @@
 #pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
 #include <fstream>
 #include <iostream>
+#include <filesystem>
+namespace fs = std::filesystem;
 
 
 
@@ -21,23 +23,24 @@ ModuleFileSystem::~ModuleFileSystem()
 
 }
 
-bool ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
+int ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
 {
 	//CHECKS IF THE FILE IS ALREADY STORED IN THE LIBARY
 
-	// RETURNS TRUE IF ITS ALREADY LISTED
+	// Returns 0 if it doesnt exist
 	// FALSE IF ITS NOT
-
+	int unique_id;
+	int RetUnique_id;
 	if (StoredFilesListed.size() != 0) {
 
 		std::vector<StoredFile>::iterator IteratorFile = StoredFilesListed.begin();
 		for (int pos = 0; pos < StoredFilesListed.size(); ++pos) {
 
 			StoredFile File = *IteratorFile;
-
+			unique_id = File.unique_id;
 			if (File.TypeOfItem == "mesh") {
 
-				if (File.Scene->mNumMeshes == Information.Scene->mNumMeshes) {
+				if (File.Scene->mNumMeshes != Information.Scene->mNumMeshes) {
 
 					for (int item = 0; item < Information.Scene->mNumMeshes; ++item) {
 
@@ -45,65 +48,158 @@ bool ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
 
 						aiMesh* MeshInList = File.Scene->mMeshes[item];
 
-						if (MeshInList->mNumVertices == MeshToCheck->mNumVertices) {
+						if (MeshInList->mNumVertices != MeshToCheck->mNumVertices) {
 
-							if (MeshInList->mNumFaces == MeshToCheck->mNumFaces) {
+							if (MeshInList->mNumFaces != MeshToCheck->mNumFaces) {
 
-								if (MeshInList->mVertices == MeshToCheck->mVertices) {
+								if (MeshInList->mVertices != MeshToCheck->mVertices) {
 
-									if (MeshInList->mFaces == MeshToCheck->mFaces) {
+									if (MeshInList->mFaces != MeshToCheck->mFaces) {
 
-										if (MeshInList->mTextureCoords == MeshToCheck->mTextureCoords) {
+										if (MeshInList->mTextureCoords != MeshToCheck->mTextureCoords) {
 
 										}
 										else {
 
 											item = Information.Scene->mNumMeshes;
 											pos = StoredFilesListed.size();
-											return true;
+											return unique_id;
 										}
 									}
 									else {
 
 										item = Information.Scene->mNumMeshes;
 										pos = StoredFilesListed.size();
-										return true;
+										return unique_id;
 									}
 								}
 								else {
 
 									item = Information.Scene->mNumMeshes;
 									pos = StoredFilesListed.size();
-									return true;
+									return unique_id;
 								}
 							}
 							else {
 
 								item = Information.Scene->mNumMeshes;
 								pos = StoredFilesListed.size();
-								return true;
+								return unique_id;
 							}
 						}
 						else {
 
 							item = Information.Scene->mNumMeshes;
 							pos = StoredFilesListed.size();
-							return true;
+							return unique_id;
 						}
 					}
 				}
 				else {
 
 					pos = StoredFilesListed.size();
-					return true;
+					return unique_id;
 				}
 			}
 			++IteratorFile;
 		}
 	}
-	
+	else {
 
-	return false;
+		
+		
+		std::string path = "Assets/Library/";
+		for (const auto& entry : fs::directory_iterator(path)) {
+
+			StoredFile ToCheckInfo;
+			FILE* fptr;
+			//Existing File
+			std::string PathName = entry.path().string();
+			const char* PathName_C = PathName.c_str();
+
+			//Generating File
+			//std::string Id_C = std::to_string(RetUnique_id);
+			std::string Direction = "Assets/Library/";
+			
+			std::string FinalPath =  PathName;
+			const char* FinalPath_C = FinalPath.c_str();
+
+			
+			
+			if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
+
+			}
+			else {
+
+				fread(&ToCheckInfo, sizeof(struct StoredFile), 1, fptr);
+				
+				//RetUnique_id = ToCheckInfo->unique_id;
+
+				if (ToCheckInfo.Scene->mNumMeshes != Information.Scene->mNumMeshes) {
+
+					for (int item = 0; item < Information.Scene->mNumMeshes; ++item) {
+
+						aiMesh* MeshToCheck = Information.Scene->mMeshes[item];
+
+						aiMesh* MeshInList = ToCheckInfo.Scene->mMeshes[item];
+
+						if (MeshInList->mNumVertices != MeshToCheck->mNumVertices) {
+
+							if (MeshInList->mNumFaces != MeshToCheck->mNumFaces) {
+
+								if (MeshInList->mVertices != MeshToCheck->mVertices) {
+
+									if (MeshInList->mFaces != MeshToCheck->mFaces) {
+
+										if (MeshInList->mTextureCoords != MeshToCheck->mTextureCoords) {
+
+										}
+										else {
+
+											item = Information.Scene->mNumMeshes;
+											
+											return RetUnique_id;
+										}
+									}
+									else {
+
+										item = Information.Scene->mNumMeshes;
+										
+										return RetUnique_id;
+									}
+								}
+								else {
+
+									item = Information.Scene->mNumMeshes;
+									
+									return RetUnique_id;
+								}
+							}
+							else {
+
+								item = Information.Scene->mNumMeshes;
+								
+								return RetUnique_id;
+							}
+						}
+						else {
+
+							item = Information.Scene->mNumMeshes;
+							
+							return RetUnique_id;
+						}
+					}
+				}
+				else {
+
+					return RetUnique_id;
+				}
+			}
+			fclose(fptr);
+		}
+	}
+	
+	return 0;
 }
 
 bool ModuleFileSystem::GenerateLibraryFile(int id)
@@ -254,7 +350,7 @@ StoredFile ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Informa
 	std::string idconversion = std::to_string(id);
 	std::string FinalPath = Direction + idconversion + Extension;
 	const char* FinalPath_C = FinalPath.c_str();
-
+	Information.unique_id = id;
 
 	if ((fptr = fopen(FinalPath_C, "wb")) == NULL) {
 
@@ -262,29 +358,32 @@ StoredFile ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Informa
 	else {
 	
 	
-		fwrite(&Information.Scene, sizeof(struct aiScene), 1, fptr);
+		fwrite(&Information, sizeof(struct StoredFile), 1, fptr);
 	
 	}
+
 
 	
 	fclose(fptr);
 	
+	StoredFile File;
 	
-	
-	/*if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
+	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
 
 	}
 	else {
 
 
-		fread(&SceneToReturn, sizeof(struct aiScene), 1, fptr);
+		fread(&File, sizeof(struct aiScene), 1, fptr);
 
 	}
 	
-	fclose(fptr);*/
+	fclose(fptr);
 	
 	//SceneToReturn = Information.Scene;
-	return Information;
+
+	StoredFilesListed.push_back(File);
+	return File;
 
 	//Managing All information from the meshes that have been send to be stored
 
@@ -414,7 +513,7 @@ StoredFile ModuleFileSystem::LoadLibraryFile_Mesh(int id)
 	std::string FinalPath = Direction + idconversion + Extension;
 	const char* FinalPath_C = FinalPath.c_str();
 
-
+	
 
 	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
 
@@ -422,7 +521,7 @@ StoredFile ModuleFileSystem::LoadLibraryFile_Mesh(int id)
 	else {
 
 
-		fread(&FileToReturn.Scene, sizeof(struct aiScene), 1, fptr);
+		fread(&FileToReturn, sizeof(struct StoredFile), 1, fptr);
 
 	}
 

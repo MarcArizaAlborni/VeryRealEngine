@@ -51,20 +51,27 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 	if (scene != nullptr && scene->HasMeshes()) {
 
 		aiNode* rootNodeScene=scene->mRootNode;
-		StoredFile InformationToSend;
-		InformationToSend.Scene = scene;
-		bool ExistsinLibrary;
-		StoredFile* FileToLoad = new StoredFile();
+
+
+
+		//StoredFile InformationToSend;
+		//InformationToSend.Scene = scene;
+		//int ID_Detected;
+		//StoredFile* FileToLoad = new StoredFile();
+		//
+		//ID_Detected =App->filemanager->CheckExistence_Mesh(InformationToSend);
+		//if (ID_Detected == 0){ //IF IT HAS NOT BEEN DETECTED
+
+		//	
+		//	App->filemanager->GenerateLibraryFile_Mesh(App->GiveRandomNum_Undefined(), InformationToSend);
+		//	
+		//}
+		//else{// IF IT HAS BEEN DETECTED
+		//	InformationToSend = App->filemanager->LoadLibraryFile_Mesh(ID_Detected);
+		//	scene = InformationToSend.Scene;
+		//}
+
 		
-
-		ExistsinLibrary=App->filemanager->CheckExistence_Mesh(InformationToSend);
-		if (ExistsinLibrary == false){
-
-			
-			App->filemanager->GenerateLibraryFile_Mesh(App->GiveRandomNum_Undefined(), InformationToSend);
-			/*InformationToSend = App->filemanager->LoadLibraryFile_Mesh();
-			scene = InformationToSend.Scene;*/
-		}
 		
 		bool ParentHasFound=false;
 
