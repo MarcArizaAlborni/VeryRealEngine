@@ -52,14 +52,33 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 		aiNode* rootNodeScene=scene->mRootNode;
 
-		//LoadNodeInfo(scene, rootNodeScene);
+		//THE ERRROR IS EITHER WRITING THE INFORMATION OR THE LOOP 
+
+		//StoredFile InformationToSend;
+		//InformationToSend.Scene = scene;
+		//int ID_Detected;
+		//StoredFile* FileToLoad = new StoredFile();
+		//
+		//ID_Detected =App->filemanager->CheckExistence_Mesh(InformationToSend);
+		//if (ID_Detected == 0){ //IF IT HAS NOT BEEN DETECTED
+
+		//	
+		//	App->filemanager->GenerateLibraryFile_Mesh(App->GiveRandomNum_Undefined(), InformationToSend);
+		//	
+		//}
+		//else{// IF IT HAS BEEN DETECTED
+		//	InformationToSend = App->filemanager->LoadLibraryFile_Mesh(ID_Detected);
+		//	scene = InformationToSend.Scene;
+		//}
+
+		
 		
 		bool ParentHasFound=false;
 
 		if (scene->mNumMeshes > 1) {
 
 			GameObject* ItemParentMesh = new GameObject();
-			ItemParentMesh->is_Drawn = false;
+			ItemParentMesh->is_Drawn = true;
 			ItemParentMesh->is_EmptyParent = true;
 			AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL,true);
 			ParentHasFound = true;
@@ -103,9 +122,11 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 			//ourGameObject->mesh_name=(std::string)MeshToLoad->mName;
 			
 
+
 			MeshToLoad->mNumVertices = scene->mMeshes[i]->mNumVertices;
 
 			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
+			
 
 			ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
 

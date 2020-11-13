@@ -11,6 +11,7 @@ struct VectorTransformations;
 struct TextureInfo;
 struct aiScene;
 struct aiNode;
+struct StoredFile;
 
 struct MeshTransformation {
 

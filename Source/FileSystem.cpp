@@ -7,6 +7,8 @@
 #pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
 #include <fstream>
 #include <iostream>
+#include <filesystem>
+namespace fs = std::filesystem;
 
 
 
@@ -19,6 +21,186 @@ ModuleFileSystem::~ModuleFileSystem()
 {
 	
 
+}
+
+int ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
+{
+	//CHECKS IF THE FILE IS ALREADY STORED IN THE LIBARY
+
+	// Returns 0 if it doesnt exist
+	// FALSE IF ITS NOT
+	int unique_id;
+	int RetUnique_id;
+	if (StoredFilesListed.size() != 0) {
+
+		std::vector<StoredFile>::iterator IteratorFile = StoredFilesListed.begin();
+		for (int pos = 0; pos < StoredFilesListed.size(); ++pos) {
+
+			StoredFile File = *IteratorFile;
+			unique_id = File.unique_id;
+			if (File.TypeOfItem == "mesh") {
+
+				if (File.Scene->mNumMeshes != Information.Scene->mNumMeshes) {
+
+					for (int item = 0; item < Information.Scene->mNumMeshes; ++item) {
+
+						aiMesh* MeshToCheck = Information.Scene->mMeshes[item];
+
+						aiMesh* MeshInList = File.Scene->mMeshes[item];
+
+						if (MeshInList->mNumVertices != MeshToCheck->mNumVertices) {
+
+							if (MeshInList->mNumFaces != MeshToCheck->mNumFaces) {
+
+								if (MeshInList->mVertices != MeshToCheck->mVertices) {
+
+									if (MeshInList->mFaces != MeshToCheck->mFaces) {
+
+										if (MeshInList->mTextureCoords != MeshToCheck->mTextureCoords) {
+
+										}
+										else {
+
+											item = Information.Scene->mNumMeshes;
+											pos = StoredFilesListed.size();
+											return unique_id;
+										}
+									}
+									else {
+
+										item = Information.Scene->mNumMeshes;
+										pos = StoredFilesListed.size();
+										return unique_id;
+									}
+								}
+								else {
+
+									item = Information.Scene->mNumMeshes;
+									pos = StoredFilesListed.size();
+									return unique_id;
+								}
+							}
+							else {
+
+								item = Information.Scene->mNumMeshes;
+								pos = StoredFilesListed.size();
+								return unique_id;
+							}
+						}
+						else {
+
+							item = Information.Scene->mNumMeshes;
+							pos = StoredFilesListed.size();
+							return unique_id;
+						}
+					}
+				}
+				else {
+
+					pos = StoredFilesListed.size();
+					return unique_id;
+				}
+			}
+			++IteratorFile;
+		}
+	}
+	else {
+
+		
+		
+		std::string path = "Assets/Library/";
+		for (const auto& entry : fs::directory_iterator(path)) {
+
+			StoredFile ToCheckInfo;
+			FILE* fptr2;
+			//Existing File
+			std::string PathName = entry.path().string();
+			const char* PathName_C = PathName.c_str();
+
+			//Generating File
+			//std::string Id_C = std::to_string(RetUnique_id);
+			std::string Direction = "Assets/Library/";
+			
+			std::string FinalPath =  PathName;
+			const char* FinalPath_C = FinalPath.c_str();
+
+			
+			
+			if ((fptr2 = fopen(FinalPath_C, "rb")) == NULL) {
+
+			}
+			else {
+
+				fread(&ToCheckInfo, sizeof(aiScene), 1, fptr2);
+				
+				RetUnique_id = ToCheckInfo.unique_id;
+
+				if (ToCheckInfo.Scene->mNumMeshes != Information.Scene->mNumMeshes) {
+
+					for (int item = 0; item < Information.Scene->mNumMeshes; ++item) {
+
+						aiMesh* MeshToCheck = Information.Scene->mMeshes[item];
+
+						aiMesh* MeshInList = ToCheckInfo.Scene->mMeshes[item];
+
+						if (MeshInList->mNumVertices != MeshToCheck->mNumVertices) {
+
+							if (MeshInList->mNumFaces != MeshToCheck->mNumFaces) {
+
+								if (MeshInList->mVertices != MeshToCheck->mVertices) {
+
+									if (MeshInList->mFaces != MeshToCheck->mFaces) {
+
+										if (MeshInList->mTextureCoords != MeshToCheck->mTextureCoords) {
+
+										}
+										else {
+
+											item = Information.Scene->mNumMeshes;
+											
+											return RetUnique_id;
+										}
+									}
+									else {
+
+										item = Information.Scene->mNumMeshes;
+										
+										return RetUnique_id;
+									}
+								}
+								else {
+
+									item = Information.Scene->mNumMeshes;
+									
+									return RetUnique_id;
+								}
+							}
+							else {
+
+								item = Information.Scene->mNumMeshes;
+								
+								return RetUnique_id;
+							}
+						}
+						else {
+
+							item = Information.Scene->mNumMeshes;
+							
+							return RetUnique_id;
+						}
+					}
+				}
+				else {
+
+					return RetUnique_id;
+				}
+			}
+
+			fclose(fptr2);
+		}
+	}
+	
+	return 0;
 }
 
 bool ModuleFileSystem::GenerateLibraryFile(int id)
@@ -75,48 +257,212 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 	int n;
 	int abc = 20000;
 	
-	struct threeNum num;
+	int id_index = 3; // index in VRAM
+	int num_index = 9765; // amount of indexes in a mesh
 	
+	int id_vertex = 67; // unique vertex in VRAM
+	int num_vertex = 1034; // amount of vertex in a mesh
+	
+
+	
+	int num_texcoords = 39; // amount of coordinates of the texture in the mesh
+	int texcoords_id = 165; // id of the coordinate of the texture in the mesh
+
+	const char* TextureName = "Mesh Object A"; // name of the current texture aplied to the mesh
+
+	
+	int id_normals = 9; // id of the normals in the mesh
+
+
+	struct threeNum num;
+	const char* Name = "Square";
+	const char* NameRet;
+
 
 	if ((fptr = fopen(FinalPath_C, "wb")) == NULL) {
 		
 	}
 	else {
-		fwrite(&abc, sizeof(int), 1, fptr);
-		
+		fwrite(&id_index, sizeof(int), 1, fptr);
+		fwrite(&num_index, sizeof(int), 1, fptr);
+		fwrite(&id_vertex, sizeof(int), 1, fptr);
+		fwrite(&num_vertex, sizeof(int), 1, fptr);
+fwrite(&num_texcoords, sizeof(int), 1, fptr);
+fwrite(&texcoords_id, sizeof(int), 1, fptr);
+fwrite(&TextureName, sizeof(const char*), 1, fptr);
+fwrite(&id_normals, sizeof(int), 1, fptr);
+
+
 	}
-	
+
 	fclose(fptr);
-	
-	
-	
+
+
+
+	int id_index2;
+	int num_index2; // amount of indexes in a mesh
+
+	int id_vertex2;// unique vertex in VRAM
+	int num_vertex2; // amount of vertex in a mesh
+
+
+
+	int num_texcoords2; // amount of coordinates of the texture in the mesh
+	int texcoords_id2; // id of the coordinate of the texture in the mesh
+
+	const char* TextureName2; // name of the current texture aplied to the mesh
+
+
+	int id_normals2; // id of the normals in the mesh
+
 	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
-		
+
 	}
 	else {
-		fread(&num, sizeof(int), 1, fptr);
 
-		LOGFIX("%d ", abc);
+
+		fread(&id_index2, sizeof(int), 1, fptr);
+		fread(&num_index2, sizeof(int), 1, fptr);
+		fread(&id_vertex2, sizeof(int), 1, fptr);
+		fread(&num_vertex2, sizeof(int), 1, fptr);
+		fread(&num_texcoords2, sizeof(int), 1, fptr);
+		fread(&texcoords_id2, sizeof(int), 1, fptr);
+		fread(&TextureName2, sizeof(const char*), 1, fptr);
+		fread(&id_normals2, sizeof(int), 1, fptr);
+
+
+
 	}
 
-	
+
 	fclose(fptr);
 
 
 	return true;
 }
 
+StoredFile ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Information)
+{
+	FILE* fptr; //File 
+
+	//Generating the Name/Path of the file
+	std::string Direction = "Assets/Library/";
+	std::string Extension = ".waf";
+	std::string idconversion = std::to_string(id);
+	std::string FinalPath = Direction + idconversion + Extension;
+	const char* FinalPath_C = FinalPath.c_str();
+	Information.unique_id = id;
+
+	
+	PointFull Testing = {1789,"My Name is",20.0,"Marc"};
+
+	FILE* FileW;
+	if ((FileW = fopen(FinalPath_C, "wb")) == NULL) {
+
+	}
+	else {
+
+
+		fwrite(&Testing, sizeof(StoredFile), 1, FileW);
+
+	}
+
+	fclose(FileW);
+
+	TestingReadErrors(FinalPath_C);
+	FILE* FileR;
+	
+
+	PointFull TestingR;
+
+	if ((FileR = fopen(FinalPath_C, "rb")) == NULL) {
+
+	}
+	else {
+
+
+		fread(&TestingR, sizeof(aiScene), 1, FileR);
+
+	}
+	
+	fclose(FileR);
+
+	if ((fptr = fopen(FinalPath_C, "wb")) == NULL) {
+
+	}
+	else {
+	
+	
+		fwrite(&Information, sizeof(StoredFile), 1, fptr);
+	
+	}
+
+
+	
+	fclose(fptr);
+	
+	StoredFile File;
+	
+	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
+
+	}
+	else {
+
+
+		fread(&File, sizeof(aiScene), 1, fptr);
+
+	}
+	
+	fclose(fptr);
+	
+	//SceneToReturn = Information.Scene;
+
+	StoredFilesListed.push_back(File);
+	return File;
+
+	
+
+	
+}
+
+StoredFile ModuleFileSystem::LoadLibraryFile_Mesh(int id)
+{
+	StoredFile FileToReturn;
+	FILE* fptr;
+	std::string Direction = "Assets/Library/";
+	std::string Extension = ".waf";
+	std::string idconversion = std::to_string(id);
+	std::string FinalPath = Direction + idconversion + Extension;
+	const char* FinalPath_C = FinalPath.c_str();
+
+	
+
+	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
+
+	}
+	else {
+
+
+		fread(&FileToReturn, sizeof(StoredFile), 1, fptr);
+
+	}
+
+	fclose(fptr);
+
+	return FileToReturn;
+}
+
 bool ModuleFileSystem::Start()
 {
-	for (int times = 0; times <= 10; ++times) {
-		int val = App->GiveRandomNum_Undefined();
+	//for (int times = 0; times <= 10; ++times) {
+	//	int val = App->GiveRandomNum_Undefined();
 
-		/*std::string ValueStr = std::to_string(val);
-		const char* val_C = ValueStr.c_str();*/
+	//	/*std::string ValueStr = std::to_string(val);
+	//	const char* val_C = ValueStr.c_str();*/
 
 
-		GenerateLibraryFile(val);
-	}
+	//	GenerateLibraryFile(val);
+	//}
 
 	return true;
 }
@@ -125,6 +471,26 @@ update_status ModuleFileSystem::Update(float dt)
 {
 	
 	return UPDATE_CONTINUE;
+}
+
+void ModuleFileSystem::TestingReadErrors(const char* filename)
+{
+	FILE* FileR;
+
+
+	PointFull TestingR;
+
+	if ((FileR = fopen(filename, "rb")) == NULL) {
+
+	}
+	else {
+
+
+		fread(&TestingR, sizeof(aiScene), 1, FileR);
+
+	}
+
+	fclose(FileR);
 }
 
 bool ModuleFileSystem::CleanUp()
