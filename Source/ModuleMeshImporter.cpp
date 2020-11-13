@@ -52,7 +52,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 		aiNode* rootNodeScene=scene->mRootNode;
 
-
+		//THE ERRROR IS EITHER WRITING THE INFORMATION OR THE LOOP 
 
 		//StoredFile InformationToSend;
 		//InformationToSend.Scene = scene;

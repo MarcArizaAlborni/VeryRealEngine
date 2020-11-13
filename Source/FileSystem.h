@@ -9,7 +9,13 @@
 struct aiScene;
 struct aiNode;
 
-
+struct PointFull
+{
+	int number;
+	const char* text;
+	double real_number; 
+	const char* text2;
+};
 
 struct StoredFile {
 
@@ -42,6 +48,8 @@ public:
 	
 	std::vector<StoredFile> StoredFilesListed;
 	update_status Update(float dt);
+	
+	void TestingReadErrors(const char* filename);
 	
 	bool CleanUp();
 

@@ -112,7 +112,7 @@ int ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
 		for (const auto& entry : fs::directory_iterator(path)) {
 
 			StoredFile ToCheckInfo;
-			FILE* fptr;
+			FILE* fptr2;
 			//Existing File
 			std::string PathName = entry.path().string();
 			const char* PathName_C = PathName.c_str();
@@ -126,14 +126,14 @@ int ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
 
 			
 			
-			if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
+			if ((fptr2 = fopen(FinalPath_C, "rb")) == NULL) {
 
 			}
 			else {
 
-				fread(&ToCheckInfo, sizeof(struct StoredFile), 1, fptr);
+				fread(&ToCheckInfo, sizeof(aiScene), 1, fptr2);
 				
-				//RetUnique_id = ToCheckInfo->unique_id;
+				RetUnique_id = ToCheckInfo.unique_id;
 
 				if (ToCheckInfo.Scene->mNumMeshes != Information.Scene->mNumMeshes) {
 
@@ -195,7 +195,8 @@ int ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
 					return RetUnique_id;
 				}
 			}
-			fclose(fptr);
+
+			fclose(fptr2);
 		}
 	}
 	
@@ -352,13 +353,47 @@ StoredFile ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Informa
 	const char* FinalPath_C = FinalPath.c_str();
 	Information.unique_id = id;
 
+	
+	PointFull Testing = {1789,"My Name is",20.0,"Marc"};
+
+	FILE* FileW;
+	if ((FileW = fopen(FinalPath_C, "wb")) == NULL) {
+
+	}
+	else {
+
+
+		fwrite(&Testing, sizeof(StoredFile), 1, FileW);
+
+	}
+
+	fclose(FileW);
+
+	TestingReadErrors(FinalPath_C);
+	FILE* FileR;
+	
+
+	PointFull TestingR;
+
+	if ((FileR = fopen(FinalPath_C, "rb")) == NULL) {
+
+	}
+	else {
+
+
+		fread(&TestingR, sizeof(aiScene), 1, FileR);
+
+	}
+	
+	fclose(FileR);
+
 	if ((fptr = fopen(FinalPath_C, "wb")) == NULL) {
 
 	}
 	else {
 	
 	
-		fwrite(&Information, sizeof(struct StoredFile), 1, fptr);
+		fwrite(&Information, sizeof(StoredFile), 1, fptr);
 	
 	}
 
@@ -374,7 +409,7 @@ StoredFile ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Informa
 	else {
 
 
-		fread(&File, sizeof(struct aiScene), 1, fptr);
+		fread(&File, sizeof(aiScene), 1, fptr);
 
 	}
 	
@@ -385,120 +420,7 @@ StoredFile ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Informa
 	StoredFilesListed.push_back(File);
 	return File;
 
-	//Managing All information from the meshes that have been send to be stored
-
-	//uint id_index = 0; // index in VRAM
-	//uint num_index = 0; // amount of indexes in a mesh
-	//uint* index = nullptr; //id of the index
-	//uint id_vertex = 0; // unique vertex in VRAM
-	//uint num_vertex = 0; // amount of vertex in a mesh
-	//Vertex_Sub* vertex = nullptr; // id of the vertex
-
-	//float* texcoords = nullptr; //coordinates of the texture in the mesh
-	//uint num_texcoords = 0; // amount of coordinates of the texture in the mesh
-	//uint texcoords_id = 0; // id of the coordinate of the texture in the mesh
-
-	//GLuint TextureName = 0; // name of the current texture aplied to the mesh
-
-	//float* normals = 0; // amount of normals in the mesh
-	//uint id_normals = 0; // id of the normals in the mesh
 	
-
-	//if ((fptr = fopen(FinalPath_C, "wb")) == NULL) {
-
-	//}
-	//else {
-
-	//	fwrite(&Information.Scene->mNumMeshes, sizeof(int), 1, fptr); //To indicate the amount of meshes
-	//	for (int g = 0; g < Information.Scene->mNumMeshes; ++g) {
-
-	//		//aiMesh* MeshToStore = Information.Scene->mMeshes[g];
-
-	//		fwrite(&g, sizeof(int), 1, fptr); // To indicate which mesh is out of all of them inside the scene
-
-	//		fwrite(&Information.Scene->mMeshes[g]->mNumVertices, sizeof(uint), 1, fptr); // To indicate the amount of vertices in the mesh
-	//		for (int vsize = 0; vsize < Information.Scene->mMeshes[g]->mNumVertices; ++vsize){
-
-	//			fwrite(&Information.Scene->mMeshes[g]->mVertices[vsize].x, sizeof(float), 1, fptr);//To give info about each vertex on x
-	//			fwrite(&Information.Scene->mMeshes[g]->mVertices[vsize].y, sizeof(float), 1, fptr);//To give info about each vertex on y
-	//			fwrite(&Information.Scene->mMeshes[g]->mVertices[vsize].z, sizeof(float), 1, fptr);//To give info about each vertex on z
- //           }
-	//		
-	//		fwrite(&Information.Scene->mMeshes[g]->mNumFaces, sizeof(uint), 1, fptr); //To indicate the amount of faces in the mesh
-
-	//		//for (int fsize = 0; fsize < Information.Scene->mMeshes[g]->mNumFaces; ++fsize) {
-	//		//	fwrite(&Information.Scene->mMeshes[g]->mFaces[fsize].mNumIndices, sizeof(uint), 1, fptr); //To give info about each face
-	//		//	fwrite(&Information.Scene->mMeshes[g]->mFaces[fsize].mIndices, sizeof(uint), 1, fptr);
-	//		//}
-
-	//		for (int nsize = 0; nsize < Information.Scene->mMeshes[g]->mNumVertices; ++nsize) {
-	//			fwrite(&Information.Scene->mMeshes[g]->mNormals[nsize].x, sizeof(float), 1, fptr);
-	//			fwrite(&Information.Scene->mMeshes[g]->mNormals[nsize].y, sizeof(float), 1, fptr);
-	//			fwrite(&Information.Scene->mMeshes[g]->mNormals[nsize].z, sizeof(float), 1, fptr);// We use mNumVertices because normals length
-	//			//is equal to mNumVertices
-	//		}
-	//		
-	//		for (int csize = 0; csize < Information.Scene->mMeshes[g]->mNumVertices; ++csize) {
-	//			fwrite(&Information.Scene->mMeshes[g]->mTextureCoords[csize], sizeof(float), 1, fptr);// We use mNumVertices because texturecoords length
-	//			//is equal to mNumVertices
-	//		}
-	//	}
-	//}
-	//
-	//fclose(fptr);
-
-	//StoredFile ReturnFile;
-
-	//uint RetNumMeshes;
-	//int RetPosMesh;
-	//uint RetNumVert;
-	//aiVector3D RetVertexVec[9999];
-	//uint RetNumFaces;
-	//aiFace* RetFaceVec[9999];
-	//aiVector3D RetTexCoordsVec[9999];
-	//aiVector3D RetFacesVec[9999];
-	//
-
-	//if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
-
-	//}
-	//else {
-
-	//	fread(&RetNumMeshes, sizeof(uint), 1, fptr);
-
-	//	for (int retMsize = 0; retMsize < RetNumMeshes; ++retMsize) {
-
-	//		fread(&RetPosMesh, sizeof(int), 1, fptr);
-	//		fread(&RetNumVert, sizeof(uint), 1, fptr);
-
-	//		for (int RetVsize = 0; RetVsize < RetNumVert; ++RetVsize) {
-	//		
-	//			fread(&RetVertexVec[RetVsize].x, sizeof(int), 1, fptr);
-	//			fread(&RetVertexVec[RetVsize].y, sizeof(int), 1, fptr);
-	//			fread(&RetVertexVec[RetVsize].z, sizeof(int), 1, fptr);
-
-	//		}
-
-	//		fread(&RetNumFaces, sizeof(uint), 1, fptr);
-
-	//		/*for (int retFsize = 0; retFsize < RetNumFaces; ++retFsize) {
-
-	//			fread(&RetFaceVec[retFsize], sizeof(uint), 1, fptr);
-	//		}*/
-
-
-
-	//		for (int Retcsize = 0; Retcsize < RetNumVert; ++Retcsize) {
-	//			fread(&RetTexCoordsVec[Retcsize], sizeof(float), 1, fptr);
-	//		}
-
-
-	//	}
-	//}
-
-	//fclose(fptr);
-
-
 
 	
 }
@@ -521,7 +443,7 @@ StoredFile ModuleFileSystem::LoadLibraryFile_Mesh(int id)
 	else {
 
 
-		fread(&FileToReturn, sizeof(struct StoredFile), 1, fptr);
+		fread(&FileToReturn, sizeof(StoredFile), 1, fptr);
 
 	}
 
@@ -549,6 +471,26 @@ update_status ModuleFileSystem::Update(float dt)
 {
 	
 	return UPDATE_CONTINUE;
+}
+
+void ModuleFileSystem::TestingReadErrors(const char* filename)
+{
+	FILE* FileR;
+
+
+	PointFull TestingR;
+
+	if ((FileR = fopen(filename, "rb")) == NULL) {
+
+	}
+	else {
+
+
+		fread(&TestingR, sizeof(aiScene), 1, FileR);
+
+	}
+
+	fclose(FileR);
 }
 
 bool ModuleFileSystem::CleanUp()
