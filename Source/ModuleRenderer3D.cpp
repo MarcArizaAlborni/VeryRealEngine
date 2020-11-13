@@ -127,6 +127,8 @@ bool ModuleRenderer3D::Start()
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;
 
+	App->componentcamera->DrawFrustum();
+
 	// STREET FOR DRAW W/TEXTURES ON START
 
 	//App->meshimporter->LoadMesh("Assets/Models/Street/Street environment_V01.FBX");
@@ -241,7 +243,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::Update(float dt)
 {
 	//glEnable(GL_DEPTH_TEST);
-	Plane p(0, 1, 0, 0);
+	Plane2 p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
 

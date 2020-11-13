@@ -89,6 +89,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Bounding_Box.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="libraries\DevIL\include\config.h" />
     <ClInclude Include="libraries\DevIL\include\devil_internal_exports.h" />
@@ -306,6 +307,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Bounding_Box.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Algorithm\Random\LCG.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Geometry\AABB.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Geometry\Capsule.cpp" />

@@ -193,6 +193,9 @@
     <ClCompile Include="libraries\MathGeoLib\include\Geometry\TriangleMesh.cpp">
       <Filter>Source\External Libraries\MathGeoLib</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Source\Modules\UI\GameObjects\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -834,6 +837,9 @@
     <ClInclude Include="libraries\MathGeoLib\include\Geometry\TriangleMesh.h">
       <Filter>Source\External Libraries\MathGeoLib</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Source\Modules\UI\GameObjects\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -898,6 +904,9 @@
     </Filter>
     <Filter Include="Source\FileManagers">
       <UniqueIdentifier>{00a18c22-98ef-47f0-bb66-a033bffb0718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Modules\UI\GameObjects\Components">
+      <UniqueIdentifier>{92311fdd-2f2f-427c-a8b1-510342af5e52}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

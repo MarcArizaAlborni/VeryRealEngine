@@ -37,6 +37,9 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 
 	geometrymanager = new ModuleGeometryManager(this);
 	renderer3D = new ModuleRenderer3D(this);
+
+
+	componentcamera = new ComponentCamera(this),
 	
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -58,7 +61,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	AddModule(inspector);
 	AddModule(resources);
 
-	
+	AddModule(componentcamera);
 	AddModule(renderer3D);
 	AddModule(geometrymanager);
 	

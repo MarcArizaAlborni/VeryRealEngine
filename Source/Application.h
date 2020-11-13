@@ -25,7 +25,7 @@
 #include "ModuleInspector.h"
 #include "ResourceManager.h"
 #include "FileSystem.h"
-
+#include "ComponentCamera.h"
 
 
 
@@ -44,6 +44,8 @@ public:
 	
 	ModuleGeometryManager* geometrymanager;
 	ModuleFileSystem* filemanager;
+	ComponentCamera* componentcamera;
+
 	//Windows & Menus
 	ModuleEditorMainMenuBar* mainMenubar;
 	ModuleEditorConfiguration* configWindow;
