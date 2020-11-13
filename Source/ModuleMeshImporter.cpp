@@ -54,10 +54,16 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 		StoredFile InformationToSend;
 		InformationToSend.Scene = scene;
 		bool ExistsinLibrary;
+		StoredFile* FileToLoad = new StoredFile();
+		
 
 		ExistsinLibrary=App->filemanager->CheckExistence_Mesh(InformationToSend);
 		if (ExistsinLibrary == false){
+
+			
 			App->filemanager->GenerateLibraryFile_Mesh(App->GiveRandomNum_Undefined(), InformationToSend);
+			/*InformationToSend = App->filemanager->LoadLibraryFile_Mesh();
+			scene = InformationToSend.Scene;*/
 		}
 		
 		bool ParentHasFound=false;
@@ -109,9 +115,11 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 			//ourGameObject->mesh_name=(std::string)MeshToLoad->mName;
 			
 
+
 			MeshToLoad->mNumVertices = scene->mMeshes[i]->mNumVertices;
 
 			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
+			
 
 			ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
 

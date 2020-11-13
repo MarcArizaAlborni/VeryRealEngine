@@ -35,7 +35,8 @@ public:
 	bool CheckExistence_Mesh(StoredFile Information);
 	bool GenerateLibraryFile(int id);
 
-	bool GenerateLibraryFile_Mesh(int id,  StoredFile Information);
+	StoredFile GenerateLibraryFile_Mesh(int id,  StoredFile Information);
+	StoredFile LoadLibraryFile_Mesh(int id);
 
 	bool Start();
 	
