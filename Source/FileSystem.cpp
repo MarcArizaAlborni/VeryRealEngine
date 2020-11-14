@@ -475,14 +475,68 @@ void ModuleFileSystem::TestingReadErrors(const char* filename, StoredFile FileTo
 	fclose(FileR);
 }
 
-void ModuleFileSystem::SaveInformationFile_Mesh(StoredFile FileToSave)
+void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 {
+
+	//Generating the Name/Path of the file
+	std::string Direction = "Assets/Library/";
+	std::string Extension = ".waf";
+	std::string idconversion = std::to_string(id);
+	std::string FinalPath = Direction + idconversion + Extension;
+	const char* FinalPath_C = FinalPath.c_str();
+	FileToStore.unique_id = id;
+	FileToStore.TypeOfItem = "We are Fine";
+
+	sizeof(FileToStore.Scene);
+	
+	FILE* FileW;
+	if ((FileW = fopen(FinalPath_C, "wb")) == NULL) {
+
+	}
+	else {
+		
+
+		fwrite(&FileToStore.Scene, sizeof(FileToStore.Scene),1 , FileW);
+	}
+
+	fclose(FileW);
+
+
+
+
+	//TestingReadErrors(FinalPath_C, Information);
+	
 
 }
 
 StoredFile ModuleFileSystem::LoadInformationFile_Mesh()
 {
-	return StoredFile();
+	StoredFile FileToLoad;
+	StoredFile* FileToLoadR = new StoredFile();
+	std::string Direction = "Assets/Library/";
+	std::string Extension = ".waf";
+	std::string idconversion = std::to_string(22597);
+	std::string FinalPath = Direction + idconversion + Extension;
+	const char* FinalPath_C = FinalPath.c_str();
+	
+
+	uint size;
+
+	FILE* FileR;
+	if ((FileR = fopen(FinalPath_C, "rb")) == NULL) {
+
+	}
+	else {
+
+
+		fread(&FileToLoadR->Scene, sizeof(aiScene), 1, FileR);
+	}
+
+	
+
+	fclose(FileR);
+
+	return FileToLoad;
 }
 
 bool ModuleFileSystem::CleanUp()

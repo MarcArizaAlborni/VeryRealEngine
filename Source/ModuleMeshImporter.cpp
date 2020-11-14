@@ -47,6 +47,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 	//LOGFIX("Importing Model %s...",file_path);	
 
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
+	
 
 	if (scene != nullptr && scene->HasMeshes()) {
 
@@ -74,11 +75,11 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 		StoredFile InformationToSend;
 		InformationToSend.Scene = scene;
 
-		App->filemanager->SaveInformationFile_Mesh(InformationToSend);
+		App->filemanager->SaveInformationFile_Mesh(App->GiveRandomNum_Undefined(),InformationToSend);
 
 		StoredFile InformationToLoad;
 
-		//InformationToLoad=App->filemanager->LoadInformationFile_Mesh();
+		InformationToLoad=App->filemanager->LoadInformationFile_Mesh();
 
 		
 		

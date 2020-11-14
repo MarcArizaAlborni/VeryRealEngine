@@ -9,6 +9,7 @@
 struct aiScene;
 struct aiNode;
 
+
 struct PointFull
 {
 	int number;
@@ -25,6 +26,8 @@ struct StoredFile {
 	std::string TypeOfItem = "";
 
 };
+
+
 struct FileSystemPaths {
 
 
@@ -51,9 +54,11 @@ public:
 	
 	void TestingReadErrors(const char* filename,StoredFile File);
 	
-	void SaveInformationFile_Mesh(StoredFile FileToSave);
 
+	void SaveInformationFile_Mesh(int id,StoredFile FileToSave);
 	StoredFile LoadInformationFile_Mesh();
+
+	
 
 	bool CleanUp();
 
