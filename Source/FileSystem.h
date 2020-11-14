@@ -51,6 +51,10 @@ public:
 	
 	void TestingReadErrors(const char* filename,StoredFile File);
 	
+	void SaveInformationFile_Mesh(StoredFile FileToSave);
+
+	StoredFile LoadInformationFile_Mesh();
+
 	bool CleanUp();
 
 public:

@@ -71,6 +71,15 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 		//	scene = InformationToSend.Scene;
 		//}
 
+		StoredFile InformationToSend;
+		InformationToSend.Scene = scene;
+
+		App->filemanager->SaveInformationFile_Mesh(InformationToSend);
+
+		StoredFile InformationToLoad;
+
+		//InformationToLoad=App->filemanager->LoadInformationFile_Mesh();
+
 		
 		
 		bool ParentHasFound=false;

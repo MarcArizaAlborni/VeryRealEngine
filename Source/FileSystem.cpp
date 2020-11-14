@@ -475,6 +475,16 @@ void ModuleFileSystem::TestingReadErrors(const char* filename, StoredFile FileTo
 	fclose(FileR);
 }
 
+void ModuleFileSystem::SaveInformationFile_Mesh(StoredFile FileToSave)
+{
+
+}
+
+StoredFile ModuleFileSystem::LoadInformationFile_Mesh()
+{
+	return StoredFile();
+}
+
 bool ModuleFileSystem::CleanUp()
 {
 	return true;
