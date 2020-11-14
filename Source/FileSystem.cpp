@@ -391,7 +391,6 @@ void ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Information)
 	
 	
 	
-	
 
 	StoredFilesListed.push_back(Information);
 
@@ -464,19 +463,22 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 	FILE* FileW;
 	
 
-
+	int a = 1999;
+	float b = 3000;
+	std::string type = "We are Fine";
 
 
 	
-	uint a=sizeof(*FileToStore.Scene->mMeshes[0]->mVertices);
+	
 	if ((FileW = fopen(FinalPath_C, "wb")) == NULL) {
 
 	}
 	else {
 		
 		
-
-		
+		fwrite(&a, sizeof(int), 1, FileW);
+		fwrite(&b, sizeof(float), 1, FileW);
+		fwrite(&type, sizeof(std::string), 1, FileW);
 		
 
 	}
@@ -501,14 +503,20 @@ StoredFile ModuleFileSystem::LoadInformationFile_Mesh()
 	aiVector3D* Vec2;
 	uint size;
 
+	int ar;
+	float br;
+	std::string typer;
+
+
 	FILE* FileR;
 	if ((FileR = fopen(FinalPath_C, "rb")) == NULL) {
 
 	}
 	else {
-
-
-		fread(&Vec2, 12, 1, FileR);
+		fread(&ar, sizeof(int), 1, FileR);
+		fread(&br, sizeof(float), 1, FileR);
+		fread(&typer, sizeof(std::string), 1, FileR);
+		
 	}
 
 	

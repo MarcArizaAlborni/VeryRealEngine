@@ -81,7 +81,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 		StoredFile InformationToLoad;
 
-		//InformationToLoad=App->filemanager->LoadInformationFile_Mesh();
+		InformationToLoad=App->filemanager->LoadInformationFile_Mesh();
 
 		
 		
