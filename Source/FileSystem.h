@@ -41,7 +41,7 @@ public:
 	int CheckExistence_Mesh(StoredFile Information);
 	bool GenerateLibraryFile(int id);
 
-	StoredFile GenerateLibraryFile_Mesh(int id,  StoredFile Information);
+	void GenerateLibraryFile_Mesh(int id,  StoredFile Information);
 	StoredFile LoadLibraryFile_Mesh(int id);
 
 	bool Start();
@@ -49,7 +49,7 @@ public:
 	std::vector<StoredFile> StoredFilesListed;
 	update_status Update(float dt);
 	
-	void TestingReadErrors(const char* filename);
+	void TestingReadErrors(const char* filename,StoredFile File);
 	
 	bool CleanUp();
 

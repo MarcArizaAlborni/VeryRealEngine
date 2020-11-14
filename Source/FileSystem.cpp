@@ -105,14 +105,29 @@ int ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
 		}
 	}
 	else {
+		FILE* fptr2;
+		StoredFile ToCheckInfo2;
+		int a;
+		std::string type;
+		if ((fptr2 = fopen("Assets/Library/22597.waf", "rb")) == NULL) {
 
-		
+		}
+		else {
+			//fread(&ToCheckInfo2, sizeof(StoredFile), sizeof(StoredFile), fptr2);
+
+			//fread(&a, sizeof(int), sizeof(int), fptr2);
+			//fread(&type, sizeof(std::string), sizeof(std::string), fptr2);
+
+			//fread(&Information.Scene, sizeof(const aiScene*), sizeof(const aiScene*), fptr2);
+
+			//fread(&Information.Scene, sizeof(const aiScene*), sizeof(const aiScene*), fptr2);
+		}
 		
 		std::string path = "Assets/Library/";
 		for (const auto& entry : fs::directory_iterator(path)) {
 
 			StoredFile ToCheckInfo;
-			FILE* fptr2;
+			
 			//Existing File
 			std::string PathName = entry.path().string();
 			const char* PathName_C = PathName.c_str();
@@ -124,14 +139,16 @@ int ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
 			std::string FinalPath =  PathName;
 			const char* FinalPath_C = FinalPath.c_str();
 
-			
+			//TestingReadErrors(FinalPath_C, Information); 
 			
 			if ((fptr2 = fopen(FinalPath_C, "rb")) == NULL) {
 
 			}
 			else {
 
-				fread(&ToCheckInfo, sizeof(aiScene), 1, fptr2);
+				fread(&ToCheckInfo, sizeof(StoredFile), sizeof(StoredFile), fptr2);
+
+
 				
 				RetUnique_id = ToCheckInfo.unique_id;
 
@@ -341,9 +358,9 @@ fwrite(&id_normals, sizeof(int), 1, fptr);
 	return true;
 }
 
-StoredFile ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Information)
+void ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Information)
 {
-	FILE* fptr; //File 
+	
 
 	//Generating the Name/Path of the file
 	std::string Direction = "Assets/Library/";
@@ -352,7 +369,7 @@ StoredFile ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Informa
 	std::string FinalPath = Direction + idconversion + Extension;
 	const char* FinalPath_C = FinalPath.c_str();
 	Information.unique_id = id;
-
+	Information.TypeOfItem = "We are Fine";
 	
 	PointFull Testing = {1789,"My Name is",20.0,"Marc"};
 
@@ -361,64 +378,28 @@ StoredFile ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Informa
 
 	}
 	else {
+		// not 1 the 3rd value must be the size of the struct too
 
-
-		fwrite(&Testing, sizeof(StoredFile), 1, FileW);
-
+		//fwrite(&Information.unique_id, sizeof(int), sizeof(int), FileW);
+		//fwrite(&Information.TypeOfItem, sizeof(std::string), sizeof(std::string), FileW);
+		
+		fwrite(&Information.Scene, sizeof( struct aiScene), sizeof( struct aiScene*), FileW);
 	}
 
 	fclose(FileW);
 
-	TestingReadErrors(FinalPath_C);
-	FILE* FileR;
-	
-
-	PointFull TestingR;
-
-	if ((FileR = fopen(FinalPath_C, "rb")) == NULL) {
-
-	}
-	else {
-
-
-		fread(&TestingR, sizeof(aiScene), 1, FileR);
-
-	}
-	
-	fclose(FileR);
-
-	if ((fptr = fopen(FinalPath_C, "wb")) == NULL) {
-
-	}
-	else {
-	
-	
-		fwrite(&Information, sizeof(StoredFile), 1, fptr);
-	
-	}
-
+	//TestingReadErrors(FinalPath_C, Information);
 
 	
-	fclose(fptr);
+
 	
-	StoredFile File;
 	
-	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
-
-	}
-	else {
-
-
-		fread(&File, sizeof(aiScene), 1, fptr);
-
-	}
 	
-	fclose(fptr);
 	
 	//SceneToReturn = Information.Scene;
 
-	StoredFilesListed.push_back(File);
-	return File;
+	StoredFilesListed.push_back(Information);
+
 
 	
 
@@ -473,12 +454,13 @@ update_status ModuleFileSystem::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModuleFileSystem::TestingReadErrors(const char* filename)
+void ModuleFileSystem::TestingReadErrors(const char* filename, StoredFile FileToSave)
 {
 	FILE* FileR;
 
 
 	PointFull TestingR;
+	StoredFile TestFile;
 
 	if ((FileR = fopen(filename, "rb")) == NULL) {
 
@@ -486,7 +468,7 @@ void ModuleFileSystem::TestingReadErrors(const char* filename)
 	else {
 
 
-		fread(&TestingR, sizeof(aiScene), 1, FileR);
+		fread(&TestFile, sizeof(StoredFile), sizeof(StoredFile), FileR);
 
 	}
 
