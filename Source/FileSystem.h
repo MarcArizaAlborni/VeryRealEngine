@@ -10,17 +10,15 @@ struct aiScene;
 struct aiNode;
 
 
-struct PointFull
-{
-	int number;
-	const char* text;
-	double real_number; 
-	const char* text2;
-};
 
 struct StoredFile {
 
 	const aiScene* Scene;
+	
+	
+	
+
+
 	bool is_EmptyParent = false;
 	int unique_id = 0;
 	std::string TypeOfItem = "";
@@ -57,6 +55,8 @@ public:
 
 	void SaveInformationFile_Mesh(int id,StoredFile FileToSave);
 	StoredFile LoadInformationFile_Mesh();
+
+
 
 	
 

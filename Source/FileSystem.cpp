@@ -371,32 +371,27 @@ void ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Information)
 	Information.unique_id = id;
 	Information.TypeOfItem = "We are Fine";
 	
-	PointFull Testing = {1789,"My Name is",20.0,"Marc"};
+
 
 	FILE* FileW;
 	if ((FileW = fopen(FinalPath_C, "wb")) == NULL) {
 
 	}
 	else {
-		// not 1 the 3rd value must be the size of the struct too
-
-		//fwrite(&Information.unique_id, sizeof(int), sizeof(int), FileW);
-		//fwrite(&Information.TypeOfItem, sizeof(std::string), sizeof(std::string), FileW);
 		
-		fwrite(&Information.Scene, sizeof( struct aiScene), sizeof( struct aiScene*), FileW);
 	}
 
 	fclose(FileW);
 
-	//TestingReadErrors(FinalPath_C, Information);
-
 	
 
 	
+
 	
 	
 	
-	//SceneToReturn = Information.Scene;
+	
+	
 
 	StoredFilesListed.push_back(Information);
 
@@ -435,15 +430,7 @@ StoredFile ModuleFileSystem::LoadLibraryFile_Mesh(int id)
 
 bool ModuleFileSystem::Start()
 {
-	//for (int times = 0; times <= 10; ++times) {
-	//	int val = App->GiveRandomNum_Undefined();
-
-	//	/*std::string ValueStr = std::to_string(val);
-	//	const char* val_C = ValueStr.c_str();*/
-
-
-	//	GenerateLibraryFile(val);
-	//}
+	
 
 	return true;
 }
@@ -459,20 +446,7 @@ void ModuleFileSystem::TestingReadErrors(const char* filename, StoredFile FileTo
 	FILE* FileR;
 
 
-	PointFull TestingR;
-	StoredFile TestFile;
-
-	if ((FileR = fopen(filename, "rb")) == NULL) {
-
-	}
-	else {
-
-
-		fread(&TestFile, sizeof(StoredFile), sizeof(StoredFile), FileR);
-
-	}
-
-	fclose(FileR);
+	
 }
 
 void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
@@ -487,25 +461,30 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 	FileToStore.unique_id = id;
 	FileToStore.TypeOfItem = "We are Fine";
 
-	sizeof(FileToStore.Scene);
-	
 	FILE* FileW;
+	
+
+
+
+
+	
+	uint a=sizeof(*FileToStore.Scene->mMeshes[0]->mVertices);
 	if ((FileW = fopen(FinalPath_C, "wb")) == NULL) {
 
 	}
 	else {
 		
+		
 
-		fwrite(&FileToStore.Scene, sizeof(FileToStore.Scene),1 , FileW);
+		
+		
+
 	}
 
 	fclose(FileW);
 
 
 
-
-	//TestingReadErrors(FinalPath_C, Information);
-	
 
 }
 
@@ -519,7 +498,7 @@ StoredFile ModuleFileSystem::LoadInformationFile_Mesh()
 	std::string FinalPath = Direction + idconversion + Extension;
 	const char* FinalPath_C = FinalPath.c_str();
 	
-
+	aiVector3D* Vec2;
 	uint size;
 
 	FILE* FileR;
@@ -529,7 +508,7 @@ StoredFile ModuleFileSystem::LoadInformationFile_Mesh()
 	else {
 
 
-		fread(&FileToLoadR->Scene, sizeof(aiScene), 1, FileR);
+		fread(&Vec2, 12, 1, FileR);
 	}
 
 	
@@ -538,6 +517,9 @@ StoredFile ModuleFileSystem::LoadInformationFile_Mesh()
 
 	return FileToLoad;
 }
+
+
+
 
 bool ModuleFileSystem::CleanUp()
 {

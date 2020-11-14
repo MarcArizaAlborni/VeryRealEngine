@@ -5,10 +5,8 @@
 #include "Definitions.h"
 #include <fstream>
 #include "ModuleCamera3D.h"
-
 #include <random>
 #include "libraries/PCG/pcg_random.hpp"
-
 #include "libraries/PCG/pcg_extras.hpp"
 
 
