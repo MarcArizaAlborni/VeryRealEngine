@@ -91,7 +91,7 @@ public:
 	uint					last_sec_frame_count = 0;
 
 	int						capped_ms = -1;
-	int						max_framerateCap = 120;
+	int						max_framerateCap = 1000;
 	int						Bars = 100; // Histogram bars
 
 	std::string name;
