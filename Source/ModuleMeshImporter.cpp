@@ -42,16 +42,30 @@ update_status ModuleMeshImporter::Update(float dt)
 }
 
 // Load a mesh with index and vertex
-void ModuleMeshImporter::LoadMesh(const char* file_path)
+void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 {
 	//LOGFIX("Importing Model %s...",file_path);	
 
-	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
-	
+	bool ReadyToLoad = false;
+	const aiScene* scene;
+	if (LoadfromWAF == false) {
+		scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
+		if (scene != nullptr) {
+			ReadyToLoad = true;
+		}
+	}
 
-	if (scene != nullptr && scene->HasMeshes()) {
+	if (LoadfromWAF == true) {
+		ReadyToLoad = true;
+	}
 
-		aiNode* rootNodeScene=scene->mRootNode;
+
+
+	if (ReadyToLoad ==true) {
+
+		if (LoadfromWAF == false) {
+			aiNode* rootNodeScene = scene->mRootNode;
+		}
 
 		//THE ERRROR IS EITHER WRITING THE INFORMATION OR THE LOOP 
 
@@ -74,15 +88,28 @@ void ModuleMeshImporter::LoadMesh(const char* file_path)
 
 
 		LoadedFile InformationToRecieve;
-		StoredFile InformationToSend;
-		InformationToSend.Scene = scene;
+		
 
-		//App->filemanager->SaveInformationFile_Mesh(App->GiveRandomNum_Undefined(),InformationToSend);
-		//App->filemanager->LoadInformationFile_Mesh();
-		//InformationToRecieve = App->filemanager->LoadedResources.back();
+		
+
+		if(LoadfromWAF==false){
+		 StoredFile InformationToSend;
+		 InformationToSend.Scene = scene;
+		 App->filemanager->SaveInformationFile_Mesh(App->GiveRandomNum_Undefined(),InformationToSend);
+		}
+
+		App->filemanager->LoadInformationFile_Mesh();
+		InformationToRecieve = App->filemanager->LoadedResources.back();
 		
 		bool ParentHasFound=false;
 
+		/*if (InformationToRecieve.AmountMeshes > 1) {
+			GameObject* ItemParentMesh = new GameObject();
+			ItemParentMesh->is_Drawn = true;
+			ItemParentMesh->is_EmptyParent = true;
+			AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL,true);
+			ParentHasFound = true;
+		}*/
 		if (scene->mNumMeshes > 1) {
 
 			GameObject* ItemParentMesh = new GameObject();

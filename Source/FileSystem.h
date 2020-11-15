@@ -90,7 +90,7 @@ public:
 	
 
 	void SaveInformationFile_Mesh(int id,StoredFile FileToSave);
-	LoadedFile LoadInformationFile_Mesh();
+	LoadedFile* LoadInformationFile_Mesh();
 
 
 	std::vector<LoadedFile> LoadedResources;

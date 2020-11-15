@@ -515,9 +515,9 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 
 }
 
-LoadedFile ModuleFileSystem::LoadInformationFile_Mesh()
+LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh()
 {
-	LoadedFile FileToLoad;
+	LoadedFile* FileToLoad = new LoadedFile();
 	std::string Direction = "Assets/Library/";
 	std::string Extension = ".waf";
 	std::string idconversion = std::to_string(22597);
@@ -532,11 +532,11 @@ LoadedFile ModuleFileSystem::LoadInformationFile_Mesh()
 
 	}
 	else {
-		fread(&FileToLoad.File_Id, sizeof(int), 1, FileR);
-		fread(&FileToLoad.FileType, sizeof(std::string), 1, FileR);
-		fread(&FileToLoad.AmountMeshes, sizeof(uint), 1, FileR);
+		fread(&FileToLoad->File_Id, sizeof(int), 1, FileR);
+		fread(&FileToLoad->FileType, sizeof(std::string), 1, FileR);
+		fread(&FileToLoad->AmountMeshes, sizeof(uint), 1, FileR);
 
-		for (int mMeshCount = 0; mMeshCount < FileToLoad.AmountMeshes; ++mMeshCount) {
+		for (int mMeshCount = 0; mMeshCount < FileToLoad->AmountMeshes; ++mMeshCount) {
 
 			LoadedFile_Mesh LoadedMesh;
 
@@ -578,7 +578,7 @@ LoadedFile ModuleFileSystem::LoadInformationFile_Mesh()
 
 			}
 
-			FileToLoad.MeshInfo.push_back(LoadedMesh);
+			FileToLoad->MeshInfo.push_back(LoadedMesh);
 		}
 		
 	}
@@ -588,7 +588,7 @@ LoadedFile ModuleFileSystem::LoadInformationFile_Mesh()
 
 	fclose(FileR);
 
-	LoadedResources.push_back(FileToLoad);
+	LoadedResources.push_back(*FileToLoad);
 
 	return FileToLoad;
 }
