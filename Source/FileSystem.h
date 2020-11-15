@@ -9,6 +9,34 @@
 struct aiScene;
 struct aiNode;
 
+struct LoadedFile_Mesh_Faces {
+
+	uint AmountIndex;
+	std::vector<uint> Index;
+
+
+};
+struct LoadedFile_Mesh {
+
+	
+	uint AmountVertex;
+	std::vector<float> VertexX;
+	std::vector<float> VertexY;
+	std::vector<float> VertexZ;
+	uint AmountFaces;
+	std::vector<LoadedFile_Mesh_Faces> FaceInfo;
+
+};
+
+
+struct LoadedFile {
+
+	int File_Id;
+	std::string FileType;
+	uint AmountMeshes;
+	std::vector<LoadedFile_Mesh> MeshInfo;
+	
+};
 
 
 struct StoredFile {
@@ -16,7 +44,13 @@ struct StoredFile {
 	const aiScene* Scene;
 	
 	
-	
+	//////
+
+	int File_Id;
+	std::string FileType;
+	uint AmountMeshes;
+
+	//std::vector<StoredFile_Mesh> MeshInfo;
 
 
 	bool is_EmptyParent = false;
@@ -24,6 +58,8 @@ struct StoredFile {
 	std::string TypeOfItem = "";
 
 };
+
+
 
 
 struct FileSystemPaths {
@@ -54,10 +90,10 @@ public:
 	
 
 	void SaveInformationFile_Mesh(int id,StoredFile FileToSave);
-	StoredFile LoadInformationFile_Mesh();
+	LoadedFile LoadInformationFile_Mesh();
 
 
-
+	std::vector<LoadedFile> LoadedResources;
 	
 
 	bool CleanUp();

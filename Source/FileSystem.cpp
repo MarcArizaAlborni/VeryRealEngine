@@ -458,54 +458,73 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 	std::string FinalPath = Direction + idconversion + Extension;
 	const char* FinalPath_C = FinalPath.c_str();
 	FileToStore.unique_id = id;
-	FileToStore.TypeOfItem = "We are Fine";
+	FileToStore.TypeOfItem = "Mesh";
+
+	std::string TypeOfFile = "Mesh";
 
 	FILE* FileW;
-	
-
-	int a = 1999;
-	float b = 3000;
-	std::string type = "We are Fine";
-
-
-	
 	
 	if ((FileW = fopen(FinalPath_C, "wb")) == NULL) {
 
 	}
 	else {
+
+		fwrite(&id, sizeof(int), 1, FileW); // 1
+		fwrite(&TypeOfFile, sizeof(std::string), 1, FileW);//2
 		
+		uint WnumMeshes = FileToStore.Scene->mNumMeshes;
+		fwrite(&WnumMeshes, sizeof(uint), 1, FileW); // 3
 		
-		fwrite(&a, sizeof(int), 1, FileW);
-		fwrite(&b, sizeof(float), 1, FileW);
-		fwrite(&type, sizeof(std::string), 1, FileW);
+		for (int mMeshesSize = 0; mMeshesSize < WnumMeshes; ++mMeshesSize) {
 		
+			uint WnumVertices = FileToStore.Scene->mMeshes[mMeshesSize]->mNumVertices;
+
+			fwrite(&WnumVertices, sizeof(uint), 1, FileW); // 4
+	
+			for (int mVerticesSize = 0; mVerticesSize < WnumVertices; ++mVerticesSize) {
+
+				float WVerticesX = FileToStore.Scene->mMeshes[mMeshesSize]->mVertices[mVerticesSize].x;
+				float WVerticesY = FileToStore.Scene->mMeshes[mMeshesSize]->mVertices[mVerticesSize].y;
+				float WVerticesZ = FileToStore.Scene->mMeshes[mMeshesSize]->mVertices[mVerticesSize].z;
+
+				fwrite(&WVerticesX, sizeof(float), 1, FileW);  //5
+				fwrite(&WVerticesY, sizeof(float), 1, FileW);  //6
+				fwrite(&WVerticesZ, sizeof(float), 1, FileW);  //7
+			}
+
+			uint WnumFaces = FileToStore.Scene->mMeshes[mMeshesSize]->mNumFaces;
+
+			fwrite(&WnumFaces, sizeof(uint), 1, FileW); // 8
+
+			for (int mFacesSize = 0; mFacesSize < WnumFaces; ++mFacesSize) {
+
+				uint WnumIndex = FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mNumIndices;
+				fwrite(&WnumIndex, sizeof(uint), 1, FileW); // 9
+
+				for (int mIndexSize = 0; mIndexSize < WnumIndex; ++mIndexSize) {
+
+					uint WIndex =FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices[mIndexSize];
+					fwrite(&WIndex, sizeof(uint), 1, FileW); // 10
+				}
+			}
+		}
 
 	}
 
 	fclose(FileW);
 
-
-
-
 }
 
-StoredFile ModuleFileSystem::LoadInformationFile_Mesh()
+LoadedFile ModuleFileSystem::LoadInformationFile_Mesh()
 {
-	StoredFile FileToLoad;
-	StoredFile* FileToLoadR = new StoredFile();
+	LoadedFile FileToLoad;
 	std::string Direction = "Assets/Library/";
 	std::string Extension = ".waf";
 	std::string idconversion = std::to_string(22597);
 	std::string FinalPath = Direction + idconversion + Extension;
 	const char* FinalPath_C = FinalPath.c_str();
 	
-	aiVector3D* Vec2;
-	uint size;
-
-	int ar;
-	float br;
-	std::string typer;
+	
 
 
 	FILE* FileR;
@@ -513,15 +532,63 @@ StoredFile ModuleFileSystem::LoadInformationFile_Mesh()
 
 	}
 	else {
-		fread(&ar, sizeof(int), 1, FileR);
-		fread(&br, sizeof(float), 1, FileR);
-		fread(&typer, sizeof(std::string), 1, FileR);
+		fread(&FileToLoad.File_Id, sizeof(int), 1, FileR);
+		fread(&FileToLoad.FileType, sizeof(std::string), 1, FileR);
+		fread(&FileToLoad.AmountMeshes, sizeof(uint), 1, FileR);
+
+		for (int mMeshCount = 0; mMeshCount < FileToLoad.AmountMeshes; ++mMeshCount) {
+
+			LoadedFile_Mesh LoadedMesh;
+
+			fread(&LoadedMesh.AmountVertex, sizeof(uint), 1, FileR);
+
+			for (int mVertexCount = 0; mVertexCount < LoadedMesh.AmountVertex; ++mVertexCount) {
+
+				 float X;
+				 float Y;
+				 float Z;
+
+
+				fread(&X, sizeof(float), 1, FileR);
+				fread(&Y, sizeof(float), 1, FileR);
+				fread(&Z, sizeof(float), 1, FileR);
+
+				LoadedMesh.VertexX.push_back(X);
+				LoadedMesh.VertexY.push_back(Y);
+				LoadedMesh.VertexZ.push_back(Z);
+
+
+			}
+
+			fread(&LoadedMesh.AmountFaces, sizeof(uint), 1, FileR);
+
+			for (int mFaceCount = 0; mFaceCount < LoadedMesh.AmountFaces; ++mFaceCount) {
+
+				LoadedFile_Mesh_Faces LoadedFace;
+
+				fread(&LoadedFace.AmountIndex, sizeof(uint), 1, FileR);
+
+				for (int mIndexCount = 0; mIndexCount < LoadedFace.AmountIndex; ++mIndexCount) {
+
+					uint Index;
+					fread(&Index, sizeof(uint), 1, FileR);
+					LoadedFace.Index.push_back(Index);
+				}
+
+
+			}
+
+			FileToLoad.MeshInfo.push_back(LoadedMesh);
+		}
 		
 	}
 
+	FileToLoad;
 	
 
 	fclose(FileR);
+
+	LoadedResources.push_back(FileToLoad);
 
 	return FileToLoad;
 }
