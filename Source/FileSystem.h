@@ -8,7 +8,7 @@
 
 struct aiScene;
 struct aiNode;
-
+struct Vertex_Sub;
 struct LoadedFile_Mesh_Faces {
 
 	uint AmountIndex;
@@ -23,6 +23,7 @@ struct LoadedFile_Mesh {
 	std::vector<float> VertexX;
 	std::vector<float> VertexY;
 	std::vector<float> VertexZ;
+	std::vector<Vertex_Sub> Vertex;
 	uint AmountFaces;
 	std::vector<LoadedFile_Mesh_Faces> FaceInfo;
 

@@ -126,38 +126,8 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 			
 			aiMesh* MeshToLoad = scene->mMeshes[i];
 
-			////////////////// TRYING TO MAKE MODELS LOAD POSITIONS
-
-			/*if (MeshToLoad->HasPositions()) {
-				vec3 MedianPoint = { 0,0,0 };
-				vec3 VertexPositionAdd = { 0,0,0 };
-
-				for (int m = 0; m < MeshToLoad->mNumVertices; ++m) {
-
-					VertexPositionAdd.x += MeshToLoad->mVertices->x;
-					VertexPositionAdd.y += MeshToLoad->mVertices->y;
-					VertexPositionAdd.z += MeshToLoad->mVertices->z;
-
-				}
-
-				MedianPoint.x = VertexPositionAdd.x / MeshToLoad->mNumVertices;
-				MedianPoint.y = VertexPositionAdd.y / MeshToLoad->mNumVertices;
-				MedianPoint.z = VertexPositionAdd.z / MeshToLoad->mNumVertices;
-
-				ourGameObject->Mesh_Transform_Modifiers.VectorTranslation.x = MedianPoint.x;
-				ourGameObject->Mesh_Transform_Modifiers.VectorTranslation.y = MedianPoint.y;
-				ourGameObject->Mesh_Transform_Modifiers.VectorTranslation.z = MedianPoint.z;
-				
-			}*/
 			
-
-			/////////////////
-
-			
-			//ourGameObject->mesh_name=(std::string)MeshToLoad->mName;
-			
-
-
+		
 			MeshToLoad->mNumVertices = scene->mMeshes[i]->mNumVertices;
 
 			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
@@ -208,8 +178,9 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 
-
+		
 			if (ParentHasFound == true) {
+
 				AddMeshToListMeshesOnScene(ourGameObject, true, NULL);
 			}
 			else {

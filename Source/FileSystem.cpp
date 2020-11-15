@@ -544,19 +544,17 @@ LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh()
 
 			for (int mVertexCount = 0; mVertexCount < LoadedMesh.AmountVertex; ++mVertexCount) {
 
-				 float X;
-				 float Y;
-				 float Z;
+				Vertex_Sub Vertex;
+				
 
 
-				fread(&X, sizeof(float), 1, FileR);
-				fread(&Y, sizeof(float), 1, FileR);
-				fread(&Z, sizeof(float), 1, FileR);
+				fread(&Vertex.x, sizeof(float), 1, FileR);
+				fread(&Vertex.y, sizeof(float), 1, FileR);
+				fread(&Vertex.z, sizeof(float), 1, FileR);
 
-				LoadedMesh.VertexX.push_back(X);
-				LoadedMesh.VertexY.push_back(Y);
-				LoadedMesh.VertexZ.push_back(Z);
+				
 
+				LoadedMesh.Vertex.push_back(Vertex);
 
 			}
 
