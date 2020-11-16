@@ -50,6 +50,7 @@ public:
 	void DrawMeshTextured(GameObject* mesh);
 
 	//Normals
+	void DrawVertexNormals(GameObject* object);
 	void DrawFaceNormals(GameObject* object);
 
 	//------------ CONSOLE STUFF

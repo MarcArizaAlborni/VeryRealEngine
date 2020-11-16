@@ -207,6 +207,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	}
 	
 	DrawFaceNormals(mesh);
+	DrawVertexNormals(mesh);
 
 	if (mesh->is_Textured == true) {
 		
@@ -234,127 +235,57 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	
 }
 
+void ModuleGeometryManager::DrawVertexNormals(GameObject* object)
+{
+	/*if (object->showVertexNormals == true)
+	{
+		for (int j = 0; j < object->MeshData.num_vertex; ++j)
+		{
+			float3 vert = object->MeshData.vertex[j];
+			float3 norm = object->MeshData.normals[j];
+
+			glLineWidth(1.5f);
+			glBegin(GL_LINES);
+
+			glVertex3f(vert.x, vert.y, vert.z);
+			glVertex3f(vert.x + norm.x, vert.y + norm.y, vert.z + norm.z);
+		}
+
+		glEnd();
+	}*/
+}
+
 // Draw normals with faces and triangles
 void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
 {
 
-	if (object->showFaceNormals == true)
+	/*if (object->showFaceNormals == true)
 	{
-		float3 face;
-		vec3 normals;
-
-		float3 vertex1, vertex2, vertex3;
+		float3 mid;
+		float3 normal;
 
 		for (int i = 0; i < object->MeshData.num_index; i += 3)
 		{
-			Vertex_Sub vert1 = object->MeshData.vertex[object->MeshData.index[i]];
-			Vertex_Sub vert2 = object->MeshData.vertex[object->MeshData.index[i + 1]];
-			Vertex_Sub vert3 = object->MeshData.vertex[object->MeshData.index[i + 2]];
+			float3 vert1 = object->MeshData.vertex[object->MeshData.index[i]];
+			float3 vert2 = object->MeshData.vertex[object->MeshData.index[i + 1]];
+			float3 vert3 = object->MeshData.vertex[object->MeshData.index[i + 2]];
 
 
-			vertex1.x = vert1.x;
-			vertex1.y = vert1.y;
-			vertex1.z = vert1.z;
+			mid = (vert1 + vert2 + vert3) / 3;
 
-			vertex2.x = vert2.x;
-			vertex2.y = vert2.y;
-			vertex2.z = vert2.z;
+			normal = Cross((vert2 - vert1), (vert3 - vert1));
+			normal.Normalize();
 
-			vertex3.x = vert3.x;
-			vertex3.y = vert3.y;
-			vertex3.z = vert3.z;
-
-			face.x = (vertex1.x + vertex2.x + vertex3.x) / 3;
-			face.y = (vertex1.y + vertex2.y + vertex3.y) / 3;
-			face.z = (vertex1.z + vertex2.z + vertex3.z) / 3;
-
-			vec3 edge_a;
-			edge_a.x = vertex2.x - vertex1.x;
-			edge_a.y = vertex2.y - vertex1.y;
-			edge_a.z = vertex2.z - vertex1.z;
-
-			vec3 edge_b;
-			edge_b.x = vertex3.x - vertex1.x;
-			edge_b.y = vertex3.y - vertex1.y;
-			edge_b.z = vertex3.z - vertex1.z;
-
-			//Cross product
-			normals = cross(edge_a, edge_b);
-			vec3 final_normal;
-			final_normal=normalize(normals);
-			
-
+			glLineWidth(1.5f);
 			glBegin(GL_LINES);
-			glColor3f(255, 192, 203);
-			glVertex3f(face.x, face.y, face.z);
-			glVertex3f(face.x + final_normal.x, face.y + final_normal.y, face.z + final_normal.z);
-
+			glVertex3f(mid.x, mid.y, mid.z);
+			glVertex3f(mid.x + normal.x, mid.y + normal.y, mid.z + normal.z );
 			
 
 		}
 
 		glEnd();
-	}
-
-
-	if (object->showVertexNormals == true)
-	{
-		float3 face;
-		vec3 normals;
-
-		float3 vertex1, vertex2, vertex3;
-
-		for (int i = 0; i < object->MeshData.num_index; i += 3)
-		{
-			Vertex_Sub vert1 = object->MeshData.vertex[object->MeshData.index[i]];
-			Vertex_Sub vert2 = object->MeshData.vertex[object->MeshData.index[i + 1]];
-			Vertex_Sub vert3 = object->MeshData.vertex[object->MeshData.index[i + 2]];
-
-
-			vertex1.x = vert1.x;
-			vertex1.y = vert1.y;
-			vertex1.z = vert1.z;
-
-			vertex2.x = vert2.x;
-			vertex2.y = vert2.y;
-			vertex2.z = vert2.z;
-
-			vertex3.x = vert3.x;
-			vertex3.y = vert3.y;
-			vertex3.z = vert3.z;
-
-			face.x = (vertex1.x + vertex2.x + vertex3.x) / 3;
-			face.y = (vertex1.y + vertex2.y + vertex3.y) / 3;
-			face.z = (vertex1.z + vertex2.z + vertex3.z) / 3;
-
-			vec3 edge_a;
-			edge_a.x = vertex2.x - vertex1.x;
-			edge_a.y = vertex2.y - vertex1.y;
-			edge_a.z = vertex2.z - vertex1.z;
-
-			vec3 edge_b;
-			edge_b.x = vertex3.x - vertex1.x;
-			edge_b.y = vertex3.y - vertex1.y;
-			edge_b.z = vertex3.z - vertex1.z;
-
-			//Cross product
-			normals = cross(edge_a, edge_b);
-			vec3 final_normal;
-			final_normal = normalize(normals);
-
-
-			glBegin(GL_LINES);
-			glColor3f(255, 192, 203);
-			//glVertex3f(face.x, face.y, face.z);
-			glVertex3f(face.x + final_normal.x, face.y + final_normal.y, face.z + final_normal.z);
-
-			 // THIS IS THE vertex normals function //glBegin(GL_LINES);     glColor4f(1.0f, 1.0f, 0.0f, 1.0f);      for (uint i = 0; i < mesh->size[Mesh::vertex] * 3; i += 3) { glVertex3f(mesh->vertices[i], mesh->vertices[i + 1], mesh->vertices[i + 2]);         glVertex3f(mesh->vertices[i] + mesh->normals[i], mesh->vertices[i + 1] + mesh->normals[i + 1], mesh->vertices[i + 2] + mesh->normals[i + 2]); }      glColor4f(1.0f, 1.0f, 1.0f, 1.0f);     glEnd();
-
-		}
-
-		glEnd();
-	}
-		
+	}*/
 
 }
 
