@@ -237,43 +237,50 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 
 void ModuleGeometryManager::DrawVertexNormals(GameObject* object)
 {
-	/*if (object->showVertexNormals == true)
+	if (object->showVertexNormals == true)
 	{
 		for (int j = 0; j < object->MeshData.num_vertex; ++j)
 		{
-			float3 vert = object->MeshData.vertex[j];
-			float3 norm = object->MeshData.normals[j];
+			Vertex_Sub vert = object->MeshData.vertex[j];
+			float norm = object->MeshData.normals[j]; //?????
+
+			float3 vertF = { vert.x,vert.y,vert.z };
+			float3 normF = { norm ,norm ,norm };
 
 			glLineWidth(1.5f);
 			glBegin(GL_LINES);
 
 			glVertex3f(vert.x, vert.y, vert.z);
-			glVertex3f(vert.x + norm.x, vert.y + norm.y, vert.z + norm.z);
+			glVertex3f(vert.x + normF.x, vert.y + normF.y, vert.z + normF.z);
 		}
 
 		glEnd();
-	}*/
+	}
 }
 
 // Draw normals with faces and triangles
 void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
 {
 
-	/*if (object->showFaceNormals == true)
+	if (object->showFaceNormals == true)
 	{
 		float3 mid;
 		float3 normal;
 
 		for (int i = 0; i < object->MeshData.num_index; i += 3)
 		{
-			float3 vert1 = object->MeshData.vertex[object->MeshData.index[i]];
-			float3 vert2 = object->MeshData.vertex[object->MeshData.index[i + 1]];
-			float3 vert3 = object->MeshData.vertex[object->MeshData.index[i + 2]];
+			Vertex_Sub vert1 = object->MeshData.vertex[object->MeshData.index[i]];
+			Vertex_Sub vert2 = object->MeshData.vertex[object->MeshData.index[i + 1]];
+			Vertex_Sub vert3 = object->MeshData.vertex[object->MeshData.index[i + 2]];
 
+			float3 vert1F = { vert1.x,vert1.y,vert1.z };
+			float3 vert2F = { vert2 .x,vert2 .y,vert2 .z};
+			float3 vert3F = { vert3.x,vert3.y,vert3.z };
 
-			mid = (vert1 + vert2 + vert3) / 3;
+			
+			mid = (vert1F + vert1F + vert1F) / 3;
 
-			normal = Cross((vert2 - vert1), (vert3 - vert1));
+			normal = Cross((vert2F - vert1F), (vert3F - vert1F));
 			normal.Normalize();
 
 			glLineWidth(1.5f);
@@ -285,7 +292,7 @@ void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
 		}
 
 		glEnd();
-	}*/
+	}
 
 }
 
