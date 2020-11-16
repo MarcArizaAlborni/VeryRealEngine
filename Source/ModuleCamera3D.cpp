@@ -74,7 +74,7 @@ update_status ModuleCamera3D::Update(float dt)
 		Reference += newPos;
 
 		// Wheel Zoom
-		if (App->input->GetMouseZ() != 0)
+		/*if (App->input->GetMouseZ() != 0)
 		{
 			vec3 Distance = Position - Reference;
 			vec3 newPos = { 0,0,0 };
@@ -86,7 +86,7 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 
 			Position += newPos;
-		}
+		}*/
 
 		//Left Click (altenative for the arrows)
 		if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
@@ -143,6 +143,8 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		//Center to object
+		
+
 		std::vector<GameObject*>::iterator IteratorToAddMesh = App->meshimporter->MeshesOnScene.begin();
 		GameObject* selected_mesh;
 		for (int count = 0; count < App->meshimporter->MeshesOnScene.size(); ++count)
@@ -161,6 +163,7 @@ update_status ModuleCamera3D::Update(float dt)
 					if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 					{
 						//Orbit()
+						ResetRotation = true;
 						LookAt({ selected_mesh->Mesh_Transform_Modifiers.VectorTranslation.x,
 							selected_mesh->Mesh_Transform_Modifiers.VectorTranslation.y,
 							selected_mesh->Mesh_Transform_Modifiers.VectorTranslation.z 
@@ -168,6 +171,11 @@ update_status ModuleCamera3D::Update(float dt)
 
 					}
 				}
+			}
+			else if (ResetRotation == true)
+			{
+				ResetRotation = false;
+				LookAt({ 0,0,0 });
 			}
 
 			std::vector<GameObject*>::iterator IteratorToAddMesh2 = selected_mesh->ChildObjects.begin();

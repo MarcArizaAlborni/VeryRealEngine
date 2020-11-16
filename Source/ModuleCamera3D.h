@@ -36,6 +36,8 @@ public:
 	float wheelSpeedValue = 0.8f; // sensitivity left click 
 	float zoomValue = 0.5f; //sensitivity of the zoom
 
+	bool ResetRotation = false;
+
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
