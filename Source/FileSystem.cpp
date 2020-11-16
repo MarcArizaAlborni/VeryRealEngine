@@ -282,16 +282,12 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 	int id_vertex = 67; // unique vertex in VRAM
 	int num_vertex = 1034; // amount of vertex in a mesh
 	
-
-	
 	int num_texcoords = 39; // amount of coordinates of the texture in the mesh
 	int texcoords_id = 165; // id of the coordinate of the texture in the mesh
 
 	const char* TextureName = "Mesh Object A"; // name of the current texture aplied to the mesh
 
-	
 	int id_normals = 9; // id of the normals in the mesh
-
 
 	struct threeNum num;
 	const char* Name = "Square";
@@ -302,29 +298,25 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 		
 	}
 	else {
+
 		fwrite(&id_index, sizeof(int), 1, fptr);
 		fwrite(&num_index, sizeof(int), 1, fptr);
 		fwrite(&id_vertex, sizeof(int), 1, fptr);
 		fwrite(&num_vertex, sizeof(int), 1, fptr);
-fwrite(&num_texcoords, sizeof(int), 1, fptr);
-fwrite(&texcoords_id, sizeof(int), 1, fptr);
-fwrite(&TextureName, sizeof(const char*), 1, fptr);
-fwrite(&id_normals, sizeof(int), 1, fptr);
-
+        fwrite(&num_texcoords, sizeof(int), 1, fptr);
+        fwrite(&texcoords_id, sizeof(int), 1, fptr);
+        fwrite(&TextureName, sizeof(const char*), 1, fptr);
+        fwrite(&id_normals, sizeof(int), 1, fptr);
 
 	}
 
 	fclose(fptr);
-
-
 
 	int id_index2;
 	int num_index2; // amount of indexes in a mesh
 
 	int id_vertex2;// unique vertex in VRAM
 	int num_vertex2; // amount of vertex in a mesh
-
-
 
 	int num_texcoords2; // amount of coordinates of the texture in the mesh
 	int texcoords_id2; // id of the coordinate of the texture in the mesh
@@ -465,6 +457,8 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 	std::string TypeOfFile = "Mesh";
 
 	FILE* FileW;
+
+	
 	
 	if ((FileW = fopen(FinalPath_C, "wb")) == NULL) {
 
@@ -492,6 +486,16 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 				fwrite(&WVerticesX, sizeof(float), 1, FileW);  //5
 				fwrite(&WVerticesY, sizeof(float), 1, FileW);  //6
 				fwrite(&WVerticesZ, sizeof(float), 1, FileW);  //7
+
+				float WVerticesTexX = FileToStore.Scene->mMeshes[mMeshesSize]->mTextureCoords[0][mVerticesSize].x;
+				float WVerticesTexY = FileToStore.Scene->mMeshes[mMeshesSize]->mTextureCoords[0][mVerticesSize].y;
+				float WVerticesTexZ = FileToStore.Scene->mMeshes[mMeshesSize]->mTextureCoords[0][mVerticesSize].z;
+
+				fwrite(&WVerticesTexX, sizeof(float), 1, FileW);  //5
+				fwrite(&WVerticesTexY, sizeof(float), 1, FileW);  //6
+				fwrite(&WVerticesTexZ, sizeof(float), 1, FileW);  //7
+
+				
 			}
 
 			uint WnumFaces = FileToStore.Scene->mMeshes[mMeshesSize]->mNumFaces;
@@ -547,6 +551,8 @@ LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh()
 			for (int mVertexCount = 0; mVertexCount < LoadedMesh.AmountVertex; ++mVertexCount) {
 
 				Vertex_Sub Vertex;
+
+				Vertex_Sub TexCoords;
 				
 
 
@@ -554,9 +560,15 @@ LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh()
 				fread(&Vertex.y, sizeof(float), 1, FileR);
 				fread(&Vertex.z, sizeof(float), 1, FileR);
 
+
+				fread(&TexCoords.x, sizeof(float), 1, FileR);
+				fread(&TexCoords.y, sizeof(float), 1, FileR);
+				fread(&TexCoords.z, sizeof(float), 1, FileR);
+
 				
 
 				LoadedMesh.Vertex.push_back(Vertex);
+				LoadedMesh.TextureCoords.push_back(TexCoords);
 
 			}
 
