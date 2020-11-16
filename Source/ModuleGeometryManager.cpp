@@ -174,7 +174,6 @@ void ModuleGeometryManager::DrawPlane()
 
 void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 {
-
 	GLfloat Null_Array[] = { 0,0,0,0 };
 
 	VectorTransformations ZeroArray;
@@ -239,6 +238,40 @@ void ModuleGeometryManager::DrawVertexNormals(GameObject* object)
 {
 	if (object->showVertexNormals == true)
 	{
+		float3 mid;
+		float3 normal;
+
+		for (int i = 0; i < object->MeshData.num_index; i += 3)
+		{
+			Vertex_Sub vert1 = object->MeshData.vertex[object->MeshData.index[i]];
+			Vertex_Sub vert2 = object->MeshData.vertex[object->MeshData.index[i + 1]];
+			Vertex_Sub vert3 = object->MeshData.vertex[object->MeshData.index[i + 2]];
+
+			float3 vert1F = { vert1.x,vert1.y,vert1.z };
+			float3 vert2F = { vert2.x,vert2.y,vert2.z };
+			float3 vert3F = { vert3.x,vert3.y,vert3.z };
+
+
+			mid = (vert1F + vert1F + vert1F) / 3;
+
+			normal = Cross((vert2F - vert1F), (vert3F - vert1F));
+			normal.Normalize();
+
+			glLineWidth(1.5f);
+			glBegin(GL_LINES);
+			glVertex3f(mid.x, mid.y, mid.z);
+			glVertex3f(mid.x + normal.x, mid.y + normal.y, mid.z + normal.z);
+		}
+		glEnd();
+	}
+}
+
+// Draw normals with faces and triangles
+void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
+{
+
+	if (object->showFaceNormals == true)
+	{
 		for (int j = 0; j < object->MeshData.num_vertex; ++j)
 		{
 			Vertex_Sub vert = object->MeshData.vertex[j];
@@ -252,43 +285,6 @@ void ModuleGeometryManager::DrawVertexNormals(GameObject* object)
 
 			glVertex3f(vert.x, vert.y, vert.z);
 			glVertex3f(vert.x + normF.x, vert.y + normF.y, vert.z + normF.z);
-		}
-
-		glEnd();
-	}
-}
-
-// Draw normals with faces and triangles
-void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
-{
-
-	if (object->showFaceNormals == true)
-	{
-		float3 mid;
-		float3 normal;
-
-		for (int i = 0; i < object->MeshData.num_index; i += 3)
-		{
-			Vertex_Sub vert1 = object->MeshData.vertex[object->MeshData.index[i]];
-			Vertex_Sub vert2 = object->MeshData.vertex[object->MeshData.index[i + 1]];
-			Vertex_Sub vert3 = object->MeshData.vertex[object->MeshData.index[i + 2]];
-
-			float3 vert1F = { vert1.x,vert1.y,vert1.z };
-			float3 vert2F = { vert2 .x,vert2 .y,vert2 .z};
-			float3 vert3F = { vert3.x,vert3.y,vert3.z };
-
-			
-			mid = (vert1F + vert1F + vert1F) / 3;
-
-			normal = Cross((vert2F - vert1F), (vert3F - vert1F));
-			normal.Normalize();
-
-			glLineWidth(1.5f);
-			glBegin(GL_LINES);
-			glVertex3f(mid.x, mid.y, mid.z);
-			glVertex3f(mid.x + normal.x, mid.y + normal.y, mid.z + normal.z );
-			
-
 		}
 
 		glEnd();
