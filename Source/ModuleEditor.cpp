@@ -7,6 +7,9 @@
 #include "ModuleCamera3D.h"
 #include "ModuleGeometryManager.h"
 #include "ModuleEditor.h"
+#include "ModuleHierarchy.h"
+#include "ModuleInspector.h"
+#include "ResourceManager.h"
 
 #include "ModuleWindow.h"
 #include "ModuleInput.h"

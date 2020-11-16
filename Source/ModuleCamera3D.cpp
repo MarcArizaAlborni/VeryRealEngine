@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleEditorConsole.h"
 #include "ModuleGeometryManager.h"
+#include "ModuleMeshImporter.h"
 
 #include "libraries/MathGeoLib/include/Math/MathFunc.h"
 #include "libraries/MathGeoLib/include/Geometry/LineSegment.h"

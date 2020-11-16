@@ -190,9 +190,6 @@
     <ClCompile Include="libraries\MathGeoLib\include\Geometry\TriangleMesh.cpp">
       <Filter>Source\External Libraries\MathGeoLib</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentCamera.cpp">
-      <Filter>Source\Modules\UI\GameObjects\Components</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -830,9 +827,6 @@
     </ClInclude>
     <ClInclude Include="libraries\MathGeoLib\include\Geometry\TriangleMesh.h">
       <Filter>Source\External Libraries\MathGeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentCamera.h">
-      <Filter>Source\Modules\UI\GameObjects\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

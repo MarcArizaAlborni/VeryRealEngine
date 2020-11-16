@@ -13,17 +13,14 @@
 
 #include "ModuleGeometryManager.h"
 
-
-
 #include "ModuleTextureImporter.h"
-#include "ModuleMeshImporter.h"
+
 #include <vector>
 #include "libraries/json/json.hpp"
-#include "ModuleHierarchy.h"
-#include "ModuleInspector.h"
-#include "ResourceManager.h"
-#include "FileSystem.h"
-#include "ComponentCamera.h"
+
+
+
+
 
 class ModuleWindow;
 class ModuleInput;
@@ -34,6 +31,12 @@ class ModuleRenderer3D;
 
 class ModuleCamera3D;
 class ModuleEditor;
+
+class ModuleMeshImporter;
+class ModuleHierarchyGameObject;
+class ModuleInspectorGameObject;
+class ResourceManager;
+class ModuleFileSystem;
 
 using json = nlohmann::json;
 
@@ -50,7 +53,6 @@ public:
 	
 	ModuleGeometryManager* geometrymanager;
 	ModuleFileSystem* filemanager;
-	ComponentCamera* componentcamera;
 
 	//Windows & Menus
 	ModuleEditorMainMenuBar* mainMenubar;

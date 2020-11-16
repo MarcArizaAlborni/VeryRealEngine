@@ -4,6 +4,7 @@
 #include "ModuleEditorMainMenuBar.h"
 #include "ModuleEditorConfiguration.h"
 #include "ModuleEditorConsole.h"
+#include "ModuleMeshImporter.h"
 #include "ModuleTextureImporter.h"
 
 #include "libraries/ImGUI/imgui.h"

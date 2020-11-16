@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleTextureImporter.h"
 #include "ModuleEditorConsole.h"
+#include "ModuleMeshImporter.h"
 
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
