@@ -1,6 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInspector.h"
+#include "ModuleEditorMainMenuBar.h"
+#include "ModuleEditorConsole.h"
+#include "ModuleGeometryManager.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"

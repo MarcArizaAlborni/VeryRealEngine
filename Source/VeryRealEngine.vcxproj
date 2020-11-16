@@ -166,7 +166,6 @@
     <ClInclude Include="ModuleGeometryManager.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="GoodClass.h" />
     <ClInclude Include="libraries\Assimp\Assimp\include\ai_assert.h" />
     <ClInclude Include="libraries\Assimp\Assimp\include\anim.h" />
     <ClInclude Include="libraries\Assimp\Assimp\include\camera.h" />
@@ -345,7 +344,6 @@
     <ClCompile Include="ModuleEditorConsole.cpp" />
     <ClCompile Include="ModuleGeometryManager.cpp" />
     <ClCompile Include="glmath.cpp" />
-    <ClCompile Include="GoodClass.cpp" />
     <ClCompile Include="libraries\ImGui\imgui.cpp" />
     <ClCompile Include="libraries\ImGui\imgui_demo.cpp" />
     <ClCompile Include="libraries\ImGui\imgui_draw.cpp" />

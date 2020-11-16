@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleGeometryManager.h"
+#include "ModuleTextureImporter.h"
+#include "ModuleEditorConsole.h"
 #include "libraries/Glew/include/GL/glew.h"
 #include "libraries/SDL/include/SDL_opengl.h"
 #include "Primitive.h"

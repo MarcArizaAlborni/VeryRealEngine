@@ -1,5 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
+#include "ModuleEditorConsole.h"
 #include "FileSystem.h"
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"

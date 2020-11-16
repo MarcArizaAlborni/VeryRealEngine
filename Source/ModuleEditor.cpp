@@ -1,7 +1,15 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleEditorMainMenuBar.h"
+#include "ModuleEditorConfiguration.h"
 #include "Globals.h"
+#include "ModuleEditorConsole.h"
+#include "ModuleCamera3D.h"
+#include "ModuleGeometryManager.h"
+#include "ModuleEditor.h"
+
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -12,10 +20,6 @@
 #include "libraries/SDL/include/SDL_opengl.h"
 
 
-
-#include "GoodClass.h"
-
-// Class1 Clase2; Define Class
 
 ModuleEditor::ModuleEditor(Application* app, const char* name, bool start_enabled) : Module(app,"Editor", start_enabled)
 {

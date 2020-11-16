@@ -55,9 +55,6 @@
     <ClCompile Include="Primitive.cpp">
       <Filter>Source\Helper</Filter>
     </ClCompile>
-    <ClCompile Include="GoodClass.cpp">
-      <Filter>Source\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleMeshImporter.cpp">
       <Filter>Source\Modules\Importers</Filter>
     </ClCompile>
@@ -263,9 +260,6 @@
     </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Source\Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="GoodClass.h">
-      <Filter>Source\Modules</Filter>
     </ClInclude>
     <ClInclude Include="libraries\json\json.hpp">
       <Filter>Source\External Libraries\Json</Filter>

@@ -9,6 +9,15 @@
 #include "libraries/PCG/pcg_random.hpp"
 #include "libraries/PCG/pcg_extras.hpp"
 
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleEditorMainMenuBar.h"
+#include "ModuleEditorConfiguration.h"
+#include "ModuleEditorConsole.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModuleEditor.h"
+
 
 #define RAND_MAX 99999;
 

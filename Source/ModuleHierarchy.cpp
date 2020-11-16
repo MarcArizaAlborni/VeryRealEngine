@@ -1,6 +1,10 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleHierarchy.h"
+#include "ModuleEditorMainMenuBar.h"
+#include "ModuleEditorConfiguration.h"
+#include "ModuleEditorConsole.h"
+#include "ModuleTextureImporter.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
