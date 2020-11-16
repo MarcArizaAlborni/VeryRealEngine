@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "ModuleEditorConsole.h"
 
 
 ModuleWindow::ModuleWindow(Application* app, const char* name, bool start_enabled) : Module(app,"Window", start_enabled)

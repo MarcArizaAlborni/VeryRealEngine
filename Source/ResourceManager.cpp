@@ -1,13 +1,13 @@
 #include "Globals.h"
 #include "Application.h"
+#include "ModuleInput.h"
 #include "ResourceManager.h"
+#include "ModuleEditorConsole.h"
+#include "ModuleEditorMainMenuBar.h"
+#include "ModuleTextureImporter.h"
 #include <filesystem>
 
 namespace fs = std::filesystem;
-
-
-
-
 
 
 ResourceManager::ResourceManager(Application* app, const char* name, bool start_enabled) : Module(app, "ResourceManager", start_enabled)

@@ -7,27 +7,36 @@
 #include "Globals.h"
 #include "Timer.h"
 #include "Module.h"
-#include "ModuleWindow.h"
-#include "ModuleInput.h"
+
+
 #include <list>
-#include "ModuleEditorMainMenuBar.h"
-#include "ModuleEditorConfiguration.h"
-#include "ModuleEditorConsole.h"
-#include "ModuleRenderer3D.h"
+
 #include "ModuleGeometryManager.h"
-#include "ModuleCamera3D.h"
-#include "ModuleEditor.h"
+
 #include "ModuleTextureImporter.h"
-#include "ModuleMeshImporter.h"
+
 #include <vector>
 #include "libraries/json/json.hpp"
-#include "ModuleHierarchy.h"
-#include "ModuleInspector.h"
-#include "ResourceManager.h"
-#include "FileSystem.h"
-#include "ComponentCamera.h"
 
 
+
+
+
+class ModuleWindow;
+class ModuleInput;
+class ModuleEditorMainMenuBar;
+class ModuleEditorConfiguration;
+class ModuleEditorConsole;
+class ModuleRenderer3D;
+
+class ModuleCamera3D;
+class ModuleEditor;
+
+class ModuleMeshImporter;
+class ModuleHierarchyGameObject;
+class ModuleInspectorGameObject;
+class ResourceManager;
+class ModuleFileSystem;
 
 using json = nlohmann::json;
 
@@ -44,7 +53,6 @@ public:
 	
 	ModuleGeometryManager* geometrymanager;
 	ModuleFileSystem* filemanager;
-	ComponentCamera* componentcamera;
 
 	//Windows & Menus
 	ModuleEditorMainMenuBar* mainMenubar;
@@ -91,7 +99,7 @@ public:
 	uint					last_sec_frame_count = 0;
 
 	int						capped_ms = -1;
-	int						max_framerateCap = 1000;
+	int						max_framerateCap = 120;
 	int						Bars = 100; // Histogram bars
 
 	std::string name;

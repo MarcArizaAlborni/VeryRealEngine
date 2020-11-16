@@ -1,7 +1,10 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
-
+#include "ModuleEditorConsole.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleTextureImporter.h"
+#include "ModuleMeshImporter.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"

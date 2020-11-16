@@ -1,6 +1,10 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "ModuleInput.h"
+#include "ModuleEditorConsole.h"
+#include "ModuleGeometryManager.h"
+#include "ModuleMeshImporter.h"
 
 #include "libraries/MathGeoLib/include/Math/MathFunc.h"
 #include "libraries/MathGeoLib/include/Geometry/LineSegment.h"
@@ -202,11 +206,6 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 
 	return UPDATE_CONTINUE;
-}
-
-void ModuleCamera3D(float dt_z)
-{
-	
 }
 
 // -----------------------------------------------------------------

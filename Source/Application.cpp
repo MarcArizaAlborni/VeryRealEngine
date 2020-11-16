@@ -9,6 +9,20 @@
 #include "libraries/PCG/pcg_random.hpp"
 #include "libraries/PCG/pcg_extras.hpp"
 
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleEditorMainMenuBar.h"
+#include "ModuleEditorConfiguration.h"
+#include "ModuleEditorConsole.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModuleEditor.h"
+#include "ModuleMeshImporter.h"
+#include "ModuleHierarchy.h"
+#include "ModuleInspector.h"
+#include "ResourceManager.h"
+#include "FileSystem.h"
+
 
 #define RAND_MAX 99999;
 
@@ -36,8 +50,6 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	geometrymanager = new ModuleGeometryManager(this);
 	renderer3D = new ModuleRenderer3D(this);
 
-
-	componentcamera = new ComponentCamera(this),
 	
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -59,7 +71,6 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	AddModule(inspector);
 	AddModule(resources);
 
-	AddModule(componentcamera);
 	AddModule(renderer3D);
 	AddModule(geometrymanager);
 	

@@ -1,6 +1,10 @@
 #include "Globals.h"
 #include "Application.h"
+#include "ModuleWindow.h"
+#include "ModuleEditorConsole.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModuleTextureImporter.h"
 #include "libraries/Glew/include/GL/glew.h"
 #include "libraries/SDL/include/SDL_opengl.h"
 #include "Primitive.h"
@@ -129,8 +133,6 @@ bool ModuleRenderer3D::Start()
 	//App->meshimporter->LoadMesh("",true);
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;
-
-	App->componentcamera->DrawFrustum();
 
 
 	// STREET FOR DRAW W/TEXTURES ON START
