@@ -20,12 +20,14 @@ struct LoadedFile_Mesh {
 
 	
 	uint AmountVertex;
-	std::vector<float> VertexX;
+	/*std::vector<float> VertexX;
 	std::vector<float> VertexY;
-	std::vector<float> VertexZ;
+	std::vector<float> VertexZ;*/
 	std::vector<Vertex_Sub> Vertex;
 	uint AmountFaces;
 	std::vector<LoadedFile_Mesh_Faces> FaceInfo;
+
+	std::vector<Vertex_Sub> TextureCoords;
 
 };
 
