@@ -128,172 +128,138 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 
 		ImGui::Text(Name);
 		//GENERAL INFORMATION
-		ImGui::SetWindowFontScale(1.5);
-		ImGui::Text("General Information");
-		ImGui::SetWindowFontScale(1.0);
+		if (ImGui::CollapsingHeader("General Information"))
+		{
+			int ChildAmount;
 
-		int ChildAmount;
+			ImGui::InputText(" ", (char*)item->mesh_name.c_str(), 100, ImGuiInputTextFlags_EnterReturnsTrue);
 
-		ImGui::Text("Child Amount  %d", ChildAmount = item->ChildObjects.size());
+			ImGui::Text("Child Amount  %d", ChildAmount = item->ChildObjects.size());
 
-		ImGui::Text("Currently Textured:");
-		ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("Currently Textured:");
+			ImGui::SameLine(0.0f, 10.0f);
 
-		if (item->is_Textured == true) {
+			if (item->is_Textured == true) {
 
-			ImGui::Text("True");
+				ImGui::Text("True");
+			}
+			else {
+				ImGui::Text("False");
+			}
+
+			ImGui::Checkbox("Wireframed", &item->is_Wireframed);
+
+			ImGui::Checkbox("Draw", &item->is_Drawn);
+
+			ImGui::Text("Item Id:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("%d", item->item_id);
+
+			ImGui::Separator();
 		}
-		else {
-			ImGui::Text("False");
-		}
-
-		ImGui::Checkbox("Wireframed", &item->is_Wireframed);
-
-		if (ImGui::Checkbox("Draw", &item->is_Drawn)) {
-			int abcdefg = 0;
-		}
-
-		ImGui::Text("Item Id:");
-		ImGui::SameLine(0.0f, 10.0f);
-		ImGui::Text("%d", item->item_id);
-
-		ImGui::Separator();
-
-
+		
 		///TRANSFORMATIONS
-		ImGui::SetWindowFontScale(1.5);
-		ImGui::Text("Transformation");
-		ImGui::SetWindowFontScale(1.0);
+		if (ImGui::CollapsingHeader("Transformation")) {
 
-		ImGui::Checkbox("Move Family", &item->is_FamilyMove);
+			if (ImGui::DragFloat3("Position", { &item->Mesh_Transform_Modifiers.VectorTranslation.x}, 0.2f, 0.0, 0.0, "%.2f")) {}
+			if (ImGui::DragFloat("Angle", { &item->Mesh_Transform_Modifiers.VectorRotation.angle }, 0.2f, -359.0, 359.0, "%.2f")) {}
+			if (ImGui::DragFloat3("Rotation", { &item->Mesh_Transform_Modifiers.VectorRotation.x }, 0.02f, 0.0, 1.0, "%.3f")) {}
+			if (ImGui::DragFloat3("Scale", { &item->Mesh_Transform_Modifiers.VectorScale.x }, 0.2f, 0.0, 0.0, "%.2f")) {}
 
-		ImGui::Text("Position:");
+			ImGui::Checkbox("Move Family", &item->is_FamilyMove);
 
-		ImGui::InputFloat("X pos:", &item->Mesh_Transform_Modifiers.VectorTranslation.x);
-		ImGui::SameLine(0.0f, 0.0f);
-		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorTranslation.x);
-
-		ImGui::InputFloat("Y pos", &item->Mesh_Transform_Modifiers.VectorTranslation.y);
-		ImGui::SameLine(0.0f, 0.0f);
-		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorTranslation.y);
-
-		ImGui::InputFloat("Z pos", &item->Mesh_Transform_Modifiers.VectorTranslation.z);
-		ImGui::SameLine(0.0f, 0.0f);
-		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorTranslation.z);
-
-		ImGui::Text("Rotation:");
-
-		ImGui::InputFloat("Angle:", &item->Mesh_Transform_Modifiers.VectorRotation.angle);
-		ImGui::SameLine(0.0f, 0.0f);
-		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorRotation.angle);
-
-		ImGui::InputFloat("X rot:", &item->Mesh_Transform_Modifiers.VectorRotation.x);
-		ImGui::SameLine(0.0f, 0.0f);
-		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorRotation.x);
-
-		ImGui::InputFloat("Y rot", &item->Mesh_Transform_Modifiers.VectorRotation.y);
-		ImGui::SameLine(0.0f, 0.0f);
-		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorRotation.y);
-
-		ImGui::InputFloat("Z rot", &item->Mesh_Transform_Modifiers.VectorRotation.z);
-		ImGui::SameLine(0.0f, 0.0f);
-		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorRotation.z);
-
-		ImGui::Text("Scale:");
-
-		ImGui::InputFloat("X scale:", &item->Mesh_Transform_Modifiers.VectorScale.x);
-		ImGui::SameLine(0.0f, 0.0f);
-		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorScale.x);
-
-		ImGui::InputFloat("Y scale", &item->Mesh_Transform_Modifiers.VectorScale.y);
-		ImGui::SameLine(0.0f, 0.0f);
-		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorScale.y);
-
-		ImGui::InputFloat("Z scale", &item->Mesh_Transform_Modifiers.VectorScale.z);
-		ImGui::SameLine(0.0f, 0.0f);
-		ImGui::Text(":%.3f", item->Mesh_Transform_Modifiers.VectorScale.z);
-
-		ImGui::Separator();
+			ImGui::Separator();
+		}
 
 		//MESH INFO
-		ImGui::SetWindowFontScale(1.5);
-		ImGui::Text("Mesh Information");
-		ImGui::SetWindowFontScale(1.0);
+		if (ImGui::CollapsingHeader("Mesh")) {
 
-		ImGui::Text("Index Amount:");
-		ImGui::SameLine(0.0f, 10.0f);
-		ImGui::Text("%d", item->MeshData.num_index);
+			ImGui::Text("Index Amount:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("%d", item->MeshData.num_index);
 
-		ImGui::Text("Vertex Amount:");
-		ImGui::SameLine(0.0f, 10.0f);
-		ImGui::Text("%d", item->MeshData.num_vertex);
+			ImGui::Text("Vertex Amount:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("%d", item->MeshData.num_vertex);
 
-		ImGui::Text("Id Index:");
-		ImGui::SameLine(0.0f, 10.0f);
-		ImGui::Text("%d", item->MeshData.id_index);
+			ImGui::Text("Id Index:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("%d", item->MeshData.id_index);
 
-		ImGui::Text("Id Vertex:");
-		ImGui::SameLine(0.0f, 10.0f);
-		ImGui::Text("%d", item->MeshData.id_vertex);
+			ImGui::Text("Id Vertex:");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::Text("%d", item->MeshData.id_vertex);
 
-		ImGui::Separator();
-		ImGui::Checkbox("Show Vertex Normals", &item->showVertexNormals);
-		ImGui::Checkbox("Show Face Normals", &item->showFaceNormals);
+			ImGui::Separator();
+			ImGui::Text("Mesh Path:");
+			ImGui::SameLine();
+			ImGui::TextColored({ 255,255,0,1 }, "%s", &item->path);
+
+			if (ImGui::TreeNodeEx("Vertex Normals:", ImGuiTreeNodeFlags_DefaultOpen)) {
+
+				ImGui::Checkbox("Show Vertex Normals", &item->showVertexNormals);
+				ImGui::TreePop();
+			}
+			if (ImGui::TreeNodeEx("Face Normals:", ImGuiTreeNodeFlags_DefaultOpen)) {
+			
+				ImGui::Checkbox("Show Face Normals", &item->showFaceNormals);
+				ImGui::TreePop();
+			}
+		}
 
 		//TEXTURES INFO
-		ImGui::SetWindowFontScale(1.5);
-		ImGui::Text("Textures");
-		ImGui::SetWindowFontScale(1.0);
+		if (ImGui::CollapsingHeader("Texture")) {
 
-		ImGui::Checkbox("Checkered", &item->is_Checkered);
+			ImGui::Checkbox("Checkered", &item->is_Checkered);
 
-		if (item->is_Checkered == true) {
-			item->is_Textured = false;
-		}
+			if (item->is_Checkered == true) {
+				item->is_Textured = false;
+			}
 
-		ImGui::Checkbox("Textured", &item->is_Textured);
+			ImGui::Checkbox("Textured", &item->is_Textured);
 
-		if (item->is_Textured == true) {
-			item->is_Checkered = false;
-		}
+			if (item->is_Textured == true) {
+				item->is_Checkered = false;
+			}
 
-		ImGui::Text("Texture Name: ");
-		ImGui::SameLine(0.0f, 10.0f);
-		const char* nameTexture = item->TextureData.texture_name.c_str();
-		ImGui::Text("%s", nameTexture);
-
-		if (item->is_Textured) {
-			ImGui::Text("Texture Path:");
+			ImGui::Text("Texture Name: ");
 			ImGui::SameLine(0.0f, 10.0f);
-			const char* pathnameTexture = item->TextureData.texture_path.c_str();
-			ImGui::Text("%s", pathnameTexture);
-		}
-		else if (item->is_Checkered) {
-			ImGui::Text("Texture Path:");
+			const char* nameTexture = item->TextureData.texture_name.c_str();
+			ImGui::TextColored({ 255,255,0,1 }, "%s", nameTexture);
+
+			if (item->is_Textured) {
+				ImGui::Text("Texture Path:");
+				ImGui::SameLine(0.0f, 10.0f);
+				const char* pathnameTexture = item->TextureData.texture_path.c_str();
+				ImGui::TextColored({ 255,255,0,1 }, "%s", pathnameTexture);
+			}
+			else if (item->is_Checkered) {
+				ImGui::Text("Texture Path:");
+				ImGui::SameLine(0.0f, 10.0f);
+
+				ImGui::Text("Checkered Texture");
+			}
+			else {
+				ImGui::Text("Texture Path:");
+				ImGui::SameLine(0.0f, 10.0f);
+
+				ImGui::Text("No texture Selected");
+			}
+			
+			ImGui::Text("Texture Width");
 			ImGui::SameLine(0.0f, 10.0f);
-
-			ImGui::Text("Checkered Texture");
-		}
-		else {
-			ImGui::Text("Texture Path:");
+			ImGui::TextColored({ 255,255,0,1 }, "%d", item->TextureData.width);
+			
+			ImGui::Text("Texture Height");
 			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::TextColored({ 255,255,0,1 }, "%d", item->TextureData.height);
 
-			ImGui::Text("No texture Selected");
+			ImGui::Text("Texture id");
+			ImGui::SameLine(0.0f, 10.0f);
+			ImGui::TextColored({ 255,255,0,1 }, "%d", item->TextureData.texture_id);
+
+			ImGui::Image((void*)(intptr_t)item->TextureData.texture_id, { 200,200 });
 		}
-
-		ImGui::Text("%d", item->TextureData.width);
-		ImGui::SameLine(0.0f, 10.0f);
-		ImGui::Text("Texture Width");
-
-		ImGui::Text("%d", item->TextureData.height);
-		ImGui::SameLine(0.0f, 10.0f);
-		ImGui::Text("Texture Height");
-
-		ImGui::Text("Texture id");
-		ImGui::SameLine(0.0f, 10.0f);
-		ImGui::Text("%d", item->TextureData.texture_id);
-
-		ImGui::Image((void*)(intptr_t)item->TextureData.texture_id, { 200,200 });
 
 }
 

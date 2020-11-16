@@ -79,6 +79,8 @@ struct GameObject {
 
 	bool is_FamilyMove = false; // if we apply transformations to each member of the family of this mesh
 
+	std::string path = "";
+
 };
 
 class ModuleMeshImporter : public Module
