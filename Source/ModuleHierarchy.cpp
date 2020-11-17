@@ -89,13 +89,24 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
 
             GameObject* Mesh = *IteratorLoaded;
            
-           InspectorInfo(Mesh, count);
+            bool itemRemoved;
+            itemRemoved=InspectorInfo(Mesh, count);
+
+            if (itemRemoved == true) {
+                count = App->meshimporter->MeshesOnScene.size();
+            }
+            else {
+                IteratorLoaded++;
+            }
 
 
+           /*if((App->meshimporter->MeshesOnScene.size() !=0) && (App->meshimporter->MeshesOnScene.size() != 1)){
+               IteratorLoaded++;
+           }*/
+           
+           
 
-
-
-            IteratorLoaded++;
+           
         }
 
        // ImGui::Columns(1);
@@ -106,10 +117,11 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
 	}
 }
 
-void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
+bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
 {
     ImGui::PushID(uid);
 
+    bool ItemRemoved = false;
     const char* prefix;
 
     prefix = Object->mesh_name.c_str();
@@ -180,7 +192,9 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
 
     if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawTrashCanIcon.texture_id, {14.0f,14.0f})) {
 
-        App->meshimporter->MeshesOnScene.erase(Object);
+        App->meshimporter->MeshesOnScene.erase(App->meshimporter->MeshesOnScene.begin()+(uid));
+        ItemRemoved = true;
+      
     }
 
     
@@ -224,6 +238,9 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
         ImGui::TreePop();
     }
     ImGui::PopID();
+
+    return ItemRemoved;
+
 }
 
 void ModuleHierarchyGameObject::CreateConsolelog(const char file[], int line, const char* format, ...)
