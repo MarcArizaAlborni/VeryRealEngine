@@ -64,6 +64,7 @@ public:
 	//Icons
 	TextureInfo DrawIconHierarchyOpen;
 	TextureInfo DrawIconHierarchyClosed;
+	TextureInfo DrawTrashCanIcon;
 	
 	//Resources
 	TextureInfo MeshIcon;

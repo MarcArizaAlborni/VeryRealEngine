@@ -176,6 +176,14 @@ void ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
         }
     }
 
+    ImGui::SameLine();
+
+    if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawTrashCanIcon.texture_id, {14.0f,14.0f})) {
+
+        App->meshimporter->MeshesOnScene.erase(Object);
+    }
+
+    
 
     if (node_open)
     {

@@ -321,5 +321,6 @@ void ModuleRenderer3D::LoadIconsTextures()
 	App->textureImporter->AddFolderIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/addfolder.png");
 	App->textureImporter->RemoveFolderIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/removefolder.png");
 	App->textureImporter->RenameFolderIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/renamefolder.png");
+	App->textureImporter->DrawTrashCanIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/trash.png");
 
 }
