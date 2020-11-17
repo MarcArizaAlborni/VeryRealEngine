@@ -515,11 +515,16 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 				uint WnumIndex = FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mNumIndices;
 				fwrite(&WnumIndex, sizeof(uint), 1, FileW); // 9
 
+
+				//this
+
 				/*uint* WIndex = FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices;
 
 				uint WindexV = *WIndex; // IT WRITESBUT WHEN READING IT JUST DOESNT WORK
 
 				fwrite(&WindexV, sizeof(uint), 1, FileW);*/
+
+				//or this
 
 				for (int mIndexSize = 0; mIndexSize < WnumIndex; ++mIndexSize) {
 
@@ -527,7 +532,7 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 					fwrite(&WIndex, sizeof(uint), 1, FileW); // 10
 				}
 
-			
+			    //not both
 
 
 
@@ -612,12 +617,25 @@ LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh(int id)
 
 				fread(&LoadedFace.AmountIndex, sizeof(uint), 1, FileR);
 
+				//this 
+
+				/*uint RIndex;
+				uint* RIndexptr;
+	
+				fread(&RIndex, sizeof(uint), 1, FileR);
+				RIndexptr = &RIndex;*/
+
+				//or this
+
 				for (int mIndexCount = 0; mIndexCount < LoadedFace.AmountIndex; ++mIndexCount) {
 
 					uint Index;
 					fread(&Index, sizeof(uint), 1, FileR);
 					LoadedFace.Index.push_back(Index);
 				}
+
+
+
 
 				LoadedMesh.FaceInfo.push_back(LoadedFace);
 			}
