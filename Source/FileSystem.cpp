@@ -515,11 +515,23 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 				uint WnumIndex = FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mNumIndices;
 				fwrite(&WnumIndex, sizeof(uint), 1, FileW); // 9
 
+				/*uint* WIndex = FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices;
+
+				uint WindexV = *WIndex; // IT WRITESBUT WHEN READING IT JUST DOESNT WORK
+
+				fwrite(&WindexV, sizeof(uint), 1, FileW);*/
+
 				for (int mIndexSize = 0; mIndexSize < WnumIndex; ++mIndexSize) {
 
 					uint WIndex =FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices[mIndexSize];
 					fwrite(&WIndex, sizeof(uint), 1, FileW); // 10
 				}
+
+			
+
+
+
+				
 			}
 		}
 
