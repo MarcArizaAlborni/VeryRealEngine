@@ -96,17 +96,8 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
                 count = App->meshimporter->MeshesOnScene.size();
             }
             else {
-                IteratorLoaded++;
+                ++IteratorLoaded;
             }
-
-
-           /*if((App->meshimporter->MeshesOnScene.size() !=0) && (App->meshimporter->MeshesOnScene.size() != 1)){
-               IteratorLoaded++;
-           }*/
-           
-           
-
-           
         }
 
        // ImGui::Columns(1);
