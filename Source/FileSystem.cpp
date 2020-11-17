@@ -242,30 +242,7 @@ bool ModuleFileSystem::GenerateLibraryFile(int id)
 	std::string FinalPath = Direction + idconversion + Extension;
 	const char* FinalPath_C = FinalPath.c_str();
 
-	//std::fstream OurFile;
-	//
-	//OurFile.open(FinalPath_C, std::fstream::out|std::fstream::binary);
-	////OurFile << id;
-	//std::string textstr = std::to_string(id);
-	//const char* text; 
-	//
-	////ToBinary_String("aaaa");
-	//
-	//
-	////std::vector<std::string>::iterator  IteratorVec = ConvertedVec.begin();
-
-	///*for (int a = 0; a < ConvertedVec.size(); ++a) {
-	//	std::string word = *IteratorVec;
-
-	//	const char* word_C = word.c_str();
-	//	OurFile.write(word_C, sizeof(word_C));
-
-	//	++IteratorVec;
-	//}*/
-
-	//OurFile.write(FinalPath_C, FinalPath.length());
-	//
-	//OurFile.close();
+	
 
 	
 	struct threeNum
