@@ -74,7 +74,7 @@ update_status ModuleCamera3D::Update(float dt)
 		Reference += newPos;
 
 		// Wheel Zoom
-		/*if (App->input->GetMouseZ() != 0)
+		if (App->input->GetMouseZ() != 0)
 		{
 			vec3 Distance = Position - Reference;
 			vec3 newPos = { 0,0,0 };
@@ -86,7 +86,7 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 
 			Position += newPos;
-		}*/
+		}
 
 		//Left Click (altenative for the arrows)
 		if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
