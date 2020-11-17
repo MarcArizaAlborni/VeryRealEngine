@@ -40,6 +40,7 @@ class ModuleFileSystem;
 
 using json = nlohmann::json;
 
+
 class Application
 {
 public:
@@ -121,10 +122,12 @@ private:
 
 	////// FUNCTIONS ///////
 
-	
+  //RANDOM 
+public:
+	int GenerateRandomID();
 
-	
-
+	int value;
+private:
 
 	///// DEFINITIONS  ///////
 
@@ -132,9 +135,7 @@ private:
 	
 	std::string SaveFileName;
 
-	int GenerateRandomIntRange(int first, int last);
-	int GenerateRandomInt();
-	int GetNumber() const;
+	
 
 
 };
