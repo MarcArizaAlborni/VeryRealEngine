@@ -65,9 +65,7 @@ void ResourceManager::CreateResourcesWindow()
 
 		if (DrawInitialParents == true) {
 
-			 
-
-
+			
 		       ImGui::Begin("Resouces", &App->editor->show_resources_window);
 		       
 		       ImGui::Checkbox("Show Textures", &resource_display_textures);
@@ -320,15 +318,17 @@ void ResourceManager::ReadMainResourcesFolder()
 			ResourceEntryList.push_back(Item);
 		}
 
-		std::vector<Resource*>::iterator IteratorRes = ResourceEntryList.begin();
-		for (int pos = 0; pos < ResourceEntryList.size(); ++pos) {
-
-			Resource* ResItem = *IteratorRes;
-			ResourceAddChildren(ResItem);
-			++IteratorRes;
-		}
+		
 
 		
+	}
+
+	std::vector<Resource*>::iterator IteratorRes = ResourceEntryList.begin();
+	for (int pos = 0; pos < ResourceEntryList.size(); ++pos) {
+
+		Resource* ResItem = *IteratorRes;
+		ResourceAddChildren(ResItem);
+		++IteratorRes;
 	}
 }
 
@@ -510,7 +510,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				++ResItChild;
 			}
 
-			ResourceEntryList.size();
+			
 
 			ImGui::End();
 

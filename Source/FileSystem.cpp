@@ -602,6 +602,8 @@ LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh(int id)
 				fread(&RIndex, sizeof(uint), 1, FileR);
 				RIndexptr = &RIndex;
 
+				// AQUI ESTA EL ERROR
+				//LoadedMesh.FaceInfo[mFaceCount].index= RIndexptr;
 				//or this
 
 				/*for (int mIndexCount = 0; mIndexCount < LoadedFace.AmountIndex; ++mIndexCount) {

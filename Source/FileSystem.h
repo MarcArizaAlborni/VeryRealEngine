@@ -15,6 +15,7 @@ struct LoadedFile_Mesh_Faces {
 	uint AmountIndex;
 	std::vector<uint> Index;
 	uint* index;
+	
 };
 struct LoadedFile_Mesh {
 

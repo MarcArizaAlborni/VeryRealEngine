@@ -163,13 +163,17 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 							for (int fi = 0; fi < InformationToRecieve->MeshInfo[i].FaceInfo[c].AmountIndex; ++fi) {
 
-								//ourGameObject->MeshData.index[c * 3] = InformationToRecieve->MeshInfo[i].FaceInfo[c].Index[fi];
+								
+
+								
+
 								memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
 
+								//memcpy(&ourGameObject->MeshData.index[c * 3], );
 								//THIS HERE IS WHAT DOESNT WORK, THE MEMCPY
 								//memcpy(&InformationToRecieve->MeshInfo[i].FaceInfo[c].index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
 								
-								//memcpy(&ourGameObject->MeshData.index[c * 3], &InformationToRecieve->MeshInfo[i].FaceInfo[c]., 3 * sizeof(uint));
+								//memcpy(&ourGameObject->MeshData.index[c * 3], &InformationToRecieve->MeshInfo[i].FaceInfo[c].index, 3 * sizeof(uint));
 							}
 							
 						}
