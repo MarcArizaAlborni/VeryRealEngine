@@ -1,8 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleEditorConsole.h"
 #include "FileSystem.h"
 #include "ModuleMeshImporter.h"
+#include "ModuleEditor.h"
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
 #include "libraries/Assimp/Assimp/include/postprocess.h"
@@ -682,6 +682,6 @@ void ModuleFileSystem::CreateConsolelog(const char file[], int line, const char*
 	OutputDebugString(tmp_string2);
 
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 }
 

@@ -1,11 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleHierarchy.h"
-#include "ModuleEditorMainMenuBar.h"
-#include "ModuleEditorConfiguration.h"
-#include "ModuleEditorConsole.h"
 #include "ModuleMeshImporter.h"
 #include "ModuleTextureImporter.h"
+#include "ModuleEditor.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -76,12 +74,12 @@ bool ModuleHierarchyGameObject::CleanUp()
 
 void ModuleHierarchyGameObject::CreateHierarchyWindow()
 {
-	if (App->mainMenubar->show_hierarchy_window) {
+	if (App->editor->show_hierarchy_window) {
 
         bool itemRemoved;
         int uid2 = 0;
 
-        ImGui::Begin("HierarchyWindow", &App->mainMenubar->show_hierarchy_window);
+        ImGui::Begin("HierarchyWindow", &App->editor->show_hierarchy_window);
 
         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(2, 2));
      
@@ -103,13 +101,13 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
             }
         }
 
-        //Delete Object?
-        if (App->mainMenubar->delete_object == true)
+        //Delete Object
+        if (App->editor->delete_object == true)
         {
             ImGui::SetNextWindowSize({ 320,150 });
             ImGui::SetNextWindowPos({ 625, 300 });
 
-            ImGui::Begin("VeryReal Engine", &App->mainMenubar->delete_object, ImGuiWindowFlags_NoCollapse
+            ImGui::Begin("VeryReal Engine", &App->editor->delete_object, ImGuiWindowFlags_NoCollapse
                 | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
             ImGui::Separator();
@@ -126,14 +124,14 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
             if (ImGui::Button("Yes", { 80,20 }))
             {
                 App->meshimporter->MeshesOnScene.erase(App->meshimporter->MeshesOnScene.begin() + (uid2));
-                App->mainMenubar->delete_object = false;
+                App->editor->delete_object = false;
                 itemRemoved = true;
             }
 
             ImGui::SameLine(0.0F, 125.0f);
             if (ImGui::Button("No", { 80,20 }))
             {
-                App->mainMenubar->delete_object = false;
+                App->editor->delete_object = false;
             }
 
             ImGui::End();
@@ -224,7 +222,7 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
 
         
 
-        App->mainMenubar->delete_object = true;
+        App->editor->delete_object = true;
       
     }
 
@@ -288,5 +286,5 @@ void ModuleHierarchyGameObject::CreateConsolelog(const char file[], int line, co
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 }

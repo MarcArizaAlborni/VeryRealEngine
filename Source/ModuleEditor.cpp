@@ -1,9 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleEditorMainMenuBar.h"
-#include "ModuleEditorConfiguration.h"
 #include "Globals.h"
-#include "ModuleEditorConsole.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGeometryManager.h"
 #include "ModuleEditor.h"
@@ -85,16 +82,29 @@ bool ModuleEditor::Start()
 
 	OnInit = true;
 
-	App->configWindow->active_window = true;
+	active_window = true;
 
-	App->mainMenubar->drawplane = false;
-	App->mainMenubar->drawcube = false;
-	App->mainMenubar->drawpyramid = false;
-	App->mainMenubar->drawcylinder = false;
-	App->mainMenubar->drawsphere = false;
+	drawplane = false;
+	drawcube = false;
+	drawpyramid = false;
+	drawcylinder = false;
+	drawsphere = false;
+
+
 	// HARDWARE DETECTION
-	App->configWindow->GetHardwareStatus();
-	App->console->LogsAmount = 0;
+	GetHardwareStatus();
+	LogsAmount = 0;
+
+
+	//MAIN MENU BAR----------------------------
+	show_about_window = false;
+	show_hierarchy_window = true;
+	show_console_window = true;
+	show_inspector_window = true;
+	show_config_window = true;
+	show_popup_want_close = false;
+	show_popup_want_close2 = false;
+	show_resources_window = true;
 
 	return ret;
 }
@@ -126,34 +136,34 @@ update_status ModuleEditor::Update(float dt)
 update_status ModuleEditor::PostUpdate(float dt)
 {
 
-	if (App->mainMenubar->drawplane)
+	if (drawplane)
 	{
 		App->geometrymanager->DrawPlane();
-		App->mainMenubar->drawplane = false;
+		drawplane = false;
 	}
 
-	if (App->mainMenubar->drawcube)
+	if (drawcube)
 	{
 		App->geometrymanager->DrawCube();
-		App->mainMenubar->drawcube = false;
+		drawcube = false;
 	}
 
-	if (App->mainMenubar->drawpyramid)
+	if (drawpyramid)
 	{
 		App->geometrymanager->DrawPyramid();
-		App->mainMenubar->drawpyramid = false;
+		drawpyramid = false;
 	}
 
-	if (App->mainMenubar->drawcylinder)
+	if (drawcylinder)
 	{
 		App->geometrymanager->DrawCylinder();
-		App->mainMenubar->drawcylinder = false;
+		drawcylinder = false;
 	}
 
-	if (App->mainMenubar->drawsphere)
+	if (drawsphere)
 	{
 		App->geometrymanager->DrawSphere();
-		App->mainMenubar->drawsphere = false;
+		drawsphere = false;
 	}
 
 	bool closeEngine = false;
@@ -178,32 +188,30 @@ update_status ModuleEditor::PostUpdate(float dt)
 
 
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-	/*if (show_demo_window)
-		ImGui::ShowDemoWindow(&show_demo_window);*/
+	if (show_demo_window)
+		ImGui::ShowDemoWindow(&show_demo_window);
 
 	
 		if (MainWindow("Main Window", show_main_dockSpace, ImGuiWindowFlags_MenuBar)) {
-			App->mainMenubar->CreateMainMenuBar();
+			CreateMainMenuBar();
 			ImGui::End();
 		}
-		App->configWindow->CreateConfigWindow();
+		CreateConfigWindow();
 		CreateAboutWindow();
-		App->console->CreateConsoleWindow();
+		CreateConsoleWindow();
 		App->hierarchy->CreateHierarchyWindow();
 		App->inspector->CreateInspectorWindow();
 		App->resources->CreateResourcesWindow();
 	
 		
-		
-
 		//Popups close
-		if (App->mainMenubar->show_popup_want_close == true)
+		if (show_popup_want_close == true)
 		{
 			
 			ImGui::SetNextWindowSize({ 300,150 });
 			ImGui::SetNextWindowPos({ 625, 300 });
 
-			ImGui::Begin("VeryReal Engine", &App->mainMenubar->show_popup_want_close, ImGuiWindowFlags_NoCollapse
+			ImGui::Begin("VeryReal Engine", &show_popup_want_close, ImGuiWindowFlags_NoCollapse
 				| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove );
 
 			ImGui::Separator();
@@ -218,24 +226,24 @@ update_status ModuleEditor::PostUpdate(float dt)
 			ImGui::Spacing();
 			if (ImGui::Button("Yes", { 80,20 }))
 			{
-				App->mainMenubar->show_popup_want_close2 = true;
+				show_popup_want_close2 = true;
 			}
 
 			ImGui::SameLine(0.0F, 125.0f);
 			if (ImGui::Button("No", { 80,20 }))
 			{
-				App->mainMenubar->show_popup_want_close = false;
+				show_popup_want_close = false;
 			}
 
 			ImGui::End();
 		}
 
-		if (App->mainMenubar->show_popup_want_close2 == true)
+		if (show_popup_want_close2 == true)
 		{
 			ImGui::SetNextWindowSize({ 350,200 });
 			ImGui::SetNextWindowPos({ 725, 400 });
 
-			ImGui::Begin("VeryReal Engine.", &App->mainMenubar->show_popup_want_close2, ImGuiWindowFlags_NoCollapse
+			ImGui::Begin("VeryReal Engine.", &show_popup_want_close2, ImGuiWindowFlags_NoCollapse
 				| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
 			ImGui::Separator();
@@ -257,8 +265,8 @@ update_status ModuleEditor::PostUpdate(float dt)
 			ImGui::SameLine(0.0F, 172.0f);
 			if (ImGui::Button("No", { 80,20 }))
 			{
-				App->mainMenubar->show_popup_want_close = false;
-				App->mainMenubar->show_popup_want_close2 = false;
+				show_popup_want_close = false;
+				show_popup_want_close2 = false;
 			}
 
 			ImGui::End();
@@ -294,6 +302,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+
 // Main docking
 bool ModuleEditor::MainWindow(char* id, bool docking, ImGuiWindowFlags windowFlags)
 {
@@ -327,7 +336,7 @@ bool ModuleEditor::MainWindow(char* id, bool docking, ImGuiWindowFlags windowFla
 // ------------------------ABOUT--------------------
 void ModuleEditor::CreateAboutWindow()
 {
-	if (App->mainMenubar->show_about_window) {
+	if (show_about_window) {
 		ImGui::Begin("About");
 
 		ImGui::Text("Very Real Engine v0.1");
@@ -369,6 +378,448 @@ void ModuleEditor::CreateAboutWindow()
 	}
 }
 
+
+// ----------------------------MENU BAR-------------------------------------
+//Creation
+void ModuleEditor::CreateMainMenuBar() {
+
+	//MenuEditor
+	if (ImGui::BeginMainMenuBar())
+	{
+		CreateMainMenuBar_File();
+		CreateMainMenuBar_Edit();
+		CreateInsertPrimitivesWindow();
+		CreateMainMenuBar_View();
+		CreateMainMenuBar_Help();
+
+
+		ImGui::EndMainMenuBar();
+	}
+}
+
+//CREATION OF SUBMENUS
+//---------FILE--------
+
+void ModuleEditor::CreateMainMenuBar_File() {
+
+	if (ImGui::BeginMenu("File"))
+	{
+		if (ImGui::MenuItem("Quit", "ESC")) {
+
+			show_popup_want_close = true;
+
+		}
+		ImGui::EndMenu();
+	}
+}
+
+//----------EDIT-----------
+void ModuleEditor::CreateMainMenuBar_Edit() {
+
+	if (ImGui::BeginMenu("Edit"))
+	{
+		if (ImGui::MenuItem("Undo", "Ctrl+Z")) {}
+		if (ImGui::MenuItem("Redo", "Ctrl+Y", false, false)) {}  // Disabled item
+		if (ImGui::MenuItem("Cut", "Ctrl+X")) {}
+		if (ImGui::MenuItem("Copy", "Ctrl+C")) {}
+		if (ImGui::MenuItem("Paste", "Ctrl+V")) {}
+
+		ImGui::EndMenu();
+	}
+}
+
+//-----------VIEW-----------
+void ModuleEditor::CreateMainMenuBar_View() {
+
+	if (ImGui::BeginMenu("Window"))
+	{
+		ImGui::MenuItem("Console", "1", &show_console_window); //  We need to get 1 as input to close It
+		ImGui::MenuItem("Configuration", "2", &show_config_window); // We need to get 4 as input to close It
+		ImGui::MenuItem("Show GameObject Hierarchy", "3", &show_hierarchy_window);
+		ImGui::MenuItem("Show GameObject Inspector", "4", &show_inspector_window);
+		ImGui::MenuItem("Show Resources window", "5", &show_resources_window);
+		if (App->input->keyboard[SDL_SCANCODE_4]) {
+
+			// Condition to enable/disable when clicking 4
+
+		}
+
+		ImGui::EndMenu();
+	}
+}
+
+//---------------------HELP-----------------
+void ModuleEditor::CreateMainMenuBar_Help() {
+
+	if (ImGui::BeginMenu("Help"))
+	{
+		if (ImGui::MenuItem("Gui Demo")) {};
+
+		if (ImGui::MenuItem("Documentation"))
+			App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine"); // Missing wiki
+
+		if (ImGui::MenuItem("Download Latest"))
+			App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine"); // Missing release
+
+		if (ImGui::MenuItem("Report a bug"))
+			App->RequestBrowser("https://github.com/MarcArizaAlborni/VeryRealEngine/issues");
+
+		(ImGui::MenuItem("About", "", &show_about_window));
+
+		ImGui::EndMenu();
+	}
+}
+
+
+
+//--------------------INSERT PRIMITIVES-----------------
+void ModuleEditor::CreateInsertPrimitivesWindow()
+{
+	if (ImGui::BeginMenu("Insert"))
+	{
+		if (ImGui::BeginMenu("Create"))
+		{
+			if (ImGui::MenuItem("Plane"))
+			{
+				LOGFIX("Creating : Plane");
+				drawplane = true;
+			}
+			if (ImGui::MenuItem("Cube"))
+			{
+				LOGFIX("Creating : Cube");
+				drawcube = true;
+			}
+			/*if (ImGui::MenuItem("Pyramid"))
+			{
+				LOGFIX("Pyramid Currently Not Available");
+				drawpyramid = true;
+			}*/
+			if (ImGui::MenuItem("Cylinder"))
+			{
+				LOGFIX("Creating : Cylinder");
+				drawcylinder = true;
+			}
+			if (ImGui::MenuItem("Sphere"))
+			{
+				LOGFIX("Creating : Sphere");
+				drawsphere = true;
+			}
+			ImGui::MenuItem("Import A mesh");
+			ImGui::EndMenu();
+		}
+
+		ImGui::EndMenu();
+	}
+}
+
+// ---------------------------------CONFIG--------------------------------
+// ----------------------------CONFIG WINDOW-------------------------------------
+//Creation
+void ModuleEditor::CreateConfigWindow() {
+
+	if (App->editor->show_config_window) {
+
+		ImGui::Begin("Configuration", &App->editor->show_config_window);
+
+		CreateConfigWindow_Options();
+		CreateConfigWindow_Application();
+		CreateConfigWindow_Window();
+		CreateConfigWindow_FileSystem();
+		CreateConfigWindow_Input();
+		CreateConfigWindow_Hardware();
+		ImGui::End();
+
+	}
+}
+
+//CREATION OF SUBMENUS
+//---------OPTIONS--------
+void ModuleEditor::CreateConfigWindow_Options() {
+
+	if (ImGui::BeginMenu("Options")) {
+
+		ImGui::MenuItem("Set Defaults");
+		ImGui::MenuItem("Load");
+		ImGui::MenuItem("Save");
+
+		ImGui::EndMenu();
+	}
+}
+
+//---------APPLICATION--------
+void ModuleEditor::CreateConfigWindow_Application() {
+
+	if (ImGui::CollapsingHeader("Application")) {
+
+		static char str1[128] = "";
+		ImGui::InputTextWithHint("App Name", "Enter Text Here", str1, IM_ARRAYSIZE(str1));
+		ImGui::InputTextWithHint("Organization", "Enter Text Here", str1, IM_ARRAYSIZE(str1));
+
+
+		ImGui::Separator();
+
+		ImGui::SliderInt("Max FPS", &App->max_framerateCap, 1, 120);
+
+		ImGui::Text("Limit Framerate:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", App->max_framerateCap);
+		if (ImGui::Checkbox("VSync", &vSync)) {
+			if (vSync) {
+				SDL_GL_SetSwapInterval(1);
+			}
+			else {
+				SDL_GL_SetSwapInterval(0);
+			}
+		}
+
+		/*char title[25];
+		sprintf_s(title, 25, "Framerate %.1f", App->fps_log[App->fps_log.size() - 1]);
+		ImGui::PlotHistogram("##framerate", &App->fps_log[0], App->fps_log.size(), 0, title, 0.0f, 140.0f, ImVec2(310, 100));
+		sprintf_s(title, 25, "Milliseconds %.1f", App->ms_log[App->ms_log.size() - 1]);
+		ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));*/
+
+		char title[25];
+		sprintf_s(title, 25, "Framerate %.1f", App->fps_log[App->fps_log.size() - 1]);
+		ImGui::PlotHistogram("##framerate", &App->fps_log[0], App->fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		sprintf_s(title, 25, "Milliseconds %0.1f", App->ms_log[App->ms_log.size() - 1]);
+		ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
+
+		// Memory --------------------
+	}
+}
+
+//------------WINDOW-----------------------
+void ModuleEditor::CreateConfigWindow_Window()
+{
+	if (ImGui::CollapsingHeader("Window")) {
+
+		ImGui::Checkbox("Active", &active_window);
+
+		//Icon Stuff
+
+		static int val = 1000;
+		static int val2;
+		static int val3;
+		static int volume;
+
+		brightness = App->window->GetBrightness();
+		if (ImGui::SliderFloat("Brightness", &brightness, 0.0f, 1.0f))
+			App->window->ChangeWindowBrightnessTo(brightness);
+
+
+		ImGui::SliderInt("Size Height", &val2, 0.0f, 300.0f);
+		ImGui::SliderInt("Size Width", &val3, 0.0f, 300.0f);
+
+		ImGui::Text("Input Active: ");
+
+		ImGui::SameLine(0.0f, 10.0f);
+
+		if (App->input->keyboard[SDL_SCANCODE_W]) {
+
+			ImGui::Text("GO UP BUTTON ");
+
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_S]) {
+
+			ImGui::Text("GO DOWN BUTTON ");
+
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_A]) {
+
+			ImGui::Text("GO LEFT BUTTON ");
+
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_D]) {
+
+			ImGui::Text("GO RIGHT BUTTON ");
+
+		}
+		else if (App->input->mouse_buttons[SDL_BUTTON_LEFT]) {
+
+			ImGui::Text("GO LEFT BUTTON ");
+
+		}
+		else if (App->input->mouse_buttons[SDL_BUTTON_RIGHT]) {
+
+			ImGui::Text("GO RIGHT BUTTON ");
+
+		}
+		else {
+			ImGui::Text("No Input Detected");
+		}
+
+		ImGui::Text("Mouse Position");
+		ImGui::SameLine(0.0f, 10.0f);
+		ImGui::Text("X: %d", App->input->mouse_x);
+		ImGui::SameLine(0.0f, 10.0f);
+		ImGui::Text("Y: %d", App->input->mouse_y);
+
+		ImGui::Text("Refresh Rate");
+
+		ImGui::SameLine(0.0f, 30.0f);
+
+		ImGui::Text("Current fps");
+
+		active_fullscreen = App->window->GetFullscreen();
+		if (ImGui::Checkbox("Fullscreen", &active_fullscreen))
+			App->window->SetFullscreen(active_fullscreen);
+
+		// Not working yet
+		ImGui::SameLine();
+		active_Resizable = App->window->GetResizable();
+		(ImGui::Checkbox("Resizable", &active_Resizable));
+		App->window->SetResizable(active_Resizable);
+		if (ImGui::IsItemHovered())
+			ImGui::SetTooltip("Restart to apply");
+
+		active_Borderless = App->window->GetBorderless();
+		if (ImGui::Checkbox("Borderless", &active_Borderless))
+			App->window->SetBorderless(active_Borderless);
+		ImGui::SameLine(0, 50.0f);
+
+		active_Full_Desktop = App->window->GetFullDesktop();
+		if (ImGui::Checkbox("Fullscreen Desktop", &active_Full_Desktop))
+			App->window->SetFullScreenDesktop(active_Full_Desktop);
+
+	}
+}
+
+//----------------------FILE VIEW----------------------
+void ModuleEditor::CreateConfigWindow_FileSystem()
+{
+
+	if (ImGui::CollapsingHeader("File System")) {
+
+
+	}
+}
+
+//---------------------INPUT-------------------------
+void ModuleEditor::CreateConfigWindow_Input()
+{
+
+	if (ImGui::CollapsingHeader("Input")) {
+
+
+	}
+}
+
+//---------------------HARDWARE-------------------------
+void ModuleEditor::CreateConfigWindow_Hardware()
+{
+
+	if (ImGui::CollapsingHeader("Hardware")) {
+
+		ImGui::Text("CPUs:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.CPU_Count);
+
+		ImGui::Text("Cache:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "(%d kb)", HardwareStat.CPU.Cache_size);
+
+		ImGui::Text("System Ram:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d GBs", HardwareStat.CPU.System_Ram);
+
+		ImGui::TextColored({ 255,255,0,1 }, HardwareStat.GPU.model_name);
+		ImGui::TextColored({ 255,255,0,1 }, HardwareStat.GPU.renderer_name);
+		ImGui::TextColored({ 255,255,0,1 }, HardwareStat.GPU.version);
+
+		ImGui::Text("3D Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_3D);
+
+		ImGui::Text("AltiVec Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_AltiVec);
+
+		ImGui::Text("AVX Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_AVX);
+
+		ImGui::Text("AVX2 Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_AVX2);
+
+		ImGui::Text("MMX Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_MMX);
+
+		ImGui::Text("RDTSC Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_RDTSC);
+
+		ImGui::Text("SSE Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE);
+
+		ImGui::Text("SSE2 Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE2);
+
+		ImGui::Text("SSE3 Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE3);
+
+		ImGui::Text("SSE41 Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE41);
+
+		ImGui::Text("SSE42 Active:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE42);
+	}
+
+}
+
+void ModuleEditor::GetHardwareStatus()
+{
+	HardwareStat.CPU.CPU_Count = SDL_GetCPUCount();
+	HardwareStat.CPU.Cache_size = SDL_GetCPUCacheLineSize();
+	HardwareStat.CPU.System_Ram = SDL_GetSystemRAM() / 1000;
+	HardwareStat.GPU.model_name = (char*)glGetString(GL_VENDOR);
+	HardwareStat.GPU.renderer_name = (char*)glGetString(GL_RENDERER);
+	HardwareStat.GPU.version = (char*)glGetString(GL_VERSION);
+	HardwareStat.CPU.isActive_3D = SDL_Has3DNow();
+	HardwareStat.CPU.isActive_AVX2 = SDL_HasAVX2();
+	HardwareStat.CPU.isActive_AVX = SDL_HasAVX();
+	HardwareStat.CPU.isActive_AltiVec = SDL_HasAltiVec();
+	HardwareStat.CPU.isActive_MMX = SDL_HasMMX();
+	HardwareStat.CPU.isActive_RDTSC = SDL_HasRDTSC();
+	HardwareStat.CPU.isActive_SSE = SDL_HasSSE();
+	HardwareStat.CPU.isActive_SSE2 = SDL_HasSSE2();
+	HardwareStat.CPU.isActive_SSE3 = SDL_HasSSE3();
+	HardwareStat.CPU.isActive_SSE41 = SDL_HasSSE41();
+	HardwareStat.CPU.isActive_SSE42 = SDL_HasSSE42();
+}
+
+
+
+// -----------------------CONSOLE------------------------
+void ModuleEditor::CreateConsoleWindow()
+{
+	if (App->editor->show_console_window) {
+
+		ImGui::Begin("Console", &App->editor->show_console_window);
+		std::list<char*>::iterator Iterator = ConsoleLogs.begin();
+
+		for (Iterator; Iterator != ConsoleLogs.end(); Iterator++) {
+
+
+			ImGui::TextUnformatted(*Iterator);
+
+		}
+
+		ImGui::End();
+
+	}
+
+	LogsAmount = ConsoleLogs.size();
+
+}
+
+
 void ModuleEditor::CreateConsolelog(const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];
@@ -383,6 +834,8 @@ void ModuleEditor::CreateConsolelog(const char file[], int line, const char* for
 	OutputDebugString(tmp_string2);
 
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	ConsoleLogs.push_back(tmp_string2);
+
 }
+
 

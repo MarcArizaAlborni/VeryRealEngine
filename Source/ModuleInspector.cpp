@@ -1,10 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInspector.h"
-#include "ModuleEditorMainMenuBar.h"
-#include "ModuleEditorConsole.h"
 #include "ModuleGeometryManager.h"
 #include "ModuleMeshImporter.h"
+#include "ModuleEditor.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -53,9 +52,9 @@ bool ModuleInspectorGameObject::CleanUp()
 
 void ModuleInspectorGameObject::CreateInspectorWindow()
 {
-	if (App->mainMenubar->show_inspector_window)
+	if (App->editor->show_inspector_window)
 	{
-		ImGui::Begin("Inspector", &App->mainMenubar->show_inspector_window);
+		ImGui::Begin("Inspector", &App->editor->show_inspector_window);
 
 		//std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
 		bool SomethingDrawn = false; // if there isnt an object in the list or if none of them
@@ -273,5 +272,5 @@ void ModuleInspectorGameObject::CreateConsolelog(const char file[], int line, co
 	OutputDebugString(tmp_string2);
 
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 }

@@ -1,10 +1,10 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
-#include "ModuleEditorConsole.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleTextureImporter.h"
 #include "ModuleMeshImporter.h"
+#include "ModuleEditor.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -488,5 +488,5 @@ void ModuleInput::CreateConsolelog(const char file[], int line, const char* form
 	OutputDebugString(tmp_string2);
 
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 }

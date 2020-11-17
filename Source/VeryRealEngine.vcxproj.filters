@@ -58,15 +58,6 @@
     <ClCompile Include="ModuleMeshImporter.cpp">
       <Filter>Source\Modules\Importers</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleEditorConfiguration.cpp">
-      <Filter>Source\Modules\UI\Windows &amp; Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleEditorMainMenuBar.cpp">
-      <Filter>Source\Modules\UI\Windows &amp; Menus\MainMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleEditorConsole.cpp">
-      <Filter>Source\Modules\UI\Windows &amp; Menus</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleTextureImporter.cpp">
       <Filter>Source\Modules\Importers</Filter>
     </ClCompile>
@@ -585,15 +576,6 @@
     <ClInclude Include="ModuleMeshImporter.h">
       <Filter>Source\Modules\Importers</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleEditorConfiguration.h">
-      <Filter>Source\Modules\UI\Windows &amp; Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleEditorMainMenuBar.h">
-      <Filter>Source\Modules\UI\Windows &amp; Menus\MainMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleEditorConsole.h">
-      <Filter>Source\Modules\UI\Windows &amp; Menus</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleTextureImporter.h">
       <Filter>Source\Modules\Importers</Filter>
     </ClInclude>
@@ -880,12 +862,6 @@
     </Filter>
     <Filter Include="Source\Modules\UI\GameObjects">
       <UniqueIdentifier>{27439aec-a8d4-4e96-bb1e-14f52d6533dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Modules\UI\Windows &amp; Menus">
-      <UniqueIdentifier>{6aa6277a-a672-45d7-a44f-cd9f2161acfe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Modules\UI\Windows &amp; Menus\MainMenu">
-      <UniqueIdentifier>{19780105-9ec4-4a41-9a1c-aac8e4a87310}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\External Libraries\mmgr">
       <UniqueIdentifier>{31d518dd-d8a8-4d62-bbca-694d72a7f896}</UniqueIdentifier>

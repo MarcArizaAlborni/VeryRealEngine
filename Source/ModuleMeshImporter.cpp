@@ -1,9 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleMeshImporter.h"
-#include "ModuleEditorConsole.h"
 #include "ModuleRenderer3D.h"
 #include "FileSystem.h"
+#include "ModuleEditor.h"
 
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
@@ -407,6 +407,6 @@ void ModuleMeshImporter::CreateConsolelog(const char file[], int line, const cha
 	OutputDebugString(tmp_string2);
 
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 }
 

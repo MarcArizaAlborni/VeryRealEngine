@@ -3,7 +3,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleGeometryManager.h"
 #include "ModuleTextureImporter.h"
-#include "ModuleEditorConsole.h"
+#include "ModuleEditor.h"
 #include "libraries/Glew/include/GL/glew.h"
 #include "libraries/SDL/include/SDL_opengl.h"
 #include "Primitive.h"
@@ -305,5 +305,5 @@ void ModuleGeometryManager::CreateConsolelog(const char file[], int line, const 
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 }

@@ -2,9 +2,9 @@
 #include "Application.h"
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
-#include "ModuleEditorConsole.h"
 #include "ModuleGeometryManager.h"
 #include "ModuleMeshImporter.h"
+#include "ModuleEditor.h"
 
 #include "libraries/MathGeoLib/include/Math/MathFunc.h"
 #include "libraries/MathGeoLib/include/Geometry/LineSegment.h"
@@ -293,5 +293,5 @@ void ModuleCamera3D::CreateConsolelog(const char file[], int line, const char* f
 	OutputDebugString(tmp_string2);
 
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 }

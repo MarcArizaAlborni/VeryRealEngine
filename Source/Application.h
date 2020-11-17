@@ -19,14 +19,9 @@
 #include "libraries/json/json.hpp"
 
 
-
-
-
 class ModuleWindow;
 class ModuleInput;
-class ModuleEditorMainMenuBar;
-class ModuleEditorConfiguration;
-class ModuleEditorConsole;
+
 class ModuleRenderer3D;
 
 class ModuleCamera3D;
@@ -56,9 +51,7 @@ public:
 	ModuleFileSystem* filemanager;
 
 	//Windows & Menus
-	ModuleEditorMainMenuBar* mainMenubar;
-	ModuleEditorConfiguration* configWindow;
-	ModuleEditorConsole* console;
+
 	ModuleHierarchyGameObject* hierarchy;
 	ModuleInspectorGameObject* inspector;
 	ResourceManager* resources;

@@ -1,10 +1,10 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
-#include "ModuleEditorConsole.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleTextureImporter.h"
+#include "ModuleEditor.h"
 #include "libraries/Glew/include/GL/glew.h"
 #include "libraries/SDL/include/SDL_opengl.h"
 #include "Primitive.h"
@@ -317,7 +317,7 @@ void ModuleRenderer3D::CreateConsolelog(const char file[], int line, const char*
 	OutputDebugString(tmp_string2);
 
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 }
 
 void ModuleRenderer3D::LoadIconsTextures()

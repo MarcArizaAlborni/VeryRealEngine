@@ -1,8 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextureImporter.h"
-#include "ModuleEditorConsole.h"
 #include "ModuleMeshImporter.h"
+#include "ModuleEditor.h"
 
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
@@ -327,6 +327,6 @@ void ModuleTextureImporter::CreateConsolelog(const char file[], int line, const 
 	OutputDebugString(tmp_string2);
 
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 }
 

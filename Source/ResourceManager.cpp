@@ -2,9 +2,8 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ResourceManager.h"
-#include "ModuleEditorConsole.h"
-#include "ModuleEditorMainMenuBar.h"
 #include "ModuleTextureImporter.h"
+#include "ModuleEditor.h"
 #include <filesystem>
 
 namespace fs = std::filesystem;
@@ -47,7 +46,7 @@ void ResourceManager::CreateResourcesWindow()
 
 	
 
-	if (App->mainMenubar->show_resources_window) {
+	if (App->editor->show_resources_window) {
 
 		bool DrawInitialParents = true;
 		std::vector<Resource*>::iterator ResIt = ResourceEntryList.begin();
@@ -69,7 +68,7 @@ void ResourceManager::CreateResourcesWindow()
 			 
 
 
-		       ImGui::Begin("Resouces", &App->mainMenubar->show_resources_window);
+		       ImGui::Begin("Resouces", &App->editor->show_resources_window);
 		       
 		       ImGui::Checkbox("Show Textures", &resource_display_textures);
 		       ImGui::SameLine();
@@ -374,7 +373,7 @@ void ResourceManager::ResourceAddChildren(Resource* Parent)
 void ResourceManager::DrawResourcesItems(Resource* Parent)
 {
 
-	if (App->mainMenubar->show_resources_window) {
+	if (App->editor->show_resources_window) {
 
 		bool DrawInitialParents = true;
 		std::vector<Resource*>::iterator ResIt = Parent->ResourceEntryChildsList.begin();
@@ -392,7 +391,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 
 		if (DrawInitialParents == true) {
 
-			ImGui::Begin("Resouces", &App->mainMenubar->show_resources_window);
+			ImGui::Begin("Resouces", &App->editor->show_resources_window);
 
 			ImGui::Checkbox("Show Textures", &resource_display_textures);
 			ImGui::SameLine();
@@ -537,7 +536,7 @@ void ResourceManager::CreateConsolelog(const char file[], int line, const char* 
 	OutputDebugString(tmp_string2);
 
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 }
 
 

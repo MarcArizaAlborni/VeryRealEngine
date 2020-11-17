@@ -11,9 +11,7 @@
 
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
-#include "ModuleEditorMainMenuBar.h"
-#include "ModuleEditorConfiguration.h"
-#include "ModuleEditorConsole.h"
+
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
@@ -36,9 +34,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	input = new ModuleInput(this );
 	hierarchy = new ModuleHierarchyGameObject(this);
 	editor = new ModuleEditor(this);
-	mainMenubar = new ModuleEditorMainMenuBar(this);
-	configWindow = new ModuleEditorConfiguration(this);
-	console = new ModuleEditorConsole(this);
+	
 	inspector = new ModuleInspectorGameObject(this);
 
 	textureImporter = new ModuleTextureImporter(this);
@@ -64,9 +60,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	AddModule(input);
 	
 	AddModule(editor);
-	AddModule(mainMenubar);
-	AddModule(configWindow);
-	AddModule(console);
+
 	AddModule(filemanager);
 	AddModule(textureImporter);
 	AddModule(meshimporter);

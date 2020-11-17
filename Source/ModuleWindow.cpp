@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
-#include "ModuleEditorConsole.h"
+#include "ModuleEditor.h"
 
 
 ModuleWindow::ModuleWindow(Application* app, const char* name, bool start_enabled) : Module(app,"Window", start_enabled)
@@ -193,7 +193,7 @@ void ModuleWindow::CreateConsolelog(const char file[], int line, const char* for
 	OutputDebugString(tmp_string2);
 
 
-	App->console->ConsoleLogs.push_back(tmp_string2);
+	App->editor->ConsoleLogs.push_back(tmp_string2);
 }
 
 void ModuleWindow::SetBorderless(bool borderless)
