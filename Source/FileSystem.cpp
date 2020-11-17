@@ -495,6 +495,14 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 				fwrite(&WVerticesTexY, sizeof(float), 1, FileW);  //6
 				fwrite(&WVerticesTexZ, sizeof(float), 1, FileW);  //7
 
+				float WNormX = FileToStore.Scene->mMeshes[mMeshesSize]->mNormals[mVerticesSize].x;
+				float WNormY = FileToStore.Scene->mMeshes[mMeshesSize]->mNormals[mVerticesSize].y;
+				float WNormZ = FileToStore.Scene->mMeshes[mMeshesSize]->mNormals[mVerticesSize].z;
+
+				fwrite(&WNormX, sizeof(float), 1, FileW);  //5
+				fwrite(&WNormY, sizeof(float), 1, FileW);  //6
+				fwrite(&WNormZ, sizeof(float), 1, FileW);  //7
+
 				
 			}
 
@@ -558,6 +566,8 @@ LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh(int id)
 				Vertex_Sub Vertex;
 
 				Vertex_Sub TexCoords;
+
+				Vertex_Sub Normals;
 				
 
 
@@ -570,10 +580,15 @@ LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh(int id)
 				fread(&TexCoords.y, sizeof(float), 1, FileR);
 				fread(&TexCoords.z, sizeof(float), 1, FileR);
 
+				fread(&Normals.x, sizeof(float), 1, FileR);
+				fread(&Normals.y, sizeof(float), 1, FileR);
+				fread(&Normals.z, sizeof(float), 1, FileR);
+
 				
 
 				LoadedMesh.Vertex.push_back(Vertex);
 				LoadedMesh.TextureCoords.push_back(TexCoords);
+				LoadedMesh.Normal.push_back(Normals);
 
 			}
 

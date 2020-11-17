@@ -22,6 +22,7 @@ struct LoadedFile_Mesh {
 	uint AmountFaces;
 	std::vector<LoadedFile_Mesh_Faces> FaceInfo;
 	std::vector<Vertex_Sub> TextureCoords;
+	std::vector<Vertex_Sub> Normal;
 
 };
 
