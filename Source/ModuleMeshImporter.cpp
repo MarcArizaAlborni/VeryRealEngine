@@ -62,8 +62,6 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 		ReadyToLoad = true;
 	}
 
-
-
 	if (ReadyToLoad ==true) {
 
 		if (LoadfromWAF == false) {
@@ -90,30 +88,25 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 		//}
 
 
-		LoadedFile InformationToRecieve;
+		LoadedFile* InformationToRecieve;
 		
-
-		
-
+		int TemporaryID; // This is only temporary, should not be used this way
+	
 		if(LoadfromWAF==false){
+
 		 StoredFile InformationToSend;
 		 InformationToSend.Scene = scene;
-		 App->filemanager->SaveInformationFile_Mesh(App->GiveRandomNum_Undefined(),InformationToSend);
+		 App->filemanager->SaveInformationFile_Mesh(TemporaryID=App->GiveRandomNum_Undefined(),InformationToSend);
+
 		}
 
-		App->filemanager->LoadInformationFile_Mesh();
-		InformationToRecieve = App->filemanager->LoadedResources.back();
+		InformationToRecieve=App->filemanager->LoadInformationFile_Mesh(TemporaryID);
+		//InformationToRecieve = App->filemanager->LoadedResources.back();
 		
 		bool ParentHasFound=false;
 
-		/*if (InformationToRecieve.AmountMeshes > 1) {
-			GameObject* ItemParentMesh = new GameObject();
-			ItemParentMesh->is_Drawn = true;
-			ItemParentMesh->is_EmptyParent = true;
-			AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL,true);
-			ParentHasFound = true;
-		}*/
-		if (scene->mNumMeshes > 1) {
+		
+		if (InformationToRecieve->AmountMeshes > 1) {
 
 			GameObject* ItemParentMesh = new GameObject();
 			ItemParentMesh->is_Drawn = true;
@@ -123,19 +116,30 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 		}
 
-		for (int i = 0; i < scene->mNumMeshes; ++i) {
+		for (int i = 0; i < InformationToRecieve->AmountMeshes; ++i) {
 
 			GameObject* ourGameObject = new GameObject();
 			
 			aiMesh* MeshToLoad = scene->mMeshes[i];
 
+			MeshToLoad->mNumVertices = InformationToRecieve->MeshInfo[i].AmountVertex;
+			MeshToLoad->mNumFaces = InformationToRecieve->MeshInfo[i].AmountFaces;
 			
-		
-			MeshToLoad->mNumVertices = scene->mMeshes[i]->mNumVertices;
+			for (int d = 0; d < InformationToRecieve->MeshInfo[i].AmountFaces; ++d) {
 
+				for (int c = 0; c < MeshToLoad->mFaces[d].mNumIndices; ++c) {
+
+					uint value;
+
+					MeshToLoad->mFaces[d].mIndices[c] = InformationToRecieve->MeshInfo[i].FaceInfo[d].Index[c];
+
+				}
+
+				MeshToLoad->mFaces[d].mNumIndices = InformationToRecieve->MeshInfo[i].FaceInfo[d].AmountIndex;
+			}
+			
 			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
 			
-
 			ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
 
 			memcpy(ourGameObject->MeshData.vertex, MeshToLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);

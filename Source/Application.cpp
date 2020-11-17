@@ -24,6 +24,9 @@
 #include "FileSystem.h"
 
 
+
+
+
 #define RAND_MAX 99999;
 
 Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
@@ -104,8 +107,6 @@ bool Application::Init()
 		item++;
 	}
 
-
-
 	std::vector<Module*>::iterator item2 = list_modules.begin();
 	
 	//Call Start() in all modules
@@ -117,7 +118,6 @@ bool Application::Init()
 		(*item2)->Start();
 		item2++;
 	}
-
 
 	return ret;
 }
@@ -159,7 +159,6 @@ void Application::FinishUpdate()
 		ms_log.erase(ms_log.begin());
 	}
 		
-
 	if (max_framerateCap > 0)
 	{
 		capped_ms = 1000 / max_framerateCap;
@@ -170,35 +169,31 @@ void Application::FinishUpdate()
 		capped_ms = 0;
 	}
 		
-
 	if (capped_ms > 0 && last_frame_ms < capped_ms)
 	{
 		SDL_Delay(capped_ms - last_frame_ms);
 	}
-		
+	
+
+
 }
 
-int Application::GenerateRandomIntRange(int first, int last)
+int Application::GenerateRandomID()
 {
-	return 0;
+	pcg_extras::seed_seq_from<std::random_device> seed_source;
+	pcg32 rng(seed_source);
+
+	std::uniform_int_distribution<uint32> uniform_dist1(0, 4294967295);
+	int num = value = uniform_dist1(rng);
+
+	return num;
 }
-
-int Application::GenerateRandomInt()
-{
-	return 0;
-}
-
-int Application::GetNumber() const
-{
-	return 0;
-}
-
-
 
 
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
+
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 
@@ -261,15 +256,16 @@ int Application::GiveRandomNum_Undefined()
 	int Val2 = rand();
 	int Val3 = rand();
 
-	
-	
-	int Ret = Val1 + Val2 + Val3;
+	int timeR=last_sec_frame_time.Read();
+	int timeRS = last_sec_frame_time.ReadSec();
+	int Ret = Val1 + (timeR* timeRS);
+
 	return Ret;
 }
 
 int Application::GiveRandomNum_Defined(int Min, int Max)
 {
-
+	
 	return 0;
 }
 

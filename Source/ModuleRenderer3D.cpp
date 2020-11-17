@@ -14,6 +14,7 @@
 #include "ModuleTextureImporter.h"
 
 
+
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -185,6 +186,12 @@ bool ModuleRenderer3D::Start()
 	//App->meshimporter->MeshesOnScene.at(3)->TextureData = App->textureImporter->TextureEarth;
 
 
+	/*for (int a = 0; a < 10; ++a) {
+		std::string value = std::to_string(a);
+		const char* value_C = value.c_str();
+		LOGFIX(value_C);
+	}*/
+
 
 
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -253,6 +260,10 @@ update_status ModuleRenderer3D::Update(float dt)
 	p.axis = true;
 	p.Render();
 
+
+	int a = App->GenerateRandomID();
+	
+	
 	return UPDATE_CONTINUE;
 }
 

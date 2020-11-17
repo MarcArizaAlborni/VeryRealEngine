@@ -148,14 +148,12 @@ void ModuleGeometryManager::Transform_Mesh_Translation(GameObject* mesh, VectorT
 {
 	glPushMatrix();
 	glTranslatef( Current.x + New.x, Current.y + New.y, Current.z + New.z);
-	
 }
 
 void ModuleGeometryManager::Transform_Mesh_Scale(GameObject* mesh, VectorTransformations Current, VectorTransformations New)
 {
 	glPushMatrix();
 	glScalef(Current.x + New.x, Current.y + New.y, Current.z + New.z);
-	
 }
 
 void ModuleGeometryManager::Transform_Mesh_Rotation(GameObject* mesh, VectorTransformations Current, VectorTransformations New)
@@ -174,7 +172,6 @@ void ModuleGeometryManager::DrawPlane()
 
 void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 {
-
 	GLfloat Null_Array[] = { 0,0,0,0 };
 
 	VectorTransformations ZeroArray;
@@ -310,7 +307,6 @@ void ModuleGeometryManager::CreateConsolelog(const char file[], int line, const 
 	va_end(ap);
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
-
 
 	App->console->ConsoleLogs.push_back(tmp_string2);
 }

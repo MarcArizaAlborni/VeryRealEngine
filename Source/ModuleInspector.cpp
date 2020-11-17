@@ -57,7 +57,6 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 	{
 		ImGui::Begin("Inspector", &App->mainMenubar->show_inspector_window);
 
-
 		//std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
 		bool SomethingDrawn = false; // if there isnt an object in the list or if none of them
 
@@ -82,18 +81,13 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 
 						SomethingDrawn = true;
 
-
 						DrawInspectorWindowInfo(ChildFoundDraw);
 
 						itB = ItemToDraw->ChildObjects.size();
-
-
 					}
 					else{ 
 						++ChildIteratorLoaded; 
 					}
-
-					
 				}
 			}
 		}
@@ -240,6 +234,8 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 		ImGui::Checkbox("Show Vertex Normals", &item->showVertexNormals);
 		ImGui::Checkbox("Show Face Normals", &item->showFaceNormals);
 
+		
+		
 		//TEXTURES INFO
 		ImGui::SetWindowFontScale(1.5);
 		ImGui::Text("Textures");
