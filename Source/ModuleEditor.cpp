@@ -194,6 +194,8 @@ update_status ModuleEditor::PostUpdate(float dt)
 		App->resources->CreateResourcesWindow();
 	
 		
+		
+
 		//Popups close
 		if (App->mainMenubar->show_popup_want_close == true)
 		{
