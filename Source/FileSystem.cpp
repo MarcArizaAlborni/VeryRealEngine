@@ -518,19 +518,19 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 
 				//this
 
-				/*uint* WIndex = FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices;
+				uint* WIndex = FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices;
 
 				uint WindexV = *WIndex; // IT WRITESBUT WHEN READING IT JUST DOESNT WORK
 
-				fwrite(&WindexV, sizeof(uint), 1, FileW);*/
+				fwrite(&WindexV, sizeof(uint), 1, FileW);
 
 				//or this
 
-				for (int mIndexSize = 0; mIndexSize < WnumIndex; ++mIndexSize) {
+				//for (int mIndexSize = 0; mIndexSize < WnumIndex; ++mIndexSize) {
 
-					uint WIndex =FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices[mIndexSize];
-					fwrite(&WIndex, sizeof(uint), 1, FileW); // 10
-				}
+				//	uint WIndex =FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices[mIndexSize];
+				//	fwrite(&WIndex, sizeof(uint), 1, FileW); // 10
+				//}
 
 			    //not both
 
@@ -619,20 +619,20 @@ LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh(int id)
 
 				//this 
 
-				/*uint RIndex;
+				uint RIndex;
 				uint* RIndexptr;
 	
 				fread(&RIndex, sizeof(uint), 1, FileR);
-				RIndexptr = &RIndex;*/
+				RIndexptr = &RIndex;
 
 				//or this
 
-				for (int mIndexCount = 0; mIndexCount < LoadedFace.AmountIndex; ++mIndexCount) {
+				/*for (int mIndexCount = 0; mIndexCount < LoadedFace.AmountIndex; ++mIndexCount) {
 
 					uint Index;
 					fread(&Index, sizeof(uint), 1, FileR);
 					LoadedFace.Index.push_back(Index);
-				}
+				}*/
 
 
 

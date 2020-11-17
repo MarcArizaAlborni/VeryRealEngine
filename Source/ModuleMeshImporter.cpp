@@ -131,23 +131,9 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 				GameObject* ourGameObject = new GameObject();
 				aiMesh* MeshToLoad = scene->mMeshes[i];
 				
-				
-
-				
-				
-
 				for (int d = 0; d < InformationToRecieve->MeshInfo[i].AmountFaces; ++d) {
 
-					for (int c = 0; c < InformationToRecieve->MeshInfo[i].FaceInfo[d].AmountIndex; ++c) {
-
-						uint value;
-
-						//InformationToRecieve->MeshInfo[i].FaceInfo[d];
-						//MeshToLoad->mFaces[d].mIndices[c] = InformationToRecieve->MeshInfo[i].FaceInfo[d].Index[c];
-
-					}
-
-					//MeshToLoad->mFaces[d].mNumIndices = InformationToRecieve->MeshInfo[i].FaceInfo[d].AmountIndex;
+			
 				}
 
 				ourGameObject->MeshData.num_vertex = InformationToRecieve->MeshInfo[i].AmountVertex;
@@ -158,10 +144,6 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 				
 					ourGameObject->MeshData.vertex[h] = InformationToRecieve->MeshInfo[i].Vertex[h];
 				}
-
-				
-
-				
 
 				//memcpy(ourGameObject->MeshData.vertex, MeshToLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
 				
@@ -257,14 +239,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 				for (int d = 0; d < InformationToRecieve->MeshInfo[i].AmountFaces; ++d) {
 
-					for (int c = 0; c < MeshToLoad->mFaces[d].mNumIndices; ++c) {
-
-						uint value;
-
-						MeshToLoad->mFaces[d].mIndices[c] = InformationToRecieve->MeshInfo[i].FaceInfo[d].Index[c];
-
-					}
-
+					
 					MeshToLoad->mFaces[d].mNumIndices = InformationToRecieve->MeshInfo[i].FaceInfo[d].AmountIndex;
 				}
 
