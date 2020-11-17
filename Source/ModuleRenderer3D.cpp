@@ -129,7 +129,7 @@ bool ModuleRenderer3D::Start()
 	
 
 	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
-	App->textureImporter->AddTextureToList(&App->textureImporter->TextureHouse, "Baker House");
+	//App->textureImporter->AddTextureToList(&App->textureImporter->TextureHouse, "Baker House");
 	App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.fbx");
 	//App->meshimporter->LoadMesh("",true);
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;
@@ -223,7 +223,7 @@ void ModuleRenderer3D::GenerateTextBuffer(float* text_coords, uint& num_text_coo
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ModuleRenderer3D::GenerateNormalBuffer(GameObject* mesh, float& normals)
+void ModuleRenderer3D::GenerateNormalBuffer(GameObject* mesh, Vertex_Sub& normals)
 {
 	uint val = 0;
 	glGenBuffers(1, (GLuint*)&(mesh->MeshData.id_normals));

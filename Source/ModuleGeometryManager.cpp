@@ -273,10 +273,10 @@ void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
 		for (int j = 0; j < object->MeshData.num_vertex; ++j)
 		{
 			Vertex_Sub vert = object->MeshData.vertex[j];
-			float norm = object->MeshData.normals[j]; //?????
+			Vertex_Sub norm = object->MeshData.normals[j]; //?????
 
 			float3 vertF = { vert.x,vert.y,vert.z };
-			float3 normF = { norm ,norm ,norm };
+			float3 normF = { norm.x ,norm.y ,norm.z };
 
 			glLineWidth(1.5f);
 			glBegin(GL_LINES);

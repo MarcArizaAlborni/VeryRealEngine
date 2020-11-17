@@ -51,8 +51,16 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 	bool ReadyToLoad = false;
 	const aiScene* scene;
-	if (LoadfromWAF == false) {
+	if (LoadfromWAF == true) {
+		const char* path = "Assets/Models/House/BakerHouse.fbx";
+		scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
+	}
+	else {
 		scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
+	}
+
+	if (LoadfromWAF == false) {
+		
 		if (scene != nullptr) {
 			ReadyToLoad = true;
 		}
@@ -62,7 +70,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 		ReadyToLoad = true;
 	}
 
-	if (ReadyToLoad ==true) {
+	if (ReadyToLoad == true) {
 
 		if (LoadfromWAF == false) {
 			aiNode* rootNodeScene = scene->mRootNode;
@@ -89,116 +97,238 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 
 		LoadedFile* InformationToRecieve;
-		
-		int TemporaryID; // This is only temporary, should not be used this way
-	
-		if(LoadfromWAF==false){
 
-		 StoredFile InformationToSend;
-		 InformationToSend.Scene = scene;
-		 App->filemanager->SaveInformationFile_Mesh(TemporaryID=App->GiveRandomNum_Undefined(),InformationToSend);
+		int TemporaryID = -1; // This is only temporary, should not be used this way
+
+		if (LoadfromWAF == false) {
+
+			StoredFile InformationToSend;
+			InformationToSend.Scene = scene;
+			App->filemanager->SaveInformationFile_Mesh(TemporaryID = App->GiveRandomNum_Undefined(), InformationToSend);
 
 		}
+		else { TemporaryID = 172; }
 
-		InformationToRecieve=App->filemanager->LoadInformationFile_Mesh(TemporaryID);
+		InformationToRecieve = App->filemanager->LoadInformationFile_Mesh(TemporaryID);
 		//InformationToRecieve = App->filemanager->LoadedResources.back();
-		
-		bool ParentHasFound=false;
 
-		
-		if (InformationToRecieve->AmountMeshes > 1) {
+		bool ParentHasFound = false;
 
-			GameObject* ItemParentMesh = new GameObject();
-			ItemParentMesh->is_Drawn = true;
-			ItemParentMesh->is_EmptyParent = true;
-			AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL,true);
-			ParentHasFound = true;
+		if (LoadfromWAF == true) {
 
-		}
+			if (InformationToRecieve->AmountMeshes > 1) {
 
-		for (int i = 0; i < InformationToRecieve->AmountMeshes; ++i) {
+				GameObject* ItemParentMesh = new GameObject();
+				ItemParentMesh->is_Drawn = true;
+				ItemParentMesh->is_EmptyParent = true;
+				AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
+				ParentHasFound = true;
 
-			GameObject* ourGameObject = new GameObject();
-			
-			aiMesh* MeshToLoad = scene->mMeshes[i];
+			}
 
-			MeshToLoad->mNumVertices = InformationToRecieve->MeshInfo[i].AmountVertex;
-			MeshToLoad->mNumFaces = InformationToRecieve->MeshInfo[i].AmountFaces;
-			
-			for (int d = 0; d < InformationToRecieve->MeshInfo[i].AmountFaces; ++d) {
+			for (int i = 0; i < InformationToRecieve->AmountMeshes; ++i) {
 
-				for (int c = 0; c < MeshToLoad->mFaces[d].mNumIndices; ++c) {
+				GameObject* ourGameObject = new GameObject();
+				aiMesh* MeshToLoad = scene->mMeshes[i];
+				
+				
 
-					uint value;
+				
+				
 
-					MeshToLoad->mFaces[d].mIndices[c] = InformationToRecieve->MeshInfo[i].FaceInfo[d].Index[c];
+				for (int d = 0; d < InformationToRecieve->MeshInfo[i].AmountFaces; ++d) {
 
+					for (int c = 0; c < InformationToRecieve->MeshInfo[i].FaceInfo[d].AmountIndex; ++c) {
+
+						uint value;
+
+						//InformationToRecieve->MeshInfo[i].FaceInfo[d];
+						//MeshToLoad->mFaces[d].mIndices[c] = InformationToRecieve->MeshInfo[i].FaceInfo[d].Index[c];
+
+					}
+
+					//MeshToLoad->mFaces[d].mNumIndices = InformationToRecieve->MeshInfo[i].FaceInfo[d].AmountIndex;
 				}
 
-				MeshToLoad->mFaces[d].mNumIndices = InformationToRecieve->MeshInfo[i].FaceInfo[d].AmountIndex;
-			}
-			
-			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
-			
-			ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
+				ourGameObject->MeshData.num_vertex = InformationToRecieve->MeshInfo[i].AmountVertex;
 
-			memcpy(ourGameObject->MeshData.vertex, MeshToLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
-		
-			if (MeshToLoad->HasFaces()) {
+				ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
 
-				ourGameObject->MeshData.num_index = MeshToLoad->mNumFaces * 3; //aixo
+				for (int h = 0; h < InformationToRecieve->MeshInfo[i].AmountVertex; ++h) {
+				
+					ourGameObject->MeshData.vertex[h] = InformationToRecieve->MeshInfo[i].Vertex[h];
+				}
 
-				int a = 0;
+				
 
-				ourGameObject->MeshData.index = new uint[ourGameObject->MeshData.num_index];
+				
 
-				for (int c = 0; c < MeshToLoad->mNumFaces; ++c) {
+				//memcpy(ourGameObject->MeshData.vertex, MeshToLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
+				
+				if (InformationToRecieve->MeshInfo[i].AmountFaces!=0) {
 
-					//IF MESHES HAVE TRIS
-					if (MeshToLoad->mFaces[c].mNumIndices == 3) {
+					ourGameObject->MeshData.num_index = InformationToRecieve->MeshInfo[i].AmountFaces*3; //aixo
 
-						memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+					int a = 0;
+
+					ourGameObject->MeshData.index = new uint[ourGameObject->MeshData.num_index];
+
+					for (int c = 0; c < InformationToRecieve->MeshInfo[i].AmountFaces; ++c) {
+
+						//IF MESHES HAVE TRIS
+						if (InformationToRecieve->MeshInfo[i].FaceInfo[c].AmountIndex== 3) {
+
+							for (int fi = 0; fi < InformationToRecieve->MeshInfo[i].FaceInfo[c].AmountIndex; ++fi) {
+
+								//ourGameObject->MeshData.index[c * 3] = InformationToRecieve->MeshInfo[i].FaceInfo[c].Index[fi];
+								memcpy(&InformationToRecieve->MeshInfo[i].FaceInfo[c].Index, &MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+								MeshToLoad->mFaces[c].mIndices[fi];
+								MeshToLoad->mFaces[c].mIndices[fi + 1];
+								MeshToLoad->mFaces[c].mIndices[fi + 2];
+								memcpy(&ourGameObject->MeshData.index[c * 3], &InformationToRecieve->MeshInfo[i].FaceInfo[c].Index, 3 * sizeof(uint));
+							}
+							
+						}
 					}
 				}
-			}
 
-			if (scene->mMeshes[i]->HasNormals()) {
+				if (InformationToRecieve->MeshInfo[i].Normal.size()!=0) {
 
-				ourGameObject->MeshData.normals = new float[ourGameObject->MeshData.num_vertex * 3];
-				memcpy(ourGameObject->MeshData.normals, scene->mMeshes[i]->mNormals, sizeof(float) * ourGameObject->MeshData.num_vertex* 3);
-			}
+					ourGameObject->MeshData.normals = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
 
-			if (MeshToLoad->HasTextureCoords(0))
-			{
-				ourGameObject->MeshData.num_texcoords = MeshToLoad->mNumVertices;
-				ourGameObject->MeshData.texcoords = new float[ourGameObject->MeshData.num_texcoords * 2];
+					for (int mf = 0; mf < InformationToRecieve->MeshInfo[i].AmountVertex; ++mf) {
+						ourGameObject->MeshData.normals[mf] = InformationToRecieve->MeshInfo[i].Normal[mf];
+					}
+					
+					//memcpy(ourGameObject->MeshData.normals, scene->mMeshes[i]->mNormals, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
+				}
 
-				for (int Z = 0; Z< ourGameObject->MeshData.num_texcoords; ++Z) {
+				if (InformationToRecieve->MeshInfo[i].TextureCoords.size()!=0)
+				{
+					ourGameObject->MeshData.num_texcoords = InformationToRecieve->MeshInfo[i].AmountVertex;
+					ourGameObject->MeshData.texcoords = new float[ourGameObject->MeshData.num_texcoords * 2];
 
-					ourGameObject->MeshData.texcoords[Z * 2] = MeshToLoad->mTextureCoords[0][Z].x;
-					ourGameObject->MeshData.texcoords[(Z * 2) + 1] = MeshToLoad->mTextureCoords[0][Z].y;
+					for (int Z = 0; Z < ourGameObject->MeshData.num_texcoords; ++Z) {
+
+						ourGameObject->MeshData.texcoords[Z * 2] = InformationToRecieve->MeshInfo[i].TextureCoords[Z].x; //??????
+						ourGameObject->MeshData.texcoords[(Z * 2) + 1] = InformationToRecieve->MeshInfo[i].TextureCoords[Z].y;
+					}
+				}
+
+				App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
+				App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
+				App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
+				App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
+
+
+				if (ParentHasFound == true) {
+
+					AddMeshToListMeshesOnScene(ourGameObject, true, NULL);
+				}
+				else {
+					AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
 				}
 			}
-			
-			App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
-			App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
-			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
-			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
+			//Free memory
+			aiReleaseImport(scene);
 
-		
-			if (ParentHasFound == true) {
-
-				AddMeshToListMeshesOnScene(ourGameObject, true, NULL);
-			}
-			else {
-				AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
-			}
 		}
-		//Free memory
-		aiReleaseImport(scene);
-	}
+		else {
 
-	
+
+			if (InformationToRecieve->AmountMeshes > 1) {
+
+				GameObject* ItemParentMesh = new GameObject();
+				ItemParentMesh->is_Drawn = true;
+				ItemParentMesh->is_EmptyParent = true;
+				AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
+				ParentHasFound = true;
+
+			}
+
+			for (int i = 0; i < InformationToRecieve->AmountMeshes; ++i) {
+
+				GameObject* ourGameObject = new GameObject();
+
+				aiMesh* MeshToLoad = scene->mMeshes[i];
+
+				MeshToLoad->mNumVertices = InformationToRecieve->MeshInfo[i].AmountVertex;
+				MeshToLoad->mNumFaces = InformationToRecieve->MeshInfo[i].AmountFaces;
+
+				for (int d = 0; d < InformationToRecieve->MeshInfo[i].AmountFaces; ++d) {
+
+					for (int c = 0; c < MeshToLoad->mFaces[d].mNumIndices; ++c) {
+
+						uint value;
+
+						MeshToLoad->mFaces[d].mIndices[c] = InformationToRecieve->MeshInfo[i].FaceInfo[d].Index[c];
+
+					}
+
+					MeshToLoad->mFaces[d].mNumIndices = InformationToRecieve->MeshInfo[i].FaceInfo[d].AmountIndex;
+				}
+
+				ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
+
+				ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
+
+				memcpy(ourGameObject->MeshData.vertex, MeshToLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
+
+				if (MeshToLoad->HasFaces()) {
+
+					ourGameObject->MeshData.num_index = MeshToLoad->mNumFaces * 3; //aixo
+
+					int a = 0;
+
+					ourGameObject->MeshData.index = new uint[ourGameObject->MeshData.num_index];
+
+					for (int c = 0; c < MeshToLoad->mNumFaces; ++c) {
+
+						//IF MESHES HAVE TRIS
+						if (MeshToLoad->mFaces[c].mNumIndices == 3) {
+
+							memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+						}
+					}
+				}
+
+				if (scene->mMeshes[i]->HasNormals()) {
+
+					ourGameObject->MeshData.normals = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
+					memcpy(ourGameObject->MeshData.normals, scene->mMeshes[i]->mNormals, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
+				}
+
+				if (MeshToLoad->HasTextureCoords(0))
+				{
+					ourGameObject->MeshData.num_texcoords = MeshToLoad->mNumVertices;
+					ourGameObject->MeshData.texcoords = new float[ourGameObject->MeshData.num_texcoords * 2];
+
+					for (int Z = 0; Z < ourGameObject->MeshData.num_texcoords; ++Z) {
+
+						ourGameObject->MeshData.texcoords[Z * 2] = MeshToLoad->mTextureCoords[0][Z].x;
+						ourGameObject->MeshData.texcoords[(Z * 2) + 1] = MeshToLoad->mTextureCoords[0][Z].y;
+					}
+				}
+
+				App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
+				App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
+				App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
+				App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
+
+
+				if (ParentHasFound == true) {
+
+					AddMeshToListMeshesOnScene(ourGameObject, true, NULL);
+				}
+				else {
+					AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
+				}
+			}
+			//Free memory
+			aiReleaseImport(scene);
+		}
+
+	}
 }
 
 
@@ -220,6 +350,8 @@ vec3 ModuleMeshImporter::LoadNodeInfo(const aiScene* scene, aiNode* rootNode)
 	
 	return RetVec;
 }
+
+
 
 void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent,bool parentFound )
 {

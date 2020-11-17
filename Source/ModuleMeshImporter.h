@@ -41,7 +41,7 @@ struct MeshInfo
 	
 	GLuint TextureName=0; // name of the current texture aplied to the mesh
 
-	float* normals=0; // amount of normals in the mesh
+	Vertex_Sub* normals; // amount of normals in the mesh
 	uint id_normals=0; // id of the normals in the mesh
 };
 
@@ -99,6 +99,7 @@ public:
 
 	//Mesh Import functions 
 	void LoadMesh(const char* file_path,bool LoadfromWAF=false);
+	
 
 	//List of meshes active
 	std::vector<GameObject*> MeshesOnScene; //CurrentActive meshes list
@@ -110,6 +111,7 @@ public:
 
 	vec3 LoadNodeInfo(const aiScene* scene, aiNode* rootNode);
 	// Add a mesh to the list
+	
 
 	//Object to add, if its a child and who is the parent
 	void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent=NULL,bool parentfound=false);
