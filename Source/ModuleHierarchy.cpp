@@ -78,6 +78,9 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
 {
 	if (App->mainMenubar->show_hierarchy_window) {
 
+        bool itemRemoved;
+        int uid2 = 0;
+
         ImGui::Begin("HierarchyWindow", &App->mainMenubar->show_hierarchy_window);
 
         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(2, 2));
@@ -89,15 +92,51 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
 
             GameObject* Mesh = *IteratorLoaded;
            
-            bool itemRemoved;
             itemRemoved=InspectorInfo(Mesh, count);
 
             if (itemRemoved == true) {
                 count = App->meshimporter->MeshesOnScene.size();
+                uid2 = count+1;
             }
             else {
                 ++IteratorLoaded;
             }
+        }
+
+        //Delete Object?
+        if (App->mainMenubar->delete_object == true)
+        {
+            ImGui::SetNextWindowSize({ 320,150 });
+            ImGui::SetNextWindowPos({ 625, 300 });
+
+            ImGui::Begin("VeryReal Engine", &App->mainMenubar->delete_object, ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+
+            ImGui::Separator();
+            ImGui::Text("Are you sure you want to delete the Object?");
+
+            ImGui::Spacing();
+            ImGui::Text("This proces can't be undone");
+            ImGui::Spacing();
+            ImGui::Text("");
+            ImGui::Spacing();
+            ImGui::Text("");
+            ImGui::Spacing();
+            ImGui::Spacing();
+            if (ImGui::Button("Yes", { 80,20 }))
+            {
+                App->meshimporter->MeshesOnScene.erase(App->meshimporter->MeshesOnScene.begin() + (uid2));
+                App->mainMenubar->delete_object = false;
+                itemRemoved = true;
+            }
+
+            ImGui::SameLine(0.0F, 125.0f);
+            if (ImGui::Button("No", { 80,20 }))
+            {
+                App->mainMenubar->delete_object = false;
+            }
+
+            ImGui::End();
         }
 
        // ImGui::Columns(1);
@@ -183,8 +222,9 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
 
     if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawTrashCanIcon.texture_id, {14.0f,14.0f})) {
 
-        App->meshimporter->MeshesOnScene.erase(App->meshimporter->MeshesOnScene.begin()+(uid));
-        ItemRemoved = true;
+        
+
+        App->mainMenubar->delete_object = true;
       
     }
 
@@ -229,6 +269,7 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
         ImGui::TreePop();
     }
     ImGui::PopID();
+
 
     return ItemRemoved;
 
