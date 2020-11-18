@@ -13,8 +13,12 @@ struct Vertex_Sub;
 struct LoadedFile_Mesh_Faces {
 
 	uint AmountIndex;
-	std::vector<uint> Index;
+	std::vector<unsigned int*>Index;
 	uint* index;
+	uint indexV;
+	uint indexV1;
+	uint indexV2;
+	uint indexV3;
 	
 };
 struct LoadedFile_Mesh {

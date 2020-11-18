@@ -130,6 +130,7 @@ bool ModuleRenderer3D::Start()
 
 	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
 	//App->textureImporter->AddTextureToList(&App->textureImporter->TextureHouse, "Baker House");
+
 	//App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.fbx");
 	App->meshimporter->LoadMesh("",true);
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;

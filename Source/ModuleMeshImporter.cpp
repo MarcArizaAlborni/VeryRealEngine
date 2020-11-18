@@ -130,11 +130,9 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 				GameObject* ourGameObject = new GameObject();
 				aiMesh* MeshToLoad = scene->mMeshes[i];
-				
-				for (int d = 0; d < InformationToRecieve->MeshInfo[i].AmountFaces; ++d) {
 
+				
 			
-				}
 
 				ourGameObject->MeshData.num_vertex = InformationToRecieve->MeshInfo[i].AmountVertex;
 
@@ -153,6 +151,9 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 					int a = 0;
 
+					
+
+					
 					ourGameObject->MeshData.index = new uint[ourGameObject->MeshData.num_index];
 					
 
@@ -161,20 +162,107 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 						//IF MESHES HAVE TRIS
 						if (InformationToRecieve->MeshInfo[i].FaceInfo[c].AmountIndex== 3) {
 
-							for (int fi = 0; fi < InformationToRecieve->MeshInfo[i].FaceInfo[c].AmountIndex; ++fi) {
+							unsigned int IndexCopy[3];
 
-								
 
-								
+							//IndexCopy = new uint[ourGameObject->MeshData.num_index];
 
-								memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
 
-								//memcpy(&ourGameObject->MeshData.index[c * 3], );
-								//THIS HERE IS WHAT DOESNT WORK, THE MEMCPY
-								//memcpy(&InformationToRecieve->MeshInfo[i].FaceInfo[c].index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
-								
-								//memcpy(&ourGameObject->MeshData.index[c * 3], &InformationToRecieve->MeshInfo[i].FaceInfo[c].index, 3 * sizeof(uint));
+							IndexCopy[0] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;
+							IndexCopy[1] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2;
+							IndexCopy[2] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3;
+							
+							
+
+							memcpy(&ourGameObject->MeshData.index[c * 3], IndexCopy, 3 * sizeof(uint));
+							
+							//memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+							
+
+							if (MeshToLoad->mFaces[c].mIndices[0] != InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1) {
+								int a = 0;
+								LOGFIX("NOT EQUAL 1")
 							}
+							if (MeshToLoad->mFaces[c].mIndices[1] != InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2) {
+								int a = 0;
+								LOGFIX("NOT EQUAL 2")
+							}
+							if (MeshToLoad->mFaces[c].mIndices[2] != InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3) {
+								int a = 0;
+								LOGFIX("NOT EQUAL 3")
+							}
+
+							/*IndexCopy[0] = &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;
+							IndexCopy[1] = &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2;
+							IndexCopy[2] = &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3;
+
+
+							if (MeshToLoad->mFaces[c].mIndices[0] != *IndexCopy[0]) {
+								int a = 0;
+								LOGFIX("NOT EQUAL2 1")
+							}
+							if (MeshToLoad->mFaces[c].mIndices[1] != *IndexCopy[1]) {
+								int a = 0;
+								LOGFIX("NOT EQUAL2 2")
+							}
+							if (MeshToLoad->mFaces[c].mIndices[2] != *IndexCopy[2]) {
+								int a = 0;
+								LOGFIX("NOT EQUAL2 3")
+							}*/
+
+							//InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;
+							//InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2;
+							//InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3;
+
+							//memcpy(&ourGameObject->MeshData.index[c*3], IndexCopy,3* sizeof(uint));
+
+							//memcpy(&ourGameObject->MeshData.index[c], IndexCopy[0],  sizeof(uint));
+							//memcpy(&ourGameObject->MeshData.index[c+1], IndexCopy[1], sizeof(uint));
+							//memcpy(&ourGameObject->MeshData.index[c+2], IndexCopy[2], sizeof(uint));
+
+							//ourGameObject->MeshData.index[0] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;
+							//ourGameObject->MeshData.index[1] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2;
+							//ourGameObject->MeshData.index[2] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3;
+
+							/* IndexCopy = MeshToLoad->mFaces[c].mIndices;
+							 &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;*/
+							 
+							//ourGameObject->MeshData.index[c*2] = *IndexCopy;
+							
+							 //InformationToRecieve->MeshInfo[i].FaceInfo[c]->indexV[0];
+							 //LOGFIX(" Load %u", InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV);
+
+							//memcpy(&ourGameObject->MeshData.index[c], &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV, sizeof(uint));
+							
+							
+
+							/*unsigned int* IndexCopy= &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV;
+							ourGameObject->MeshData.index[c] = IndexCopy*/
+							//unsigned int* item = &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV;
+							//memcpy(&ourGameObject->MeshData.index[c * 3], &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV, 3 * sizeof(uint));
+							//ourGameObject->MeshData.index[c] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV;
+							
+
+							
+
+							/*for (int indexIt = 0; indexIt < 3; ++indexIt) {
+								InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV=*MeshToLoad->mFaces[c].mIndices;
+								
+							}*/
+							
+							//memcpy(&ourGameObject->MeshData.index[c * 3], &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV, 3 * sizeof(uint));
+
+							//for (int fi = 0; fi < InformationToRecieve->MeshInfo[i].FaceInfo[c].AmountIndex; ++fi) {
+
+							//	
+							//	memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+
+							//	//memcpy(&ourGameObject->MeshData.index[c * 3], );
+							//	//THIS HERE IS WHAT DOESNT WORK, THE MEMCPY
+							//	//memcpy(&InformationToRecieve->MeshInfo[i].FaceInfo[c].index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+							//	
+							//	//memcpy(&ourGameObject->MeshData.index[c * 3], &InformationToRecieve->MeshInfo[i].FaceInfo[c].index, 3 * sizeof(uint));
+							//}
 							
 						}
 					}

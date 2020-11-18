@@ -495,12 +495,18 @@ void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 
 				//this
 
-				uint* WIndex = FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices;
+				uint* WIndex1 = &FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices[0];
+				uint* WIndex2 = &FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices[1];
+				uint* WIndex3 = &FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices[2];
+				
 
-				uint WindexV = *WIndex; // IT WRITESBUT WHEN READING IT JUST DOESNT WORK
+				uint WindexV1 = *WIndex1; // IT WRITESBUT WHEN READING IT JUST DOESNT WORK
+				uint WindexV2 = *WIndex2; // IT WRITESBUT WHEN READING IT JUST DOESNT WORK
+				uint WindexV3 = *WIndex3; // IT WRITESBUT WHEN READING IT JUST DOESNT WORK
 
-				fwrite(&WindexV, sizeof(uint), 1, FileW);
-
+				fwrite(&WindexV1, sizeof(uint), 1, FileW);
+				fwrite(&WindexV2, sizeof(uint), 1, FileW);
+				fwrite(&WindexV3, sizeof(uint), 1, FileW);
 				//or this
 
 				//for (int mIndexSize = 0; mIndexSize < WnumIndex; ++mIndexSize) {
@@ -596,26 +602,22 @@ LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh(int id)
 
 				//this 
 
-				uint RIndex;
-				uint* RIndexptr;
+				unsigned int RIndex1;
+				unsigned int RIndex2;
+				unsigned int RIndex3;
 	
-				fread(&RIndex, sizeof(uint), 1, FileR);
-				RIndexptr = &RIndex;
+				fread(&RIndex1, sizeof(uint), 1, FileR);
+				fread(&RIndex2, sizeof(uint), 1, FileR);
+				fread(&RIndex3, sizeof(uint), 1, FileR);
+			
 
 				// AQUI ESTA EL ERROR
-				//LoadedMesh.FaceInfo[mFaceCount].index= RIndexptr;
-				//or this
-
-				/*for (int mIndexCount = 0; mIndexCount < LoadedFace.AmountIndex; ++mIndexCount) {
-
-					uint Index;
-					fread(&Index, sizeof(uint), 1, FileR);
-					LoadedFace.Index.push_back(Index);
-				}*/
-
-
-
-
+				
+				LoadedFace.indexV1 = RIndex1;
+				LoadedFace.indexV2 = RIndex2;
+				LoadedFace.indexV3 = RIndex3;
+				
+				
 				LoadedMesh.FaceInfo.push_back(LoadedFace);
 			}
 
