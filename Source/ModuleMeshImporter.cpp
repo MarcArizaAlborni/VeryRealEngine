@@ -129,7 +129,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 			for (int i = 0; i < InformationToRecieve->AmountMeshes; ++i) {
 
 				GameObject* ourGameObject = new GameObject();
-				aiMesh* MeshToLoad = scene->mMeshes[i];
+				//aiMesh* MeshToLoad = scene->mMeshes[i];
 
 				
 			
@@ -179,7 +179,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 							//memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
 							
 
-							if (MeshToLoad->mFaces[c].mIndices[0] != InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1) {
+							/*if (MeshToLoad->mFaces[c].mIndices[0] != InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1) {
 								int a = 0;
 								LOGFIX("NOT EQUAL 1")
 							}
@@ -190,7 +190,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 							if (MeshToLoad->mFaces[c].mIndices[2] != InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3) {
 								int a = 0;
 								LOGFIX("NOT EQUAL 3")
-							}
+							}*/
 
 							/*IndexCopy[0] = &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;
 							IndexCopy[1] = &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2;
