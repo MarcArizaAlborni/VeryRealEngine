@@ -33,10 +33,10 @@ int ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
 	// FALSE IF ITS NOT
 	int unique_id;
 	int RetUnique_id;
-	if (StoredFilesListed.size() != 0) {
+	if (StoredResourcesListed.size() != 0) {
 
-		std::vector<StoredFile>::iterator IteratorFile = StoredFilesListed.begin();
-		for (int pos = 0; pos < StoredFilesListed.size(); ++pos) {
+		std::vector<StoredFile>::iterator IteratorFile = StoredResourcesListed.begin();
+		for (int pos = 0; pos < StoredResourcesListed.size(); ++pos) {
 
 			StoredFile File = *IteratorFile;
 			unique_id = File.unique_id;
@@ -64,42 +64,42 @@ int ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
 										else {
 
 											item = Information.Scene->mNumMeshes;
-											pos = StoredFilesListed.size();
+											pos = StoredResourcesListed.size();
 											return unique_id;
 										}
 									}
 									else {
 
 										item = Information.Scene->mNumMeshes;
-										pos = StoredFilesListed.size();
+										pos = StoredResourcesListed.size();
 										return unique_id;
 									}
 								}
 								else {
 
 									item = Information.Scene->mNumMeshes;
-									pos = StoredFilesListed.size();
+									pos = StoredResourcesListed.size();
 									return unique_id;
 								}
 							}
 							else {
 
 								item = Information.Scene->mNumMeshes;
-								pos = StoredFilesListed.size();
+								pos = StoredResourcesListed.size();
 								return unique_id;
 							}
 						}
 						else {
 
 							item = Information.Scene->mNumMeshes;
-							pos = StoredFilesListed.size();
+							pos = StoredResourcesListed.size();
 							return unique_id;
 						}
 					}
 				}
 				else {
 
-					pos = StoredFilesListed.size();
+					pos = StoredResourcesListed.size();
 					return unique_id;
 				}
 			}
@@ -150,8 +150,6 @@ int ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
 
 				fread(&ToCheckInfo, sizeof(StoredFile), sizeof(StoredFile), fptr2);
 
-
-				
 				RetUnique_id = ToCheckInfo.unique_id;
 
 				if (ToCheckInfo.Scene->mNumMeshes != Information.Scene->mNumMeshes) {
@@ -340,7 +338,7 @@ void ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Information)
 	std::string FinalPath = Direction + idconversion + Extension;
 	const char* FinalPath_C = FinalPath.c_str();
 	Information.unique_id = id;
-	Information.TypeOfItem = "We are Fine";
+	Information.TypeOfItem = "Mesh";
 	
 
 
@@ -363,7 +361,7 @@ void ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Information)
 	
 	
 
-	StoredFilesListed.push_back(Information);
+	StoredResourcesListed.push_back(Information);
 
 
 	

@@ -83,22 +83,17 @@ public:
 
 	bool Start();
 	
-	std::vector<StoredFile> StoredFilesListed;
+	std::vector<StoredFile> StoredResourcesListed;
 	update_status Update(float dt);
 	
 	void TestingReadErrors(const char* filename,StoredFile File);
 	
-
 	void SaveInformationFile_Mesh(int id,StoredFile FileToSave);
 
 	LoadedFile* LoadInformationFile_Mesh(int id);
 
-
-
 	std::vector<LoadedFile> LoadedResources;
 	
-
-
 	bool CleanUp();
 
 public:
@@ -106,8 +101,6 @@ public:
 	std::vector<std::string>ConvertedVec;
 	void ToBinary_String(std::string stringname);
 	void ToBinary_Number(int val );
-
-	
 
 
 private:
