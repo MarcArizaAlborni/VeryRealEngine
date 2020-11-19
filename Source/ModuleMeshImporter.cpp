@@ -78,13 +78,14 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 		//THE ERRROR IS EITHER WRITING THE INFORMATION OR THE LOOP 
 
-		StoredFile InformationToSend;
-		InformationToSend.Scene = scene;
-		int ID_Detected;
+		//StoredFile InformationToSend;
+		//InformationToSend.Scene = scene;
+		//int ID_Detected;
 		//StoredFile* FileToLoad = new StoredFile();
 		//
-		ID_Detected =App->filemanager->CheckExistence_Mesh(InformationToSend);
+		//ID_Detected =App->filemanager->CheckExistence_Mesh(InformationToSend);
 		//if (ID_Detected == 0){ //IF IT HAS NOT BEEN DETECTED
+
 		//	
 		//	App->filemanager->GenerateLibraryFile_Mesh(App->GiveRandomNum_Undefined(), InformationToSend);
 		//	
