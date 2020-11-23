@@ -33,6 +33,8 @@ class ModuleInspectorGameObject;
 class ResourceManager;
 class ModuleFileSystem;
 
+class ModuleScene;
+
 using json = nlohmann::json;
 
 
@@ -42,6 +44,7 @@ public:
 	ModuleWindow* window;
 	ModuleInput* input;
 	ModuleRenderer3D* renderer3D;
+	ModuleScene* scene;
 	ModuleCamera3D* camera;
 	ModuleEditor* editor;
 	ModuleTextureImporter* textureImporter;

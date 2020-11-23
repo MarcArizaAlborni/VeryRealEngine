@@ -121,6 +121,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 				GameObject* ItemParentMesh = new GameObject();
 				ItemParentMesh->is_Drawn = true;
 				ItemParentMesh->is_EmptyParent = true;
+				ItemParentMesh->path = file_path;
 				AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
 				ParentHasFound = true;
 
@@ -130,7 +131,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 				GameObject* ourGameObject = new GameObject();
 				//aiMesh* MeshToLoad = scene->mMeshes[i];
-
+				ourGameObject->path = file_path;
 				
 			
 

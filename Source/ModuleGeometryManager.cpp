@@ -203,7 +203,6 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 	}
 	
-	DrawFaceNormals(mesh);
 	DrawVertexNormals(mesh);
 
 	if (mesh->is_Textured == true) {
@@ -263,33 +262,6 @@ void ModuleGeometryManager::DrawVertexNormals(GameObject* object)
 		glEnd();
 	}
 }
-
-// Draw normals with faces and triangles
-void ModuleGeometryManager::DrawFaceNormals(GameObject* object)
-{
-
-	if (object->showFaceNormals == true)
-	{
-		for (int j = 0; j < object->MeshData.num_vertex; ++j)
-		{
-			Vertex_Sub vert = object->MeshData.vertex[j];
-			Vertex_Sub norm = object->MeshData.normals[j]; //?????
-
-			float3 vertF = { vert.x,vert.y,vert.z };
-			float3 normF = { norm.x ,norm.y ,norm.z };
-
-			glLineWidth(1.5f);
-			glBegin(GL_LINES);
-
-			glVertex3f(vert.x, vert.y, vert.z);
-			glVertex3f(vert.x + normF.x, vert.y + normF.y, vert.z + normF.z);
-		}
-
-		glEnd();
-	}
-
-}
-
 
 
 void ModuleGeometryManager::CreateConsolelog(const char file[], int line, const char* format, ...)

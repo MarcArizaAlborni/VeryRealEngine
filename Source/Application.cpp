@@ -14,15 +14,13 @@
 
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
+#include "ModuleScene.h"
 #include "ModuleEditor.h"
 #include "ModuleMeshImporter.h"
 #include "ModuleHierarchy.h"
 #include "ModuleInspector.h"
 #include "ResourceManager.h"
 #include "FileSystem.h"
-
-
-
 
 
 #define RAND_MAX 99999;
@@ -48,6 +46,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 
 	geometrymanager = new ModuleGeometryManager(this);
 	renderer3D = new ModuleRenderer3D(this);
+	scene = new ModuleScene(this);
 
 	
 	// The order of calls is very important!
@@ -70,6 +69,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 
 	AddModule(renderer3D);
 	AddModule(geometrymanager);
+	AddModule(scene);
 	
 }
 

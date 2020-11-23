@@ -193,14 +193,8 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 				ImGui::Checkbox("Show Vertex Normals", &item->showVertexNormals);
 				ImGui::TreePop();
 			}
-			if (ImGui::TreeNodeEx("Face Normals:", ImGuiTreeNodeFlags_DefaultOpen)) {
-			
-				ImGui::Checkbox("Show Face Normals", &item->showFaceNormals);
-				ImGui::TreePop();
-			}
 		}
 
-		
 		
 		//TEXTURES INFO
 		if (ImGui::CollapsingHeader("Texture")) {

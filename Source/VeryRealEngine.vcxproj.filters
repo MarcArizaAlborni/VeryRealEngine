@@ -181,6 +181,9 @@
     <ClCompile Include="libraries\MathGeoLib\include\Geometry\TriangleMesh.cpp">
       <Filter>Source\External Libraries\MathGeoLib</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleScene.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -809,6 +812,9 @@
     </ClInclude>
     <ClInclude Include="libraries\MathGeoLib\include\Geometry\TriangleMesh.h">
       <Filter>Source\External Libraries\MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleScene.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
