@@ -417,6 +417,12 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			}
 
+			else {
+
+				LOGFIX("Sorry, Could Not Load Object: Path-> %s", Drop_Path);
+
+			}
+
 			break;
 		}
 	}
