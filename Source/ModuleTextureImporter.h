@@ -65,6 +65,10 @@ public:
 	TextureInfo DrawIconHierarchyOpen;
 	TextureInfo DrawIconHierarchyClosed;
 	TextureInfo DrawTrashCanIcon;
+
+	TextureInfo DrawTickIcon;
+	TextureInfo DrawPlayIcon;
+	TextureInfo DrawPauseIcon;
 	
 	//Resources
 	TextureInfo MeshIcon;

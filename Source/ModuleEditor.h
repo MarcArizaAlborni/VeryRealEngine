@@ -90,6 +90,8 @@ public:
 	void CreateMainMenuBar_View();
 	void CreateMainMenuBar_Help();
 
+	void CreateBar_Play();
+
 
 	//Main Menu Bar Bools
 	bool show_config_window;
@@ -109,6 +111,8 @@ public:
 
 	bool delete_object;
 
+	//Editor Play
+	bool show_play_window;
 
 	bool drawplane;
 	bool drawcube;
@@ -139,6 +143,9 @@ public:
 	bool active_Resizable;
 	bool active_Borderless;
 	bool active_Full_Desktop;
+
+	bool show_grid;
+	bool show_ui;
 
 	// CONSOLE--------------------------------------------------------------------------------
 

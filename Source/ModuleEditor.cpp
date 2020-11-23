@@ -105,6 +105,9 @@ bool ModuleEditor::Start()
 	show_popup_want_close = false;
 	show_popup_want_close2 = false;
 	show_resources_window = true;
+	show_play_window = true;
+	show_grid = true;
+	show_ui = true;
 
 	return ret;
 }
@@ -188,10 +191,11 @@ update_status ModuleEditor::PostUpdate(float dt)
 
 
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-	if (show_demo_window)
-		ImGui::ShowDemoWindow(&show_demo_window);
+	/*if (show_demo_window)
+		ImGui::ShowDemoWindow(&show_demo_window);*/
 
-	
+	if (show_ui == true)
+	{
 		if (MainWindow("Main Window", show_main_dockSpace, ImGuiWindowFlags_MenuBar)) {
 			CreateMainMenuBar();
 			ImGui::End();
@@ -202,17 +206,17 @@ update_status ModuleEditor::PostUpdate(float dt)
 		App->hierarchy->CreateHierarchyWindow();
 		App->inspector->CreateInspectorWindow();
 		App->resources->CreateResourcesWindow();
-	
-		
+
+
 		//Popups close
 		if (show_popup_want_close == true)
 		{
-			
+
 			ImGui::SetNextWindowSize({ 300,150 });
 			ImGui::SetNextWindowPos({ 625, 300 });
 
 			ImGui::Begin("VeryReal Engine", &show_popup_want_close, ImGuiWindowFlags_NoCollapse
-				| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove );
+				| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
 			ImGui::Separator();
 			ImGui::Text("Are you sure you want to exit the Engine?");
@@ -249,13 +253,13 @@ update_status ModuleEditor::PostUpdate(float dt)
 			ImGui::Separator();
 			ImGui::Text("Are you really sure you want to exit the Engine?");
 			ImGui::Spacing();
-			ImGui::Text("     "); 
+			ImGui::Text("     ");
 
 			ImGui::SameLine(0, 75.0f);
-			ImGui::Image((void*)(intptr_t)App->textureImporter->cat_crying.texture_id, { 125,100 }); 
+			ImGui::Image((void*)(intptr_t)App->textureImporter->cat_crying.texture_id, { 125,100 });
 			ImGui::Spacing();
-			
-		
+
+
 			if (ImGui::Button("YES!!", { 80,20 }))
 			{
 				App->input->ExitEngine = true;
@@ -274,6 +278,9 @@ update_status ModuleEditor::PostUpdate(float dt)
 		}
 
 		
+	}
+		
+	CreateBar_Play();
 	
 
 	//Render
@@ -511,6 +518,40 @@ void ModuleEditor::CreateInsertPrimitivesWindow()
 		ImGui::EndMenu();
 	}
 }
+
+//----------------------PLAY EDITOR---------------------------
+void ModuleEditor::CreateBar_Play()
+{
+	if (App->editor->show_play_window) {
+
+		ImGui::SetNextWindowSize({ 320,50 });
+		ImGui::SetNextWindowPos({ 650, 18 });
+
+		ImGui::Begin("Play Editor", &App->editor->show_play_window, ImGuiWindowFlags_NoCollapse
+			| ImGuiWindowFlags_NoResize  | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }))
+		{
+
+		}
+		ImGui::SameLine();
+		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPauseIcon.texture_id, { 25,25 }))
+		{
+
+		}
+		ImGui::SameLine();
+		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawTickIcon.texture_id, { 25,25 }))
+		{
+
+		}
+		ImGui::SameLine();
+		ImGui::Checkbox("Show Grid", &show_grid);
+		ImGui::SameLine();
+		ImGui::Checkbox("Show UI", &show_ui);
+		ImGui::End();
+	}
+	
+}
+
 
 // ---------------------------------CONFIG--------------------------------
 // ----------------------------CONFIG WINDOW-------------------------------------
@@ -772,6 +813,7 @@ void ModuleEditor::CreateConfigWindow_Hardware()
 	}
 
 }
+
 
 void ModuleEditor::GetHardwareStatus()
 {

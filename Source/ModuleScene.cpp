@@ -120,9 +120,14 @@ update_status ModuleScene::PreUpdate(float dt)
 
 update_status ModuleScene::Update(float dt)
 {
+
 	Plane2 p(0, 1, 0, 0);
 	p.axis = true;
-	p.Render();
+
+	if (App->editor->show_grid)
+	{
+		p.Render();
+	}
 
 	return UPDATE_CONTINUE;
 }

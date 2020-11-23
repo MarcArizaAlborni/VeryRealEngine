@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleScene.h"
 #include "ModuleCamera3D.h"
 #include "ModuleTextureImporter.h"
 #include "ModuleEditor.h"
@@ -182,12 +183,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 update_status ModuleRenderer3D::Update(float dt)
 {
-	//glEnable(GL_DEPTH_TEST);
-	Plane2 p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
-	
-	
+
 	return UPDATE_CONTINUE;
 }
 
@@ -257,5 +253,9 @@ void ModuleRenderer3D::LoadIconsTextures()
 	App->textureImporter->RemoveFolderIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/removefolder.png");
 	App->textureImporter->RenameFolderIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/renamefolder.png");
 	App->textureImporter->DrawTrashCanIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/trash.png");
+
+	App->textureImporter->DrawTickIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/tick_icon.png");
+	App->textureImporter->DrawPlayIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/play_icon.png");
+	App->textureImporter->DrawPauseIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/pause_icon.png");
 
 }
