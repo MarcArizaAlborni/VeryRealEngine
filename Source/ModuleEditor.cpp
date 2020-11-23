@@ -524,12 +524,17 @@ void ModuleEditor::CreateBar_Play()
 {
 	if (App->editor->show_play_window) {
 
-		ImGui::SetNextWindowSize({ 320,50 });
-		ImGui::SetNextWindowPos({ (SCREEN_WIDTH/2)+200, 40 });
+		ImGui::SetNextWindowSize({ 350,50 });
+		ImGui::SetNextWindowPos({ (SCREEN_WIDTH/2)+100, 40 });
 
 		ImGui::Begin("Play Editor", &App->editor->show_play_window, ImGuiWindowFlags_NoCollapse
 			| ImGuiWindowFlags_NoResize  | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }))
+		{
+			
+		}
+		ImGui::SameLine();
+		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawStopIcon.texture_id, { 25,25 }))
 		{
 
 		}

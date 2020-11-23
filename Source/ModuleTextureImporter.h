@@ -69,6 +69,8 @@ public:
 	TextureInfo DrawTickIcon;
 	TextureInfo DrawPlayIcon;
 	TextureInfo DrawPauseIcon;
+	TextureInfo DrawStopIcon;
+
 	
 	//Resources
 	TextureInfo MeshIcon;

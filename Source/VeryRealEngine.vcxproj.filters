@@ -184,6 +184,9 @@
     <ClCompile Include="ModuleScene.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Source\Helper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2List.h" />
@@ -815,6 +818,9 @@
     </ClInclude>
     <ClInclude Include="ModuleScene.h">
       <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Source\Helper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

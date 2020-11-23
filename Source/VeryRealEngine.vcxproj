@@ -297,6 +297,7 @@
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ModuleScene.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -360,6 +361,7 @@
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

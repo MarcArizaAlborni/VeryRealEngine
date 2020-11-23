@@ -257,5 +257,5 @@ void ModuleRenderer3D::LoadIconsTextures()
 	App->textureImporter->DrawTickIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/tick_icon.png");
 	App->textureImporter->DrawPlayIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/play_icon.png");
 	App->textureImporter->DrawPauseIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/pause_icon.png");
-
+	App->textureImporter->DrawStopIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/stop_icon.png");
 }
