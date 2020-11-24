@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGeometryManager.h"
+#include "Game_Time.h"
 #include "ModuleEditor.h"
 #include "ModuleHierarchy.h"
 #include "ModuleInspector.h"
@@ -108,6 +109,8 @@ bool ModuleEditor::Start()
 	show_play_window = true;
 	show_grid = true;
 	show_ui = true;
+
+	scene_timer.Start();
 
 	return ret;
 }
@@ -524,11 +527,12 @@ void ModuleEditor::CreateBar_Play()
 {
 	if (App->editor->show_play_window) {
 
-		ImGui::SetNextWindowSize({ 350,50 });
-		ImGui::SetNextWindowPos({ (SCREEN_WIDTH/2)+100, 40 });
-
 		ImGui::Begin("Play Editor", &App->editor->show_play_window, ImGuiWindowFlags_NoCollapse
-			| ImGuiWindowFlags_NoResize  | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
+			| ImGuiWindowFlags_NoResize);
+
+		ImGui::Dummy(ImVec2(120, 0.0f));
+		ImGui::SameLine();
+
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }))
 		{
 			
@@ -552,6 +556,14 @@ void ModuleEditor::CreateBar_Play()
 		ImGui::Checkbox("Show Grid", &show_grid);
 		ImGui::SameLine();
 		ImGui::Checkbox("Show UI", &show_ui);
+		ImGui::SameLine();
+		ImGui::Text("Real Time:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%.3f", scene_timer.ReadSec());
+		ImGui::SameLine();
+		ImGui::Text("Game Time:");
+		ImGui::SameLine();
+		ImGui::TextColored({ 255,255,0,1 }, "%.3f", Game_Time::time);
 		ImGui::End();
 	}
 	

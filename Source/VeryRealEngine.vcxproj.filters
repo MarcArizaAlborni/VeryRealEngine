@@ -184,8 +184,8 @@
     <ClCompile Include="ModuleScene.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>Source\Helper</Filter>
+    <ClCompile Include="Game_Time.cpp">
+      <Filter>Source\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -819,8 +819,8 @@
     <ClInclude Include="ModuleScene.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>Source\Helper</Filter>
+    <ClInclude Include="Game_Time.h">
+      <Filter>Source\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,6 +22,8 @@
 #include "ResourceManager.h"
 #include "FileSystem.h"
 
+#include "Game_Time.h"
+
 
 #define RAND_MAX 99999;
 
@@ -124,13 +126,18 @@ void Application::PrepareUpdate()
 	frame_count++;
 	last_sec_frame_count++;
 
+	Game_Time::PreUpdate(dt);
+
 	dt = (float)frame_time.ReadSec();
 	frame_time.Start();
+
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	Game_Time::Update();
+
 	if (last_sec_frame_time.Read() > 1000)
 	{
 		last_sec_frame_time.Start();
@@ -170,6 +177,11 @@ void Application::FinishUpdate()
 	
 
 
+}
+
+float Application::MSTimer()
+{
+	return frame_time.Read() / 1000.0f;
 }
 
 int Application::GenerateRandomID()

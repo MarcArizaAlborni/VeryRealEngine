@@ -92,7 +92,6 @@ public:
 
 	void CreateBar_Play();
 
-
 	//Main Menu Bar Bools
 	bool show_config_window;
 
@@ -113,6 +112,8 @@ public:
 
 	//Editor Play
 	bool show_play_window;
+
+	bool show_config_window_mode;
 
 	bool drawplane;
 	bool drawcube;
@@ -157,6 +158,8 @@ public:
 
 	std::list<char*> ConsoleLogs;
 	int LogsAmount;
+
+	Timer scene_timer;
 
 
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);

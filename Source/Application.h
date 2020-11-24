@@ -79,6 +79,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	float MSTimer();
+
 	void RequestBrowser(const char* url) const;
 
 	float GetDT();
@@ -113,11 +115,6 @@ private:
 
 	float dt;
 
-	//SAVE & LOAD WITH JOTA SON
-
-
-	////// FUNCTIONS ///////
-
   //RANDOM 
 public:
 	int GenerateRandomID();
@@ -126,9 +123,6 @@ public:
 private:
 
 	///// DEFINITIONS  ///////
-
-	
-	
 	std::string SaveFileName;
 
 	
