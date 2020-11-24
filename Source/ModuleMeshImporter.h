@@ -83,6 +83,17 @@ struct GameObject {
 
 };
 
+
+
+struct NodeMap {
+
+	std::vector<NodeMap> Children;
+	int ScenePositionArray;
+	int MaterialPositionArray;
+
+
+};
+
 class ModuleMeshImporter : public Module
 {
 public:
@@ -100,6 +111,14 @@ public:
 	//Mesh Import functions 
 	void LoadMesh(const char* file_path,bool LoadfromWAF=false);
 	
+	void LoadFile_Mesh(const char* file_path);
+
+	void ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node, GameObject* Parent);
+
+	void LoadSceneMesh(const aiScene* scene, int mesh_position);
+	std::vector<NodeMap> NodeMapList;
+	void CreateGameObjectsNodeMap(const aiScene* scene);
+
 
 	//List of meshes active
 	std::vector<GameObject*> MeshesOnScene; //CurrentActive meshes list

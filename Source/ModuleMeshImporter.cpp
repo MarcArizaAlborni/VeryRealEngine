@@ -13,10 +13,11 @@
 #include "libraries/Glew/include/GL/glew.h"
 
 #include <gl/GLU.h>
+#pragma comment (lib, "libraries/PhysFS/include/physfs.h")
+#include "libraries/PhysFS/include/physfs.h"
 
 ModuleMeshImporter::ModuleMeshImporter(Application* app, const char* name, bool start_enabled) : Module(app,"Importer", start_enabled)
 {
-
 }
 
 ModuleMeshImporter::~ModuleMeshImporter()
@@ -26,9 +27,6 @@ ModuleMeshImporter::~ModuleMeshImporter()
 bool ModuleMeshImporter::Start()
 {
 	bool ret = true;
-
-	
-
 	return ret;
 }
 
@@ -76,26 +74,6 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 			aiNode* rootNodeScene = scene->mRootNode;
 		}
 
-		//THE ERRROR IS EITHER WRITING THE INFORMATION OR THE LOOP 
-
-		//StoredFile InformationToSend;
-		//InformationToSend.Scene = scene;
-		//int ID_Detected;
-		//StoredFile* FileToLoad = new StoredFile();
-		//
-		//ID_Detected =App->filemanager->CheckExistence_Mesh(InformationToSend);
-		//if (ID_Detected == 0){ //IF IT HAS NOT BEEN DETECTED
-
-		//	
-		//	App->filemanager->GenerateLibraryFile_Mesh(App->GiveRandomNum_Undefined(), InformationToSend);
-		//	
-		//}
-		//else{// IF IT HAS BEEN DETECTED
-		//	InformationToSend = App->filemanager->LoadLibraryFile_Mesh(ID_Detected);
-		//	scene = InformationToSend.Scene;
-		//}
-
-
 		LoadedFile* InformationToRecieve;
 
 		int TemporaryID = -1; // This is only temporary, should not be used this way
@@ -133,8 +111,6 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 				//aiMesh* MeshToLoad = scene->mMeshes[i];
 				ourGameObject->path = file_path;
 				
-			
-
 				ourGameObject->MeshData.num_vertex = InformationToRecieve->MeshInfo[i].AmountVertex;
 
 				ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
@@ -152,9 +128,6 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 					int a = 0;
 
-					
-
-					
 					ourGameObject->MeshData.index = new uint[ourGameObject->MeshData.num_index];
 					
 
@@ -173,97 +146,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 							IndexCopy[1] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2;
 							IndexCopy[2] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3;
 							
-							
-
 							memcpy(&ourGameObject->MeshData.index[c * 3], IndexCopy, 3 * sizeof(uint));
-							
-							//memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
-							
-
-							/*if (MeshToLoad->mFaces[c].mIndices[0] != InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1) {
-								int a = 0;
-								LOGFIX("NOT EQUAL 1")
-							}
-							if (MeshToLoad->mFaces[c].mIndices[1] != InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2) {
-								int a = 0;
-								LOGFIX("NOT EQUAL 2")
-							}
-							if (MeshToLoad->mFaces[c].mIndices[2] != InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3) {
-								int a = 0;
-								LOGFIX("NOT EQUAL 3")
-							}*/
-
-							/*IndexCopy[0] = &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;
-							IndexCopy[1] = &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2;
-							IndexCopy[2] = &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3;
-
-
-							if (MeshToLoad->mFaces[c].mIndices[0] != *IndexCopy[0]) {
-								int a = 0;
-								LOGFIX("NOT EQUAL2 1")
-							}
-							if (MeshToLoad->mFaces[c].mIndices[1] != *IndexCopy[1]) {
-								int a = 0;
-								LOGFIX("NOT EQUAL2 2")
-							}
-							if (MeshToLoad->mFaces[c].mIndices[2] != *IndexCopy[2]) {
-								int a = 0;
-								LOGFIX("NOT EQUAL2 3")
-							}*/
-
-							//InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;
-							//InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2;
-							//InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3;
-
-							//memcpy(&ourGameObject->MeshData.index[c*3], IndexCopy,3* sizeof(uint));
-
-							//memcpy(&ourGameObject->MeshData.index[c], IndexCopy[0],  sizeof(uint));
-							//memcpy(&ourGameObject->MeshData.index[c+1], IndexCopy[1], sizeof(uint));
-							//memcpy(&ourGameObject->MeshData.index[c+2], IndexCopy[2], sizeof(uint));
-
-							//ourGameObject->MeshData.index[0] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;
-							//ourGameObject->MeshData.index[1] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2;
-							//ourGameObject->MeshData.index[2] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3;
-
-							/* IndexCopy = MeshToLoad->mFaces[c].mIndices;
-							 &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;*/
-							 
-							//ourGameObject->MeshData.index[c*2] = *IndexCopy;
-							
-							 //InformationToRecieve->MeshInfo[i].FaceInfo[c]->indexV[0];
-							 //LOGFIX(" Load %u", InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV);
-
-							//memcpy(&ourGameObject->MeshData.index[c], &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV, sizeof(uint));
-							
-							
-
-							/*unsigned int* IndexCopy= &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV;
-							ourGameObject->MeshData.index[c] = IndexCopy*/
-							//unsigned int* item = &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV;
-							//memcpy(&ourGameObject->MeshData.index[c * 3], &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV, 3 * sizeof(uint));
-							//ourGameObject->MeshData.index[c] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV;
-							
-
-							
-
-							/*for (int indexIt = 0; indexIt < 3; ++indexIt) {
-								InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV=*MeshToLoad->mFaces[c].mIndices;
-								
-							}*/
-							
-							//memcpy(&ourGameObject->MeshData.index[c * 3], &InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV, 3 * sizeof(uint));
-
-							//for (int fi = 0; fi < InformationToRecieve->MeshInfo[i].FaceInfo[c].AmountIndex; ++fi) {
-
-							//	
-							//	memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
-
-							//	//memcpy(&ourGameObject->MeshData.index[c * 3], );
-							//	//THIS HERE IS WHAT DOESNT WORK, THE MEMCPY
-							//	//memcpy(&InformationToRecieve->MeshInfo[i].FaceInfo[c].index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
-							//	
-							//	//memcpy(&ourGameObject->MeshData.index[c * 3], &InformationToRecieve->MeshInfo[i].FaceInfo[c].index, 3 * sizeof(uint));
-							//}
 							
 						}
 					}
@@ -311,7 +194,6 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 		}
 		else {
-
 
 			if (InformationToRecieve->AmountMeshes > 1) {
 
@@ -401,6 +283,66 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 	}
 }
 
+void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
+{
+	
+	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
+
+	aiNode* Node;
+
+	ProcessNode(file_path, scene, scene->mRootNode, nullptr);
+	
+	CreateGameObjectsNodeMap(scene);
+
+}
+
+void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,GameObject* item)
+{
+	//Parent should be called into this function to create childs?
+	GameObject* Object = new GameObject();
+	
+
+	for (int size = 0; size < node->mNumMeshes; ++size) {
+
+		NodeMap NodeToAdd;
+		NodeToAdd.ScenePositionArray = node->mMeshes[size];
+		NodeMapList.push_back(NodeToAdd);
+
+	}
+
+	for (int i = 0; i < node->mNumChildren; ++i) {
+
+		ProcessNode(file_path, scene, node->mChildren[i], Object);
+
+	}
+
+}
+
+void ModuleMeshImporter::LoadSceneMesh(const aiScene* scene, int mesh_position)
+{
+}
+
+void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene)
+{
+	NodeMapList.size();
+
+	bool ParentIsFound = false;
+
+	if (NodeMapList.size() > 1) {
+
+		GameObject* ItemParentMesh = new GameObject();
+		ItemParentMesh->is_Drawn = true;
+		ItemParentMesh->is_EmptyParent = true;
+		ItemParentMesh->path = "path";
+		AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
+		ParentIsFound = true;
+
+	}
+
+
+
+	NodeMapList.clear();
+}
 
 
 vec3 ModuleMeshImporter::LoadNodeInfo(const aiScene* scene, aiNode* rootNode)
@@ -417,18 +359,13 @@ vec3 ModuleMeshImporter::LoadNodeInfo(const aiScene* scene, aiNode* rootNode)
 		}
 	}
 	
-	
 	return RetVec;
 }
-
-
 
 void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent,bool parentFound )
 {
 	if (isChildfrom == true) {
 
-		
-		
 			std::vector<GameObject*>::reverse_iterator IteratorToAddParent = App->meshimporter->MeshesOnScene.rbegin();
 			
 			GameObject* itemParent = *IteratorToAddParent;
@@ -441,7 +378,6 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 			Object->is_Textured = true;
 			//Object->mesh_name = "Empty Parent";
 			itemParent->ChildObjects.push_back(Object);
-			
 	}
 	else {
 
@@ -455,12 +391,8 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 			Object->mesh_name = "Empty Parent";
 		}
 		
-
 		MeshesOnScene.push_back(Object);
 	}
-
-
-
 }
 
 void ModuleMeshImporter::CreateConsolelog(const char file[], int line, const char* format, ...)
@@ -475,7 +407,6 @@ void ModuleMeshImporter::CreateConsolelog(const char file[], int line, const cha
 	va_end(ap);
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
-
 
 	App->editor->ConsoleLogs.push_back(tmp_string2);
 }
