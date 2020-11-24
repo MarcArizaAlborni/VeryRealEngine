@@ -18,6 +18,7 @@ public:
    static void Stop();
    static void Pause();
    static void Resume();
+   static void One_Frame();
 
    static float delta_time;
    static float scale_time;
@@ -27,6 +28,7 @@ public:
 
    static bool pause;
    static bool running;
+   static bool oneframe;
 
 };
 

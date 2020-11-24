@@ -535,21 +535,32 @@ void ModuleEditor::CreateBar_Play()
 
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }))
 		{
-			
+			Game_Time::Start();
 		}
 		ImGui::SameLine();
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawStopIcon.texture_id, { 25,25 }))
 		{
-
+			Game_Time::Stop();
+			//Reset Pos func
 		}
 		ImGui::SameLine();
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPauseIcon.texture_id, { 25,25 }))
 		{
-
+			Game_Time::Pause();
 		}
 		ImGui::SameLine();
+		if (Game_Time::oneframe)
+		{
+			{
+				Game_Time::Pause();
+				Game_Time::oneframe = false;
+			}
+		}
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawTickIcon.texture_id, { 25,25 }))
 		{
+			//TEMPORAL
+			/*Game_Time::Resume();*/
+			Game_Time::One_Frame();
 
 		}
 		ImGui::SameLine();
