@@ -121,6 +121,9 @@ public:
 	bool drawcylinder;
 	bool drawsphere;
 
+	bool play_enabled;
+	bool pause_enabled;
+
 	// CONFIG---------------------------------------------------------------------------------
 
 	Hardware_Status HardwareStat;

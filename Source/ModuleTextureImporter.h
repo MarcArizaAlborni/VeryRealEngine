@@ -70,6 +70,7 @@ public:
 	TextureInfo DrawPlayIcon;
 	TextureInfo DrawPauseIcon;
 	TextureInfo DrawStopIcon;
+	TextureInfo DrawResumeIcon;
 
 	
 	//Resources

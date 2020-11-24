@@ -110,6 +110,9 @@ bool ModuleEditor::Start()
 	show_grid = true;
 	show_ui = true;
 
+	play_enabled = false;
+	pause_enabled = false;
+
 	scene_timer.Start();
 
 	return ret;
@@ -536,18 +539,36 @@ void ModuleEditor::CreateBar_Play()
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }))
 		{
 			Game_Time::Start();
+			play_enabled = true;
+			
 		}
-		ImGui::SameLine();
-		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawStopIcon.texture_id, { 25,25 }))
+		if (play_enabled == true)
 		{
-			Game_Time::Stop();
-			//Reset Pos func
+			ImGui::SameLine();
+			if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawStopIcon.texture_id, { 25,25 }))
+			{
+				Game_Time::Stop();
+				play_enabled = false;
+				//Reset Pos func
+			}
 		}
+		
 		ImGui::SameLine();
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPauseIcon.texture_id, { 25,25 }))
 		{
 			Game_Time::Pause();
+			pause_enabled = true;
 		}
+		if (pause_enabled == true)
+		{
+			ImGui::SameLine();
+			if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawResumeIcon.texture_id, { 25,25 }))
+			{
+				Game_Time::Resume();
+				pause_enabled = false;
+			}
+		}
+
 		ImGui::SameLine();
 		if (Game_Time::oneframe)
 		{
@@ -558,8 +579,7 @@ void ModuleEditor::CreateBar_Play()
 		}
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawTickIcon.texture_id, { 25,25 }))
 		{
-			//TEMPORAL
-			/*Game_Time::Resume();*/
+			
 			Game_Time::One_Frame();
 
 		}
