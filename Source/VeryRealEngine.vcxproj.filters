@@ -189,9 +189,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="p2List.h" />
-    <ClInclude Include="p2DynArray.h" />
-    <ClInclude Include="p2Point.h" />
     <ClInclude Include="Application.h">
       <Filter>Source\Core</Filter>
     </ClInclude>
