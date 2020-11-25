@@ -306,6 +306,8 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 
 		NodeMap NodeToAdd;
 		NodeToAdd.ScenePositionArray = node->mMeshes[size];
+		NodeToAdd.MaterialPositionArray =scene->mMeshes[size]->mMaterialIndex;
+		
 		NodeMapList.push_back(NodeToAdd);
 
 	}
@@ -407,9 +409,9 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 
-
-			//App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(i),scene, NodeMapList.at(i)file_path);
-			ourGameObject->TextureData=App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
+		
+			
+			ourGameObject->TextureData=App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage(App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(i), scene, file_path).texture_path.c_str());
 
 			if (ParentIsFound == true) {
 

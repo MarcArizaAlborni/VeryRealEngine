@@ -114,31 +114,36 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 	return InfoTexture;
 }
 
-TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiScene* scene,aiMaterial* material, const char* file_path)
+TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiScene* scene, const char* file_path)
 {
 	TextureInfo Texture;
 
 	std::string dir_path;
-	//App->file_system->SplitFilePath(file_path, &dir_path, nullptr, nullptr);
+
+	
+	
+	aiMaterial* material = scene->mMaterials[Node.MaterialPositionArray];
 
 	App->filemanager->CorrectPathFile(file_path, &dir_path, nullptr, nullptr);
 
 	aiColor4D color;
-	if (material->Get(AI_MATKEY_COLOR_DIFFUSE, color) == aiReturn_SUCCESS)										// Could also get specular and ambient occlusion colours.
+	if (material->Get(AI_MATKEY_COLOR_DIFFUSE, color) == aiReturn_SUCCESS)										
 	{
-		//r_material->diffuse_color = Color(color.r, color.g, color.b, color.a);
+		
 
 	}
 
-	//aiString tex_path;
-	//if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path) == AI_SUCCESS)										// At the moment only DIFFUSE textures will be imported.
-	//{
-	//	std::string file = App->file_system->GetFileAndExtension(tex_path.C_Str());
-	//	dir_path += file;
-	//	
-
-	//	r_material->texture_id = Importer::Textures::Import(dir_path.c_str(), r_texture);								// Redundant: r_material and r_texture will store the tex_id.
-	//}
+	aiString tex_path;
+	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path) == AI_SUCCESS)									
+	{
+		std::string file = App->filemanager->GetFileAndExtension(tex_path.C_Str());
+		 file=tex_path.C_Str();
+		dir_path += file;
+		
+		Texture=App->textureImporter->LoadTextureImage(dir_path.c_str());
+		Texture.texture_path = dir_path;
+					// Redundant: r_material and r_texture will store the tex_id.
+	}
 
 	return Texture;
 }

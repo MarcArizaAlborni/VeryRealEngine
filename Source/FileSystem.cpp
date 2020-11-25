@@ -683,6 +683,54 @@ LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh(int id)
 }
 
 
+std::string ModuleFileSystem::GetFileAndExtension(const char* path)
+{
+	std::string full_path = path;
+	std::string file = "";
+	std::string extension = "";															// Just for safety check purposes.
+
+	full_path = NormalizePath(full_path.c_str());											// Will swap all '\\' for '/'.														
+
+	size_t file_start = full_path.find_last_of("/");									// Gets the position of the last '/' of the string. Returns npos if none was found.
+	size_t extension_start = full_path.find_last_of(".");									// Gets the position of the last '.' of the string. Returns npos if none was found.
+
+	if (file_start != std::string::npos)
+	{
+		file = full_path.substr(file_start + 1, full_path.size());							// Will get the string past the last slash
+	}
+	else
+	{
+		LOG("[WARNING] Path %s does not have any file!", path);
+	}
+
+	if (extension_start != std::string::npos)
+	{
+		extension = full_path.substr(extension_start + 1, full_path.size());				// Will get the string past the last dot of the path string. Ex: File.ext --> ext
+
+		if (extension == "")
+		{
+			LOG("[WARNING] Path %s does not have any file extension!", path);
+		}
+	}
+
+	return full_path;
+}
+
+std::string ModuleFileSystem::NormalizePath(const char* full_path)
+{
+	std::string normalized_path(full_path);
+
+	for (uint i = 0; i < normalized_path.size(); ++i)
+	{
+		if (normalized_path[i] == '\\')
+		{
+			normalized_path[i] = '/';
+		}
+	}
+
+	return normalized_path;
+}
+
 
 
 bool ModuleFileSystem::CleanUp()

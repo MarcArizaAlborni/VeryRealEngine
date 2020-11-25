@@ -98,8 +98,8 @@ struct GameObject {
 struct NodeMap {
 
 	std::vector<NodeMap> Children;
-	int ScenePositionArray;
-	int MaterialPositionArray;
+	int ScenePositionArray = -1;
+	int MaterialPositionArray = -1;
 
 
 };

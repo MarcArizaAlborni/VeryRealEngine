@@ -93,7 +93,8 @@ public:
 
 	LoadedFile* LoadInformationFile_Mesh(int id);
 
-
+	std::string GetFileAndExtension(const char* path);
+	std::string NormalizePath(const char* full_path);
 
 	std::vector<LoadedFile> LoadedResources;
 	

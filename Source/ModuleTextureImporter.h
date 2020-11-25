@@ -29,7 +29,7 @@ public:
 
 	bool Start();
 	TextureInfo LoadTextureImage(const char* path);
-	TextureInfo CreateTexturesNodeMap(NodeMap Node,const aiScene* scene, aiMaterial* material,const char* file_path);
+	TextureInfo CreateTexturesNodeMap(NodeMap Node,const aiScene* scene,const char* file_path);
 	uint SetUpTexture(const void* texture, uint width, uint height, int format, uint format2);
 	
 	bool LoadTexture(const char* path);
