@@ -88,7 +88,7 @@ public:
 	
 	void TestingReadErrors(const char* filename,StoredFile File);
 	
-
+	void CorrectPathFile(const char* full_path, std::string* path, std::string* file = nullptr, std::string* extension = nullptr);
 	void SaveInformationFile_Mesh(int id,StoredFile FileToSave);
 
 	LoadedFile* LoadInformationFile_Mesh(int id);

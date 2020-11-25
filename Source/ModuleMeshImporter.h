@@ -21,6 +21,14 @@ struct MeshTransformation {
 
 };
 
+struct Transform {
+
+	//4x4 new transform
+
+
+
+};
+
 struct Vertex_Sub {
 
 	float x = 0, y = 0, z=0;
@@ -66,6 +74,8 @@ struct GameObject {
 	std::vector<GameObject*> ChildObjects; // vector of child game objects inside of a game object
 
 	MeshTransformation Mesh_Transform_Modifiers; // vectors for mesh transformation
+
+	Transform transformations; // new transformation system with 4x4
 
 	bool ToBeDrawInspector=false; // if the mesh info should be drawn in the inspector
 
@@ -117,7 +127,7 @@ public:
 
 	void LoadSceneMesh(const aiScene* scene, int mesh_position);
 	std::vector<NodeMap> NodeMapList;
-	void CreateGameObjectsNodeMap(const aiScene* scene);
+	void CreateGameObjectsNodeMap(const aiScene* scene,const char* file_path);
 
 
 	//List of meshes active

@@ -6,6 +6,9 @@
 #include "glmath.h"
 #include "libraries/Glew/include/GL/glew.h"
 
+struct NodeMap;
+struct aiScene;
+struct aiMaterial;
 struct TextureInfo {
 
 	
@@ -26,6 +29,7 @@ public:
 
 	bool Start();
 	TextureInfo LoadTextureImage(const char* path);
+	TextureInfo CreateTexturesNodeMap(NodeMap Node,const aiScene* scene, aiMaterial* material,const char* file_path);
 	uint SetUpTexture(const void* texture, uint width, uint height, int format, uint format2);
 	
 	bool LoadTexture(const char* path);

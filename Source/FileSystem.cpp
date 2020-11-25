@@ -419,6 +419,52 @@ void ModuleFileSystem::TestingReadErrors(const char* filename, StoredFile FileTo
 	
 }
 
+void ModuleFileSystem::CorrectPathFile(const char* full_path, std::string* path, std::string* file, std::string* extension)
+{
+	if (full_path != nullptr)
+	{
+		std::string full(full_path);
+		size_t position_separator = full.find_last_of("\\/");								
+		size_t position_dot = full.find_last_of(".");										
+
+		if (path != nullptr)
+		{
+			if (position_separator < full.length())
+			{
+				*path = full.substr(0, position_separator + 1);								
+			}
+			else
+			{
+				path->clear();																
+			}
+		}
+
+		if (file != nullptr)
+		{
+			if (position_separator < full.length())
+			{
+				*file = full.substr(position_separator + 1, position_dot - position_separator - 1);	
+			}
+			else
+			{
+				*file = full.substr(0, position_dot);										
+			}
+		}
+
+		if (extension != nullptr)
+		{
+			if (position_dot < full.length())
+			{
+				*extension = full.substr(position_dot + 1);									
+			}
+			else
+			{
+				extension->clear();														
+			}
+		}
+	}
+}
+
 void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
 {
 

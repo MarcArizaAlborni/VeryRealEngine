@@ -292,7 +292,7 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 	ProcessNode(file_path, scene, scene->mRootNode, nullptr);
 	
-	CreateGameObjectsNodeMap(scene);
+	CreateGameObjectsNodeMap(scene, file_path);
 
 }
 
@@ -322,7 +322,7 @@ void ModuleMeshImporter::LoadSceneMesh(const aiScene* scene, int mesh_position)
 {
 }
 
-void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene)
+void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const char* file_path)
 {
 	NodeMapList.size();
 
@@ -338,6 +338,92 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene)
 		ParentIsFound = true;
 
 	}
+
+
+	
+	
+
+		
+
+		for (int i = 0; i < NodeMapList.size(); ++i) {
+
+			GameObject* ourGameObject = new GameObject();
+
+			aiMesh* MeshToLoad = scene->mMeshes[NodeMapList.at(i).ScenePositionArray];
+
+			MeshToLoad->mNumVertices;
+			MeshToLoad->mNumFaces;
+
+			for (int d = 0; d < MeshToLoad->mNumFaces; ++d) {
+
+
+				MeshToLoad->mFaces[d].mNumIndices;
+			}
+
+			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
+
+			ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
+
+			memcpy(ourGameObject->MeshData.vertex, MeshToLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
+
+			if (MeshToLoad->HasFaces()) {
+
+				ourGameObject->MeshData.num_index = MeshToLoad->mNumFaces * 3; //aixo
+
+				int a = 0;
+
+				ourGameObject->MeshData.index = new uint[ourGameObject->MeshData.num_index];
+
+				for (int c = 0; c < MeshToLoad->mNumFaces; ++c) {
+
+					//IF MESHES HAVE TRIS
+					if (MeshToLoad->mFaces[c].mNumIndices == 3) {
+
+						memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+					}
+				}
+			}
+
+			if (scene->mMeshes[i]->HasNormals()) {
+
+				ourGameObject->MeshData.normals = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
+				memcpy(ourGameObject->MeshData.normals, scene->mMeshes[i]->mNormals, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
+			}
+
+			if (MeshToLoad->HasTextureCoords(0))
+			{
+				ourGameObject->MeshData.num_texcoords = MeshToLoad->mNumVertices;
+				ourGameObject->MeshData.texcoords = new float[ourGameObject->MeshData.num_texcoords * 2];
+
+				for (int Z = 0; Z < ourGameObject->MeshData.num_texcoords; ++Z) {
+
+					ourGameObject->MeshData.texcoords[Z * 2] = MeshToLoad->mTextureCoords[0][Z].x;
+					ourGameObject->MeshData.texcoords[(Z * 2) + 1] = MeshToLoad->mTextureCoords[0][Z].y;
+				}
+			}
+
+			App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
+			App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
+			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
+			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
+
+
+			//App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(i),scene, NodeMapList.at(i)file_path);
+			ourGameObject->TextureData=App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
+
+			if (ParentIsFound == true) {
+
+				AddMeshToListMeshesOnScene(ourGameObject, true, NULL);
+			}
+			else {
+				AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
+			}
+		}
+		//Free memory
+		aiReleaseImport(scene);
+	
+
+
 
 
 

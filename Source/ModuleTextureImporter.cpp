@@ -3,6 +3,7 @@
 #include "ModuleTextureImporter.h"
 #include "ModuleMeshImporter.h"
 #include "ModuleEditor.h"
+#include "FileSystem.h"
 
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
@@ -112,6 +113,53 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 
 	return InfoTexture;
 }
+
+TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiScene* scene,aiMaterial* material, const char* file_path)
+{
+	TextureInfo Texture;
+
+	std::string dir_path;
+	//App->file_system->SplitFilePath(file_path, &dir_path, nullptr, nullptr);
+
+	App->filemanager->CorrectPathFile(file_path, &dir_path, nullptr, nullptr);
+
+	aiColor4D color;
+	if (material->Get(AI_MATKEY_COLOR_DIFFUSE, color) == aiReturn_SUCCESS)										// Could also get specular and ambient occlusion colours.
+	{
+		//r_material->diffuse_color = Color(color.r, color.g, color.b, color.a);
+
+	}
+
+	//aiString tex_path;
+	//if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path) == AI_SUCCESS)										// At the moment only DIFFUSE textures will be imported.
+	//{
+	//	std::string file = App->file_system->GetFileAndExtension(tex_path.C_Str());
+	//	dir_path += file;
+	//	
+
+	//	r_material->texture_id = Importer::Textures::Import(dir_path.c_str(), r_texture);								// Redundant: r_material and r_texture will store the tex_id.
+	//}
+
+	return Texture;
+}
+
+//TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node,const aiScene* scene, const char* file_path)
+//{
+//	TextureInfo Texture;
+//
+//	
+//	scene->mMaterials[Node.MaterialPositionArray].
+//
+//		Utilities::ImportMaterials(scene_path, ai_scene, ai_node, game_object);
+//
+//	aiString tex_path;
+//	if (ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path) == AI_SUCCESS)										// At the moment only DIFFUSE textures will be imported.
+//	{
+//		std::string file = App->file_system->GetFileAndExtension(tex_path.C_Str());
+//
+//
+//	return Texture;
+//}
 
 uint ModuleTextureImporter::SetUpTexture(const void* texture, uint width, uint height, int format, uint format2)
 {
