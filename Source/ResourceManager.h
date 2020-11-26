@@ -58,11 +58,7 @@ public:
 	void CreateAddFolderWindow();
 	void CreateRenameFolderWindow();
 
-	
-
 	std::vector<Resource*> ResourceEntryList;
-	
-
 	
 	void ReadMainResourcesFolder();
 	

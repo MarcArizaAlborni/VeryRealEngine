@@ -606,7 +606,6 @@ void ModuleEditor::CreateBar_Play()
 		ImGui::TextColored({ 255,255,0,1 }, "%.3f", Game_Time::time);
 		ImGui::End();
 	}
-	
 }
 
 void ModuleEditor::GameModes() 

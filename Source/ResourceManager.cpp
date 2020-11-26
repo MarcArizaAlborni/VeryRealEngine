@@ -8,31 +8,23 @@
 
 namespace fs = std::filesystem;
 
-
 ResourceManager::ResourceManager(Application* app, const char* name, bool start_enabled) : Module(app, "ResourceManager", start_enabled)
 {
-
 }
 
 ResourceManager::~ResourceManager()
 {
-
 }
 
 bool ResourceManager::Start()
 {
-	
-
 	ReadMainResourcesFolder();
 
-	
-	
 	return true;
 }
 
 update_status ResourceManager::Update(float dt)
 {
-	
 	return UPDATE_CONTINUE;
 }
 
@@ -43,9 +35,6 @@ bool ResourceManager::CleanUp()
 
 void ResourceManager::CreateResourcesWindow()
 {
-
-	
-
 	if (App->editor->show_resources_window) {
 
 		bool DrawInitialParents = true;
@@ -93,13 +82,10 @@ void ResourceManager::CreateResourcesWindow()
 			 }
 			 ImGui::SameLine();
 			 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RenameFolderIcon.texture_id, { 30,30 })) {
-				
-				 
+			
 				 //BRUTAL CRASH HERE
 				 //resource_rename_folder = true;
-
 			 }
-		  
 		  
 		    std::vector<Resource*>::iterator ResIt = ResourceEntryList.begin();
 		    
@@ -216,7 +202,6 @@ void ResourceManager::CreateResourcesWindow()
 		    
 		    	}
 				
-				
 		    	++ResIt;
 		    }
 		    
@@ -231,27 +216,16 @@ void ResourceManager::CreateResourcesWindow()
 	}
 }
 
-
-
-
 void ResourceManager::CreateDeleteFolderWindow()
 {
 	if (resource_remove_folder) {
 		std::string path = "Assets";
 		for (const auto& entry : fs::directory_iterator(path)) {
 
-			
-
-			
-
-
 		}
 		
 		ImGui::Begin("Remove Folder ",&resource_remove_folder);
 		
-	
-		
-
 			//std::string FolderName;
 			//const char* FolderName_C = FolderName.c_str();
 			const char* FolderName;
@@ -261,15 +235,10 @@ void ResourceManager::CreateDeleteFolderWindow()
 			if (ImGui::InputText("Delete Folder", TextBuffer, IM_ARRAYSIZE(TextBuffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
 				name = TextBuffer;
 				
-
-				
 			}
 			
 			//ImGui::Text(name);
 		
-			
-			
-
 		ImGui::End();
 
 		//resource_remove_folder = false;
@@ -280,7 +249,6 @@ void ResourceManager::CreateAddFolderWindow()
 {
 	if (resource_add_folder) {
 
-
 		resource_add_folder = false;
 	}
 }
@@ -289,16 +257,12 @@ void ResourceManager::CreateRenameFolderWindow()
 {
 	if (resource_rename_folder) {
 
-		
-
 		resource_rename_folder = false;
 	}
 }
 
 void ResourceManager::ReadMainResourcesFolder()
 {
-
-	
 	std::string path = "Assets";
 	for (const auto& entry : fs::directory_iterator(path)) {
 
@@ -328,10 +292,6 @@ void ResourceManager::ReadMainResourcesFolder()
 			//CheckFolderChilds(Item);
 			ResourceEntryList.push_back(Item);
 		}
-
-		
-
-		
 	}
 
 	std::vector<Resource*>::iterator IteratorRes = ResourceEntryList.begin();
@@ -342,8 +302,6 @@ void ResourceManager::ReadMainResourcesFolder()
 		++IteratorRes;
 	}
 }
-
-
 
 void ResourceManager::ResourceAddChildren(Resource* Parent)
 {
@@ -377,15 +335,12 @@ void ResourceManager::ResourceAddChildren(Resource* Parent)
 			ResourceAddChildren(Item);
 		}
 		Parent->ResourceEntryChildsList.push_back(Item);
-		
-		
 	}
 
 }
 
 void ResourceManager::DrawResourcesItems(Resource* Parent)
 {
-
 	if (App->editor->show_resources_window) {
 
 		bool DrawInitialParents = true;
@@ -534,16 +489,11 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				++ResItChild;
 			}
 
-			
-
 			ImGui::End();
 
 		}
 		
 	}
-
-	
-
 }
 
 void ResourceManager::CreateConsolelog(const char file[], int line, const char* format, ...)
@@ -558,7 +508,6 @@ void ResourceManager::CreateConsolelog(const char file[], int line, const char* 
 	va_end(ap);
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
-
 
 	App->editor->ConsoleLogs.push_back(tmp_string2);
 }

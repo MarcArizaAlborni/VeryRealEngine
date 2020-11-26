@@ -39,15 +39,13 @@ struct LoadedFile {
 	std::string FileType;
 	uint AmountMeshes;
 	std::vector<LoadedFile_Mesh> MeshInfo;
-	
 };
 
 
 struct StoredFile {
 
 	const aiScene* Scene;
-	
-	
+
 	//////
 
 	int File_Id;
@@ -56,16 +54,10 @@ struct StoredFile {
 
 	//std::vector<StoredFile_Mesh> MeshInfo;
 
-
 	bool is_EmptyParent = false;
 	int unique_id = 0;
 	std::string TypeOfItem = "";
-
 };
-
-
-
-
 
 
 class ModuleFileSystem : public Module
@@ -97,8 +89,6 @@ public:
 	std::string NormalizePath(const char* full_path);
 
 	std::vector<LoadedFile> LoadedResources;
-	
-
 
 	bool CleanUp();
 
@@ -107,12 +97,6 @@ public:
 	std::vector<std::string>ConvertedVec;
 	void ToBinary_String(std::string stringname);
 	void ToBinary_Number(int val );
-
-	
-
-
-private:
-	
 
 public:
 
