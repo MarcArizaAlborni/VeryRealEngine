@@ -131,6 +131,7 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 	{
 		
 
+
 	}
 
 	aiString tex_path;

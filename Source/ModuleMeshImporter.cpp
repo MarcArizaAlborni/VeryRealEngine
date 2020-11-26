@@ -288,18 +288,24 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 	
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 
+	scene->mMeshes[1];
+	
 	aiNode* Node;
 
 	ProcessNode(file_path, scene, scene->mRootNode, nullptr);
 	
 	CreateGameObjectsNodeMap(scene, file_path);
+	
+	aiMaterial* a; 
+
+	
 
 }
 
 void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,GameObject* item)
 {
 	//Parent should be called into this function to create childs?
-	GameObject* Object = new GameObject();
+	
 	
 
 	for (int size = 0; size < node->mNumMeshes; ++size) {
@@ -308,13 +314,16 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		NodeToAdd.ScenePositionArray = node->mMeshes[size];
 		NodeToAdd.MaterialPositionArray =scene->mMeshes[size]->mMaterialIndex;
 		
-		NodeMapList.push_back(NodeToAdd);
+		if (NodeToAdd.ScenePositionArray != -1) {
+			NodeMapList.push_back(NodeToAdd);
+		}
+		
 
 	}
 
 	for (int i = 0; i < node->mNumChildren; ++i) {
 
-		ProcessNode(file_path, scene, node->mChildren[i], Object);
+		ProcessNode(file_path, scene, node->mChildren[i], nullptr);
 
 	}
 
@@ -343,15 +352,23 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 
 
 
-	for (int i = 0; i < scene->mNumMeshes; ++i) {
+	for (int i = 0; i < NodeMapList.size(); ++i) {
 
 		
 			
 			GameObject* ourGameObject = new GameObject();
 
 			//The error comes from the dummies that are added to the NodeMapList.
-			aiMesh* MeshToLoad = scene->mMeshes[NodeMapList.at(i).ScenePositionArray];
-		    MeshToLoad = scene->mMeshes[i];
+			int positionArray = NodeMapList.at(i).ScenePositionArray;
+
+			
+
+			aiMesh* MeshToLoad = scene->mMeshes[positionArray];
+
+		   // MeshToLoad = scene->mMeshes[i];
+
+
+
 			
 
 			for (int d = 0; d < MeshToLoad->mNumFaces; ++d) {
@@ -360,7 +377,7 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 				MeshToLoad->mFaces[d].mNumIndices;
 			}
 
-			MeshToLoad->mNumVertices = scene->mMeshes[i]->mNumVertices;
+			MeshToLoad->mNumVertices = scene->mMeshes[positionArray]->mNumVertices;
 
 			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
 
@@ -398,10 +415,10 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 				}
 			}
 
-			if (scene->mMeshes[i]->HasNormals()) {
+			if (scene->mMeshes[positionArray]->HasNormals()) {
 
 				ourGameObject->MeshData.normals = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
-				memcpy(ourGameObject->MeshData.normals, scene->mMeshes[i]->mNormals, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
+				memcpy(ourGameObject->MeshData.normals, scene->mMeshes[positionArray]->mNormals, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
 			}
 
 			if (MeshToLoad->HasTextureCoords(0))
