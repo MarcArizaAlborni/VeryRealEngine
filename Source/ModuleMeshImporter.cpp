@@ -423,7 +423,7 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 
 
 
-			ourGameObject->TextureData = App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage(App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(i), scene, file_path).texture_path.c_str());
+			ourGameObject->TextureData = App->textureImporter->LoadTextureImage(App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(i), scene, file_path).texture_path.c_str());
 
 			if (ParentIsFound == true) {
 
