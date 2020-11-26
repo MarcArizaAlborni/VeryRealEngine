@@ -47,8 +47,8 @@ bool ModuleScene::Start()
 	//App->textureImporter->AddTextureToList(&App->textureImporter->TextureHouse, "Baker House");
 
 	App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.fbx");
-	/*App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");*/
-	//App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street environment_V01.FBX");
+	App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");
+	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street environment_V01.FBX");
 	/*App->meshimporter->LoadMesh("", true);*/
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;

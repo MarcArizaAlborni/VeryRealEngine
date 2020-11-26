@@ -342,25 +342,25 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 	}
 
 
-	
-	
+
+	for (int i = 0; i < scene->mNumMeshes; ++i) {
 
 		
-
-		for (int i = 0; i < NodeMapList.size(); ++i) {
-
+			
 			GameObject* ourGameObject = new GameObject();
 
+			//The error comes from the dummies that are added to the NodeMapList.
 			aiMesh* MeshToLoad = scene->mMeshes[NodeMapList.at(i).ScenePositionArray];
-
-			MeshToLoad->mNumVertices;
-			MeshToLoad->mNumFaces;
+		    MeshToLoad = scene->mMeshes[i];
+			
 
 			for (int d = 0; d < MeshToLoad->mNumFaces; ++d) {
 
 
 				MeshToLoad->mFaces[d].mNumIndices;
 			}
+
+			MeshToLoad->mNumVertices = scene->mMeshes[i]->mNumVertices;
 
 			ourGameObject->MeshData.num_vertex = MeshToLoad->mNumVertices;
 
@@ -380,6 +380,18 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 
 					//IF MESHES HAVE TRIS
 					if (MeshToLoad->mFaces[c].mNumIndices == 3) {
+
+						unsigned int IndexCopy[3];
+
+						/*IndexCopy[0] = MeshToLoad->mFaces[c].mIndices[0];
+						IndexCopy[1] = MeshToLoad->mFaces[c].mIndices[1];
+						IndexCopy[2] = MeshToLoad->mFaces[c].mIndices[2];*/
+
+						/*IndexCopy[0] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;
+						IndexCopy[1] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2;
+						IndexCopy[2] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3;*/
+
+						//memcpy(&ourGameObject->MeshData.index[c * 3], IndexCopy, 3 * sizeof(uint));
 
 						memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
 					}
@@ -409,9 +421,9 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 
-		
-			
-			ourGameObject->TextureData=App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage(App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(i), scene, file_path).texture_path.c_str());
+
+
+			ourGameObject->TextureData = App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage(App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(i), scene, file_path).texture_path.c_str());
 
 			if (ParentIsFound == true) {
 
@@ -420,7 +432,8 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 			else {
 				AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
 			}
-		}
+		
+	}
 		//Free memory
 		aiReleaseImport(scene);
 	
