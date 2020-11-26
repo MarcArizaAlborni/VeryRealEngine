@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "glmath.h"
 
+class Game_Time;
 
 class ModuleCamera3D : public Module
 {

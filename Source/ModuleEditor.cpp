@@ -533,8 +533,7 @@ void ModuleEditor::CreateBar_Play()
 {
 	if (App->editor->show_play_window) {
 
-		ImGui::Begin("Play Editor", &App->editor->show_play_window, ImGuiWindowFlags_NoCollapse
-			| ImGuiWindowFlags_NoResize);
+		ImGui::Begin("Play Editor", &App->editor->show_play_window);
 
 		ImGui::Dummy(ImVec2(120, 0.0f));
 		ImGui::SameLine();
@@ -612,34 +611,31 @@ void ModuleEditor::GameModes()
 {
 	if (play_mode == true)
 	{
-		ImGui::SetNextWindowPos({ 440,100 });
 		ImGui::Begin("Play", &show_playable_window, ImGuiWindowFlags_NoCollapse
-				| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar |
-				ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDocking);
+				| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar |
+				ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove);
 		ImGui::SetWindowFontScale(1.25);
-		ImGui::Text("PLAY MODE");
+		ImGui::TextColored({ 255,255,0,1 },"PLAY MODE");
 		ImGui::End();
 	}
 
 	if (pause_mode == true)
 	{
-		ImGui::SetNextWindowPos({ 440,100 });
 		ImGui::Begin("Pause", &show_pause_window, ImGuiWindowFlags_NoCollapse
-			| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar |
-			ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDocking);
+			| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove);
 		ImGui::SetWindowFontScale(1.25);
-		ImGui::Text("ENGINE PAUSED");
+		ImGui::TextColored({ 255,255,0,1 },"ENGINE PAUSED");
 		ImGui::End();
 	}
 
 	if (editor_mode == true)
 	{
-		ImGui::SetNextWindowPos({ 440,100 });
 		ImGui::Begin("Editor", &show_editor_window, ImGuiWindowFlags_NoCollapse
-			| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar |
-			ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDocking);
+			| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove);
 		ImGui::SetWindowFontScale(1.25);
-		ImGui::Text("EDITOR MODE");
+		ImGui::TextColored({ 255,255,0,1 },"EDITOR MODE");
 		ImGui::End();
 	}
 }

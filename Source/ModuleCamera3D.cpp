@@ -5,6 +5,7 @@
 #include "ModuleGeometryManager.h"
 #include "ModuleMeshImporter.h"
 #include "ModuleEditor.h"
+#include "Game_Time.h"
 
 #include "libraries/MathGeoLib/include/Math/MathFunc.h"
 #include "libraries/MathGeoLib/include/Geometry/LineSegment.h"
@@ -47,7 +48,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-	if (io.WantCaptureMouse == false)
+	if (io.WantCaptureMouse == false || Game_Time::running == true)
 	{
 		// Movement Camera
 		vec3 newPos(0, 0, 0);
