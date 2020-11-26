@@ -110,8 +110,9 @@ bool ModuleEditor::Start()
 	show_grid = true;
 	show_ui = true;
 
-	play_enabled = false;
-	pause_enabled = false;
+	play_mode = false;
+	pause_mode = false;
+	editor_mode = true;
 
 	scene_timer.Start();
 
@@ -287,6 +288,8 @@ update_status ModuleEditor::PostUpdate(float dt)
 	}
 		
 	CreateBar_Play();
+
+	GameModes();
 	
 
 	//Render
@@ -539,16 +542,18 @@ void ModuleEditor::CreateBar_Play()
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }))
 		{
 			Game_Time::Start();
-			play_enabled = true;
+			play_mode = true;
+			editor_mode = false;
 			
 		}
-		if (play_enabled == true)
+		if (play_mode == true)
 		{
 			ImGui::SameLine();
 			if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawStopIcon.texture_id, { 25,25 }))
 			{
 				Game_Time::Stop();
-				play_enabled = false;
+				play_mode = false;
+				editor_mode = true;
 				//Reset Pos func
 			}
 		}
@@ -557,15 +562,19 @@ void ModuleEditor::CreateBar_Play()
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPauseIcon.texture_id, { 25,25 }))
 		{
 			Game_Time::Pause();
-			pause_enabled = true;
+			pause_mode = true;
+			play_mode = false;
+			editor_mode = false;
 		}
-		if (pause_enabled == true)
+		if (pause_mode == true)
 		{
 			ImGui::SameLine();
 			if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawResumeIcon.texture_id, { 25,25 }))
 			{
 				Game_Time::Resume();
-				pause_enabled = false;
+				pause_mode = false;
+				editor_mode = false;
+				play_mode = true;
 			}
 		}
 
@@ -598,6 +607,42 @@ void ModuleEditor::CreateBar_Play()
 		ImGui::End();
 	}
 	
+}
+
+void ModuleEditor::GameModes() 
+{
+	if (play_mode == true)
+	{
+		ImGui::SetNextWindowPos({ 440,100 });
+		ImGui::Begin("Play", &show_playable_window, ImGuiWindowFlags_NoCollapse
+				| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar |
+				ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDocking);
+		ImGui::SetWindowFontScale(1.25);
+		ImGui::Text("PLAY MODE");
+		ImGui::End();
+	}
+
+	if (pause_mode == true)
+	{
+		ImGui::SetNextWindowPos({ 440,100 });
+		ImGui::Begin("Pause", &show_pause_window, ImGuiWindowFlags_NoCollapse
+			| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDocking);
+		ImGui::SetWindowFontScale(1.25);
+		ImGui::Text("ENGINE PAUSED");
+		ImGui::End();
+	}
+
+	if (editor_mode == true)
+	{
+		ImGui::SetNextWindowPos({ 440,100 });
+		ImGui::Begin("Editor", &show_editor_window, ImGuiWindowFlags_NoCollapse
+			| ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDocking);
+		ImGui::SetWindowFontScale(1.25);
+		ImGui::Text("EDITOR MODE");
+		ImGui::End();
+	}
 }
 
 

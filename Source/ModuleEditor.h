@@ -92,6 +92,8 @@ public:
 
 	void CreateBar_Play();
 
+	void GameModes();
+
 	//Main Menu Bar Bools
 	bool show_config_window;
 
@@ -112,8 +114,15 @@ public:
 
 	//Editor Play
 	bool show_play_window;
-
 	bool show_config_window_mode;
+
+	bool editor_mode;
+	bool show_editor_window;
+	bool play_mode;
+	bool show_playable_window;
+	bool pause_mode;
+	bool show_pause_window;
+
 
 	bool drawplane;
 	bool drawcube;
@@ -121,8 +130,6 @@ public:
 	bool drawcylinder;
 	bool drawsphere;
 
-	bool play_enabled;
-	bool pause_enabled;
 
 	// CONFIG---------------------------------------------------------------------------------
 

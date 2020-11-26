@@ -96,7 +96,7 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 
 
 			ImGui::SetWindowFontScale(1.5);
-			ImGui::Text("No object Selected");
+			ImGui::Text("No Objects Selected");
 			ImGui::SetWindowFontScale(1.0);
 		}
 
