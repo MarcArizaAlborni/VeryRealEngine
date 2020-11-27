@@ -354,7 +354,7 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 
 	for (int i = 0; i < NodeMapList.size(); ++i) {
 
-		
+	//for (int i = 0; i < NodeMapList.size(); ++i) {
 			
 			GameObject* ourGameObject = new GameObject();
 
@@ -439,8 +439,13 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 
 
-
-			ourGameObject->TextureData = App->textureImporter->LoadTextureImage(App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(i), scene, file_path).texture_path.c_str());
+			if ( i == 32) {
+				
+				//ourGameObject->is_Textured = false;
+			}
+			
+			std::string PathToLoad = App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(positionArray), scene, file_path).texture_path.c_str();
+			ourGameObject->TextureData = App->textureImporter->LoadTextureImage(PathToLoad.c_str());
 
 			if (ParentIsFound == true) {
 

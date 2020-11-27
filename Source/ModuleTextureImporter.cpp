@@ -120,11 +120,13 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 
 	std::string dir_path;
 
-	
+	std::string extension;
+	std::string file_name;
 	
 	aiMaterial* material = scene->mMaterials[Node.MaterialPositionArray];
 
-	App->filemanager->CorrectPathFile(file_path, &dir_path, nullptr, nullptr);
+	std::string texName;
+	std::string	texExtension;
 
 	aiColor4D color;
 	if (material->Get(AI_MATKEY_COLOR_DIFFUSE, color) == aiReturn_SUCCESS)										
@@ -138,11 +140,13 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path) == AI_SUCCESS)									
 	{
 		std::string file = App->filemanager->GetFileAndExtension(tex_path.C_Str());
-		 file=tex_path.C_Str();
-		dir_path += file;
-		
-		Texture=App->textureImporter->LoadTextureImage(dir_path.c_str());
-		Texture.texture_path = dir_path;
+		App->filemanager->SplitFilePath(tex_path.C_Str(), nullptr, &texName, &texExtension);
+
+		texName = "Assets/Textures/" + texName + "." + texExtension;
+
+
+		Texture=App->textureImporter->LoadTextureImage(texName.c_str());
+		Texture.texture_path = texName;
 					// Redundant: r_material and r_texture will store the tex_id.
 	}
 

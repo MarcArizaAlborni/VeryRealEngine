@@ -86,6 +86,7 @@ public:
 	LoadedFile* LoadInformationFile_Mesh(int id);
 
 	std::string GetFileAndExtension(const char* path);
+	void SplitFilePath(const char* full_path, std::string* path, std::string* file = nullptr, std::string* extension = nullptr) const;
 	std::string NormalizePath(const char* full_path);
 
 	std::vector<LoadedFile> LoadedResources;

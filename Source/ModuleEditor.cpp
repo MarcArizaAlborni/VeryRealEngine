@@ -192,7 +192,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 
-	ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 

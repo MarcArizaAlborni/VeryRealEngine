@@ -52,7 +52,7 @@ bool ModuleScene::Start()
 
 	
 
-	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street environment_V01.FBX");
+	//App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street environment_V01.FBX");
 
 	/*App->meshimporter->LoadMesh("", true);*/
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;

@@ -424,43 +424,31 @@ void ModuleFileSystem::CorrectPathFile(const char* full_path, std::string* path,
 	if (full_path != nullptr)
 	{
 		std::string full(full_path);
-		size_t position_separator = full.find_last_of("\\/");								
-		size_t position_dot = full.find_last_of(".");										
+		size_t pos_separator = full.find_last_of("\\/");
+		size_t pos_dot = full.find_last_of(".");
 
 		if (path != nullptr)
 		{
-			if (position_separator < full.length())
-			{
-				*path = full.substr(0, position_separator + 1);								
-			}
+			if (pos_separator < full.length())
+				*path = full.substr(0, pos_separator + 1);
 			else
-			{
-				path->clear();																
-			}
+				path->clear();
 		}
 
 		if (file != nullptr)
 		{
-			if (position_separator < full.length())
-			{
-				*file = full.substr(position_separator + 1, position_dot - position_separator - 1);	
-			}
+			if (pos_separator < full.length())
+				*file = full.substr(pos_separator + 1, pos_dot - pos_separator - 1);
 			else
-			{
-				*file = full.substr(0, position_dot);										
-			}
+				*file = full.substr(0, pos_dot);
 		}
 
 		if (extension != nullptr)
 		{
-			if (position_dot < full.length())
-			{
-				*extension = full.substr(position_dot + 1);									
-			}
+			if (pos_dot < full.length())
+				*extension = full.substr(pos_dot + 1);
 			else
-			{
-				extension->clear();														
-			}
+				extension->clear();
 		}
 	}
 }
@@ -714,6 +702,41 @@ std::string ModuleFileSystem::GetFileAndExtension(const char* path)
 	}
 
 	return full_path;
+}
+
+
+void ModuleFileSystem::SplitFilePath(const char* full_path, std::string* path, std::string* file, std::string* extension) const
+{
+	if (full_path != nullptr)
+	{
+		std::string full(full_path);
+		size_t pos_separator = full.find_last_of("\\/");
+		size_t pos_dot = full.find_last_of(".");
+
+		if (path != nullptr)
+		{
+			if (pos_separator < full.length())
+				*path = full.substr(0, pos_separator + 1);
+			else
+				path->clear();
+		}
+
+		if (file != nullptr)
+		{
+			if (pos_separator < full.length())
+				*file = full.substr(pos_separator + 1, pos_dot - pos_separator - 1);
+			else
+				*file = full.substr(0, pos_dot);
+		}
+
+		if (extension != nullptr)
+		{
+			if (pos_dot < full.length())
+				*extension = full.substr(pos_dot + 1);
+			else
+				extension->clear();
+		}
+	}
 }
 
 std::string ModuleFileSystem::NormalizePath(const char* full_path)
