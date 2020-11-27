@@ -308,15 +308,16 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 
 		NodeMap NodeToAdd;
 		aiMesh* MeshLoaded = scene->mMeshes[node->mMeshes[size]];
-
+		
 			NodeToAdd.ScenePositionArray = node->mMeshes[size];
 
+			
 			if (MeshLoaded->mMaterialIndex >= 0) {
 
 				aiMaterial* MaterialLoaded;
 				MaterialLoaded = scene->mMaterials[MeshLoaded->mMaterialIndex];
 				NodeToAdd.MaterialPositionArray = MeshLoaded->mMaterialIndex;
-
+				NodeToAdd.Name = node->mName.C_Str();
 
 				aiString PathMaterial;
 				if ((MaterialLoaded->GetTexture(aiTextureType_DIFFUSE, 0, &PathMaterial) == AI_SUCCESS)) {
@@ -373,6 +374,7 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 
 			aiMesh* MeshToLoad = scene->mMeshes[positionArray];
 
+			ourGameObject->mesh_name = NodeMapList.at(i).Name;
 		   // MeshToLoad = scene->mMeshes[i];
 
 			for (int d = 0; d < MeshToLoad->mNumFaces; ++d) {

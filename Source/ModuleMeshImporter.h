@@ -101,6 +101,7 @@ struct NodeMap {
 	int ScenePositionArray = -1;
 	int MaterialPositionArray = -1;
 	std::string MaterialPath = "";
+	std::string Name = "";
 
 
 };
