@@ -53,11 +53,12 @@ bool ModuleScene::Start()
 	//App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");
 
 	
-	//App->meshimporter->LoadMesh("Assets/Models/Street/Street_environment_V01.FBX");
+	
 
 	
 
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
+
 	//App->meshimporter->LoadFile_Mesh("Assets/Models/Penguin/PenguinBaseMesh.fbx");
 
 	/*App->meshimporter->LoadMesh("", true);*/

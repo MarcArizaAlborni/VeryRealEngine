@@ -361,6 +361,8 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 
 
 	//THIS HAS TO BE CHANGED
+
+
 	for (int i = 0; i < 4; ++i) {
 
 	//for (int i = 0; i < NodeMapList.size(); ++i) {
@@ -461,6 +463,11 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 			
 				ourGameObject->TextureData = App->textureImporter->LoadTextureImage(PathToLoad.c_str());
 			}
+			else {
+
+				LOGFIX("Mesh Node Has No Texture");
+			}
+			
 			
 
 			

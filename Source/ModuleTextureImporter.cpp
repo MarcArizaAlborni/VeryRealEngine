@@ -140,20 +140,26 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 
 	aiString tex_path;
 
-	std::string Texture_Path = Node.MaterialPath;
-	
-	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path) == AI_SUCCESS)									
-	{
-		std::string file = App->filemanager->GetFileAndExtension(tex_path.C_Str());
-		App->filemanager->SplitFilePath(Texture_Path.c_str(), nullptr, &texName, &texExtension);
+	if (Node.MaterialPath != "") {
+		std::string Texture_Path = Node.MaterialPath;
 
-		texName = "Assets/Textures/" + texName + "." + texExtension;
+		if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path) == AI_SUCCESS)
+		{
+			std::string file = App->filemanager->GetFileAndExtension(tex_path.C_Str());
+			App->filemanager->SplitFilePath(Texture_Path.c_str(), nullptr, &texName, &texExtension);
+
+			texName = "Assets/Textures/" + texName + "." + texExtension;
 
 
-		Texture=App->textureImporter->LoadTextureImage(texName.c_str());
-		Texture.texture_path = texName;
-					// Redundant: r_material and r_texture will store the tex_id.
+			Texture = App->textureImporter->LoadTextureImage(texName.c_str());
+			Texture.texture_path = texName;
+			// Redundant: r_material and r_texture will store the tex_id.
+		}
 	}
+	else {
+		int j = 0;
+	}
+	
 	
 
 	return Texture;

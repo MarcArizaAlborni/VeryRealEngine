@@ -205,12 +205,17 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	
 	DrawVertexNormals(mesh);
 
-	if (mesh->is_Textured == true) {
-		
-		glBindTexture(GL_TEXTURE_2D, mesh->TextureData.texture_id);
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id);
-		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	if (mesh->TextureData.height != 0) {
+
+		if (mesh->is_Textured == true) {
+
+			glBindTexture(GL_TEXTURE_2D, mesh->TextureData.texture_id);
+			glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id);
+			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+		}
 	}
+	
+	
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
