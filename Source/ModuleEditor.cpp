@@ -8,6 +8,7 @@
 #include "ModuleHierarchy.h"
 #include "ModuleInspector.h"
 #include "ResourceManager.h"
+#include "ModuleScene.h"
 
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
@@ -571,6 +572,8 @@ void ModuleEditor::CreateBar_Play()
 				play_mode = false;
 				editor_mode = true;
 				//Reset Pos func
+				App->scene->LoadScene();
+				
 			}
 		}
 		

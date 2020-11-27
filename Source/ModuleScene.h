@@ -21,6 +21,10 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	bool ResetScene();
+	bool SaveScene();
+	bool LoadScene();
+	
 
 public:
 	//------------ CONSOLE STUFF

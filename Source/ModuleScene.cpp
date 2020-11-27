@@ -156,6 +156,30 @@ bool ModuleScene::CleanUp()
 	return true;
 }
 
+bool ModuleScene::ResetScene()
+{
+	App->meshimporter->MeshesOnScene.clear();
+	//SHOULD WE DELETE BUFFERS
+
+	return true;
+}
+
+bool ModuleScene::LoadScene()
+{
+	ResetScene();
+
+
+
+	return true;
+}
+
+bool ModuleScene::SaveScene()
+{
+	bool ret = true;
+	
+	return ret;
+}
+
 
 void ModuleScene::CreateConsolelog(const char file[], int line, const char* format, ...)
 {
