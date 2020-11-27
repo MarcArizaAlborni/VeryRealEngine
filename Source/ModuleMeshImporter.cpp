@@ -359,26 +359,21 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 
 	}
 
-
 	//THIS HAS TO BE CHANGED
 
 
-	for (int i = 0; i < 4; ++i) {
+	//for (int i = 0; i < 4; ++i) {
 
-	//for (int i = 0; i < NodeMapList.size(); ++i) {
+	 for (int i = 0; i < NodeMapList.size(); ++i) {
 			
 			GameObject* ourGameObject = new GameObject();
 
 			//The error comes from the dummies that are added to the NodeMapList.
 			int positionArray = NodeMapList.at(i).ScenePositionArray;
 
-			
-
 			aiMesh* MeshToLoad = scene->mMeshes[positionArray];
 
 		   // MeshToLoad = scene->mMeshes[i];
-
-
 
 			for (int d = 0; d < MeshToLoad->mNumFaces; ++d) {
 
@@ -444,7 +439,9 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 
 			App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
 			App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
-			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
+			if (ourGameObject->MeshData.texcoords != NULL) {
+				App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
+			}
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 
 			if (i == 4) {
@@ -454,8 +451,7 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 			
 			std::string PathToLoad = App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(positionArray), scene, file_path).texture_path.c_str();
 
-
-			//std::string PathToLoad = NodeMapList.at(i).MaterialPath;
+			
 
 			if(PathToLoad!=""){
 
@@ -467,9 +463,6 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 
 				LOGFIX("Mesh Node Has No Texture");
 			}
-			
-			
-
 			
 			
 			if (ParentIsFound == true) {
@@ -484,11 +477,6 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 		//Free memory
 		aiReleaseImport(scene);
 	
-
-
-
-
-
 	NodeMapList.clear();
 }
 

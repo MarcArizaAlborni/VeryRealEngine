@@ -50,7 +50,7 @@ bool ModuleScene::Start()
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;
 
-	//App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");
+	App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");
 
 	
 	

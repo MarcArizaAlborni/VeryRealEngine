@@ -193,20 +193,20 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	Transform_Mesh_Rotation(mesh, mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
+
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	if (mesh->is_Checkered == true) {
 
-		glBindTexture(GL_TEXTURE_2D,App->textureImporter->TextureCheckers.texture_id);
+		glBindTexture(GL_TEXTURE_2D, App->textureImporter->TextureCheckers.texture_id);
 
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id);
 		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 	}
-	
+
 	DrawVertexNormals(mesh);
 
-	if (mesh->TextureData.height != 0) {
-
+	if (mesh->MeshData.texcoords != NULL) {
 		if (mesh->is_Textured == true) {
 
 			glBindTexture(GL_TEXTURE_2D, mesh->TextureData.texture_id);
@@ -214,6 +214,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 		}
 	}
+
 	
 	
 
@@ -228,7 +229,10 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	
+	
+		glBindTexture(GL_TEXTURE_2D, 0);
+	
 
 	glPopMatrix();
 	
