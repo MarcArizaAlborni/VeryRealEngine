@@ -200,6 +200,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 				GameObject* ItemParentMesh = new GameObject();
 				ItemParentMesh->is_Drawn = true;
 				ItemParentMesh->is_EmptyParent = true;
+				
 				AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
 				ParentHasFound = true;
 
