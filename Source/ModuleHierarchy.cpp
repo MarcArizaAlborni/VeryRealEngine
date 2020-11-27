@@ -206,6 +206,20 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
              (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
 
             Object->is_Drawn = false;
+
+            if (Object->ChildObjects.size() > 0) {
+
+                GameObject* Mesh;
+                std::vector<GameObject*>::iterator Item = Object->ChildObjects.begin();
+                for (int count = 0; count < Object->ChildObjects.size(); ++count) {
+                    Mesh = *Item;
+
+                    Mesh->is_Drawn = false;
+
+                    ++Item;
+
+                }
+            }
         }
     }
     else {
@@ -213,6 +227,17 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
             (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
 
             Object->is_Drawn = true;
+
+            GameObject* Mesh;
+            std::vector<GameObject*>::iterator Item = Object->ChildObjects.begin();
+            for (int count = 0; count < Object->ChildObjects.size(); ++count) {
+                Mesh = *Item;
+
+                Mesh->is_Drawn = true;
+                ++Item;
+
+
+            }
         }
     }
 
