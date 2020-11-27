@@ -406,16 +406,6 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 
 						unsigned int IndexCopy[3];
 
-						/*IndexCopy[0] = MeshToLoad->mFaces[c].mIndices[0];
-						IndexCopy[1] = MeshToLoad->mFaces[c].mIndices[1];
-						IndexCopy[2] = MeshToLoad->mFaces[c].mIndices[2];*/
-
-						/*IndexCopy[0] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV1;
-						IndexCopy[1] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV2;
-						IndexCopy[2] = InformationToRecieve->MeshInfo[i].FaceInfo[c].indexV3;*/
-
-						//memcpy(&ourGameObject->MeshData.index[c * 3], IndexCopy, 3 * sizeof(uint));
-
 						memcpy(&ourGameObject->MeshData.index[c * 3], MeshToLoad->mFaces[c].mIndices, 3 * sizeof(uint));
 					}
 				}
@@ -430,12 +420,13 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 			if (MeshToLoad->HasTextureCoords(0))
 			{
 				ourGameObject->MeshData.num_texcoords = MeshToLoad->mNumVertices;
-				ourGameObject->MeshData.texcoords = new float[ourGameObject->MeshData.num_texcoords * 2];
+				ourGameObject->MeshData.texcoords = new float[ourGameObject->MeshData.num_vertex * 2];
 
+				
 				for (int Z = 0; Z < ourGameObject->MeshData.num_texcoords; ++Z) {
 
 					ourGameObject->MeshData.texcoords[Z * 2] = MeshToLoad->mTextureCoords[0][Z].x;
-					ourGameObject->MeshData.texcoords[(Z * 2) + 1] = MeshToLoad->mTextureCoords[0][Z].y;
+					ourGameObject->MeshData.texcoords[Z * 2 + 1] = MeshToLoad->mTextureCoords[0][Z].y;
 				}
 			}
 
@@ -446,9 +437,7 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 			}
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 
-			if (i == 4) {
-				int k = 0;
-			}
+			
 			
 			
 			std::string PathToLoad = App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(positionArray), scene, file_path).texture_path.c_str();
