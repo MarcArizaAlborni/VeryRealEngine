@@ -207,9 +207,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 
 	if (mesh->is_Textured == true) {
 		
-
 		glBindTexture(GL_TEXTURE_2D, mesh->TextureData.texture_id);
-
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id);
 		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 	}

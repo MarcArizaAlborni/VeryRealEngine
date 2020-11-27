@@ -137,6 +137,7 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 	}
 
 	aiString tex_path;
+	
 	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path) == AI_SUCCESS)									
 	{
 		std::string file = App->filemanager->GetFileAndExtension(tex_path.C_Str());
@@ -149,6 +150,7 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 		Texture.texture_path = texName;
 					// Redundant: r_material and r_texture will store the tex_id.
 	}
+	
 
 	return Texture;
 }

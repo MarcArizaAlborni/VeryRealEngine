@@ -310,6 +310,10 @@ void ResourceManager::ReadMainResourcesFolder()
 		}
 		else if (App->input->CheckImportedFileType(".TGA", PathName_C) != -1) {
 		}
+		else if (App->input->CheckImportedFileType(".jpg", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".JPG", PathName_C) != -1) {
+		}
 		else if (App->input->CheckImportedFileType(".waf", PathName_C) != -1) {
 		}
 		else {
@@ -357,6 +361,10 @@ void ResourceManager::ResourceAddChildren(Resource* Parent)
 		else if (App->input->CheckImportedFileType(".tga", PathName_C) != -1) {
 		}
 		else if (App->input->CheckImportedFileType(".TGA", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".jpg", PathName_C) != -1) {
+		}
+		else if (App->input->CheckImportedFileType(".JPG", PathName_C) != -1) {
 		}
 		else if (App->input->CheckImportedFileType(".meta", PathName_C) != -1) {
 		}
@@ -522,6 +530,28 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
+
+				}
+				else if (App->input->CheckImportedFileType(".jpg", ItemRC->Name) != -1) {
+				   if (resource_display_textures) {
+				   	//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+				   	ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+				   	ImGui::SameLine();
+				   	ImGui::Button(PathName_R, { 150,20 });
+				   	ImGui::SameLine();
+				   	ImGui::Text(PathName_R);
+				   }
+
+				}
+				else if (App->input->CheckImportedFileType(".JPG", ItemRC->Name) != -1) {
+				  if (resource_display_textures) {
+				  	//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+				  	ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+				  	ImGui::SameLine();
+				  	ImGui::Button(PathName_R, { 150,20 });
+				  	ImGui::SameLine();
+				  	ImGui::Text(PathName_R);
+				  }
 
 				}
 				else {

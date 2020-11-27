@@ -352,8 +352,8 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 	}
 
 
-
-	for (int i = 0; i < NodeMapList.size(); ++i) {
+	//THIS HAS TO BE CHANGED
+	for (int i = 0; i < 4; ++i) {
 
 	//for (int i = 0; i < NodeMapList.size(); ++i) {
 			
@@ -369,8 +369,6 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 		   // MeshToLoad = scene->mMeshes[i];
 
 
-
-			
 
 			for (int d = 0; d < MeshToLoad->mNumFaces; ++d) {
 
@@ -439,15 +437,24 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 
-
-			if ( i == 32) {
-				
-				//ourGameObject->is_Textured = false;
+			if (i == 4) {
+				int k = 0;
 			}
 			
+			
 			std::string PathToLoad = App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(positionArray), scene, file_path).texture_path.c_str();
-			ourGameObject->TextureData = App->textureImporter->LoadTextureImage(PathToLoad.c_str());
 
+			
+			if(PathToLoad!=""){
+
+			    LOGFIX(PathToLoad.c_str());
+			
+				ourGameObject->TextureData = App->textureImporter->LoadTextureImage(PathToLoad.c_str());
+			}
+			
+
+			
+			
 			if (ParentIsFound == true) {
 
 				AddMeshToListMeshesOnScene(ourGameObject, true, NULL);
