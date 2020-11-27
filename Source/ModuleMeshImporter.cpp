@@ -298,28 +298,36 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 	CreateGameObjectsNodeMap(scene, file_path);
 	
 	aiMaterial* a; 
-
-	
-
 }
 
 void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,GameObject* item)
 {
 	//Parent should be called into this function to create childs?
 	
-	
-
 	for (int size = 0; size < node->mNumMeshes; ++size) {
 
 		NodeMap NodeToAdd;
-		NodeToAdd.ScenePositionArray = node->mMeshes[size];
-		NodeToAdd.MaterialPositionArray =scene->mMeshes[size]->mMaterialIndex;
+		aiMesh* MeshLoaded = scene->mMeshes[node->mMeshes[size]];
+
+			NodeToAdd.ScenePositionArray = node->mMeshes[size];
+
+			if (MeshLoaded->mMaterialIndex >= 0) {
+
+				aiMaterial* MaterialLoaded;
+				MaterialLoaded = scene->mMaterials[MeshLoaded->mMaterialIndex];
+				NodeToAdd.MaterialPositionArray = MeshLoaded->mMaterialIndex;
+
+
+				aiString PathMaterial;
+				if ((MaterialLoaded->GetTexture(aiTextureType_DIFFUSE, 0, &PathMaterial) == AI_SUCCESS)) {
+					NodeToAdd.MaterialPath = PathMaterial.C_Str();
+				}
+		    }
 		
 		if (NodeToAdd.ScenePositionArray != -1) {
 			NodeMapList.push_back(NodeToAdd);
 		}
 		
-
 	}
 
 	for (int i = 0; i < node->mNumChildren; ++i) {
@@ -444,7 +452,9 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 			
 			std::string PathToLoad = App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(positionArray), scene, file_path).texture_path.c_str();
 
-			
+
+			//std::string PathToLoad = NodeMapList.at(i).MaterialPath;
+
 			if(PathToLoad!=""){
 
 			    LOGFIX(PathToLoad.c_str());

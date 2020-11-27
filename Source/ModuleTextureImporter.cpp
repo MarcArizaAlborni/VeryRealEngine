@@ -125,6 +125,8 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 	
 	aiMaterial* material = scene->mMaterials[Node.MaterialPositionArray];
 
+	
+
 	std::string texName;
 	std::string	texExtension;
 
@@ -137,11 +139,13 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 	}
 
 	aiString tex_path;
+
+	std::string Texture_Path = Node.MaterialPath;
 	
 	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path) == AI_SUCCESS)									
 	{
 		std::string file = App->filemanager->GetFileAndExtension(tex_path.C_Str());
-		App->filemanager->SplitFilePath(tex_path.C_Str(), nullptr, &texName, &texExtension);
+		App->filemanager->SplitFilePath(Texture_Path.c_str(), nullptr, &texName, &texExtension);
 
 		texName = "Assets/Textures/" + texName + "." + texExtension;
 

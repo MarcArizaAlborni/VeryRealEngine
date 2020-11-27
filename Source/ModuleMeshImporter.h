@@ -100,6 +100,7 @@ struct NodeMap {
 	std::vector<NodeMap> Children;
 	int ScenePositionArray = -1;
 	int MaterialPositionArray = -1;
+	std::string MaterialPath = "";
 
 
 };
