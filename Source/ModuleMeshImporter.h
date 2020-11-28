@@ -12,6 +12,7 @@ struct TextureInfo;
 struct aiScene;
 struct aiNode;
 struct StoredFile;
+struct aiMesh;
 
 struct MeshTransformation {
 
@@ -130,6 +131,7 @@ public:
 	void LoadSceneMesh(const aiScene* scene, int mesh_position);
 	std::vector<NodeMap> NodeMapList;
 	void CreateGameObjectsNodeMap(const aiScene* scene,const char* file_path);
+	void CreateGameObjectsByNodes(const aiScene* scene, const char* file_path,aiMesh* meshLoad, const aiNode* node, NodeMap map);
 
 
 	//List of meshes active
