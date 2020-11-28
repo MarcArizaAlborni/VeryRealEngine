@@ -293,10 +293,16 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 	
 	aiNode* Node;
 
+	PreviousListSize = App->meshimporter->MeshesOnScene.size();
+
 	ProcessNode(file_path, scene, scene->mRootNode, nullptr);
 	
 	//CreateGameObjectsNodeMap(scene, file_path);
 	
+	ParentCreatedChildren(ChildrenAmount);
+
+	ChildrenAmount = -1;
+
 	aiReleaseImport(scene);
 	
 	aiMaterial* a; 
@@ -575,7 +581,8 @@ void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const ch
 			AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
 		}
 
-	
+	++ChildrenAmount;
+
 	//Free memory
 	//aiReleaseImport(scene);
 
@@ -634,6 +641,55 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 		
 		MeshesOnScene.push_back(Object);
 	}
+}
+
+void ModuleMeshImporter::ParentCreatedChildren(int numChildren)
+{
+
+	if (numChildren > 0) {
+
+		int size = App->meshimporter->MeshesOnScene.size() - PreviousListSize;
+		int position = PreviousListSize;
+		//int size = App->meshimporter->MeshesOnScene.size() - numChildren + 1;
+
+
+
+		GameObject* ItemParentMesh = new GameObject();
+		ItemParentMesh->is_Drawn = true;
+		ItemParentMesh->is_EmptyParent = true;
+		ItemParentMesh->path = "path";
+		AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
+		
+		
+		std::vector<GameObject*>::iterator it = App->meshimporter->MeshesOnScene.begin() + PreviousListSize;
+		for (int num = PreviousListSize; num < size + 1 ; ++num) {
+
+
+			GameObject* Mesh = *it;
+
+			App->meshimporter->MeshesOnScene.back()->ChildObjects.push_back(Mesh);
+
+			//MeshesOnScene.erase(App->meshimporter->MeshesOnScene.begin() + position);
+			
+			--position;
+			
+			++it;
+			
+
+		}
+
+
+		for (int i = App->meshimporter->MeshesOnScene.size()-2; i >= PreviousListSize; --i) {
+
+			MeshesOnScene.erase(MeshesOnScene.begin() + i);
+
+		}
+
+
+		
+	}
+
+
 }
 
 void ModuleMeshImporter::CreateConsolelog(const char file[], int line, const char* format, ...)

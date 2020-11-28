@@ -148,7 +148,11 @@ public:
 
 	//Object to add, if its a child and who is the parent
 	void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent=NULL,bool parentfound=false);
+private:
+	int ChildrenAmount = -1;
+	int PreviousListSize = -1;
 
+	void ParentCreatedChildren(int numChildren);
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);

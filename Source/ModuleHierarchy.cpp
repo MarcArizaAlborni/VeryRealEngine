@@ -90,6 +90,7 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
 
             GameObject* Mesh = *IteratorLoaded;
            
+
             itemRemoved=InspectorInfo(Mesh, count);
 
             if (itemRemoved == true) {
@@ -157,9 +158,18 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     // Text and Tree nodes are less high than framed widgets, using AlignTextToFramePadding() we add vertical spacing to make the tree lines equal high.
     ImGui::AlignTextToFramePadding();
     bool node_open;
-    if (node_open = ImGui::TreeNode("Node ID", "%s_ChildNum%u", prefix, uid)) {
+   
+    if(Object->is_EmptyParent==true){
+        if (node_open = ImGui::TreeNode("Node ID", "%s", prefix, uid)) {
 
+        }
     }
+    else {
+        if (node_open = ImGui::TreeNode("Node ID", "%sChildNum%d", prefix, uid)) {
+
+        }
+    }
+    
     ImGui::NextColumn();
     ImGui::AlignTextToFramePadding();
     ImGui::NextColumn();
