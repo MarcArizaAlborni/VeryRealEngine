@@ -299,10 +299,21 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 	
 	//CreateGameObjectsNodeMap(scene, file_path);
 	
-	ParentCreatedChildren(ChildrenAmount);
+	if (ChildrenToAddList.size() == 1) {
+
+		CreateChildsWithParent(false);
+	}
+	else if (ChildrenToAddList.size() > 1) {
+
+		CreateChildsWithParent(true);
+	}
+
+	ChildrenToAddList.clear();
+
+	//ParentCreatedChildren(ChildrenAmount);
 
 	ChildrenAmount = -1;
-
+	
 	aiReleaseImport(scene);
 	
 	aiMaterial* a; 
@@ -349,6 +360,49 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		ProcessNode(file_path, scene, node->mChildren[i], nullptr);
 
 	}
+
+}
+
+void ModuleMeshImporter::CreateChildsWithParent(bool WithParent)
+{
+
+	if (WithParent == true) {
+
+		GameObject* ItemParentMesh = new GameObject();
+		ItemParentMesh->is_Drawn = true;
+		ItemParentMesh->is_EmptyParent = true;
+		ItemParentMesh->path = "path";
+		ItemParentMesh->is_FamilyMove = true;
+		AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
+
+		std::vector<GameObject*>::iterator IteratorChild = ChildrenToAddList.begin();
+
+		for (int i = 0; i < ChildrenToAddList.size(); ++i) {
+
+
+			GameObject* Mesh = *IteratorChild;
+
+			Mesh->item_id = i+1;
+
+			App->meshimporter->MeshesOnScene.back()->ChildObjects.push_back(Mesh);
+
+			++IteratorChild;
+
+		}
+
+		
+
+
+	}
+	else {
+
+		std::vector<GameObject*>::iterator IteratorChild = ChildrenToAddList.begin();
+
+		App->meshimporter->MeshesOnScene.push_back(*IteratorChild);
+		
+
+	}
+
 
 }
 
@@ -573,13 +627,16 @@ void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const ch
 		}
 
 
-		if (ParentIsFound == true) {
+		/*if (ParentIsFound == true) {
 
 			AddMeshToListMeshesOnScene(ourGameObject, true, NULL);
 		}
 		else {
 			AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
-		}
+		}*/
+
+
+		ChildrenToAddList.push_back(ourGameObject);
 
 	++ChildrenAmount;
 
@@ -642,6 +699,8 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 		MeshesOnScene.push_back(Object);
 	}
 }
+
+
 
 void ModuleMeshImporter::ParentCreatedChildren(int numChildren)
 {

@@ -149,8 +149,11 @@ public:
 	//Object to add, if its a child and who is the parent
 	void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent=NULL,bool parentfound=false);
 private:
+
 	int ChildrenAmount = -1;
 	int PreviousListSize = -1;
+	std::vector<GameObject*> ChildrenToAddList;
+	void CreateChildsWithParent(bool WithParent);
 
 	void ParentCreatedChildren(int numChildren);
 

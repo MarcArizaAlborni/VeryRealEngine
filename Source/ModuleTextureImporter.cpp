@@ -156,9 +156,7 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 			// Redundant: r_material and r_texture will store the tex_id.
 		}
 	}
-	else {
-		int j = 0;
-	}
+	
 	
 	
 
