@@ -49,6 +49,10 @@ update_status ModuleGeometryManager::PreUpdate(float dt)
 
 update_status ModuleGeometryManager::Update(float dt)
 {
+
+
+
+
 	App->meshimporter->LoadedTexturesList.size();
 
 
@@ -79,6 +83,7 @@ update_status ModuleGeometryManager::Update(float dt)
 	glColor4f(0.5f, 0.5, 0.5f, 1.0f);
 	GameObject* Item;
 	GameObject* Item2;
+
 	std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
 	for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 		Item=*IteratorLoaded;
@@ -188,9 +193,11 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	Transform_Mesh_Translation(mesh, mesh->Mesh_Transform_Modifiers.VectorTranslation, ZeroArray);
-	Transform_Mesh_Scale(mesh, mesh->Mesh_Transform_Modifiers.VectorScale, OneArray);
-	Transform_Mesh_Rotation(mesh, mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
+	//Transform_Mesh_Translation(mesh, mesh->Mesh_Transform_Modifiers.VectorTranslation, ZeroArray);
+	//Transform_Mesh_Scale(mesh, mesh->Mesh_Transform_Modifiers.VectorScale, OneArray);
+	//Transform_Mesh_Rotation(mesh, mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
+
+
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -286,3 +293,32 @@ void ModuleGeometryManager::CreateConsolelog(const char file[], int line, const 
 
 	App->editor->ConsoleLogs.push_back(tmp_string2);
 }
+
+
+
+//TRANSFORMS
+
+
+
+// 1. TENEMOS LOS 3 VECTORES
+
+// 2. Float4x4:: FromTRS-> we get a 4x4 matrix and we set the local transforms
+
+// 3. Update worlds transforms using world from parent
+
+// 4.glPushpatrix & GLmultMatrix.transposed(); (USE THE ONE WITH FINAL D) USE MATRIX FROM WORLD 
+
+
+
+
+
+
+//IMPORT VECTORS
+
+//FROM TRS
+
+//PASAR MATRIX 4X4 A LOCAL TRANSFORM DEL OBJETO
+
+//GENERAR WORLD TRANSFORM CON WORLD TRANSFORM DEL PARENT * LOCAL DEL MESH
+
+//MULTIMATRIX.TRANSPOSED();

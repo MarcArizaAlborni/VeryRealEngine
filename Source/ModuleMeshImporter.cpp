@@ -356,7 +356,6 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 	aiQuaternion Rotation;
 
 	
-
 	node->mTransformation.Decompose(Scale, Rotation, Translation);
 
 	float3	position(Translation.x, Translation.y, Translation.z);
@@ -370,9 +369,10 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 
 		DummyFound = false;
 
-		if (strstr(node->mName.C_Str(), "_$AssimpFbx$_") != nullptr)
+		if (strstr(node->mName.C_Str(), "_$AssimpFbx$") != nullptr)
 		{
 			node = node->mChildren[0];
+
 			node->mTransformation.Decompose(Scale, Rotation, Translation);
 
 			position.x += Translation.x;
@@ -390,9 +390,16 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 
 			DummyFound = true;
 
+
 			++TransformIterator;
 		}
+
+		
 	}
+
+
+
+
 
 	if (DummyFound == false  ) {
 		std::vector<GameObject*>::reverse_iterator It = ChildrenToAddList.rbegin();
@@ -409,9 +416,14 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 			Mesh->Mesh_Transform_Modifiers.VectorScale.y = Scale.y;
 			Mesh->Mesh_Transform_Modifiers.VectorScale.z = Scale.z;
 
+			Mesh->Mesh_Transform_Modifiers.VectorRotation.x = rotation.x;
+			Mesh->Mesh_Transform_Modifiers.VectorRotation.y = rotation.y;
+			Mesh->Mesh_Transform_Modifiers.VectorRotation.z = rotation.z;
+			Mesh->Mesh_Transform_Modifiers.VectorRotation.angle = rotation.w;
 
 			TransformIterator = 0;
 
+			Mesh->Mesh_Transform_Modifiers.TransformsUpdated = true;
 
 		}
 	}

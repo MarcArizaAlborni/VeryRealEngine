@@ -33,7 +33,6 @@ bool ModuleScene::Init()
 	LOGFIX("Creating Scene context");
 	bool ret = true;
 
-
 	return ret;
 }
 
@@ -45,29 +44,22 @@ bool ModuleScene::Start()
 
 	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
 	
-
 	App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.fbx");
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;
 	App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;
 
 	App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");
 
-	
-	
-
-	
-
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
-	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
+	//App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment.FBX");
 
-	App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");
+	//App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
+
+	//App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");
 
 	//App->meshimporter->LoadFile_Mesh("Assets/Models/Penguin/PenguinBaseMesh.fbx");
 
 	/*App->meshimporter->LoadMesh("", true);*/
-
-	
-
 
 	// STREET FOR DRAW W/TEXTURES ON START
 
@@ -112,12 +104,9 @@ bool ModuleScene::Start()
 	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(22)->TextureData = App->textureImporter->GwynHair;
 	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(23)->TextureData = App->textureImporter->GwynHair;
 
-
-
 	//App->meshimporter->MeshesOnScene.at(1)->TextureData = App->textureImporter->TextureHouse;
 	//App->meshimporter->MeshesOnScene.at(2)->TextureData = App->textureImporter->TextureHousita;
 	//App->meshimporter->MeshesOnScene.at(3)->TextureData = App->textureImporter->TextureEarth;
-
 
 	/*for (int a = 0; a < 10; ++a) {
 		std::string value = std::to_string(a);
@@ -153,7 +142,6 @@ update_status ModuleScene::Update(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleScene::PostUpdate(float dt)
 {
-	
 	return UPDATE_CONTINUE;
 }
 
@@ -178,8 +166,6 @@ bool ModuleScene::LoadScene()
 {
 	ResetScene();
 
-
-
 	return true;
 }
 
@@ -203,7 +189,6 @@ void ModuleScene::CreateConsolelog(const char file[], int line, const char* form
 	va_end(ap);
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
-
 
 	App->editor->ConsoleLogs.push_back(tmp_string2);
 }

@@ -3,7 +3,9 @@
 #define __ModuleImporters_H__
 #include "Module.h"
 #include "Globals.h"
-#include "glmath.h"
+
+#include "libraries/MathGeoLib/include/MathGeoLib.h"
+
 
 // Class Mesh
 
@@ -14,11 +16,25 @@ struct aiNode;
 struct StoredFile;
 struct aiMesh;
 
+
 struct MeshTransformation {
 
 	VectorTransformations VectorTranslation; //Vector to determine the current position of the mesh in the world
 	VectorTransformations VectorRotation; //Vector to determine the current rotation of the mesh in the world
 	VectorTransformations VectorScale; //Vector to determine the current scale of the mesh in the world
+
+	bool TransformsUpdated;
+
+	VectorTransformations LocalTranslation;
+	VectorTransformations WorldTranslation;
+	VectorTransformations LocalScale;
+	VectorTransformations WorldScale;
+	VectorTransformations LocalRotation;
+	VectorTransformations WorldRotation;
+
+	float4x4 LocalMatrix;
+	float4x4 WorldMatrix;
+
 
 };
 
@@ -154,6 +170,12 @@ private:
 	std::vector<GameObject*> ChildrenToAddList;
 	void CreateChildsWithParent(bool WithParent);
 	int TransformIterator = 0;
+
+	
+
+
+
+
 public:
 
 	//------------ CONSOLE STUFF
