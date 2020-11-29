@@ -150,12 +150,11 @@ public:
 	void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent=NULL,bool parentfound=false);
 private:
 
-	int ChildrenAmount = -1;
-	int PreviousListSize = -1;
+
 	std::vector<GameObject*> ChildrenToAddList;
 	void CreateChildsWithParent(bool WithParent);
-
-	void ParentCreatedChildren(int numChildren);
+	int TransformIterator = 0;
+public:
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);

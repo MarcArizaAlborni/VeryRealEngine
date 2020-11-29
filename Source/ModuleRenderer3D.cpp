@@ -14,8 +14,6 @@
 #include <gl/GLU.h>
 #include "ModuleTextureImporter.h"
 
-
-
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -160,8 +158,6 @@ void ModuleRenderer3D::GenerateNormalBuffer(GameObject* mesh, Vertex_Sub& normal
 	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->MeshData.id_normals * 3, mesh->MeshData.normals, GL_STATIC_DRAW);
 
 }
-
-
 
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)

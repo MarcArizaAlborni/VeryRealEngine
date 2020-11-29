@@ -16,6 +16,8 @@
 #pragma comment (lib, "libraries/PhysFS/include/physfs.h")
 #include "libraries/PhysFS/include/physfs.h"
 
+#include "libraries/MathGeoLib/include/MathGeoLib.h"
+
 ModuleMeshImporter::ModuleMeshImporter(Application* app, const char* name, bool start_enabled) : Module(app,"Importer", start_enabled)
 {
 }
@@ -289,11 +291,9 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 	
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 
-	scene->mMeshes[1];
+	
 	
 	aiNode* Node;
-
-	PreviousListSize = App->meshimporter->MeshesOnScene.size();
 
 	ProcessNode(file_path, scene, scene->mRootNode, nullptr);
 	
@@ -310,10 +310,6 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 	ChildrenToAddList.clear();
 
-	//ParentCreatedChildren(ChildrenAmount);
-
-	ChildrenAmount = -1;
-	
 	aiReleaseImport(scene);
 	
 	aiMaterial* a; 
@@ -355,6 +351,71 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		
 	}
 
+	aiVector3D Translation;
+	aiVector3D Scale;
+	aiQuaternion Rotation;
+
+	
+
+	node->mTransformation.Decompose(Scale, Rotation, Translation);
+
+	float3	position(Translation.x, Translation.y, Translation.z);
+	float3	scale(Scale.x, Scale.y, Scale.z);
+	Quat	rotation(Rotation.x, Rotation.y, Rotation.z, Rotation.w);
+
+
+	bool DummyFound = true;
+	
+	while (DummyFound) {
+
+		DummyFound = false;
+
+		if (strstr(node->mName.C_Str(), "_$AssimpFbx$_") != nullptr)
+		{
+			node = node->mChildren[0];
+			node->mTransformation.Decompose(Scale, Rotation, Translation);
+
+			position.x += Translation.x;
+			position.y += Translation.y;
+			position.z += Translation.z;
+
+			scale.x *= Scale.x;
+			scale.y *= Scale.y;
+			scale.z *= Scale.z;
+
+			rotation.x *= Rotation.x;
+			rotation.y *= Rotation.y;
+			rotation.z *= Rotation.z;
+			rotation.w *= Rotation.w;
+
+			DummyFound = true;
+
+			++TransformIterator;
+		}
+	}
+
+	if (DummyFound == false  ) {
+		std::vector<GameObject*>::reverse_iterator It = ChildrenToAddList.rbegin();
+
+		for (int last = ChildrenToAddList.size() - 1; last < ChildrenToAddList.size(); ++last) {
+
+			GameObject* Mesh = *It;
+
+			Mesh->Mesh_Transform_Modifiers.VectorTranslation.x = position.x;
+			Mesh->Mesh_Transform_Modifiers.VectorTranslation.y = position.y;
+			Mesh->Mesh_Transform_Modifiers.VectorTranslation.z = position.z;
+
+			Mesh->Mesh_Transform_Modifiers.VectorScale.x = Scale.x;
+			Mesh->Mesh_Transform_Modifiers.VectorScale.y = Scale.y;
+			Mesh->Mesh_Transform_Modifiers.VectorScale.z = Scale.z;
+
+
+			TransformIterator = 0;
+
+
+		}
+	}
+
 	for (int i = 0; i < node->mNumChildren; ++i) {
 
 		ProcessNode(file_path, scene, node->mChildren[i], nullptr);
@@ -372,13 +433,12 @@ void ModuleMeshImporter::CreateChildsWithParent(bool WithParent)
 		ItemParentMesh->is_Drawn = true;
 		ItemParentMesh->is_EmptyParent = true;
 		ItemParentMesh->path = "path";
-		ItemParentMesh->is_FamilyMove = true;
+		//ItemParentMesh->is_FamilyMove = true;
 		AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
 
 		std::vector<GameObject*>::iterator IteratorChild = ChildrenToAddList.begin();
 
 		for (int i = 0; i < ChildrenToAddList.size(); ++i) {
-
 
 			GameObject* Mesh = *IteratorChild;
 
@@ -389,19 +449,18 @@ void ModuleMeshImporter::CreateChildsWithParent(bool WithParent)
 			++IteratorChild;
 
 		}
-
-		
-
-
 	}
 	else {
 
 		std::vector<GameObject*>::iterator IteratorChild = ChildrenToAddList.begin();
 
 		App->meshimporter->MeshesOnScene.push_back(*IteratorChild);
-		
-
 	}
+
+
+	
+
+
 
 
 }
@@ -638,7 +697,7 @@ void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const ch
 
 		ChildrenToAddList.push_back(ourGameObject);
 
-	++ChildrenAmount;
+	
 
 	//Free memory
 	//aiReleaseImport(scene);
@@ -702,54 +761,7 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 
 
 
-void ModuleMeshImporter::ParentCreatedChildren(int numChildren)
-{
 
-	if (numChildren > 0) {
-
-		int size = App->meshimporter->MeshesOnScene.size() - PreviousListSize;
-		int position = PreviousListSize;
-		//int size = App->meshimporter->MeshesOnScene.size() - numChildren + 1;
-
-
-
-		GameObject* ItemParentMesh = new GameObject();
-		ItemParentMesh->is_Drawn = true;
-		ItemParentMesh->is_EmptyParent = true;
-		ItemParentMesh->path = "path";
-		AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
-		
-		
-		std::vector<GameObject*>::iterator it = App->meshimporter->MeshesOnScene.begin() + PreviousListSize;
-		for (int num = PreviousListSize; num < size + 1 ; ++num) {
-
-
-			GameObject* Mesh = *it;
-
-			App->meshimporter->MeshesOnScene.back()->ChildObjects.push_back(Mesh);
-
-			//MeshesOnScene.erase(App->meshimporter->MeshesOnScene.begin() + position);
-			
-			--position;
-			
-			++it;
-			
-
-		}
-
-
-		for (int i = App->meshimporter->MeshesOnScene.size()-2; i >= PreviousListSize; --i) {
-
-			MeshesOnScene.erase(MeshesOnScene.begin() + i);
-
-		}
-
-
-		
-	}
-
-
-}
 
 void ModuleMeshImporter::CreateConsolelog(const char file[], int line, const char* format, ...)
 {
