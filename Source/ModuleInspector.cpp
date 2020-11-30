@@ -154,10 +154,10 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 		///TRANSFORMATIONS
 		if (ImGui::CollapsingHeader("Transformation")) {
 
-			if (ImGui::DragFloat3("Position", { &item->Mesh_Transform_Modifiers.VectorTranslation.x}, 0.2f, 0.0, 0.0, "%.2f")) {}
-			if (ImGui::DragFloat("Angle", { &item->Mesh_Transform_Modifiers.VectorRotation.angle }, 0.2f, -359.0, 359.0, "%.2f")) {}
-			if (ImGui::DragFloat3("Rotation", { &item->Mesh_Transform_Modifiers.VectorRotation.x }, 0.02f, 0.0, 1.0, "%.3f")) {}
-			if (ImGui::DragFloat3("Scale", { &item->Mesh_Transform_Modifiers.VectorScale.x }, 0.2f, 0.0, 0.0, "%.2f")) {}
+			if (ImGui::DragFloat3("Position", { &item->Mesh_Transform_Modifiers.VectorTranslation.x}, 0.2f, 0.0, 0.0, "%.2f")) {item->Mesh_Transform_Modifiers.TransformsUpdated = true;}
+			if (ImGui::DragFloat("Angle", { &item->Mesh_Transform_Modifiers.VectorRotation.angle }, 0.2f, -359.0, 359.0, "%.2f")) { item->Mesh_Transform_Modifiers.TransformsUpdated = true; }
+			if (ImGui::DragFloat3("Rotation", { &item->Mesh_Transform_Modifiers.VectorRotation.x }, 0.02f, 0.0, 1.0, "%.3f")) { item->Mesh_Transform_Modifiers.TransformsUpdated = true; }
+			if (ImGui::DragFloat3("Scale", { &item->Mesh_Transform_Modifiers.VectorScale.x }, 0.2f, 0.0, 0.0, "%.2f")) { item->Mesh_Transform_Modifiers.TransformsUpdated = true; }
 
 			ImGui::Checkbox("Move Family", &item->is_FamilyMove);
 

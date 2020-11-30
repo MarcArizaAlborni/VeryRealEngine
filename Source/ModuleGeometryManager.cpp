@@ -243,7 +243,9 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 		for (int a = 0; a < Mesh->ChildObjects.size();++a) {
 
 			
-			a;
+			if (a == 32) {
+				int b = 0;
+			}
 			GameObject* MeshChild = *ItChild;
 
 			if (MeshChild->Mesh_Transform_Modifiers.TransformsUpdated) {
