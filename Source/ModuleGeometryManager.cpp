@@ -172,10 +172,11 @@ void ModuleGeometryManager::Transform_Mesh_Rotation(GameObject* mesh, VectorTran
 void ModuleGeometryManager::Transform_Mesh_Draw(GameObject* mesh)
 {
 	glPushMatrix();
-
-	glMultMatrixf((GLfloat*)&mesh->Mesh_Transform_Modifiers.LocalMatrix.Transposed());
+	glMultMatrixf((GLfloat*)&mesh->Mesh_Transform_Modifiers.WorldMatrix.Transposed());
 
 }
+
+
 
 void ModuleGeometryManager::UpdateGameObjectTransforms()
 {
@@ -184,33 +185,65 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 	for (int i = 0; i < App->meshimporter->MeshesOnScene.size(); ++i) {
 		GameObject* Mesh = *It;
 
-		if (Mesh->Mesh_Transform_Modifiers.TransformsUpdated) {
+		if (Mesh->is_EmptyParent == false) {
 
-			float3 Pos = { Mesh->Mesh_Transform_Modifiers.VectorTranslation.x,Mesh->Mesh_Transform_Modifiers.VectorTranslation.y,Mesh->Mesh_Transform_Modifiers.VectorTranslation.z };
-			float3 Scal= { Mesh->Mesh_Transform_Modifiers.VectorScale.x,Mesh->Mesh_Transform_Modifiers.VectorScale.y,Mesh->Mesh_Transform_Modifiers.VectorScale.z };
-			Quat Rot;
+			if (Mesh->Mesh_Transform_Modifiers.TransformsUpdated) {
 
-			Rot.x = Mesh->Mesh_Transform_Modifiers.VectorRotation.x;
-			Rot.y = Mesh->Mesh_Transform_Modifiers.VectorRotation.y;
-			Rot.z = Mesh->Mesh_Transform_Modifiers.VectorRotation.z;
-			Rot.w = Mesh->Mesh_Transform_Modifiers.VectorRotation.angle;
+				float3 Pos = { Mesh->Mesh_Transform_Modifiers.VectorTranslation.x,Mesh->Mesh_Transform_Modifiers.VectorTranslation.y,Mesh->Mesh_Transform_Modifiers.VectorTranslation.z };
+				float3 Scal = { Mesh->Mesh_Transform_Modifiers.VectorScale.x,Mesh->Mesh_Transform_Modifiers.VectorScale.y,Mesh->Mesh_Transform_Modifiers.VectorScale.z };
+				Quat Rot;
 
-			float4x4 LocalMatrix;
-			
-			Mesh->Mesh_Transform_Modifiers.LocalMatrix =float4x4::FromTRS(Pos, Rot, Scal);
+				Rot.x = Mesh->Mesh_Transform_Modifiers.VectorRotation.x;
+				Rot.y = Mesh->Mesh_Transform_Modifiers.VectorRotation.y;
+				Rot.z = Mesh->Mesh_Transform_Modifiers.VectorRotation.z;
+				Rot.w = Mesh->Mesh_Transform_Modifiers.VectorRotation.angle;
 
-			Mesh->Mesh_Transform_Modifiers.LocalTranslation = Pos;
-			Mesh->Mesh_Transform_Modifiers.LocalScale = Scal;
-			Mesh->Mesh_Transform_Modifiers.LocalRotation = Rot;
+				float4x4 LocalMatrix;
 
-			Mesh->Mesh_Transform_Modifiers.TransformsUpdated = false;
+				Mesh->Mesh_Transform_Modifiers.WorldMatrix = float4x4::FromTRS(Pos, Rot, Scal);
+
+				Mesh->Mesh_Transform_Modifiers.LocalTranslation = Pos;
+				Mesh->Mesh_Transform_Modifiers.LocalScale = Scal;
+				Mesh->Mesh_Transform_Modifiers.LocalRotation = Rot;
+
+				Mesh->Mesh_Transform_Modifiers.TransformsUpdated = false;
+
+			}
+		}
+		else {
+
+
+			if (Mesh->Mesh_Transform_Modifiers.TransformsUpdated) {
+
+				float3 Pos;
+				Pos=float3::zero;
+				float3 Scal;
+				Scal = float3::one;
+				Quat Rot;
+				Rot = Quat::identity;
+
+				float4x4 LocalMatrix;
+
+				Mesh->Mesh_Transform_Modifiers.WorldMatrix = float4x4::FromTRS(Pos, Rot, Scal);
+
+				Mesh->Mesh_Transform_Modifiers.WorldTranslation = Pos;
+				Mesh->Mesh_Transform_Modifiers.WorldScale = Scal;
+				Mesh->Mesh_Transform_Modifiers.WorldRotation = Rot;
+
+				
+				
+
+				Mesh->Mesh_Transform_Modifiers.TransformsUpdated = false;
+
+			}
+
 
 		}
 		std::vector<GameObject*>::iterator ItChild = Mesh->ChildObjects.begin();
 		for (int a = 0; a < Mesh->ChildObjects.size();++a) {
 
 			
-
+			a;
 			GameObject* MeshChild = *ItChild;
 
 			if (MeshChild->Mesh_Transform_Modifiers.TransformsUpdated) {
@@ -232,6 +265,10 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 				MeshChild->Mesh_Transform_Modifiers.LocalScale = Scal;
 				MeshChild->Mesh_Transform_Modifiers.LocalRotation = Rot;
 
+
+				MeshChild->Mesh_Transform_Modifiers.WorldMatrix = Mesh->Mesh_Transform_Modifiers.WorldMatrix * MeshChild->Mesh_Transform_Modifiers.LocalMatrix;
+
+
 				MeshChild->Mesh_Transform_Modifiers.TransformsUpdated = false;
 
 			}
@@ -243,11 +280,6 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 		++It;
 
 	}
-
-
-
-
-
 
 }
 

@@ -445,6 +445,7 @@ void ModuleMeshImporter::CreateChildsWithParent(bool WithParent)
 		ItemParentMesh->is_Drawn = true;
 		ItemParentMesh->is_EmptyParent = true;
 		ItemParentMesh->path = "path";
+		ItemParentMesh->Mesh_Transform_Modifiers.TransformsUpdated = true;
 		//ItemParentMesh->is_FamilyMove = true;
 		AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
 
