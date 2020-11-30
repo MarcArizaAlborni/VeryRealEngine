@@ -198,7 +198,7 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 				Rot.z = Mesh->Mesh_Transform_Modifiers.VectorRotation.z;
 				Rot.w = Mesh->Mesh_Transform_Modifiers.VectorRotation.angle;
 
-				float4x4 LocalMatrix;
+				
 
 				Mesh->Mesh_Transform_Modifiers.WorldMatrix = float4x4::FromTRS(Pos, Rot, Scal);
 
@@ -222,7 +222,7 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 				Quat Rot;
 				Rot = Quat::identity;
 
-				float4x4 LocalMatrix;
+				
 
 				Mesh->Mesh_Transform_Modifiers.WorldMatrix = float4x4::FromTRS(Pos, Rot, Scal);
 
@@ -257,7 +257,6 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 				Rot.z = MeshChild->Mesh_Transform_Modifiers.VectorRotation.z;
 				Rot.w = MeshChild->Mesh_Transform_Modifiers.VectorRotation.angle;
 
-				float4x4 LocalMatrix;
 
 				MeshChild->Mesh_Transform_Modifiers.LocalMatrix = float4x4::FromTRS(Pos, Rot, Scal);
 

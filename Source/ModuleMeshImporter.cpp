@@ -295,22 +295,25 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 	
 	aiNode* Node;
 
-	ProcessNode(file_path, scene, scene->mRootNode, nullptr);
-	
-	//CreateGameObjectsNodeMap(scene, file_path);
-	
-	if (ChildrenToAddList.size() == 1) {
+	if (scene != nullptr) {
 
-		CreateChildsWithParent(false);
+		ProcessNode(file_path, scene, scene->mRootNode, nullptr);
+
+		//CreateGameObjectsNodeMap(scene, file_path);
+
+		if (ChildrenToAddList.size() == 1) {
+
+			CreateChildsWithParent(false);
+		}
+		else if (ChildrenToAddList.size() > 1) {
+
+			CreateChildsWithParent(true);
+		}
+
+		ChildrenToAddList.clear();
+
+		aiReleaseImport(scene);
 	}
-	else if (ChildrenToAddList.size() > 1) {
-
-		CreateChildsWithParent(true);
-	}
-
-	ChildrenToAddList.clear();
-
-	aiReleaseImport(scene);
 	
 	aiMaterial* a; 
 }
@@ -397,10 +400,6 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		
 	}
 
-
-
-
-
 	if (DummyFound == false  ) {
 		std::vector<GameObject*>::reverse_iterator It = ChildrenToAddList.rbegin();
 
@@ -469,13 +468,6 @@ void ModuleMeshImporter::CreateChildsWithParent(bool WithParent)
 
 		App->meshimporter->MeshesOnScene.push_back(*IteratorChild);
 	}
-
-
-	
-
-
-
-
 }
 
 void ModuleMeshImporter::LoadSceneMesh(const aiScene* scene, int mesh_position)
