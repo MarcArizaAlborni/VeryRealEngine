@@ -50,7 +50,7 @@ update_status ModuleGeometryManager::PreUpdate(float dt)
 update_status ModuleGeometryManager::Update(float dt)
 {
 
-
+	UpdateGameObjectTransforms();
 
 
 	App->meshimporter->LoadedTexturesList.size();
@@ -169,6 +169,88 @@ void ModuleGeometryManager::Transform_Mesh_Rotation(GameObject* mesh, VectorTran
 
 }
 
+void ModuleGeometryManager::Transform_Mesh_Draw(GameObject* mesh)
+{
+	glPushMatrix();
+
+	glMultMatrixf((GLfloat*)&mesh->Mesh_Transform_Modifiers.LocalMatrix.Transposed());
+
+}
+
+void ModuleGeometryManager::UpdateGameObjectTransforms()
+{
+
+	std::vector<GameObject*>::iterator It = App->meshimporter->MeshesOnScene.begin();
+	for (int i = 0; i < App->meshimporter->MeshesOnScene.size(); ++i) {
+		GameObject* Mesh = *It;
+
+		if (Mesh->Mesh_Transform_Modifiers.TransformsUpdated) {
+
+			float3 Pos = { Mesh->Mesh_Transform_Modifiers.VectorTranslation.x,Mesh->Mesh_Transform_Modifiers.VectorTranslation.y,Mesh->Mesh_Transform_Modifiers.VectorTranslation.z };
+			float3 Scal= { Mesh->Mesh_Transform_Modifiers.VectorScale.x,Mesh->Mesh_Transform_Modifiers.VectorScale.y,Mesh->Mesh_Transform_Modifiers.VectorScale.z };
+			Quat Rot;
+
+			Rot.x = Mesh->Mesh_Transform_Modifiers.VectorRotation.x;
+			Rot.y = Mesh->Mesh_Transform_Modifiers.VectorRotation.y;
+			Rot.z = Mesh->Mesh_Transform_Modifiers.VectorRotation.z;
+			Rot.w = Mesh->Mesh_Transform_Modifiers.VectorRotation.angle;
+
+			float4x4 LocalMatrix;
+			
+			Mesh->Mesh_Transform_Modifiers.LocalMatrix =float4x4::FromTRS(Pos, Rot, Scal);
+
+			Mesh->Mesh_Transform_Modifiers.LocalTranslation = Pos;
+			Mesh->Mesh_Transform_Modifiers.LocalScale = Scal;
+			Mesh->Mesh_Transform_Modifiers.LocalRotation = Rot;
+
+			Mesh->Mesh_Transform_Modifiers.TransformsUpdated = false;
+
+		}
+
+		if (Mesh->ChildObjects.size() > 0) {
+
+			std::vector<GameObject*>::iterator ItChild = Mesh->ChildObjects.begin();
+
+			GameObject* MeshChild = *ItChild;
+
+			if (MeshChild->Mesh_Transform_Modifiers.TransformsUpdated) {
+
+				float3 Pos = { MeshChild->Mesh_Transform_Modifiers.VectorTranslation.x,MeshChild->Mesh_Transform_Modifiers.VectorTranslation.y,MeshChild->Mesh_Transform_Modifiers.VectorTranslation.z };
+				float3 Scal = { MeshChild->Mesh_Transform_Modifiers.VectorScale.x,MeshChild->Mesh_Transform_Modifiers.VectorScale.y,MeshChild->Mesh_Transform_Modifiers.VectorScale.z };
+				Quat Rot;
+
+				Rot.x = MeshChild->Mesh_Transform_Modifiers.VectorRotation.x;
+				Rot.y = MeshChild->Mesh_Transform_Modifiers.VectorRotation.y;
+				Rot.z = MeshChild->Mesh_Transform_Modifiers.VectorRotation.z;
+				Rot.w = MeshChild->Mesh_Transform_Modifiers.VectorRotation.angle;
+
+				float4x4 LocalMatrix;
+
+				MeshChild->Mesh_Transform_Modifiers.LocalMatrix = float4x4::FromTRS(Pos, Rot, Scal);
+
+				MeshChild->Mesh_Transform_Modifiers.LocalTranslation = Pos;
+				MeshChild->Mesh_Transform_Modifiers.LocalScale = Scal;
+				MeshChild->Mesh_Transform_Modifiers.LocalRotation = Rot;
+
+				MeshChild->Mesh_Transform_Modifiers.TransformsUpdated = false;
+
+			}
+
+			++ItChild;
+
+		}
+
+		++It;
+
+	}
+
+
+
+
+
+
+}
+
 
 void ModuleGeometryManager::DrawPlane()
 {
@@ -197,7 +279,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	//Transform_Mesh_Scale(mesh, mesh->Mesh_Transform_Modifiers.VectorScale, OneArray);
 	//Transform_Mesh_Rotation(mesh, mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
 
-
+	//Transform_Mesh_Draw(mesh);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 

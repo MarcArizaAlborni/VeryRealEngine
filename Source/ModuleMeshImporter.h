@@ -25,12 +25,12 @@ struct MeshTransformation {
 
 	bool TransformsUpdated;
 
-	VectorTransformations LocalTranslation;
-	VectorTransformations WorldTranslation;
-	VectorTransformations LocalScale;
-	VectorTransformations WorldScale;
-	VectorTransformations LocalRotation;
-	VectorTransformations WorldRotation;
+	float3 LocalTranslation;
+	float3 WorldTranslation;
+	float3 LocalScale;
+	float3 WorldScale;
+	Quat LocalRotation;
+	Quat WorldRotation;
 
 	float4x4 LocalMatrix;
 	float4x4 WorldMatrix;

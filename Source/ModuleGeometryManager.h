@@ -45,6 +45,12 @@ public:
 	void Transform_Mesh_Translation(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
 	void Transform_Mesh_Scale(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
 	void Transform_Mesh_Rotation(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
+	void Transform_Mesh_Draw(GameObject* mesh);
+
+
+
+	void UpdateGameObjectTransforms();
+
 
 	//Meshes
 	void DrawMeshTextured(GameObject* mesh);
