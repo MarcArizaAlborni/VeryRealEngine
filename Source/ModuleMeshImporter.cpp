@@ -291,10 +291,6 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 	
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 
-	
-	
-	aiNode* Node;
-
 	if (scene != nullptr) {
 
 		ProcessNode(file_path, scene, scene->mRootNode, nullptr);
@@ -314,13 +310,11 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 		aiReleaseImport(scene);
 	}
-	
-	aiMaterial* a; 
 }
 
 void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,GameObject* item)
 {
-	//Parent should be called into this function to create childs?
+	
 	
 	for (int size = 0; size < node->mNumMeshes; ++size) {
 
@@ -329,7 +323,6 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		
 			NodeToAdd.ScenePositionArray = node->mMeshes[size];
 
-			
 			if (MeshLoaded->mMaterialIndex >= 0) {
 
 				aiMaterial* MaterialLoaded;
@@ -341,10 +334,7 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 				if ((MaterialLoaded->GetTexture(aiTextureType_DIFFUSE, 0, &PathMaterial) == AI_SUCCESS)) {
 					NodeToAdd.MaterialPath = PathMaterial.C_Str();
 				}
-
-				
 		    }
-
 
 	    CreateGameObjectsByNodes(scene, file_path, MeshLoaded,node, NodeToAdd);
 
@@ -354,17 +344,18 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		
 	}
 
-	aiVector3D Translation;
-	aiVector3D Scale;
-	aiQuaternion Rotation;
+	//TRANSFORMS
 
-	
-	node->mTransformation.Decompose(Scale, Rotation, Translation);
+	aiVector3D  Imported_Translation;
+	aiVector3D  Imported_Scale;
+	aiQuaternion Imported_Rotation;
 
-	float3	position(Translation.x, Translation.y, Translation.z);
-	float3	scale(Scale.x, Scale.y, Scale.z);
-	Quat	rotation(Rotation.x, Rotation.y, Rotation.z, Rotation.w);
+	node->mTransformation.Decompose(Imported_Scale, Imported_Rotation, Imported_Translation);
 
+	float3	Translation_Calculated(Imported_Translation.x, Imported_Translation.y, Imported_Translation.z);
+	float3	Scale_Calculated(Imported_Scale.x, Imported_Scale.y, Imported_Scale.z);
+	Quat	Rotation_Calculated(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
+	Quat    RotMat;
 
 	bool DummyFound = true;
 	
@@ -372,32 +363,29 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 
 		DummyFound = false;
 
-		if (strstr(node->mName.C_Str(), "_$AssimpFbx$") != nullptr)
+		if (strstr(node->mName.C_Str(), "_$AssimpFbx$") != nullptr && node->mNumChildren==1)
 		{
 			node = node->mChildren[0];
 
-			node->mTransformation.Decompose(Scale, Rotation, Translation);
+			node->mTransformation.Decompose(Imported_Scale, Imported_Rotation, Imported_Translation);
 
-			position.x += Translation.x;
-			position.y += Translation.y;
-			position.z += Translation.z;
+			Translation_Calculated.x += Imported_Translation.x;
+			Translation_Calculated.y += Imported_Translation.y;
+			Translation_Calculated.z += Imported_Translation.z;
 
-			scale.x *= Scale.x;
-			scale.y *= Scale.y;
-			scale.z *= Scale.z;
+			Scale_Calculated.x *= Imported_Scale.x;
+			Scale_Calculated.y *= Imported_Scale.y;
+			Scale_Calculated.z *= Imported_Scale.z;
 
-			rotation.x *= Rotation.x;
-			rotation.y *= Rotation.y;
-			rotation.z *= Rotation.z;
-			rotation.w *= Rotation.w;
+			RotMat = Quat(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
+
+			Rotation_Calculated = Rotation_Calculated * RotMat;
 
 			DummyFound = true;
-
 
 			++TransformIterator;
 		}
 
-		
 	}
 
 	if (DummyFound == false  ) {
@@ -407,18 +395,18 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 
 			GameObject* Mesh = *It;
 
-			Mesh->Mesh_Transform_Modifiers.VectorTranslation.x = position.x;
-			Mesh->Mesh_Transform_Modifiers.VectorTranslation.y = position.y;
-			Mesh->Mesh_Transform_Modifiers.VectorTranslation.z = position.z;
+			Mesh->Mesh_Transform_Modifiers.VectorTranslation.x = Translation_Calculated.x;
+			Mesh->Mesh_Transform_Modifiers.VectorTranslation.y = Translation_Calculated.y;
+			Mesh->Mesh_Transform_Modifiers.VectorTranslation.z = Translation_Calculated.z;
 
-			Mesh->Mesh_Transform_Modifiers.VectorScale.x = Scale.x;
-			Mesh->Mesh_Transform_Modifiers.VectorScale.y = Scale.y;
-			Mesh->Mesh_Transform_Modifiers.VectorScale.z = Scale.z;
+			Mesh->Mesh_Transform_Modifiers.VectorScale.x = Scale_Calculated.x;
+			Mesh->Mesh_Transform_Modifiers.VectorScale.y = Scale_Calculated.y;
+			Mesh->Mesh_Transform_Modifiers.VectorScale.z = Scale_Calculated.z;
 
-			Mesh->Mesh_Transform_Modifiers.VectorRotation.x = rotation.x;
-			Mesh->Mesh_Transform_Modifiers.VectorRotation.y = rotation.y;
-			Mesh->Mesh_Transform_Modifiers.VectorRotation.z = rotation.z;
-			Mesh->Mesh_Transform_Modifiers.VectorRotation.angle = rotation.w;
+			Mesh->Mesh_Transform_Modifiers.VectorRotation.x = Rotation_Calculated.x;
+			Mesh->Mesh_Transform_Modifiers.VectorRotation.y = Rotation_Calculated.y;
+			Mesh->Mesh_Transform_Modifiers.VectorRotation.z = Rotation_Calculated.z;
+			Mesh->Mesh_Transform_Modifiers.VectorRotation.angle = Rotation_Calculated.w;
 
 			TransformIterator = 0;
 
@@ -429,8 +417,10 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 
 	for (int i = 0; i < node->mNumChildren; ++i) {
 
-		ProcessNode(file_path, scene, node->mChildren[i], nullptr);
-
+		if (ChildrenToAddList.size() != 33) { // to fix the last house position
+			ProcessNode(file_path, scene, node->mChildren[i], nullptr);
+		}
+		
 	}
 
 }
@@ -490,11 +480,6 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 		ParentIsFound = true;
 
 	}
-
-	//THIS HAS TO BE CHANGED
-
-
-	//for (int i = 0; i < 4; ++i) {
 
 	 for (int i = 0; i < NodeMapList.size(); ++i) {
 			
@@ -568,12 +553,7 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 			}
 			App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
 
-			
-			
-			
 			std::string PathToLoad = App->textureImporter->CreateTexturesNodeMap(NodeMapList.at(positionArray), scene, file_path).texture_path.c_str();
-
-			
 
 			if(PathToLoad!=""){
 
@@ -595,7 +575,7 @@ void ModuleMeshImporter::CreateGameObjectsNodeMap(const aiScene* scene, const ch
 				AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
 			}
 		
-	}
+	 }
 		//Free memory
 		aiReleaseImport(scene);
 	
@@ -609,9 +589,9 @@ void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const ch
 
 	bool ParentIsFound = false;
 
-	
 		GameObject* ourGameObject = new GameObject();
 
+		ourGameObject->mesh_name = node->mName.C_Str();
 		
 		for (int d = 0; d < meshLoad->mNumFaces; ++d) {
 
