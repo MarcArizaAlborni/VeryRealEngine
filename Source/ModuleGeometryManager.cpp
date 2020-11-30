@@ -206,10 +206,10 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 			Mesh->Mesh_Transform_Modifiers.TransformsUpdated = false;
 
 		}
+		std::vector<GameObject*>::iterator ItChild = Mesh->ChildObjects.begin();
+		for (int a = 0; a < Mesh->ChildObjects.size();++a) {
 
-		if (Mesh->ChildObjects.size() > 0) {
-
-			std::vector<GameObject*>::iterator ItChild = Mesh->ChildObjects.begin();
+			
 
 			GameObject* MeshChild = *ItChild;
 
@@ -279,7 +279,9 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	//Transform_Mesh_Scale(mesh, mesh->Mesh_Transform_Modifiers.VectorScale, OneArray);
 	//Transform_Mesh_Rotation(mesh, mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
 
-	//Transform_Mesh_Draw(mesh);
+
+
+	Transform_Mesh_Draw(mesh);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 
