@@ -327,6 +327,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	}
 
 
+
 	Transform_Mesh_Draw(mesh);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
