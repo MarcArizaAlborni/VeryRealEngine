@@ -44,76 +44,12 @@ bool ModuleScene::Start()
 
 	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
 	
-	//App->meshimporter->LoadMesh("Assets/Models/House/BakerHouse.fbx");
-	//App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(0)->TextureData = App->textureImporter->TextureHouse;
-	//App->meshimporter->MeshesOnScene.at(0)->ChildObjects.at(1)->TextureData = App->textureImporter->TextureHouse;
-
 	//This
 	App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");
 	//this
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
-	//App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment.FBX");
 
-	//App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
-
-	//App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");
-
-	//App->meshimporter->LoadFile_Mesh("Assets/Models/Penguin/PenguinBaseMesh.fbx");
-
-	/*App->meshimporter->LoadMesh("", true);*/
-
-	// STREET FOR DRAW W/TEXTURES ON START
-
-	//App->meshimporter->LoadMesh("Assets/Models/Street/Street environment_V01.FBX");
-
-	// GWYN FOR DRAW W/TEXTURES ON START
-
-	//App->textureImporter->GwynAccessories = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Accessories.dds");
-	//App->textureImporter->GwynClothes = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Clothing.dds");
-	//App->textureImporter->GwynClothesB = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/ClothingB.dds");
-	//App->textureImporter->GwynClothesC = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/ClothingC.dds");
-	//App->textureImporter->GwynCrown = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Crown.dds");
-	//App->textureImporter->GwynHair = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Hair.dds");
-	//App->textureImporter->GwynMantle = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Mantle.dds");
-	//App->textureImporter->GwynSkin = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Skin.dds");
-	//App->textureImporter->GwynSword = App->textureImporter->LoadTextureImage("Assets/Textures/Gwyn/Sword.dds");
-
-	//App->meshimporter->LoadMesh("Assets/Models/Gwyn.fbx");
-	////-1 TO THE POSITION OF THE ITEM IN LIST
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(0)->TextureData = App->textureImporter->GwynSword;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(1)->TextureData = App->textureImporter->GwynAccessories;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(2)->TextureData = App->textureImporter->GwynSword;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(3)->TextureData = App->textureImporter->GwynClothesB;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(4)->TextureData = App->textureImporter->GwynClothes;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(5)->TextureData = App->textureImporter->GwynAccessories; 
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(6)->TextureData = App->textureImporter->GwynClothesB;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(7)->TextureData = App->textureImporter->GwynClothes;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(8)->TextureData = App->textureImporter->GwynClothes;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(9)->TextureData = App->textureImporter->GwynClothesB;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(10)->TextureData = App->textureImporter->GwynAccessories; 
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(11)->TextureData = App->textureImporter->GwynSkin;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(12)->TextureData = App->textureImporter->GwynAccessories; 
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(13)->TextureData = App->textureImporter->GwynCrown;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(14)->TextureData = App->textureImporter->GwynCrown;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(15)->TextureData = App->textureImporter->GwynClothesC;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(16)->TextureData = App->textureImporter->GwynAccessories;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(17)->TextureData = App->textureImporter->GwynClothesC;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(18)->TextureData = App->textureImporter->GwynClothesB;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(19)->TextureData = App->textureImporter->GwynClothesC;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(20)->TextureData = App->textureImporter->GwynHair;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(21)->TextureData = App->textureImporter->GwynHair;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(22)->TextureData = App->textureImporter->GwynHair;
-	//App->meshimporter->MeshesOnScene.at(1)->ChildObjects.at(23)->TextureData = App->textureImporter->GwynHair;
-
-	//App->meshimporter->MeshesOnScene.at(1)->TextureData = App->textureImporter->TextureHouse;
-	//App->meshimporter->MeshesOnScene.at(2)->TextureData = App->textureImporter->TextureHousita;
-	//App->meshimporter->MeshesOnScene.at(3)->TextureData = App->textureImporter->TextureEarth;
-
-	/*for (int a = 0; a < 10; ++a) {
-		std::string value = std::to_string(a);
-		const char* value_C = value.c_str();
-		LOGFIX(value_C);
-	}*/
+	
 
 	return true;
 }

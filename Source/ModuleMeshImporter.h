@@ -145,10 +145,8 @@ public:
 	void LoadFile_Mesh(const char* file_path);
 
 	void ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node, GameObject* Parent);
-	void GenerateNode(const char* file_path, const aiScene* scene, const aiNode* node);
-	void LoadSceneMesh(const aiScene* scene, int mesh_position);
 	std::vector<NodeMap> NodeMapList;
-	void CreateGameObjectsNodeMap(const aiScene* scene,const char* file_path);
+
 	void CreateGameObjectsByNodes(const aiScene* scene, const char* file_path,aiMesh* meshLoad, const aiNode* node, NodeMap map);
 
 
