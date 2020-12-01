@@ -5,6 +5,8 @@
 #include "Globals.h"
 
 #include "libraries/MathGeoLib/include/MathGeoLib.h"
+#include "libraries/MathGeoLib/include/Geometry/AABB.h"
+#include "libraries/MathGeoLib/include/Geometry/OBB.h"
 
 
 // Class Mesh
@@ -152,6 +154,7 @@ public:
 	
 	//Object to add, if its a child and who is the parent
 	void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent=NULL,bool parentfound=false);
+
 private:
 
 

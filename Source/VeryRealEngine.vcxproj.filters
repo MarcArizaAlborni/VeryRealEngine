@@ -82,9 +82,6 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Source\FileManagers</Filter>
     </ClCompile>
-    <ClCompile Include="Bounding_Box.cpp">
-      <Filter>Source\Helper</Filter>
-    </ClCompile>
     <ClCompile Include="libraries\MathGeoLib\include\Math\BitOps.cpp">
       <Filter>Source\External Libraries\MathGeoLib</Filter>
     </ClCompile>
@@ -629,9 +626,6 @@
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>Source\FileManagers</Filter>
-    </ClInclude>
-    <ClInclude Include="Bounding_Box.h">
-      <Filter>Source\Helper</Filter>
     </ClInclude>
     <ClInclude Include="libraries\MathGeoLib\include\MathBuildConfig.h">
       <Filter>Source\External Libraries\MathGeoLib</Filter>

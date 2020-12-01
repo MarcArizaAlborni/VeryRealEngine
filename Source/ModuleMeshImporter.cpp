@@ -4,7 +4,6 @@
 #include "ModuleRenderer3D.h"
 #include "FileSystem.h"
 #include "ModuleEditor.h"
-#include "Bounding_Box.h"
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
 #include "libraries/Assimp/Assimp/include/postprocess.h"
@@ -28,9 +27,6 @@ ModuleMeshImporter::~ModuleMeshImporter()
 // -----------------------------------------------------------------
 bool ModuleMeshImporter::Start()
 {
-	BoundingBox A;
-
-	
 	bool ret = true;
 	return ret;
 }
@@ -44,6 +40,7 @@ bool ModuleMeshImporter::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleMeshImporter::Update(float dt)
 {
+
 	return UPDATE_CONTINUE;
 }
 
@@ -532,6 +529,7 @@ void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const ch
      	App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
      }
      App->renderer3D->GenerateNormalBuffer(ourGameObject, ourGameObject->MeshData.normals);
+
      
      
 	 TextureInfo TextureLoad;
