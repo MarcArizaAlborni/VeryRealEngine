@@ -21,6 +21,7 @@ struct MeshTransformation {
 	VectorTransformations VectorTranslation;   //Vector to determine the current position of the mesh in the world
 	VectorTransformations VectorRotation;      //Vector to determine the current rotation of the mesh in the world
 	VectorTransformations VectorScale;         //Vector to determine the current scale of the mesh in the world
+	float3 VectorEulerRotation;
 
 	bool TransformsUpdated;                    //Vector to determine the current position of the mesh in the world
 
@@ -33,6 +34,9 @@ struct MeshTransformation {
 
 	float4x4 LocalMatrix;                      //Vector to determine the current position of the mesh in the world
 	float4x4 WorldMatrix;                      //Vector to determine the current position of the mesh in the world
+
+	
+
 };
 
 struct Vertex_Sub {

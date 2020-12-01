@@ -327,6 +327,8 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 	float3	Scale_Calculated(Imported_Scale.x, Imported_Scale.y, Imported_Scale.z);
 	Quat	Rotation_Calculated(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
 	Quat    RotMat;
+	float3 EulerAngle;
+	
 
 	
 	while (strstr(node->mName.C_Str(), "_$AssimpFbx$") != nullptr && node->mNumChildren == 1)
@@ -345,9 +347,13 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 
 		RotMat = Quat(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
 
-		Rotation_Calculated = Rotation_Calculated * RotMat;
 		
 
+
+
+		Rotation_Calculated = Rotation_Calculated * RotMat;
+		
+		EulerAngle = Rotation_Calculated.ToEulerXYX();
 	}
 
 	//The error is that we dont apply the transforms from the dummy to the parent of the meshes
@@ -404,7 +410,7 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		Mesh->Mesh_Transform_Modifiers.VectorRotation.z = Rotation_Calculated.z;
 		Mesh->Mesh_Transform_Modifiers.VectorRotation.angle = Rotation_Calculated.w;
 
-		
+		Mesh->Mesh_Transform_Modifiers.VectorEulerRotation = EulerAngle;
 
 		Mesh->Mesh_Transform_Modifiers.TransformsUpdated = true;
 
