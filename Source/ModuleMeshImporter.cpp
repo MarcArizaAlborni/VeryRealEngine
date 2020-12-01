@@ -294,7 +294,7 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 	if (scene != nullptr) {
 
 		ProcessNode(file_path, scene, scene->mRootNode, nullptr);
-
+		//GenerateNode(file_path, scene, scene->mRootNode);
 		//CreateGameObjectsNodeMap(scene, file_path);
 
 		if (ChildrenToAddList.size() == 1) {
@@ -314,10 +314,49 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,GameObject* item)
 {
+	aiVector3D  Imported_Translation;
+	aiVector3D  Imported_Scale;
+	aiQuaternion Imported_Rotation;
+
+	node->mTransformation.Decompose(Imported_Scale, Imported_Rotation, Imported_Translation);
+
+	float3	Translation_Calculated(Imported_Translation.x, Imported_Translation.y, Imported_Translation.z);
+	float3	Scale_Calculated(Imported_Scale.x, Imported_Scale.y, Imported_Scale.z);
+	Quat	Rotation_Calculated(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
+	Quat    RotMat;
+
 	
+	while (strstr(node->mName.C_Str(), "_$AssimpFbx$") != nullptr && node->mNumChildren == 1)
+	{
+		node = node->mChildren[0];
+
+		node->mTransformation.Decompose(Imported_Scale, Imported_Rotation, Imported_Translation);
+
+		Translation_Calculated.x += Imported_Translation.x;
+		Translation_Calculated.y += Imported_Translation.y;
+		Translation_Calculated.z += Imported_Translation.z;
+
+		Scale_Calculated.x *= Imported_Scale.x;
+		Scale_Calculated.y *= Imported_Scale.y;
+		Scale_Calculated.z *= Imported_Scale.z;
+
+		RotMat = Quat(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
+
+		Rotation_Calculated = Rotation_Calculated * RotMat;
+		
+
+
+	}
+
+	//The error is that we dont apply the transforms from the dummy to the parent of the meshes
+
 	
+
 	for (int size = 0; size < node->mNumMeshes; ++size) {
 
+		if (size == 0) {
+			RotationImportedVal = Rotation_Calculated;
+		}
 		NodeMap NodeToAdd;
 		aiMesh* MeshLoaded = scene->mMeshes[node->mMeshes[size]];
 		
@@ -344,77 +383,32 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		
 	}
 
-	//TRANSFORMS
+	std::vector<GameObject*>::reverse_iterator It = ChildrenToAddList.rbegin();
 
-	aiVector3D  Imported_Translation;
-	aiVector3D  Imported_Scale;
-	aiQuaternion Imported_Rotation;
+	for (int last = ChildrenToAddList.size() - 1; last < ChildrenToAddList.size(); ++last) {
 
-	node->mTransformation.Decompose(Imported_Scale, Imported_Rotation, Imported_Translation);
+		GameObject* Mesh = *It;
 
-	float3	Translation_Calculated(Imported_Translation.x, Imported_Translation.y, Imported_Translation.z);
-	float3	Scale_Calculated(Imported_Scale.x, Imported_Scale.y, Imported_Scale.z);
-	Quat	Rotation_Calculated(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
-	Quat    RotMat;
+		Mesh->Mesh_Transform_Modifiers.VectorTranslation.x = Translation_Calculated.x;
+		Mesh->Mesh_Transform_Modifiers.VectorTranslation.y = Translation_Calculated.y;
+		Mesh->Mesh_Transform_Modifiers.VectorTranslation.z = Translation_Calculated.z;
 
-	bool DummyFound = true;
+		Mesh->Mesh_Transform_Modifiers.VectorScale.x = Scale_Calculated.x;
+		Mesh->Mesh_Transform_Modifiers.VectorScale.y = Scale_Calculated.y;
+		Mesh->Mesh_Transform_Modifiers.VectorScale.z = Scale_Calculated.z;
+
+		Mesh->Mesh_Transform_Modifiers.VectorRotation.x = Rotation_Calculated.x;
+		Mesh->Mesh_Transform_Modifiers.VectorRotation.y = Rotation_Calculated.y;
+		Mesh->Mesh_Transform_Modifiers.VectorRotation.z = Rotation_Calculated.z;
+		Mesh->Mesh_Transform_Modifiers.VectorRotation.angle = Rotation_Calculated.w;
+
+		
+
+		Mesh->Mesh_Transform_Modifiers.TransformsUpdated = true;
+
+		//App->geometrymanager->UpdateGameObjectTransforms();
+	}
 	
-	while (DummyFound) {
-
-		DummyFound = false;
-
-		if (strstr(node->mName.C_Str(), "_$AssimpFbx$") != nullptr && node->mNumChildren==1)
-		{
-			node = node->mChildren[0];
-
-			node->mTransformation.Decompose(Imported_Scale, Imported_Rotation, Imported_Translation);
-
-			Translation_Calculated.x += Imported_Translation.x;
-			Translation_Calculated.y += Imported_Translation.y;
-			Translation_Calculated.z += Imported_Translation.z;
-
-			Scale_Calculated.x *= Imported_Scale.x;
-			Scale_Calculated.y *= Imported_Scale.y;
-			Scale_Calculated.z *= Imported_Scale.z;
-
-			RotMat = Quat(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
-
-			Rotation_Calculated = Rotation_Calculated * RotMat;
-
-			DummyFound = true;
-
-			++TransformIterator;
-		}
-
-	}
-
-	if (DummyFound == false  ) {
-		std::vector<GameObject*>::reverse_iterator It = ChildrenToAddList.rbegin();
-
-		for (int last = ChildrenToAddList.size() - 1; last < ChildrenToAddList.size(); ++last) {
-
-			GameObject* Mesh = *It;
-
-			Mesh->Mesh_Transform_Modifiers.VectorTranslation.x = Translation_Calculated.x;
-			Mesh->Mesh_Transform_Modifiers.VectorTranslation.y = Translation_Calculated.y;
-			Mesh->Mesh_Transform_Modifiers.VectorTranslation.z = Translation_Calculated.z;
-
-			Mesh->Mesh_Transform_Modifiers.VectorScale.x = Scale_Calculated.x;
-			Mesh->Mesh_Transform_Modifiers.VectorScale.y = Scale_Calculated.y;
-			Mesh->Mesh_Transform_Modifiers.VectorScale.z = Scale_Calculated.z;
-
-			Mesh->Mesh_Transform_Modifiers.VectorRotation.x = Rotation_Calculated.x;
-			Mesh->Mesh_Transform_Modifiers.VectorRotation.y = Rotation_Calculated.y;
-			Mesh->Mesh_Transform_Modifiers.VectorRotation.z = Rotation_Calculated.z;
-			Mesh->Mesh_Transform_Modifiers.VectorRotation.angle = Rotation_Calculated.w;
-
-			TransformIterator = 0;
-
-			Mesh->Mesh_Transform_Modifiers.TransformsUpdated = true;
-
-		}
-	}
-
 	for (int i = 0; i < node->mNumChildren; ++i) {
 
 		if (ChildrenToAddList.size() != 33) { // to fix the last house position
@@ -424,6 +418,8 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 	}
 
 }
+
+
 
 void ModuleMeshImporter::CreateChildsWithParent(bool WithParent)
 {
@@ -436,6 +432,11 @@ void ModuleMeshImporter::CreateChildsWithParent(bool WithParent)
 		ItemParentMesh->path = "path";
 		ItemParentMesh->Mesh_Transform_Modifiers.TransformsUpdated = true;
 		//ItemParentMesh->is_FamilyMove = true;
+
+		ItemParentMesh->Mesh_Transform_Modifiers.VectorRotation.x = RotationImportedVal.x;
+		ItemParentMesh->Mesh_Transform_Modifiers.VectorRotation.y = RotationImportedVal.y;
+		ItemParentMesh->Mesh_Transform_Modifiers.VectorRotation.z = RotationImportedVal.z;
+		ItemParentMesh->Mesh_Transform_Modifiers.VectorRotation.angle = RotationImportedVal.w;
 		AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
 
 		std::vector<GameObject*>::iterator IteratorChild = ChildrenToAddList.begin();

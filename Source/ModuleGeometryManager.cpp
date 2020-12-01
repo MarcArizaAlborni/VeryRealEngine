@@ -191,12 +191,12 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 
 				float3 Pos = { Mesh->Mesh_Transform_Modifiers.VectorTranslation.x,Mesh->Mesh_Transform_Modifiers.VectorTranslation.y,Mesh->Mesh_Transform_Modifiers.VectorTranslation.z };
 				float3 Scal = { Mesh->Mesh_Transform_Modifiers.VectorScale.x,Mesh->Mesh_Transform_Modifiers.VectorScale.y,Mesh->Mesh_Transform_Modifiers.VectorScale.z };
-				Quat Rot;
+				Quat Rot = { Mesh->Mesh_Transform_Modifiers.VectorRotation.x,Mesh->Mesh_Transform_Modifiers.VectorRotation.y,Mesh->Mesh_Transform_Modifiers.VectorRotation.z,Mesh->Mesh_Transform_Modifiers.VectorRotation.angle };
 
-				Rot.x = Mesh->Mesh_Transform_Modifiers.VectorRotation.x;
-				Rot.y = Mesh->Mesh_Transform_Modifiers.VectorRotation.y;
-				Rot.z = Mesh->Mesh_Transform_Modifiers.VectorRotation.z;
-				Rot.w = Mesh->Mesh_Transform_Modifiers.VectorRotation.angle;
+				//Rot.x = Mesh->Mesh_Transform_Modifiers.VectorRotation.x;
+				//Rot.y = Mesh->Mesh_Transform_Modifiers.VectorRotation.y;
+				//Rot.z = Mesh->Mesh_Transform_Modifiers.VectorRotation.z;
+				//Rot.w = Mesh->Mesh_Transform_Modifiers.VectorRotation.angle;
 
 				
 
@@ -220,7 +220,16 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 				float3 Scal;
 				Scal = float3::one;
 				Quat Rot;
-				Rot = Quat::identity;
+				
+				if (Mesh->ChildObjects.size() == 33) {
+					Rot = App->meshimporter->RotationValue;
+				}
+				else {
+					Rot = Quat::identity;
+				}
+				Quat Rot2 = { Mesh->Mesh_Transform_Modifiers.VectorRotation.x,Mesh->Mesh_Transform_Modifiers.VectorRotation.y,Mesh->Mesh_Transform_Modifiers.VectorRotation.z,Mesh->Mesh_Transform_Modifiers.VectorRotation.angle };
+				
+				
 
 				
 
@@ -243,9 +252,7 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 		for (int a = 0; a < Mesh->ChildObjects.size();++a) {
 
 			
-			if (a == 32) {
-				int b = 0;
-			}
+		
 			GameObject* MeshChild = *ItChild;
 
 			if (MeshChild->Mesh_Transform_Modifiers.TransformsUpdated) {

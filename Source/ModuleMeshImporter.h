@@ -145,7 +145,7 @@ public:
 	void LoadFile_Mesh(const char* file_path);
 
 	void ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node, GameObject* Parent);
-
+	void GenerateNode(const char* file_path, const aiScene* scene, const aiNode* node);
 	void LoadSceneMesh(const aiScene* scene, int mesh_position);
 	std::vector<NodeMap> NodeMapList;
 	void CreateGameObjectsNodeMap(const aiScene* scene,const char* file_path);
@@ -171,15 +171,17 @@ private:
 
 	std::vector<GameObject*> ChildrenToAddList;
 	void CreateChildsWithParent(bool WithParent);
-	int TransformIterator = 0;
-
+	
+	float3 PositionValue;
+	float3 ScaleValue;
 	
 
 
 
 
 public:
-
+	Quat RotationValue = { -0.7,0,0,0.7 }; // THIS IS THE ERROR IN THE ROTATION IMPORT
+	Quat RotationImportedVal;
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
 	void CreateConsolelog(const char file[], int line, const char* format, ...);
