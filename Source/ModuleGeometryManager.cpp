@@ -63,7 +63,7 @@ update_status ModuleGeometryManager::Update(float dt)
 	
 		MoveAsFamily = *IteratorPositionModifierFamily;
 
-		if (MoveAsFamily->is_FamilyMove){
+		if (MoveAsFamily->Modifier.is_FamilyMove){
 
 			std::vector<GameObject*>::iterator IteratorModifierFamilyChild = MoveAsFamily->ChildObjects.begin();
 			for (int u = 0; u < MoveAsFamily->ChildObjects.size(); ++u) {
@@ -91,7 +91,7 @@ update_status ModuleGeometryManager::Update(float dt)
 
 		if (Item->ChildObjects.empty()) {
 
-			if (Item->is_Drawn == true) {
+			if (Item->Modifier.is_Drawn == true) {
 				DrawMeshTextured(*IteratorLoaded);
 			}
 		}
@@ -99,7 +99,7 @@ update_status ModuleGeometryManager::Update(float dt)
 			std::vector<GameObject*>::iterator IteratorChild = Item->ChildObjects.begin();
 			for (int b = 0; b < Item->ChildObjects.size(); ++b) {
 				Item2 = *IteratorChild;
-				if (Item2->is_Drawn == true) {
+				if (Item2->Modifier.is_Drawn == true) {
 
 					DrawMeshTextured(*IteratorChild);
 				}
@@ -186,7 +186,7 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 	for (int i = 0; i < App->meshimporter->MeshesOnScene.size(); ++i) {
 		GameObject* Mesh = *It;
 
-		if (Mesh->is_EmptyParent == false) {
+		if (Mesh->Modifier.is_EmptyParent == false) {
 
 			if (Mesh->Mesh_Transform_Modifiers.TransformsUpdated) {
 
@@ -309,7 +309,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	OneArray = { 1,1,1,1 };
 	ZeroArray = { 0,0,0,0 };
 
-	if (mesh->is_Wireframed == true) {
+	if (mesh->Modifier.is_Wireframed == true) {
 		glLineWidth(3);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
@@ -334,7 +334,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	if (mesh->is_Checkered == true) {
+	if (mesh->Modifier.is_Checkered == true) {
 
 		glBindTexture(GL_TEXTURE_2D, App->textureImporter->TextureCheckers.texture_id);
 
@@ -345,7 +345,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	DrawVertexNormals(mesh);
 
 	if (mesh->MeshData.texcoords != NULL) {
-		if (mesh->is_Textured == true) {
+		if (mesh->Modifier.is_Textured == true) {
 
 			glBindTexture(GL_TEXTURE_2D, mesh->TextureData.texture_id);
 			glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id);
@@ -382,7 +382,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 
 void ModuleGeometryManager::DrawVertexNormals(GameObject* object)
 {
-	if (object->showVertexNormals == true)
+	if (object->Modifier.showVertexNormals == true)
 	{
 		float3 mid;
 		float3 normal;

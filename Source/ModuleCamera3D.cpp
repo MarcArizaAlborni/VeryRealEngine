@@ -151,7 +151,7 @@ update_status ModuleCamera3D::Update(float dt)
 		for (int count = 0; count < App->meshimporter->MeshesOnScene.size(); ++count)
 		{
 			selected_mesh = *IteratorToAddMesh;
-			if (selected_mesh->ToBeDrawInspector == true)
+			if (selected_mesh->Modifier.ToBeDrawInspector == true)
 			{
 				if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 				{
@@ -186,7 +186,7 @@ update_status ModuleCamera3D::Update(float dt)
 			for (int count2 = 0; count2 < selected_mesh->ChildObjects.size(); ++count2)
 			{
 				selected_mesh_child = *IteratorToAddMesh2;
-				if (selected_mesh_child->ToBeDrawInspector == true)
+				if (selected_mesh_child->Modifier.ToBeDrawInspector == true)
 				{
 					if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 					{

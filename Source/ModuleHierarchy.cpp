@@ -42,7 +42,7 @@ update_status ModuleHierarchyGameObject::Update(float dt)
     
        itemp = *IteratorLoadedFamily;
 
-       if (itemp->is_FamilyMove) {
+       if (itemp->Modifier.is_FamilyMove) {
 
            std::vector<GameObject*>::iterator IteratorLoadedFamilyChild = itemp->ChildObjects.begin();
            for (int counta = 0; counta < itemp->ChildObjects.size(); ++counta) {
@@ -159,7 +159,7 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     ImGui::AlignTextToFramePadding();
     bool node_open;
    
-    if(Object->is_EmptyParent==true){
+    if(Object->Modifier.is_EmptyParent==true){
         if (node_open = ImGui::TreeNode("Node ID", "%s", prefix, uid)) {
 
         }
@@ -178,15 +178,15 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     GameObject* Item2;
     GameObject* Item4;
     bool has_been_found = false;
-    if (ImGui::Checkbox("", &Object->ToBeDrawInspector)) {
+    if (ImGui::Checkbox("", &Object->Modifier.ToBeDrawInspector)) {
 
         std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
         for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 
             Item2 = *IteratorLoaded;
 
-            if (Object->item_id != Item2->item_id) {
-                Item2->ToBeDrawInspector = false;
+            if (Object->Identifiers.item_id != Item2->Identifiers.item_id) {
+                Item2->Modifier.ToBeDrawInspector = false;
             }
 
             if (Item2->ChildObjects.size() > 0) {
@@ -195,8 +195,8 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
                 for (int c = 0; c < Item2->ChildObjects.size(); ++c) {
 
                     Item3 = *ChildIteratorLoadedIns;
-                    if (Object->item_id != Item3->item_id) {
-                        Item3->ToBeDrawInspector = false;
+                    if (Object->Identifiers.item_id != Item3->Identifiers.item_id) {
+                        Item3->Modifier.ToBeDrawInspector = false;
                        //Item2->ToBeDrawInspector = false; 
                     }
                     ++ChildIteratorLoadedIns;
@@ -210,12 +210,12 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     
     ImGui::SameLine();
 
-    if (Object->is_Drawn) {
+    if (Object->Modifier.is_Drawn) {
 
         if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyOpen.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
              (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
 
-            Object->is_Drawn = false;
+            Object->Modifier.is_Drawn = false;
 
             if (Object->ChildObjects.size() > 0) {
 
@@ -224,7 +224,7 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
                 for (int count = 0; count < Object->ChildObjects.size(); ++count) {
                     Mesh = *Item;
 
-                    Mesh->is_Drawn = false;
+                    Mesh->Modifier.is_Drawn = false;
 
                     ++Item;
 
@@ -236,14 +236,14 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
         if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyClosed.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
             (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
 
-            Object->is_Drawn = true;
+            Object->Modifier.is_Drawn = true;
 
             GameObject* Mesh;
             std::vector<GameObject*>::iterator Item = Object->ChildObjects.begin();
             for (int count = 0; count < Object->ChildObjects.size(); ++count) {
                 Mesh = *Item;
 
-                Mesh->is_Drawn = true;
+                Mesh->Modifier.is_Drawn = true;
                 ++Item;
 
 
@@ -277,7 +277,7 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
                 ImGui::PushID(childNum);
                 if (childNum < Object->ChildObjects.size()+1) // Amount of childrens displayed in the editor
                 {
-                     InspectorInfo(Mesh, Mesh->item_id);
+                     InspectorInfo(Mesh, Mesh->Identifiers.item_id);
                 }
                 else
                 {

@@ -64,7 +64,7 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 		for (std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin(); IteratorLoaded != App->meshimporter->MeshesOnScene.end(); ++IteratorLoaded) {
 			ItemToDraw = *IteratorLoaded;
 
-			if (ItemToDraw->ToBeDrawInspector == true) {
+			if (ItemToDraw->Modifier.ToBeDrawInspector == true) {
 				SomethingDrawn = true;
 				DrawInspectorWindowInfo(ItemToDraw);
 			}
@@ -76,7 +76,7 @@ void ModuleInspectorGameObject::CreateInspectorWindow()
 
 					ChildFoundDraw = *ChildIteratorLoaded;
 
-					if (ChildFoundDraw->ToBeDrawInspector == true) {
+					if (ChildFoundDraw->Modifier.ToBeDrawInspector == true) {
 
 						SomethingDrawn = true;
 
@@ -132,7 +132,7 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 			ImGui::Text("Currently Textured:");
 			ImGui::SameLine(0.0f, 10.0f);
 
-			if (item->is_Textured == true) {
+			if (item->Modifier.is_Textured == true) {
 
 				ImGui::Text("True");
 			}
@@ -140,13 +140,13 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 				ImGui::Text("False");
 			}
 
-			ImGui::Checkbox("Wireframed", &item->is_Wireframed);
+			ImGui::Checkbox("Wireframed", &item->Modifier.is_Wireframed);
 
-			ImGui::Checkbox("Draw", &item->is_Drawn);
+			ImGui::Checkbox("Draw", &item->Modifier.is_Drawn);
 
 			ImGui::Text("Item Id:");
 			ImGui::SameLine(0.0f, 10.0f);
-			ImGui::Text("%d", item->item_id);
+			ImGui::Text("%d", item->Identifiers.item_id);
 
 			ImGui::Separator();
 		}
@@ -159,7 +159,7 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 			if (ImGui::DragFloat3("Rotation", { &item->Mesh_Transform_Modifiers.VectorRotation.x }, 0.02f, 0.0, 1.0, "%.3f")) { item->Mesh_Transform_Modifiers.TransformsUpdated = true; }
 			if (ImGui::DragFloat3("Scale", { &item->Mesh_Transform_Modifiers.VectorScale.x }, 0.2f, 0.0, 0.0, "%.2f")) { item->Mesh_Transform_Modifiers.TransformsUpdated = true; }
 
-			ImGui::Checkbox("Move Family", &item->is_FamilyMove);
+			ImGui::Checkbox("Move Family", &item->Modifier.is_FamilyMove);
 
 			ImGui::Separator();
 		}
@@ -186,11 +186,11 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 			ImGui::Separator();
 			ImGui::Text("Mesh Path:");
 			ImGui::SameLine();
-			ImGui::TextColored({ 255,255,0,1 }, "%s", &item->path);
+			ImGui::TextColored({ 255,255,0,1 }, "%s", &item->Identifiers.path);
 
 			if (ImGui::TreeNodeEx("Vertex Normals:", ImGuiTreeNodeFlags_DefaultOpen)) {
 
-				ImGui::Checkbox("Show Vertex Normals", &item->showVertexNormals);
+				ImGui::Checkbox("Show Vertex Normals", &item->Modifier.showVertexNormals);
 				ImGui::TreePop();
 			}
 		}
@@ -199,16 +199,16 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 		//TEXTURES INFO
 		if (ImGui::CollapsingHeader("Texture")) {
 
-			ImGui::Checkbox("Checkered", &item->is_Checkered);
+			ImGui::Checkbox("Checkered", &item->Modifier.is_Checkered);
 
-			if (item->is_Checkered == true) {
-				item->is_Textured = false;
+			if (item->Modifier.is_Checkered == true) {
+				item->Modifier.is_Textured = false;
 			}
 
-			ImGui::Checkbox("Textured", &item->is_Textured);
+			ImGui::Checkbox("Textured", &item->Modifier.is_Textured);
 
-			if (item->is_Textured == true) {
-				item->is_Checkered = false;
+			if (item->Modifier.is_Textured == true) {
+				item->Modifier.is_Checkered = false;
 			}
 
 			ImGui::Text("Texture Name: ");
@@ -216,13 +216,13 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo(GameObject* item)
 			const char* nameTexture = item->TextureData.texture_name.c_str();
 			ImGui::TextColored({ 255,255,0,1 }, "%s", nameTexture);
 
-			if (item->is_Textured) {
+			if (item->Modifier.is_Textured) {
 				ImGui::Text("Texture Path:");
 				ImGui::SameLine(0.0f, 10.0f);
 				const char* pathnameTexture = item->TextureData.texture_path.c_str();
 				ImGui::TextColored({ 255,255,0,1 }, "%s", pathnameTexture);
 			}
-			else if (item->is_Checkered) {
+			else if (item->Modifier.is_Checkered) {
 				ImGui::Text("Texture Path:");
 				ImGui::SameLine(0.0f, 10.0f);
 

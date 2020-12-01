@@ -4,7 +4,7 @@
 #include "ModuleRenderer3D.h"
 #include "FileSystem.h"
 #include "ModuleEditor.h"
-
+#include "Bounding_Box.h"
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
 #include "libraries/Assimp/Assimp/include/postprocess.h"
@@ -28,6 +28,9 @@ ModuleMeshImporter::~ModuleMeshImporter()
 // -----------------------------------------------------------------
 bool ModuleMeshImporter::Start()
 {
+	BoundingBox A;
+
+	
 	bool ret = true;
 	return ret;
 }
@@ -99,9 +102,9 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 			if (InformationToRecieve->AmountMeshes > 1) {
 
 				GameObject* ItemParentMesh = new GameObject();
-				ItemParentMesh->is_Drawn = true;
-				ItemParentMesh->is_EmptyParent = true;
-				ItemParentMesh->path = file_path;
+				ItemParentMesh->Modifier.is_Drawn = true;
+				ItemParentMesh->Modifier.is_EmptyParent = true;
+				ItemParentMesh->Identifiers.path = file_path;
 				AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
 				ParentHasFound = true;
 
@@ -111,7 +114,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 
 				GameObject* ourGameObject = new GameObject();
 				//aiMesh* MeshToLoad = scene->mMeshes[i];
-				ourGameObject->path = file_path;
+				ourGameObject->Identifiers.path = file_path;
 				
 				ourGameObject->MeshData.num_vertex = InformationToRecieve->MeshInfo[i].AmountVertex;
 
@@ -200,8 +203,8 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 			if (InformationToRecieve->AmountMeshes > 1) {
 
 				GameObject* ItemParentMesh = new GameObject();
-				ItemParentMesh->is_Drawn = true;
-				ItemParentMesh->is_EmptyParent = true;
+				ItemParentMesh->Modifier.is_Drawn = true;
+				ItemParentMesh->Modifier.is_EmptyParent = true;
 				
 				AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
 				ParentHasFound = true;
@@ -426,9 +429,9 @@ void ModuleMeshImporter::CreateChildsWithParent(bool WithParent)
 	if (WithParent == true) {
 
 		GameObject* ItemParentMesh = new GameObject();
-		ItemParentMesh->is_Drawn = true;
-		ItemParentMesh->is_EmptyParent = true;
-		ItemParentMesh->path = "path";
+		ItemParentMesh->Modifier.is_Drawn = true;
+		ItemParentMesh->Modifier.is_EmptyParent = true;
+		ItemParentMesh->Identifiers.path = "path";
 		ItemParentMesh->Mesh_Transform_Modifiers.TransformsUpdated = true;
 		//ItemParentMesh->is_FamilyMove = true;
 
@@ -444,7 +447,7 @@ void ModuleMeshImporter::CreateChildsWithParent(bool WithParent)
 
 			GameObject* Mesh = *IteratorChild;
 
-			Mesh->item_id = i+1;
+			Mesh->Identifiers.item_id = i+1;
 
 			App->meshimporter->MeshesOnScene.back()->ChildObjects.push_back(Mesh);
 
@@ -601,10 +604,10 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 
 			int size2 = itemParent->ChildObjects.size() + 1;
 
-			Object->item_id = size2;
+			Object->Identifiers.item_id = size2;
 
-			Object->is_Selected = false;
-			Object->is_Textured = true;
+			Object->Modifier.is_Selected = false;
+			Object->Modifier.is_Textured = true;
 			//Object->mesh_name = "Empty Parent";
 			itemParent->ChildObjects.push_back(Object);
 	}
@@ -612,9 +615,9 @@ void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isC
 
 		int size = MeshesOnScene.size() +1;
 
-		Object->item_id = size;
-		Object->is_Selected = false;
-		Object->is_Textured = true;
+		Object->Identifiers.item_id = size;
+		Object->Modifier.is_Selected = false;
+		Object->Modifier.is_Textured = true;
 		
 		if (parentFound) {
 			Object->mesh_name = "Empty Parent";

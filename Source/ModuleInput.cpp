@@ -190,7 +190,7 @@ update_status ModuleInput::PreUpdate(float dt)
 						GameObject* TexturedMesh;
 
 						TexturedMesh = *MeshTextureIterator;
-						if (TexturedMesh->ToBeDrawInspector == true) {
+						if (TexturedMesh->Modifier.ToBeDrawInspector == true) {
 
 							TexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
 
@@ -219,7 +219,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 								ChildTexturedMesh = *ChildMeshTextureIterator2;
 
-								if (ChildTexturedMesh->ToBeDrawInspector == true) {
+								if (ChildTexturedMesh->Modifier.ToBeDrawInspector == true) {
 									ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
 								}
 
@@ -250,7 +250,7 @@ update_status ModuleInput::PreUpdate(float dt)
 							GameObject* TexturedMesh;
 
 							TexturedMesh = *MeshTextureIterator;
-							if (TexturedMesh->ToBeDrawInspector == true) {
+							if (TexturedMesh->Modifier.ToBeDrawInspector == true) {
 
 								TexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
 
@@ -278,7 +278,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 									ChildTexturedMesh = *ChildMeshTextureIterator2;
 
-									if (ChildTexturedMesh->ToBeDrawInspector == true) {
+									if (ChildTexturedMesh->Modifier.ToBeDrawInspector == true) {
 										ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
 									}
 
@@ -307,7 +307,7 @@ update_status ModuleInput::PreUpdate(float dt)
 							GameObject* TexturedMesh;
 
 							TexturedMesh = *MeshTextureIterator;
-							if (TexturedMesh->ToBeDrawInspector == true) {
+							if (TexturedMesh->Modifier.ToBeDrawInspector == true) {
 
 								TexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
 
@@ -337,7 +337,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 									ChildTexturedMesh = *ChildMeshTextureIterator2;
 
-									if (ChildTexturedMesh->ToBeDrawInspector == true) {
+									if (ChildTexturedMesh->Modifier.ToBeDrawInspector == true) {
 										ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
 									}
 
@@ -366,7 +366,7 @@ update_status ModuleInput::PreUpdate(float dt)
 							GameObject* TexturedMesh;
 
 							TexturedMesh = *MeshTextureIterator;
-							if (TexturedMesh->ToBeDrawInspector == true) {
+							if (TexturedMesh->Modifier.ToBeDrawInspector == true) {
 
 								TexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
 
@@ -396,7 +396,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 									ChildTexturedMesh = *ChildMeshTextureIterator2;
 
-									if (ChildTexturedMesh->ToBeDrawInspector == true) {
+									if (ChildTexturedMesh->Modifier.ToBeDrawInspector == true) {
 										ChildTexturedMesh->TextureData.texture_id = ImportedTexture.texture_id;
 									}
 

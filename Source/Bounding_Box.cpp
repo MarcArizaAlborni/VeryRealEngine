@@ -76,6 +76,8 @@ AABB BoundingBox::GetGlobalAABB(GameObject* obj)
 		vertices_AABB.push_back(aux_vertices[i]);
 	}
 
+	
+
 	return global_AABB;
 }
 
