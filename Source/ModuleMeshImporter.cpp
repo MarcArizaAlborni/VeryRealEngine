@@ -345,7 +345,6 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		Rotation_Calculated = Rotation_Calculated * RotMat;
 		
 
-
 	}
 
 	//The error is that we dont apply the transforms from the dummy to the parent of the meshes
@@ -461,10 +460,6 @@ void ModuleMeshImporter::CreateChildsWithParent(bool WithParent)
 	}
 }
 
-
-
-
-
 void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const char* file_path, aiMesh* meshLoad, const aiNode* node,NodeMap map)
 {
 
@@ -472,100 +467,102 @@ void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const ch
 
 	bool ParentIsFound = false;
 
-		GameObject* ourGameObject = new GameObject();
-
-		ourGameObject->mesh_name = node->mName.C_Str();
-		
-		for (int d = 0; d < meshLoad->mNumFaces; ++d) {
-
-
-			meshLoad->mFaces[d].mNumIndices;
-		}
-
-		
-		ourGameObject->MeshData.num_vertex = meshLoad->mNumVertices;
-
-		ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
-
-		memcpy(ourGameObject->MeshData.vertex, meshLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
-
-		if (meshLoad->HasFaces()) {
-
-			ourGameObject->MeshData.num_index = meshLoad->mNumFaces * 3; //aixo
-
-			int a = 0;
-
-			ourGameObject->MeshData.index = new uint[ourGameObject->MeshData.num_index];
-
-			for (int c = 0; c < meshLoad->mNumFaces; ++c) {
-
-				//IF MESHES HAVE TRIS
-				if (meshLoad->mFaces[c].mNumIndices == 3) {
-
-					unsigned int IndexCopy[3];
-
-					memcpy(&ourGameObject->MeshData.index[c * 3], meshLoad->mFaces[c].mIndices, 3 * sizeof(uint));
-				}
-			}
-		}
-
-		if (meshLoad->HasNormals()) {
-
-			ourGameObject->MeshData.normals = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
-			memcpy(ourGameObject->MeshData.normals, meshLoad->mNormals, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
-		}
-
-		if (meshLoad->HasTextureCoords(0))
-		{
-			ourGameObject->MeshData.num_texcoords = meshLoad->mNumVertices;
-			ourGameObject->MeshData.texcoords = new float[ourGameObject->MeshData.num_vertex * 2];
-
-
-			for (int Z = 0; Z < ourGameObject->MeshData.num_texcoords; ++Z) {
-
-				ourGameObject->MeshData.texcoords[Z * 2] = meshLoad->mTextureCoords[0][Z].x;
-				ourGameObject->MeshData.texcoords[Z * 2 + 1] = meshLoad->mTextureCoords[0][Z].y;
-			}
-		}
-
-		App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
-		App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
-		if (ourGameObject->MeshData.texcoords != NULL) {
-			App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
-		}
-		App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
-
-
-
-
-		std::string PathToLoad = App->textureImporter->CreateTexturesNodeMap(map, scene, file_path).texture_path.c_str();
-
-
-
-		if (PathToLoad != "") {
-
-			LOGFIX(PathToLoad.c_str());
-
-			ourGameObject->TextureData = App->textureImporter->LoadTextureImage(PathToLoad.c_str());
-		}
-		else {
-
-			LOGFIX("Mesh Node Has No Texture");
-		}
-
-
-		/*if (ParentIsFound == true) {
-
-			AddMeshToListMeshesOnScene(ourGameObject, true, NULL);
-		}
-		else {
-			AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
-		}*/
-
-
-		ChildrenToAddList.push_back(ourGameObject);
-
+     GameObject* ourGameObject = new GameObject();
+     
+     ourGameObject->mesh_name = node->mName.C_Str();
+     
+     for (int d = 0; d < meshLoad->mNumFaces; ++d) {
+     
+     
+     	meshLoad->mFaces[d].mNumIndices;
+     }
+     
+     
+     ourGameObject->MeshData.num_vertex = meshLoad->mNumVertices;
+     
+     ourGameObject->MeshData.vertex = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
+     
+     memcpy(ourGameObject->MeshData.vertex, meshLoad->mVertices, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
+     
+     if (meshLoad->HasFaces()) {
+     
+     	ourGameObject->MeshData.num_index = meshLoad->mNumFaces * 3; //aixo
+     
+     	int a = 0;
+     
+     	ourGameObject->MeshData.index = new uint[ourGameObject->MeshData.num_index];
+     
+     	for (int c = 0; c < meshLoad->mNumFaces; ++c) {
+     
+     		//IF MESHES HAVE TRIS
+     		if (meshLoad->mFaces[c].mNumIndices == 3) {
+     
+     			unsigned int IndexCopy[3];
+     
+     			memcpy(&ourGameObject->MeshData.index[c * 3], meshLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+     		}
+     	}
+     }
+     
+     if (meshLoad->HasNormals()) {
+     
+     	ourGameObject->MeshData.normals = new Vertex_Sub[ourGameObject->MeshData.num_vertex * 3];
+     	memcpy(ourGameObject->MeshData.normals, meshLoad->mNormals, sizeof(float) * ourGameObject->MeshData.num_vertex * 3);
+     }
+     
+     if (meshLoad->HasTextureCoords(0))
+     {
+     	ourGameObject->MeshData.num_texcoords = meshLoad->mNumVertices;
+     	ourGameObject->MeshData.texcoords = new float[ourGameObject->MeshData.num_vertex * 2];
+     
+     
+     	for (int Z = 0; Z < ourGameObject->MeshData.num_texcoords; ++Z) {
+     
+     		ourGameObject->MeshData.texcoords[Z * 2] = meshLoad->mTextureCoords[0][Z].x;
+     		ourGameObject->MeshData.texcoords[Z * 2 + 1] = meshLoad->mTextureCoords[0][Z].y;
+     	}
+     }
+     
+     App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
+     App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
+     if (ourGameObject->MeshData.texcoords != NULL) {
+     	App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
+     }
+     App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
+     
+     
+	 TextureInfo TextureLoad;
+     
+	 TextureLoad = App->textureImporter->CreateTexturesNodeMap(map, scene, file_path);
+     
+	std::string PathToLoad= TextureLoad.texture_path.c_str();
+     
+     if (PathToLoad != "") {
+     
+     	LOGFIX(PathToLoad.c_str());
+     
 	
+     	ourGameObject->TextureData = App->textureImporter->LoadTextureImage(PathToLoad.c_str());
+		ourGameObject->TextureData.Colour = TextureLoad.Colour;
+     }
+     else {
+		 ourGameObject->TextureData.Colour = TextureLoad.Colour;
+     	LOGFIX("Mesh Node Has No Texture, Aplying Colour");
+     }
+     
+     
+     /*if (ParentIsFound == true) {
+     
+     	AddMeshToListMeshesOnScene(ourGameObject, true, NULL);
+     }
+     else {
+     	AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
+     }*/
+     
+     
+     ChildrenToAddList.push_back(ourGameObject);
+     
+     
 
 	//Free memory
 	//aiReleaseImport(scene);

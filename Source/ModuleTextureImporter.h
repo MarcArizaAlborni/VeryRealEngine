@@ -17,7 +17,7 @@ struct TextureInfo {
 	uint texture_id = 0; // id of the texture in opengl
 	std::string texture_name=""; // name of the texture
 	std::string texture_path = ""; // path to the texture file
-
+	Color Colour;
 
 };
 

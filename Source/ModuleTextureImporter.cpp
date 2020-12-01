@@ -130,13 +130,10 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 	std::string texName;
 	std::string	texExtension;
 
-	aiColor4D color;
-	if (material->Get(AI_MATKEY_COLOR_DIFFUSE, color) == aiReturn_SUCCESS)										
-	{
-		
+	aiColor4D colorMat = { 0,0,0,0 };
 
 
-	}
+	
 
 	aiString tex_path;
 
@@ -153,11 +150,20 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 
 			Texture = App->textureImporter->LoadTextureImage(texName.c_str());
 			Texture.texture_path = texName;
+
+			
 			// Redundant: r_material and r_texture will store the tex_id.
 		}
 	}
 	
-	
+	if (material->Get(AI_MATKEY_COLOR_DIFFUSE, colorMat) == aiReturn_SUCCESS)
+	{
+		Texture.Colour.r = colorMat.r;
+		Texture.Colour.g = colorMat.g;
+		Texture.Colour.b = colorMat.b;
+		Texture.Colour.a = colorMat.a;
+
+	}
 	
 
 	return Texture;

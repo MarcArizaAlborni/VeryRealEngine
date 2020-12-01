@@ -178,7 +178,7 @@ private:
 
 
 public:
-	Quat RotationValue = { -0.7,0,0,0.7 }; // THIS IS THE ERROR IN THE ROTATION IMPORT
+	Quat RotationValue = { -0.707106769,0,0,0.707106769 }; // THIS IS THE ERROR IN THE ROTATION IMPORT
 	Quat RotationImportedVal;
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);

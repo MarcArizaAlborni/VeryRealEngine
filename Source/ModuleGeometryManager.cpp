@@ -80,7 +80,8 @@ update_status ModuleGeometryManager::Update(float dt)
 		++IteratorPositionModifierFamily;
 	}
 
-	glColor4f(0.5f, 0.5, 0.5f, 1.0f);
+	
+	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	GameObject* Item;
 	GameObject* Item2;
 
@@ -227,6 +228,7 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 				else {
 					Rot = Quat::identity;
 				}
+
 				Quat Rot2 = { Mesh->Mesh_Transform_Modifiers.VectorRotation.x,Mesh->Mesh_Transform_Modifiers.VectorRotation.y,Mesh->Mesh_Transform_Modifiers.VectorRotation.z,Mesh->Mesh_Transform_Modifiers.VectorRotation.angle };
 				
 				
@@ -315,10 +317,14 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	//Transform_Mesh_Translation(mesh, mesh->Mesh_Transform_Modifiers.VectorTranslation, ZeroArray);
-	//Transform_Mesh_Scale(mesh, mesh->Mesh_Transform_Modifiers.VectorScale, OneArray);
-	//Transform_Mesh_Rotation(mesh, mesh->Mesh_Transform_Modifiers.VectorRotation, ZeroArray);
+	//glColor4f(0.49f, 0.74f, 0.24f, 1.0f);
 
+	if (mesh->TextureData.Colour.r != NULL) {
+		//glColor4f(0.49f, 0.74f, 0.24f, 1.0f);
+
+		mesh->TextureData.Colour.r;
+	    glColor4f(mesh->TextureData.Colour.r, mesh->TextureData.Colour.g, mesh->TextureData.Colour.b, mesh->TextureData.Colour.a);
+	}
 
 
 	Transform_Mesh_Draw(mesh);
@@ -344,10 +350,11 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 			glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id);
 			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 		}
+		else {
+			
+			
+		}
 	}
-
-	
-	
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.id_vertex);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -366,6 +373,9 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	
 
 	glPopMatrix();
+
+	//glColor4f(mesh->TextureData.Colour.r, mesh->TextureData.Colour.g, mesh->TextureData.Colour.b, mesh->TextureData.Colour.a);
+	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	
 }
 
