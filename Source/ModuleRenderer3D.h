@@ -30,7 +30,7 @@ public:
 	void GenerateVertexBuffer(Vertex_Sub* vertex, uint& size, uint& id_vertex);
 	void GenerateIndexBuffer(uint* index, uint& size, uint& id_index);
 	void GenerateTextBuffer(float* text_coords, uint& num_text_coords, uint& id_text_coords);
-	void GenerateNormalBuffer(GameObject* mesh, Vertex_Sub& normals);
+	void GenerateNormalBuffer(GameObject* mesh, Vertex_Sub* normals);
 
 public:
 

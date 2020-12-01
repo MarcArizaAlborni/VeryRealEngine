@@ -149,7 +149,7 @@ void ModuleRenderer3D::GenerateTextBuffer(float* text_coords, uint& num_text_coo
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ModuleRenderer3D::GenerateNormalBuffer(GameObject* mesh, Vertex_Sub& normals)
+void ModuleRenderer3D::GenerateNormalBuffer(GameObject* mesh, Vertex_Sub* normals)
 {
 	if (mesh->MeshData.normals != nullptr) {
 		if (mesh->MeshData.id_normals != NULL) {

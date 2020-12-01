@@ -183,7 +183,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 				App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
 				App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
 				App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
-				App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
+				App->renderer3D->GenerateNormalBuffer(ourGameObject, ourGameObject->MeshData.normals);
 
 
 				if (ParentHasFound == true) {
@@ -271,7 +271,7 @@ void ModuleMeshImporter::LoadMesh(const char* file_path,bool LoadfromWAF)
 				App->renderer3D->GenerateVertexBuffer(ourGameObject->MeshData.vertex, ourGameObject->MeshData.num_vertex, ourGameObject->MeshData.id_vertex);
 				App->renderer3D->GenerateIndexBuffer(ourGameObject->MeshData.index, ourGameObject->MeshData.num_index, ourGameObject->MeshData.id_index);
 				App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
-				App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
+				App->renderer3D->GenerateNormalBuffer(ourGameObject, ourGameObject->MeshData.normals);
 
 
 				if (ParentHasFound == true) {
@@ -531,7 +531,7 @@ void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const ch
      if (ourGameObject->MeshData.texcoords != NULL) {
      	App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
      }
-     App->renderer3D->GenerateNormalBuffer(ourGameObject, *ourGameObject->MeshData.normals);
+     App->renderer3D->GenerateNormalBuffer(ourGameObject, ourGameObject->MeshData.normals);
      
      
 	 TextureInfo TextureLoad;
