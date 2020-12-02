@@ -5,6 +5,7 @@
 #include "Globals.h"
 
 class Application;
+#include "Globals.h"
 
 class Module
 {
