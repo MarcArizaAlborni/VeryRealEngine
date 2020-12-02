@@ -57,25 +57,18 @@ bool ModuleGeometryManager::Start()
 
 		//Mesh->AddComponent(Component_Types::Mesh);
 
-		
-
 		Component_Mesh* Cmp = (Component_Mesh*) Mesh->AddComponent(Component_Types::Mesh);
 		Component_Texture* Txt = (Component_Texture*)Mesh->AddComponent(Component_Types::Texture);
 		Component_Transform* Tra = (Component_Transform*)Mesh->AddComponent(Component_Types::Transform);
 		
-
-
 		if (Cmp != nullptr) {
 
 			Cmp->Mesh->id_index; // Aixi es fa
 			Txt->Texture->height;//
 			Tra->Transformations->EulerRot;
 
-
-
 		}
 		
-
 		++it;
 	}
 	
@@ -93,9 +86,7 @@ update_status ModuleGeometryManager::Update(float dt)
 
 	UpdateGameObjectTransforms();
 
-
 	App->meshimporter->LoadedTexturesList.size();
-
 
 	GameObject* MoveAsFamily;
 	GameObject* MoveAsFamilyChild;
@@ -121,7 +112,6 @@ update_status ModuleGeometryManager::Update(float dt)
 		++IteratorPositionModifierFamily;
 	}
 
-	
 	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	GameObject* Item;
 	GameObject* Item2;
@@ -167,7 +157,6 @@ bool ModuleGeometryManager::CleanUp()
 	return true;
 }
 
-
 // Draws a cube
 void ModuleGeometryManager::DrawCube()
 {
@@ -188,8 +177,6 @@ void ModuleGeometryManager::DrawCylinder()
 {
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Primitives/Cylinder.FBX");
 }
-
-
 
 void ModuleGeometryManager::Transform_Mesh_Translation(GameObject* mesh, VectorTransformations Current, VectorTransformations New)
 {
