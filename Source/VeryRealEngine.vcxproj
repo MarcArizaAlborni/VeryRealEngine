@@ -167,6 +167,7 @@
     <ClInclude Include="libraries\mmgr\mmgr.h" />
     <ClInclude Include="libraries\mmgr\nommgr.h" />
     <ClInclude Include="libraries\Parson\parson.h" />
+    <ClInclude Include="libraries\PhysFS\include\physfs.h" />
     <ClInclude Include="ModuleGeometryManager.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />

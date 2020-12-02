@@ -7,6 +7,12 @@
 #include <windows.h>
 #include <stdio.h>
 
+// File System Directories
+#define LIBRARY_FOLDER "/Library/"
+#define LIBRARY_SCENE_FOLDER "/Library/Scenes/"
+#define LIBRARY_TEXTURES_FOLDER "/Library/Textures/"
+#define LIBRARY_MESH_FOLDER "/Library/Meshes/"
+#define LIBRARY_MODELS_FOLDER "/Library/Models/"
 
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 

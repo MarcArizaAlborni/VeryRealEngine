@@ -159,7 +159,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 						LOGFIX("Importing Mesh(fbx) with DropFile: Path-> %s", Drop_Path);
 						const char* path_file = Drop_Path.c_str();
-						App->meshimporter->LoadMesh(path_file);
+						App->meshimporter->LoadFile_Mesh(path_file);
 						SDL_free((char*)path_file);
 
 				}
@@ -168,7 +168,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 					LOGFIX("Importing Mesh(FBX) with DropFile: Path-> %s", Drop_Path);
 					const char* path_file = Drop_Path.c_str();
-					App->meshimporter->LoadMesh(path_file);
+					App->meshimporter->LoadFile_Mesh(path_file);
 					SDL_free((char*)path_file);
 
 				}

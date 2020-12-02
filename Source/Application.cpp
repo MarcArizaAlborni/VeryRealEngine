@@ -271,7 +271,6 @@ int Application::GiveRandomNum_Undefined()
 
 int Application::GiveRandomNum_Defined(int Min, int Max)
 {
-	
 	return 0;
 }
 

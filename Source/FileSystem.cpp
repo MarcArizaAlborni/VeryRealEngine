@@ -1,429 +1,237 @@
 #include "Globals.h"
 #include "Application.h"
+#include "Definitions.h"
 #include "FileSystem.h"
-#include "ModuleMeshImporter.h"
-#include "ModuleEditor.h"
-#include "libraries/Assimp/Assimp/include/cimport.h"
-#include "libraries/Assimp/Assimp/include/scene.h"
-#include "libraries/Assimp/Assimp/include/postprocess.h"
-#pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
-#include <fstream>
-#include <iostream>
-#include <filesystem>
-namespace fs = std::filesystem;
+#include "libraries/PhysFS/include/physfs.h"
+#include "libraries/Assimp/Assimp/include/cfileio.h"
+#include "libraries/Assimp/Assimp/include/types.h"
 
+#pragma comment( lib, "libraries/PhysFS/libx86/physfs.lib" )
 
-
-ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool start_enabled) : Module(app, "SaveLoad", start_enabled)
+ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool start_enabled) : Module(app, "FileSystem", start_enabled)
 {
-	// WE ARE FINE FORMAT: THE FUTURE, TODAY
-}
+	// Init PhysFS
+	char* base_path = SDL_GetBasePath();
+	PHYSFS_init(base_path);
+	SDL_free(base_path);
 
-ModuleFileSystem::~ModuleFileSystem()
-{
-	
+	// Default Path
+	AddPath(".");
 
-}
-
-int ModuleFileSystem::CheckExistence_Mesh(StoredFile Information)
-{
-	//CHECKS IF THE FILE IS ALREADY STORED IN THE LIBARY
-
-	// Returns 0 if it doesnt exist
-	// FALSE IF ITS NOT
-	int unique_id;
-	int RetUnique_id;
-	if (StoredFilesListed.size() != 0) {
-
-		std::vector<StoredFile>::iterator IteratorFile = StoredFilesListed.begin();
-		for (int pos = 0; pos < StoredFilesListed.size(); ++pos) {
-
-			StoredFile File = *IteratorFile;
-			unique_id = File.unique_id;
-			if (File.TypeOfItem == "mesh") {
-
-				if (File.Scene->mNumMeshes != Information.Scene->mNumMeshes) {
-
-					for (int item = 0; item < Information.Scene->mNumMeshes; ++item) {
-
-						aiMesh* MeshToCheck = Information.Scene->mMeshes[item];
-
-						aiMesh* MeshInList = File.Scene->mMeshes[item];
-
-						if (MeshInList->mNumVertices != MeshToCheck->mNumVertices) {
-
-							if (MeshInList->mNumFaces != MeshToCheck->mNumFaces) {
-
-								if (MeshInList->mVertices != MeshToCheck->mVertices) {
-
-									if (MeshInList->mFaces != MeshToCheck->mFaces) {
-
-										if (MeshInList->mTextureCoords != MeshToCheck->mTextureCoords) {
-
-										}
-										else {
-
-											item = Information.Scene->mNumMeshes;
-											pos = StoredFilesListed.size();
-											return unique_id;
-										}
-									}
-									else {
-
-										item = Information.Scene->mNumMeshes;
-										pos = StoredFilesListed.size();
-										return unique_id;
-									}
-								}
-								else {
-
-									item = Information.Scene->mNumMeshes;
-									pos = StoredFilesListed.size();
-									return unique_id;
-								}
-							}
-							else {
-
-								item = Information.Scene->mNumMeshes;
-								pos = StoredFilesListed.size();
-								return unique_id;
-							}
-						}
-						else {
-
-							item = Information.Scene->mNumMeshes;
-							pos = StoredFilesListed.size();
-							return unique_id;
-						}
-					}
-				}
-				else {
-
-					pos = StoredFilesListed.size();
-					return unique_id;
-				}
-			}
-			++IteratorFile;
-		}
-	}
-	else {
-		FILE* fptr2;
-		StoredFile ToCheckInfo2;
-		int a;
-		std::string type;
-		if ((fptr2 = fopen("Assets/Library/22597.waf", "rb")) == NULL) {
-
-		}
-		else {
-			//fread(&ToCheckInfo2, sizeof(StoredFile), sizeof(StoredFile), fptr2);
-
-			//fread(&a, sizeof(int), sizeof(int), fptr2);
-			//fread(&type, sizeof(std::string), sizeof(std::string), fptr2);
-
-			//fread(&Information.Scene, sizeof(const aiScene*), sizeof(const aiScene*), fptr2);
-
-			//fread(&Information.Scene, sizeof(const aiScene*), sizeof(const aiScene*), fptr2);
-		}
-		
-		std::string path = "Assets/Library/";
-		for (const auto& entry : fs::directory_iterator(path)) {
-
-			StoredFile ToCheckInfo;
-			
-			//Existing File
-			std::string PathName = entry.path().string();
-			const char* PathName_C = PathName.c_str();
-
-			//Generating File
-			//std::string Id_C = std::to_string(RetUnique_id);
-			std::string Direction = "Assets/Library/";
-			
-			std::string FinalPath =  PathName;
-			const char* FinalPath_C = FinalPath.c_str();
-
-			//TestingReadErrors(FinalPath_C, Information); 
-			
-			if ((fptr2 = fopen(FinalPath_C, "rb")) == NULL) {
-
-			}
-			else {
-
-				fread(&ToCheckInfo, sizeof(StoredFile), sizeof(StoredFile), fptr2);
-
-
-				
-				RetUnique_id = ToCheckInfo.unique_id;
-
-				if (ToCheckInfo.Scene->mNumMeshes != Information.Scene->mNumMeshes) {
-
-					for (int item = 0; item < Information.Scene->mNumMeshes; ++item) {
-
-						aiMesh* MeshToCheck = Information.Scene->mMeshes[item];
-
-						aiMesh* MeshInList = ToCheckInfo.Scene->mMeshes[item];
-
-						if (MeshInList->mNumVertices != MeshToCheck->mNumVertices) {
-
-							if (MeshInList->mNumFaces != MeshToCheck->mNumFaces) {
-
-								if (MeshInList->mVertices != MeshToCheck->mVertices) {
-
-									if (MeshInList->mFaces != MeshToCheck->mFaces) {
-
-										if (MeshInList->mTextureCoords != MeshToCheck->mTextureCoords) {
-
-										}
-										else {
-
-											item = Information.Scene->mNumMeshes;
-											
-											return RetUnique_id;
-										}
-									}
-									else {
-
-										item = Information.Scene->mNumMeshes;
-										
-										return RetUnique_id;
-									}
-								}
-								else {
-
-									item = Information.Scene->mNumMeshes;
-									
-									return RetUnique_id;
-								}
-							}
-							else {
-
-								item = Information.Scene->mNumMeshes;
-								
-								return RetUnique_id;
-							}
-						}
-						else {
-
-							item = Information.Scene->mNumMeshes;
-							
-							return RetUnique_id;
-						}
-					}
-				}
-				else {
-
-					return RetUnique_id;
-				}
-			}
-
-			fclose(fptr2);
-		}
-	}
-	
-	return 0;
-}
-
-bool ModuleFileSystem::GenerateLibraryFile(int id)
-{
-	FILE* fptr;
-
-    
-	std::string Direction = "Assets/Library/";
-	std::string Extension = ".waf";
-
-
-
-	const char* idconversion_C;
-	
-	
-	std::string idconversion = std::to_string(id);
-
-	
-
-	std::string FinalPath = Direction + idconversion + Extension;
-	const char* FinalPath_C = FinalPath.c_str();
-
-	
-
-	
-	struct threeNum
+	if (0 && name != nullptr)
 	{
-		int n1, n2, n3;
+		AddPath(name);
+	}
+
+	// Creates an empty file if the dir is not found
+	if (PHYSFS_setWriteDir(".") == 0)
+	{
+		LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
+	}
+		
+	// Check if standard paths exist
+	const char* paths[] = {
+		LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER, LIBRARY_MODELS_FOLDER,LIBRARY_SCENE_FOLDER
 	};
 
-	int n;
-	int abc = 20000;
-	
-	int id_index = 3; // index in VRAM
-	int num_index = 9765; // amount of indexes in a mesh
-	
-	int id_vertex = 67; // unique vertex in VRAM
-	int num_vertex = 1034; // amount of vertex in a mesh
-	
-	int num_texcoords = 39; // amount of coordinates of the texture in the mesh
-	int texcoords_id = 165; // id of the coordinate of the texture in the mesh
-
-	const char* TextureName = "Mesh Object A"; // name of the current texture aplied to the mesh
-
-	int id_normals = 9; // id of the normals in the mesh
-
-	struct threeNum num;
-	const char* Name = "Square";
-	const char* NameRet;
-
-
-	if ((fptr = fopen(FinalPath_C, "wb")) == NULL) {
-		
-	}
-	else {
-
-		fwrite(&id_index, sizeof(int), 1, fptr);
-		fwrite(&num_index, sizeof(int), 1, fptr);
-		fwrite(&id_vertex, sizeof(int), 1, fptr);
-		fwrite(&num_vertex, sizeof(int), 1, fptr);
-        fwrite(&num_texcoords, sizeof(int), 1, fptr);
-        fwrite(&texcoords_id, sizeof(int), 1, fptr);
-        fwrite(&TextureName, sizeof(const char*), 1, fptr);
-        fwrite(&id_normals, sizeof(int), 1, fptr);
-
+	for (uint i = 0; i < sizeof(paths) / sizeof(const char*); ++i)
+	{
+		// Adds to the existing dirs your path
+		if (PHYSFS_exists(paths[i]) == 0)
+		{
+			PHYSFS_mkdir(paths[i]);
+		}
+			
 	}
 
-	fclose(fptr);
+}
 
-	int id_index2;
-	int num_index2; // amount of indexes in a mesh
+// Destructor
+ModuleFileSystem::~ModuleFileSystem()
+{
+	PHYSFS_deinit();
+}
 
-	int id_vertex2;// unique vertex in VRAM
-	int num_vertex2; // amount of vertex in a mesh
-
-	int num_texcoords2; // amount of coordinates of the texture in the mesh
-	int texcoords_id2; // id of the coordinate of the texture in the mesh
-
-	const char* TextureName2; // name of the current texture aplied to the mesh
-
-
-	int id_normals2; // id of the normals in the mesh
-
-	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
-
-	}
-	else {
-
-
-		fread(&id_index2, sizeof(int), 1, fptr);
-		fread(&num_index2, sizeof(int), 1, fptr);
-		fread(&id_vertex2, sizeof(int), 1, fptr);
-		fread(&num_vertex2, sizeof(int), 1, fptr);
-		fread(&num_texcoords2, sizeof(int), 1, fptr);
-		fread(&texcoords_id2, sizeof(int), 1, fptr);
-		fread(&TextureName2, sizeof(const char*), 1, fptr);
-		fread(&id_normals2, sizeof(int), 1, fptr);
-
-
-
-	}
-
-
-	fclose(fptr);
-
+// Called before quitting
+bool ModuleFileSystem::CleanUp()
+{
+	LOG("Freeing File System subsystem");
 
 	return true;
 }
 
-void ModuleFileSystem::GenerateLibraryFile_Mesh(int id, StoredFile Information)
+bool ModuleFileSystem::AddPath(const char* path_or_zip)
 {
-	
+	bool ret = false;
 
-	//Generating the Name/Path of the file
-	std::string Direction = "Assets/Library/";
-	std::string Extension = ".waf";
-	std::string idconversion = std::to_string(id);
-	std::string FinalPath = Direction + idconversion + Extension;
-	const char* FinalPath_C = FinalPath.c_str();
-	Information.unique_id = id;
-	Information.TypeOfItem = "We are Fine";
-	
+	//Add an archive or directory to the search path.
 
-
-	FILE* FileW;
-	if ((FileW = fopen(FinalPath_C, "wb")) == NULL) {
-
+	if (PHYSFS_mount(path_or_zip, nullptr, 1) == 0)
+	{
+		LOG("File System error while adding a path or zip: %s\n", PHYSFS_getLastError());
 	}
-	else {
+	else
+	{
+		ret = true;
+	}
 		
+	return ret;
+}
+
+// Checks if a file exists
+bool ModuleFileSystem::Exists(const char* file) const
+{
+	return PHYSFS_exists(file) != 0;
+}
+
+// Checks if a file is inside a directory
+bool ModuleFileSystem::IsDirectory(const char* file) const
+{
+	return PHYSFS_isDirectory(file) != 0;
+}
+
+// Adds a directory
+void ModuleFileSystem::CreateDirectory(const char* directory)
+{
+	PHYSFS_mkdir(directory);
+}
+
+//Gets a file listing of a search path's directory.
+
+void ModuleFileSystem::DiscoverFiles(const char* directory, std::vector<std::string>& file_list, std::vector<std::string>& direction_list) const
+{
+	char** rc = PHYSFS_enumerateFiles(directory);
+
+	std::string dir(directory);
+
+	for (char** i = rc; *i != nullptr; i++)
+	{
+		if (PHYSFS_isDirectory((dir + *i).c_str()))
+		{
+			direction_list.push_back(*i);
+		}
+		else
+		{
+			file_list.push_back(*i);
+		}
 	}
 
-	fclose(FileW);
-
-	
-
-	
-
-	
-	
-	
-	
-
-	StoredFilesListed.push_back(Information);
-
-
-	
-
-	
+	PHYSFS_freeList(rc);
 }
 
-StoredFile ModuleFileSystem::LoadLibraryFile_Mesh(int id)
+bool ModuleFileSystem::CopyFromOutsideFS(const char* full_path, const char* destination)
 {
-	StoredFile FileToReturn;
-	FILE* fptr;
-	std::string Direction = "Assets/Library/";
-	std::string Extension = ".waf";
-	std::string idconversion = std::to_string(id);
-	std::string FinalPath = Direction + idconversion + Extension;
-	const char* FinalPath_C = FinalPath.c_str();
+	// Only place we acces non virtual filesystem (defined functions)
+	bool ret = false;
 
-	
+	char buf[8192];
+	size_t size;
 
-	if ((fptr = fopen(FinalPath_C, "rb")) == NULL) {
+	FILE* source = nullptr;
+	fopen_s(&source, full_path, "rb");
+	PHYSFS_file* dest = PHYSFS_openWrite(destination);
 
+	if (source && dest)
+	{
+		while (size = fread_s(buf, 8192, 1, 8192, source))
+		{
+			PHYSFS_write(dest, buf, 1, size);
+		}
+			
+		fclose(source);
+		PHYSFS_close(dest);
+		ret = true;
+
+		LOG("File System copied from [%s] to [%s]", full_path, destination);
 	}
-	else {
-
-
-		fread(&FileToReturn, sizeof(StoredFile), 1, fptr);
-
+	else
+	{
+		LOG("File System error while copying from [%s] to [%s]", full_path, destination);
 	}
 
-	fclose(fptr);
-
-	return FileToReturn;
+	return ret;
 }
 
-bool ModuleFileSystem::Start()
+bool ModuleFileSystem::Copy(const char* source, const char* destination)
 {
-	
+	bool ret = false;
 
-	return true;
+	char buf[8192];
+
+	PHYSFS_file* src = PHYSFS_openRead(source);
+	PHYSFS_file* dst = PHYSFS_openWrite(destination);
+
+	PHYSFS_sint32 size;
+
+	if (src && dst)
+	{
+		while (size = (PHYSFS_sint32)PHYSFS_read(src, buf, 1, 8192))
+		{
+			PHYSFS_write(dst, buf, 1, size);
+		}
+
+		PHYSFS_close(src);
+		PHYSFS_close(dst);
+		ret = true;
+
+		LOG("File System copied form [%s] to [%s]", source, destination);
+	}
+	else
+	{
+		LOG("File System error while copy from [%s] to [%s]", source, destination);
+	}
+		
+	return ret;
 }
 
-update_status ModuleFileSystem::Update(float dt)
+// Force to always use lowercase and / as folder separator
+char normalize_char(char c)
 {
-	
-	return UPDATE_CONTINUE;
+	if (c == '\\')
+	{
+		return '/';
+	}
+
+	return tolower(c);
 }
 
-void ModuleFileSystem::TestingReadErrors(const char* filename, StoredFile FileToSave)
+std::string ModuleFileSystem::NormalizeNodePath(const char* full_path)
 {
-	FILE* FileR;
+	std::string normalized_path(full_path);
 
+	for (uint i = 0; i < normalized_path.size(); ++i)
+	{
+		if (normalized_path[i] == '\\')
+		{
+			normalized_path[i] = '/';
+		}
+	}
 
-	
+	return normalized_path;
 }
 
-void ModuleFileSystem::CorrectPathFile(const char* full_path, std::string* path, std::string* file, std::string* extension)
+void ModuleFileSystem::NormalizePath(std::string& full_path) const
+{
+	for (std::string::iterator it = full_path.begin(); it != full_path.end(); ++it)
+	{
+		if (*it == '\\')
+		{
+			*it = '/';
+		}
+			
+		else
+		{
+			*it = tolower(*it);
+		}	
+	}
+}
+
+void ModuleFileSystem::SplitFilePath(const char* full_path, std::string* path, std::string* file, std::string* extension) const
 {
 	if (full_path != nullptr)
 	{
 		std::string full(full_path);
+		NormalizePath(full);
 		size_t pos_separator = full.find_last_of("\\/");
 		size_t pos_dot = full.find_last_of(".");
 
@@ -438,238 +246,199 @@ void ModuleFileSystem::CorrectPathFile(const char* full_path, std::string* path,
 		if (file != nullptr)
 		{
 			if (pos_separator < full.length())
-				*file = full.substr(pos_separator + 1, pos_dot - pos_separator - 1);
+				*file = full.substr(pos_separator + 1);
 			else
-				*file = full.substr(0, pos_dot);
+				*file = full;
 		}
 
 		if (extension != nullptr)
 		{
 			if (pos_dot < full.length())
+			{
 				*extension = full.substr(pos_dot + 1);
+				if (file != nullptr)
+					file->resize(file->length() - extension->length() - 1);
+			}
 			else
 				extension->clear();
 		}
 	}
 }
 
-void ModuleFileSystem::SaveInformationFile_Mesh(int id, StoredFile FileToStore)
+bool ModuleFileSystem::IsInDirectory(const char* directory, const char* p)
 {
+	bool ret = true;
 
-	//Generating the Name/Path of the file
-	std::string Direction = "Assets/Library/";
-	std::string Extension = ".waf";
-	std::string idconversion = std::to_string(id);
-	std::string FinalPath = Direction + idconversion + Extension;
-	const char* FinalPath_C = FinalPath.c_str();
-	FileToStore.unique_id = id;
-	FileToStore.TypeOfItem = "Mesh";
+	std::string dir = directory;
+	std::string path = p;
 
-	std::string TypeOfFile = "Mesh";
-
-	FILE* FileW;
-
-	
-	
-	if ((FileW = fopen(FinalPath_C, "wb")) == NULL) {
-
+	std::size_t found = path.find(dir);
+	if (found != std::string::npos)
+	{
+		ret = true;
 	}
-	else {
+	else
+	{
+		ret = false;
+	}
 
-		fwrite(&id, sizeof(int), 1, FileW); // 1
-		fwrite(&TypeOfFile, sizeof(std::string), 1, FileW);//2
+	return ret;
+}
+
+bool ModuleFileSystem::RemovePath(std::string* directory, const char* p)
+{
+	bool ret = true;
+
+	std::size_t found = directory->find(p);
+
+	if (found != std::string::npos)
+	{
+		directory->erase(found, 6);
+		ret = true;
+	}
+	else
+	{
+		ret = false;
+	}
 		
-		uint WnumMeshes = FileToStore.Scene->mNumMeshes;
-		fwrite(&WnumMeshes, sizeof(uint), 1, FileW); // 3
-		
-		for (int mMeshesSize = 0; mMeshesSize < WnumMeshes; ++mMeshesSize) {
-		
-			uint WnumVertices = FileToStore.Scene->mMeshes[mMeshesSize]->mNumVertices;
+	return ret;
+}
 
-			fwrite(&WnumVertices, sizeof(uint), 1, FileW); // 4
-	
-			for (int mVerticesSize = 0; mVerticesSize < WnumVertices; ++mVerticesSize) {
+unsigned int ModuleFileSystem::Load(const char* path, const char* file, char** buffer) const
+{
+	std::string full_path(path);
+	full_path += file;
+	return Load(full_path.c_str(), buffer);
+}
 
-				float WVerticesX = FileToStore.Scene->mMeshes[mMeshesSize]->mVertices[mVerticesSize].x;
-				float WVerticesY = FileToStore.Scene->mMeshes[mMeshesSize]->mVertices[mVerticesSize].y;
-				float WVerticesZ = FileToStore.Scene->mMeshes[mMeshesSize]->mVertices[mVerticesSize].z;
+// Read a file and writes it on a buffer
+uint ModuleFileSystem::Load(const char* file, char** buffer) const
+{
+	uint ret = 0;
+	PHYSFS_file* fs_file = PHYSFS_openRead(file);
 
-				fwrite(&WVerticesX, sizeof(float), 1, FileW);  //5
-				fwrite(&WVerticesY, sizeof(float), 1, FileW);  //6
-				fwrite(&WVerticesZ, sizeof(float), 1, FileW);  //7
+	if (fs_file != nullptr)
+	{
+		PHYSFS_sint32 size = (PHYSFS_sint32)PHYSFS_fileLength(fs_file);
 
-				float WVerticesTexX = FileToStore.Scene->mMeshes[mMeshesSize]->mTextureCoords[0][mVerticesSize].x;
-				float WVerticesTexY = FileToStore.Scene->mMeshes[mMeshesSize]->mTextureCoords[0][mVerticesSize].y;
-				float WVerticesTexZ = FileToStore.Scene->mMeshes[mMeshesSize]->mTextureCoords[0][mVerticesSize].z;
-
-				fwrite(&WVerticesTexX, sizeof(float), 1, FileW);  //5
-				fwrite(&WVerticesTexY, sizeof(float), 1, FileW);  //6
-				fwrite(&WVerticesTexZ, sizeof(float), 1, FileW);  //7
-
-				float WNormX = FileToStore.Scene->mMeshes[mMeshesSize]->mNormals[mVerticesSize].x;
-				float WNormY = FileToStore.Scene->mMeshes[mMeshesSize]->mNormals[mVerticesSize].y;
-				float WNormZ = FileToStore.Scene->mMeshes[mMeshesSize]->mNormals[mVerticesSize].z;
-
-				fwrite(&WNormX, sizeof(float), 1, FileW);  //5
-				fwrite(&WNormY, sizeof(float), 1, FileW);  //6
-				fwrite(&WNormZ, sizeof(float), 1, FileW);  //7
-
-				
+		if (size > 0)
+		{
+			*buffer = new char[size];
+			uint readed = (uint)PHYSFS_read(fs_file, *buffer, 1, size);
+			if (readed != size)
+			{
+				LOG("File System error while reading %s: %s\n", file, PHYSFS_getLastError());
+				RELEASE(buffer);
 			}
-
-			uint WnumFaces = FileToStore.Scene->mMeshes[mMeshesSize]->mNumFaces;
-
-			fwrite(&WnumFaces, sizeof(uint), 1, FileW); // 8
-
-			for (int mFacesSize = 0; mFacesSize < WnumFaces; ++mFacesSize) {
-
-				uint WnumIndex = FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mNumIndices;
-				fwrite(&WnumIndex, sizeof(uint), 1, FileW); // 9
-
-
-				//this
-
-				uint* WIndex1 = &FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices[0];
-				uint* WIndex2 = &FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices[1];
-				uint* WIndex3 = &FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices[2];
-				
-
-				uint WindexV1 = *WIndex1; // IT WRITESBUT WHEN READING IT JUST DOESNT WORK
-				uint WindexV2 = *WIndex2; // IT WRITESBUT WHEN READING IT JUST DOESNT WORK
-				uint WindexV3 = *WIndex3; // IT WRITESBUT WHEN READING IT JUST DOESNT WORK
-
-				fwrite(&WindexV1, sizeof(uint), 1, FileW);
-				fwrite(&WindexV2, sizeof(uint), 1, FileW);
-				fwrite(&WindexV3, sizeof(uint), 1, FileW);
-				//or this
-
-				//for (int mIndexSize = 0; mIndexSize < WnumIndex; ++mIndexSize) {
-
-				//	uint WIndex =FileToStore.Scene->mMeshes[mMeshesSize]->mFaces[mFacesSize].mIndices[mIndexSize];
-				//	fwrite(&WIndex, sizeof(uint), 1, FileW); // 10
-				//}
-
-			    //not both
-
-
-
-				
+			else
+			{
+				ret = readed;
 			}
 		}
 
+		if (PHYSFS_close(fs_file) == 0)
+		{
+			LOG("File System error while closing  %s: %s\n", file, PHYSFS_getLastError());
+		}
 	}
-
-	fclose(FileW);
-
+	else
+	{
+		LOG("File System error while opening %s: %s\n", file, PHYSFS_getLastError());
+	}
+		
+	return ret;
 }
 
-LoadedFile* ModuleFileSystem::LoadInformationFile_Mesh(int id)
+SDL_RWops* ModuleFileSystem::Load(const char* file) const
 {
+	char* buffer;
+	int size = Load(file, &buffer);
 
-	LoadedFile* FileToLoad = new LoadedFile();
-	std::string Direction = "Assets/Library/";
-	std::string Extension = ".waf";
-	std::string idconversion;
-
-		idconversion = std::to_string(id);
-	
-	
-	std::string FinalPath = Direction + idconversion + Extension;
-	const char* FinalPath_C = FinalPath.c_str();
-	
-	
-
-
-	FILE* FileR;
-	if ((FileR = fopen(FinalPath_C, "rb")) == NULL) {
-
+	if (size > 0)
+	{
+		SDL_RWops* r = SDL_RWFromConstMem(buffer, size);
+		if (r != nullptr)
+		{
+			r->close = close_sdl_rwops;
+		}
+		
+		return r;
 	}
-	else {
-		fread(&FileToLoad->File_Id, sizeof(int), 1, FileR);
-		fread(&FileToLoad->FileType, sizeof(std::string), 1, FileR);
-		fread(&FileToLoad->AmountMeshes, sizeof(uint), 1, FileR);
+	else
+	{
+		return nullptr;
+	}
+		
+}
 
-		for (int mMeshCount = 0; mMeshCount < FileToLoad->AmountMeshes; ++mMeshCount) {
-
-			LoadedFile_Mesh LoadedMesh;
-
-			fread(&LoadedMesh.AmountVertex, sizeof(uint), 1, FileR);
-
-			for (int mVertexCount = 0; mVertexCount < LoadedMesh.AmountVertex; ++mVertexCount) {
-
-				Vertex_Sub Vertex;
-
-				Vertex_Sub TexCoords;
-
-				Vertex_Sub Normals;
-				
+int close_sdl_rwops(SDL_RWops* rw)
+{
+	RELEASE_ARRAY(rw->hidden.mem.base);
+	SDL_FreeRW(rw);
+	return 0;
+}
 
 
-				fread(&Vertex.x, sizeof(float), 1, FileR);
-				fread(&Vertex.y, sizeof(float), 1, FileR);
-				fread(&Vertex.z, sizeof(float), 1, FileR);
+// Saves all buffers to disk
+uint ModuleFileSystem::Save(const char* file, const void* buffer, unsigned int size, bool append) const
+{
+	unsigned int ret = 0;
 
+	bool overwrite = PHYSFS_exists(file) != 0;
+	PHYSFS_file* fs_file = (append) ? PHYSFS_openAppend(file) : PHYSFS_openWrite(file);
 
-				fread(&TexCoords.x, sizeof(float), 1, FileR);
-				fread(&TexCoords.y, sizeof(float), 1, FileR);
-				fread(&TexCoords.z, sizeof(float), 1, FileR);
-
-				fread(&Normals.x, sizeof(float), 1, FileR);
-				fread(&Normals.y, sizeof(float), 1, FileR);
-				fread(&Normals.z, sizeof(float), 1, FileR);
-
-				
-
-				LoadedMesh.Vertex.push_back(Vertex);
-				LoadedMesh.TextureCoords.push_back(TexCoords);
-				LoadedMesh.Normal.push_back(Normals);
-
+	if (fs_file != nullptr)
+	{
+		uint written = (uint)PHYSFS_write(fs_file, (const void*)buffer, 1, size);
+		if (written != size)
+		{
+			LOG("File System error while writing to file %s: %s", file, PHYSFS_getLastError());
+		}
+		else
+		{
+			if (append == true)
+			{
+				LOG("Added %u data to [%s%s]", size, PHYSFS_getWriteDir(), file);
 			}
+			else if (overwrite == false)
+			{
+				LOG("New file created [%s%s] of %u bytes", PHYSFS_getWriteDir(), file, size);
+			}
+				
+			ret = written;
+		}
 
-			fread(&LoadedMesh.AmountFaces, sizeof(uint), 1, FileR);
-
-			for (int mFaceCount = 0; mFaceCount < LoadedMesh.AmountFaces; ++mFaceCount) {
-
-				LoadedFile_Mesh_Faces LoadedFace;
-
-				fread(&LoadedFace.AmountIndex, sizeof(uint), 1, FileR);
-
-				//this 
-
-				unsigned int RIndex1;
-				unsigned int RIndex2;
-				unsigned int RIndex3;
-	
-				fread(&RIndex1, sizeof(uint), 1, FileR);
-				fread(&RIndex2, sizeof(uint), 1, FileR);
-				fread(&RIndex3, sizeof(uint), 1, FileR);
+		if (PHYSFS_close(fs_file) == 0)
+		{
+			LOG("File System error while closing file %s: %s", file, PHYSFS_getLastError());
+		}
 			
-
-				// AQUI ESTA EL ERROR
-				
-				LoadedFace.indexV1 = RIndex1;
-				LoadedFace.indexV2 = RIndex2;
-				LoadedFace.indexV3 = RIndex3;
-				
-				
-				LoadedMesh.FaceInfo.push_back(LoadedFace);
-			}
-
-			FileToLoad->MeshInfo.push_back(LoadedMesh);
-		}
-		
 	}
-
-	FileToLoad;
-	
-
-	fclose(FileR);
-
-	LoadedResources.push_back(*FileToLoad);
-
-	return FileToLoad;
+	else
+	{
+		LOG("File System error while opening file %s: %s", file, PHYSFS_getLastError());
+	}
+		
+	return ret;
 }
 
+bool ModuleFileSystem::Remove(const char* file)
+{
+	bool ret = false;
+
+	if (file != nullptr)
+	{
+		if (PHYSFS_delete(file) == 0)
+		{
+			LOG("File deleted: [%s]", file);
+			ret = true;
+		}
+		else
+			LOG("File System error while trying to delete [%s]: ", file, PHYSFS_getLastError());
+	}
+
+	return ret;
+}
 
 std::string ModuleFileSystem::GetFileAndExtension(const char* path)
 {
@@ -677,7 +446,7 @@ std::string ModuleFileSystem::GetFileAndExtension(const char* path)
 	std::string file = "";
 	std::string extension = "";															// Just for safety check purposes.
 
-	full_path = NormalizePath(full_path.c_str());											// Will swap all '\\' for '/'.														
+	full_path = NormalizeNodePath(full_path.c_str());											// Will swap all '\\' for '/'.														
 
 	size_t file_start = full_path.find_last_of("/");									// Gets the position of the last '/' of the string. Returns npos if none was found.
 	size_t extension_start = full_path.find_last_of(".");									// Gets the position of the last '.' of the string. Returns npos if none was found.
@@ -703,113 +472,3 @@ std::string ModuleFileSystem::GetFileAndExtension(const char* path)
 
 	return full_path;
 }
-
-
-void ModuleFileSystem::SplitFilePath(const char* full_path, std::string* path, std::string* file, std::string* extension) const
-{
-	if (full_path != nullptr)
-	{
-		std::string full(full_path);
-		size_t pos_separator = full.find_last_of("\\/");
-		size_t pos_dot = full.find_last_of(".");
-
-		if (path != nullptr)
-		{
-			if (pos_separator < full.length())
-				*path = full.substr(0, pos_separator + 1);
-			else
-				path->clear();
-		}
-
-		if (file != nullptr)
-		{
-			if (pos_separator < full.length())
-				*file = full.substr(pos_separator + 1, pos_dot - pos_separator - 1);
-			else
-				*file = full.substr(0, pos_dot);
-		}
-
-		if (extension != nullptr)
-		{
-			if (pos_dot < full.length())
-				*extension = full.substr(pos_dot + 1);
-			else
-				extension->clear();
-		}
-	}
-}
-
-std::string ModuleFileSystem::NormalizePath(const char* full_path)
-{
-	std::string normalized_path(full_path);
-
-	for (uint i = 0; i < normalized_path.size(); ++i)
-	{
-		if (normalized_path[i] == '\\')
-		{
-			normalized_path[i] = '/';
-		}
-	}
-
-	return normalized_path;
-}
-
-
-
-bool ModuleFileSystem::CleanUp()
-{
-	return true;
-}
-
-void ModuleFileSystem::ToBinary_String(std::string stringname)
-{
-	
-	ConvertedVec.clear();
-	int n = stringname.length();
-	
-	std::string item = "";
-	for (int i = 0; i <= n; i++)
-	{
-		// convert each char to 
-		// ASCII value 
-		int val = int(stringname[i]);
-
-		// Convert ASCII value to binary 
-		
-		while (val > 0)
-		{
-			(val % 2) ? item.push_back('1') :
-				item.push_back('0');
-			val /= 2;
-		}
-		
-		reverse(item.begin(), item.end());
-		
-
-
-		LOGFIX(item.c_str());
-
-		ConvertedVec.push_back(item);
-		
-
-	}
-	
-}
-
-void ModuleFileSystem::CreateConsolelog(const char file[], int line, const char* format, ...)
-{
-	static char tmp_string[4096];
-	static char tmp_string2[4096];
-	static va_list  ap;
-
-	// Construct the string from variable arguments
-	va_start(ap, format);
-	vsprintf_s(tmp_string, 4096, format, ap);
-	va_end(ap);
-	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
-	OutputDebugString(tmp_string2);
-
-
-	App->editor->ConsoleLogs.push_back(tmp_string2);
-}
-

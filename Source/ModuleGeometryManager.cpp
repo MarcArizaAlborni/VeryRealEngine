@@ -145,7 +145,7 @@ bool ModuleGeometryManager::CleanUp()
 // Draws a cube
 void ModuleGeometryManager::DrawCube()
 {
-	App->meshimporter->LoadMesh("Assets/Models/Primitives/Cube.FBX");
+	App->meshimporter->LoadFile_Mesh("Assets/Models/Primitives/Cube.FBX");
 }
 
 void ModuleGeometryManager::DrawPyramid()
@@ -155,12 +155,12 @@ void ModuleGeometryManager::DrawPyramid()
 
 void ModuleGeometryManager::DrawSphere()
 {
-	App->meshimporter->LoadMesh("Assets/Models/Primitives/Sphere.FBX");
+	App->meshimporter->LoadFile_Mesh("Assets/Models/Primitives/Sphere.FBX");
 }
 
 void ModuleGeometryManager::DrawCylinder()
 {
-	App->meshimporter->LoadMesh("Assets/Models/Primitives/Cylinder.FBX");
+	App->meshimporter->LoadFile_Mesh("Assets/Models/Primitives/Cylinder.FBX");
 }
 
 
@@ -311,7 +311,7 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 
 void ModuleGeometryManager::DrawPlane()
 {
-	App->meshimporter->LoadMesh("Assets/Models/Primitives/Plane.FBX");
+	App->meshimporter->LoadFile_Mesh("Assets/Models/Primitives/Plane.FBX");
 }
 
 void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)

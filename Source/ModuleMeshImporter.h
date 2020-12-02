@@ -137,7 +137,7 @@ public:
 	// LIST MESH STUFF
 
 	//Mesh Import functions 
-	void LoadMesh(const char* file_path,bool LoadfromWAF=false);
+	//void LoadMesh(const char* file_path,bool LoadfromWAF=false);
 	
 	void LoadFile_Mesh(const char* file_path);
 
