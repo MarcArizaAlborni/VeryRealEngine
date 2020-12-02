@@ -22,8 +22,8 @@ public:
 	void CleanUp() override;
 	
 
-	MeshInfo* GetMesh() const { return Mesh; };
-	std::string GetPath()const { return File_Path; };
+	MeshInfo* GetMesh() const;
+	std::string GetPath()const;
 
 	void CreateMesh(MeshInfo* mesh);
 	void CreatePath(std::string path);

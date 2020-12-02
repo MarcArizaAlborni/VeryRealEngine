@@ -28,6 +28,16 @@ void Component_Mesh::CleanUp()
 {
 }
 
+MeshInfo* Component_Mesh::GetMesh() const
+{
+	return this->Mesh;
+}
+
+std::string Component_Mesh::GetPath() const
+{
+	return File_Path; 
+}
+
 void Component_Mesh::CreateMesh(MeshInfo* mesh)
 {
 	this->Mesh = mesh;

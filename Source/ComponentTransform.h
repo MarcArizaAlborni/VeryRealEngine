@@ -30,8 +30,6 @@ class Component_Transform : public Component
 {
 public:
 
-
-
 	TransformsInfo* Transformations;
 	
 	bool UpdateTransformations = false;
