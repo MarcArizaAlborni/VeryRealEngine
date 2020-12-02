@@ -35,7 +35,7 @@ public:
 	std::vector<Game_Object*> Children_List;
 	std::vector<Component*> Component_List;
 
-	Component* AddComponent(Component* Component);
+	Component* AddComponent(Component_Types typus);
 	Component* GetComponent(Component_Types type);
 
 

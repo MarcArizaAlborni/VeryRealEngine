@@ -6,6 +6,7 @@
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
+#include "Component.h"
 
 Game_Object::Game_Object(std::string name) : name(name), Enabled(true)
 {
@@ -21,39 +22,69 @@ void Game_Object::GenerateToParent(Game_Object* Parent)
 {
 }
 
-Component* Game_Object::AddComponent(Component* component)
+Component* Game_Object::AddComponent(Component_Types typus)
 {
 	Component* Ret = nullptr;
 
-	
-	switch (component->type) {
+	bool UniqueComponent = false;
 
-	case(Component_Types::None):
+	switch (typus) {
 
-		break;
-
-	case(Component_Types::Mesh):
+	case Component_Types::None:
+		LOG("[WARNING] The Emptyness of a component has been added to GameObject");
 		
 		break;
 
-	case(Component_Types::Transform):
+	case Component_Types::Mesh:
+		LOG("[WARNING]Component Mesh added to GameObject");
+
+		Ret = new Component_Mesh(this);
+		UniqueComponent = true;
+		
+		break;
+
+	case Component_Types::Transform:
+		LOG("[WARNING]Component Transform added to GameObject");
+
+		Ret = new Component_Mesh(this);
+		UniqueComponent = true;
+
 
 		break;
 
-	case(Component_Types::Camera):
+	case Component_Types::Camera:
+		LOG("[WARNING]Component Camera added to GameObject");
 
+		//Ret = new Component_Mesh(this); WIP
+		UniqueComponent = true;
 		break;
 
-	case(Component_Types::Texture):
+	case Component_Types::Texture:
+		LOG("[WARNING]Component Texture added to GameObject");
 
+		Ret = new Component_Texture(this);
+
+		UniqueComponent = true;
 		break;
 
 	default:
-		//
+		LOG("[WARNING]Error when adding Component");
 		break;
 	}
 
-	Component_List.push_back(component);
+	if (Ret != nullptr) {
+
+		if (UniqueComponent) {
+
+
+
+		}
+
+		Component_List.push_back(Ret);
+	}
+	else {
+		LOG("[WARNING] Component doesn't exist");
+	}
 
 	return nullptr;
 }

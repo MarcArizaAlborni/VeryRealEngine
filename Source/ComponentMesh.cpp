@@ -38,7 +38,7 @@ void Component_Mesh::CreatePath(std::string path)
 	this->File_Path = path;
 }
 
-Component_Mesh::Component_Mesh(GameObject* owner_) : Component(owner)
+Component_Mesh::Component_Mesh(Game_Object* owner) :Component(owner)
 {
 	Mesh = nullptr;
 	File_Path = "none";
@@ -47,7 +47,7 @@ Component_Mesh::Component_Mesh(GameObject* owner_) : Component(owner)
 
 }
 
-Component_Mesh::Component_Mesh(GameObject* owner_, const char* file_path, MeshData* meshInfo): Component(owner)
+Component_Mesh::Component_Mesh(Game_Object* owner, const char* file_path, MeshData* meshInfo): Component(owner)
 {
 	Mesh = meshInfo;
 	File_Path = file_path;

@@ -31,11 +31,11 @@ public:
 	void CreatePath(std::string path);
 
 
-	Component_Mesh(GameObject* Parent);
-	Component_Mesh(GameObject* Parent, const char* file_path, MeshData* meshInfo = nullptr);
+	Component_Mesh(Game_Object* owner);
+	Component_Mesh(Game_Object* owner, const char* file_path, MeshData* meshInfo = nullptr);
 
 
-
+	
 };
 
 #endif

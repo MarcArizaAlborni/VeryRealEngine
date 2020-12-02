@@ -41,6 +41,14 @@ void Component_Transform::UpdateEulerAngles()
 {
 }
 
+Component_Transform::Component_Transform(Game_Object* parent) :Component(parent)
+{
+}
+
+Component_Transform::Component_Transform(Game_Object* parent, float3 position, float3 scale, Quat rotation) : Component(parent)
+{
+}
+
 Component_Transform::~Component_Transform()
 {
 }
