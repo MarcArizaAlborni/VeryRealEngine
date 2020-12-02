@@ -88,7 +88,13 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentCamera.h" />
+    <ClInclude Include="ComponentMesh.h" />
+    <ClInclude Include="ComponentTexture.h" />
+    <ClInclude Include="ComponentTransform.h" />
     <ClInclude Include="Definitions.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="libraries\DevIL\include\config.h" />
     <ClInclude Include="libraries\DevIL\include\devil_internal_exports.h" />
     <ClInclude Include="libraries\DevIL\include\il.h" />
@@ -299,6 +305,10 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="ComponentMesh.cpp" />
+    <ClCompile Include="ComponentTexture.cpp" />
+    <ClCompile Include="ComponentTransform.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Algorithm\Random\LCG.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Geometry\AABB.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Geometry\Capsule.cpp" />

@@ -10,7 +10,7 @@
 #include "ModuleMeshImporter.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-
+#include "GameObject.h"
 #include "libraries/MathGeoLib/include/MathGeoLib.h"
 #include "libraries/MathGeoLib/include/MathBuildConfig.h"
 
@@ -37,7 +37,22 @@ bool ModuleGeometryManager::Init()
 
 bool ModuleGeometryManager::Start()
 {
+	 ObjectsOnScene.size();
 
+	//Game_Object* Mesh = *It;
+
+	Game_Object* Item = new Game_Object("SUICIDIO");
+
+	ObjectsOnScene.push_back(Item);
+
+
+	std::vector<Game_Object*>::iterator it=ObjectsOnScene.begin();
+	for (int i = 0; i < ObjectsOnScene.size(); ++i) {
+		Game_Object* Mesh = *it;
+
+		++it;
+	}
+	
 	return true;
 }
 

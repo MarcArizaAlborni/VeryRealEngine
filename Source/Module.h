@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 class Application;
+#include "Globals.h"
 
 class Module
 {

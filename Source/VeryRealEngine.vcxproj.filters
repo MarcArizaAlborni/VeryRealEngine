@@ -184,6 +184,18 @@
     <ClCompile Include="Game_Time.cpp">
       <Filter>Source\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentMesh.cpp">
+      <Filter>Source\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTexture.cpp">
+      <Filter>Source\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTransform.cpp">
+      <Filter>Source\Objects\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -813,6 +825,24 @@
     <ClInclude Include="Game_Time.h">
       <Filter>Source\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Source\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTransform.h">
+      <Filter>Source\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Source\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMesh.h">
+      <Filter>Source\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTexture.h">
+      <Filter>Source\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Source\Objects\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -874,6 +904,12 @@
     </Filter>
     <Filter Include="Source\Modules\UI\GameObjects\Components">
       <UniqueIdentifier>{92311fdd-2f2f-427c-a8b1-510342af5e52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Objects">
+      <UniqueIdentifier>{3fb782dd-3430-480d-8ec2-b6a5f270012a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Objects\Components">
+      <UniqueIdentifier>{e8058956-b6e5-45c8-970f-db8dc5ba3a25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
