@@ -23,6 +23,9 @@ public:
 
 	Component_Transform* Transformations = nullptr;
 	Component_Texture* Textures = nullptr;
+	Component_Mesh* Mesh = nullptr;
+	Component_Camera* Camera = nullptr;
+	
 
 
 	Game_Object* Parent = nullptr;
@@ -42,6 +45,9 @@ public:
 
 	void Enable();
 	void Disable();
+
+
+
 	
 
 	//MeshInfo MeshData; //Information about vertex and index related to the mesh
