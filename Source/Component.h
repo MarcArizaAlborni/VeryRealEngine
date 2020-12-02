@@ -31,7 +31,7 @@ public:
 	virtual void Update() {};
 	virtual void CleanUp() {};
 	
-	Component(Game_Object* owner_) : Enabled(true), owner(owner_), type(Component_Types::None) {};
+	Component(Game_Object* ComponentOwner) : Enabled(true), owner(ComponentOwner), type(Component_Types::None) {};
 
 
 };

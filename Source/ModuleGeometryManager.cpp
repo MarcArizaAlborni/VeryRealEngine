@@ -11,8 +11,11 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "GameObject.h"
+#include "Component.h"
+#include "ComponentMesh.h"
 #include "libraries/MathGeoLib/include/MathGeoLib.h"
 #include "libraries/MathGeoLib/include/MathBuildConfig.h"
+#include "ModuleMeshImporter.h"
 
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
@@ -49,6 +52,22 @@ bool ModuleGeometryManager::Start()
 	std::vector<Game_Object*>::iterator it=ObjectsOnScene.begin();
 	for (int i = 0; i < ObjectsOnScene.size(); ++i) {
 		Game_Object* Mesh = *it;
+
+		//Mesh->AddComponent(Component_Types::Mesh);
+
+		
+
+		Component_Mesh* Cmp = (Component_Mesh*) Mesh->AddComponent(Component_Types::Mesh);
+
+		if (Cmp != nullptr) {
+
+			Cmp->Mesh->id_index; // Aixi es fa
+
+
+
+
+		}
+		
 
 		++it;
 	}

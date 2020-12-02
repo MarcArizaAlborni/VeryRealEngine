@@ -7,15 +7,15 @@
 #include "ModuleGeometryManager.h"
 #include "ModuleGeometryManager.h"
 
-struct MeshData;
-
+struct MeshInfo;
 
 
 class Component_Mesh : public Component {
 
 public:
 
-	MeshData* Mesh;
+
+	MeshInfo* Mesh;
 	std::string File_Path;
 
 	void Enable() override;
@@ -24,15 +24,15 @@ public:
 	void CleanUp() override;
 	
 
-	MeshData* GetMesh() const { return Mesh; };
+	MeshInfo* GetMesh() const { return Mesh; };
 	std::string GetPath()const { return File_Path; };
 
-	void CreateMesh(MeshData* mesh);
+	void CreateMesh(MeshInfo* mesh);
 	void CreatePath(std::string path);
 
 
-	Component_Mesh(Game_Object* owner);
-	Component_Mesh(Game_Object* owner, const char* file_path, MeshData* meshInfo = nullptr);
+	Component_Mesh(Game_Object* ComponentOwner);
+	Component_Mesh(Game_Object* ComponentOwner, const char* file_path, MeshInfo* meshInfo = nullptr);
 
 
 	

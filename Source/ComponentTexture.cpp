@@ -16,14 +16,14 @@ void Component_Texture::CleanUp()
 {
 }
 
-Component_Texture::Component_Texture(Game_Object* owner_): Component(owner_)
+Component_Texture::Component_Texture(Game_Object* ComponentOwner): Component(ComponentOwner)
 {
 }
 
-Component_Texture::Component_Texture(Game_Object* owner_, const char* texturePath, unsigned int id):Component(owner_)
+Component_Texture::Component_Texture(Game_Object* ComponentOwner, const char* texturePath, unsigned int id):Component(ComponentOwner)
 {
 }
 
-Component_Texture::Component_Texture(Game_Object* owner_, TextureInfo* rMaterial):Component(owner_)
+Component_Texture::Component_Texture(Game_Object* ComponentOwner, TextureInfo* rMaterial):Component(ComponentOwner)
 {
 }

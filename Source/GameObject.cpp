@@ -33,6 +33,7 @@ Component* Game_Object::AddComponent(Component_Types typus)
 	case Component_Types::None:
 		LOG("[WARNING] The Emptyness of a component has been added to GameObject");
 		
+
 		break;
 
 	case Component_Types::Mesh:
@@ -63,8 +64,8 @@ Component* Game_Object::AddComponent(Component_Types typus)
 		LOG("[WARNING]Component Texture added to GameObject");
 
 		Ret = new Component_Texture(this);
-
 		UniqueComponent = true;
+
 		break;
 
 	default:
@@ -76,7 +77,18 @@ Component* Game_Object::AddComponent(Component_Types typus)
 
 		if (UniqueComponent) {
 
+			for (int i = 0; i < Component_List.size(); ++i) {
 
+				if (typus == Component_List[i]->type) {
+					LOG("[WARNING] Component to be added already exists!");
+
+					delete Ret;
+					Ret = nullptr;
+					return nullptr;
+
+				}
+			}
+			
 
 		}
 
@@ -86,7 +98,7 @@ Component* Game_Object::AddComponent(Component_Types typus)
 		LOG("[WARNING] Component doesn't exist");
 	}
 
-	return nullptr;
+	return Ret;
 }
 
 Component* Game_Object::GetComponent(Component_Types type)

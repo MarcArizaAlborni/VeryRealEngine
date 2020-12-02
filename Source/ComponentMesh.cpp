@@ -28,7 +28,7 @@ void Component_Mesh::CleanUp()
 {
 }
 
-void Component_Mesh::CreateMesh(MeshData* mesh)
+void Component_Mesh::CreateMesh(MeshInfo* mesh)
 {
 	this->Mesh = mesh;
 }
@@ -38,7 +38,7 @@ void Component_Mesh::CreatePath(std::string path)
 	this->File_Path = path;
 }
 
-Component_Mesh::Component_Mesh(Game_Object* owner) :Component(owner)
+Component_Mesh::Component_Mesh(Game_Object* ComponentOwner) :Component(ComponentOwner)
 {
 	Mesh = nullptr;
 	File_Path = "none";
@@ -47,7 +47,7 @@ Component_Mesh::Component_Mesh(Game_Object* owner) :Component(owner)
 
 }
 
-Component_Mesh::Component_Mesh(Game_Object* owner, const char* file_path, MeshData* meshInfo): Component(owner)
+Component_Mesh::Component_Mesh(Game_Object* ComponentOwner, const char* file_path, MeshInfo* meshInfo): Component(ComponentOwner)
 {
 	Mesh = meshInfo;
 	File_Path = file_path;
