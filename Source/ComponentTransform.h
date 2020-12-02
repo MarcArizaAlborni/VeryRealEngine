@@ -9,6 +9,7 @@
 
 #include "libraries/MathGeoLib/include/MathGeoLib.h"
 
+
 class Component_Transform : public Component
 
 {
@@ -51,7 +52,6 @@ public:
 	Component_Transform(Game_Object* parent); //DEFAULTS TO 0,0
 	Component_Transform(Game_Object* parent, float3 position, float3 scale, Quat rotation);
 	~Component_Transform();
-
 
 };
 

@@ -1,3 +1,7 @@
+
+
+
+
 #include "ComponentTransform.h"
 
 void Component_Transform::Enable()

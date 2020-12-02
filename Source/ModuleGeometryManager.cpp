@@ -13,6 +13,8 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentMesh.h"
+#include "ComponentTexture.h"
+#include "ComponentTransform.h"
 #include "libraries/MathGeoLib/include/MathGeoLib.h"
 #include "libraries/MathGeoLib/include/MathBuildConfig.h"
 #include "ModuleMeshImporter.h"
@@ -58,11 +60,16 @@ bool ModuleGeometryManager::Start()
 		
 
 		Component_Mesh* Cmp = (Component_Mesh*) Mesh->AddComponent(Component_Types::Mesh);
+		Component_Texture* Txt = (Component_Texture*)Mesh->AddComponent(Component_Types::Texture);
+		Component_Transform* Tra = (Component_Transform*)Mesh->AddComponent(Component_Types::Transform);
+		
+
 
 		if (Cmp != nullptr) {
 
 			Cmp->Mesh->id_index; // Aixi es fa
-
+			Txt->Texture->height;//
+			Tra->Translation;//
 
 
 
