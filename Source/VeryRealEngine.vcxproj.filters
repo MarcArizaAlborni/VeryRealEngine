@@ -190,6 +190,18 @@
     <ClCompile Include="libraries\Parson\parson.c">
       <Filter>Source\External Libraries\Parson</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentMesh.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTexture.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTransform.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -825,6 +837,24 @@
     <ClInclude Include="libraries\Parson\parson.h">
       <Filter>Source\External Libraries\Parson</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMesh.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTexture.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTransform.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -884,11 +914,11 @@
     <Filter Include="Source\FileManagers">
       <UniqueIdentifier>{00a18c22-98ef-47f0-bb66-a033bffb0718}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Modules\UI\GameObjects\Components">
-      <UniqueIdentifier>{92311fdd-2f2f-427c-a8b1-510342af5e52}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\External Libraries\Parson">
       <UniqueIdentifier>{7cff039a-dfc6-42b2-a201-fb04702339f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{1e95d1e2-293b-45e6-ba8a-fc41ebc5bdf4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
