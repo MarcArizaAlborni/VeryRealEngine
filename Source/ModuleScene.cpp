@@ -110,11 +110,22 @@ bool ModuleScene::LoadScene()
 	return true;
 }
 
-bool ModuleScene::SaveScene()
+void ModuleScene::SaveScene()
 {
-	bool ret = true;
+	JScene save_scene;
+	JScene save_node = save_scene.SetNode("Scene");
+
+	for (uint i = 0; i < App->list_modules.size(); i++)
+	{
+		App->list_modules[i]->SaveJScene(save_node.SetNode(App->list_modules[i]->name.c_str()));
+	}
+
+	char* buffer = nullptr;
+	uint size = save_scene.Serialize(&buffer);
+
 	
-	return ret;
+	// MISSING SYSTEM FILE SASVE FUNC
+
 }
 
 

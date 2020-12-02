@@ -65,7 +65,7 @@ public:
 	bool					renderPrimitives;
 
 
-private:
+public:
 
 	std::vector<Module*> list_modules;
 

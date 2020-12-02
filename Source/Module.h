@@ -1,5 +1,9 @@
 #pragma once
 #include <string>
+#include "libraries/Parson/parson.h"
+#include "JScene.h"
+#include "Globals.h"
+
 class Application;
 
 class Module
@@ -46,6 +50,12 @@ public:
 	{
 		return true;
 	}
+
+	virtual void SaveJScene(JScene& root) const
+	{}
+
+	virtual void LoadJScene(JScene& root)
+	{}
 
 	
 };

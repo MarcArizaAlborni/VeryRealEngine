@@ -184,6 +184,12 @@
     <ClCompile Include="Game_Time.cpp">
       <Filter>Source\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="JScene.cpp">
+      <Filter>Source\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\Parson\parson.c">
+      <Filter>Source\External Libraries\Parson</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -813,6 +819,12 @@
     <ClInclude Include="Game_Time.h">
       <Filter>Source\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="JScene.h">
+      <Filter>Source\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\Parson\parson.h">
+      <Filter>Source\External Libraries\Parson</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -875,6 +887,9 @@
     <Filter Include="Source\Modules\UI\GameObjects\Components">
       <UniqueIdentifier>{92311fdd-2f2f-427c-a8b1-510342af5e52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\External Libraries\Parson">
+      <UniqueIdentifier>{7cff039a-dfc6-42b2-a201-fb04702339f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="libraries\Assimp\Assimp\include\.editorconfig">
@@ -921,6 +936,9 @@
     </None>
     <None Include="libraries\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_SSE.inl">
       <Filter>Source\External Libraries\MathGeoLib</Filter>
+    </None>
+    <None Include="libraries\Parson\LICENSE">
+      <Filter>Source\External Libraries\Parson</Filter>
     </None>
   </ItemGroup>
 </Project>

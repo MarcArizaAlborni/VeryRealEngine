@@ -504,11 +504,6 @@ void ModuleEditor::CreateInsertPrimitivesWindow()
 				LOGFIX("Creating : Cube");
 				drawcube = true;
 			}
-			/*if (ImGui::MenuItem("Pyramid"))
-			{
-				LOGFIX("Pyramid Currently Not Available");
-				drawpyramid = true;
-			}*/
 			if (ImGui::MenuItem("Cylinder"))
 			{
 				LOGFIX("Creating : Cylinder");
@@ -559,6 +554,7 @@ void ModuleEditor::CreateBar_Play()
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }))
 		{
 			Game_Time::Start();
+			App->scene->SaveScene();
 			play_mode = true;
 			editor_mode = false;
 			

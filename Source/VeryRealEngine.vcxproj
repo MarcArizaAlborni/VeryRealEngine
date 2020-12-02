@@ -89,6 +89,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Definitions.h" />
+    <ClInclude Include="JScene.h" />
     <ClInclude Include="libraries\DevIL\include\config.h" />
     <ClInclude Include="libraries\DevIL\include\devil_internal_exports.h" />
     <ClInclude Include="libraries\DevIL\include\il.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="libraries\MathGeoLib\include\Time\Clock.h" />
     <ClInclude Include="libraries\mmgr\mmgr.h" />
     <ClInclude Include="libraries\mmgr\nommgr.h" />
+    <ClInclude Include="libraries\Parson\parson.h" />
     <ClInclude Include="ModuleGeometryManager.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
@@ -299,6 +301,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="JScene.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Algorithm\Random\LCG.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Geometry\AABB.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Geometry\Capsule.cpp" />
@@ -332,6 +335,7 @@
     <ClCompile Include="libraries\MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="libraries\mmgr\mmgr.cpp" />
+    <ClCompile Include="libraries\Parson\parson.c" />
     <ClCompile Include="ModuleGeometryManager.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="libraries\ImGui\imgui.cpp" />
@@ -375,6 +379,7 @@
     <None Include="libraries\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_CPP.inl" />
     <None Include="libraries\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_SSE.inl" />
     <None Include="libraries\MathGeoLib\include\Math\Matrix.inl" />
+    <None Include="libraries\Parson\LICENSE" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
