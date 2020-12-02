@@ -18,6 +18,9 @@ struct aiNode;
 struct StoredFile;
 struct aiMesh;
 
+
+
+
 struct MeshTransformation {
 
 	VectorTransformations VectorTranslation;   //Vector to determine the current position of the mesh in the world

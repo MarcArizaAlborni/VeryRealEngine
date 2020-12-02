@@ -2,18 +2,15 @@
 #ifndef __ComponentTransform_H__
 #define __ComponentTransform_H__
 
-#include "Component.h"
-//#include "Libraries/MathGeoLib/include/Math/float3.h"
-//#include "Dependencies/MathGeoLib/include/Math/float4x4.h"
-//#include "Dependencies/MathGeoLib/include/Math/Quat.h"
 
+#include "Component.h"
+#include "ModuleGeometryManager.h"
 #include "libraries/MathGeoLib/include/MathGeoLib.h"
 
 
-class Component_Transform : public Component
+struct TransformsInfo {
 
-{
-public:
+
 	float3 Translation = float3(0.f, 0.f, 0.f);
 	float3 Scale = float3(0.f, 0.f, 0.f);
 	Quat   Rotation = Quat::identity;
@@ -24,6 +21,19 @@ public:
 	float4x4 Local_Matrix;
 	float4x4 Global_Matrix;
 
+
+
+};
+
+
+class Component_Transform : public Component
+{
+public:
+
+
+
+	TransformsInfo* Transformations;
+	
 	bool UpdateTransformations = false;
 
 	void Enable()override;
@@ -33,16 +43,17 @@ public:
 
 	void UpdateTransformationsObjects(float3 translations, float3 scales, Quat rotations);
 
-	void SetPosition(float3 position) { this->Translation = position; UpdateLocalTransform(); };
-	void SetRotation(float3 position) { this->Rotation = Rotation; UpdateLocalTransform(); };
+	
+	void SetPosition(float3 position) { this->Transformations->Translation = position; UpdateLocalTransform(); };
+	void SetRotation(float3 position) { this->Transformations->Rotation = Transformations->Rotation; UpdateLocalTransform(); };
 	void SetEulerRotation(float3 eulerAngle);
-	void inline SetScale(float3 scale) { this->Scale = scale; UpdateLocalTransform(); };
+	void inline SetScale(float3 scale) { this->Transformations->Scale = scale; UpdateLocalTransform(); };
 
-	float3  GetPosition() const { return this->Translation; };
-	Quat  GetRotation() const { return this->Rotation; };
-	float3  GetScale() const { return this->Scale; };
-	float4x4  GetLocalTransform() const { return this->Local_Matrix; };
-	float4x4  GetGlobalTransform() const { return this->Global_Matrix; };
+	float3  GetPosition() const { return this->Transformations->Translation; };
+	Quat  GetRotation() const { return this->Transformations->Rotation; };
+	float3  GetScale() const { return this->Transformations->Scale; };
+	float4x4  GetLocalTransform() const { return this->Transformations->Local_Matrix; };
+	float4x4  GetGlobalTransform() const { return this->Transformations->Global_Matrix; };
 
 	void UpdateLocalTransform();
 	void UpdateGlobalTransform();
@@ -54,10 +65,5 @@ public:
 	~Component_Transform();
 
 };
-
-
-
-
-
 
 #endif

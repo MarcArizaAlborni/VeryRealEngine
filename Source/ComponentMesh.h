@@ -4,11 +4,9 @@
 
 #include "Component.h"
 #include "ModuleGeometryManager.h"
-#include "ModuleGeometryManager.h"
-#include "ModuleGeometryManager.h"
+
 
 struct MeshInfo;
-
 
 class Component_Mesh : public Component {
 

@@ -24,8 +24,6 @@ public:
 	bool Enabled;
 	Game_Object* owner;
 
-
-
 	virtual void Enable() {};
 	virtual void Disable() {};
 	virtual void Update() {};
@@ -33,13 +31,7 @@ public:
 	
 	Component(Game_Object* ComponentOwner) : Enabled(true), owner(ComponentOwner), type(Component_Types::None) {};
 
-
 };
-
-
-
-
-
 
 
 #endif

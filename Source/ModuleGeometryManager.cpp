@@ -69,7 +69,7 @@ bool ModuleGeometryManager::Start()
 
 			Cmp->Mesh->id_index; // Aixi es fa
 			Txt->Texture->height;//
-			Tra->Translation;//
+			Tra->Transformations->EulerRot;
 
 
 
