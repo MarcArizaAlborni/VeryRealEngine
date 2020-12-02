@@ -24,13 +24,8 @@ public:
 
 	bool ResetScene();
 	void SaveScene();
-	bool SaveGameObject(JScene go_scene, GameObject* obj, int* i);
+	/*bool SaveGameObject(JScene go_scene, GameObject* obj, int* i);*/
 	bool LoadScene();
-
-	JScene* scene = nullptr;
-
-	std::string point = ".";
-	std::string scene_name = "Scene01.scene";
 	
 
 public:
