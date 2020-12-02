@@ -10,15 +10,16 @@
 #include "ModuleMeshImporter.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+
+#include "libraries/MathGeoLib/include/MathGeoLib.h"
+#include "libraries/MathGeoLib/include/MathBuildConfig.h"
+#include "ModuleMeshImporter.h"
+
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
-#include "libraries/MathGeoLib/include/MathGeoLib.h"
-#include "libraries/MathGeoLib/include/MathBuildConfig.h"
-#include "ModuleMeshImporter.h"
-
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -354,8 +355,6 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 	    glColor4f(mesh->TextureData.Colour.r, mesh->TextureData.Colour.g, mesh->TextureData.Colour.b, mesh->TextureData.Colour.a);
 	}
 
-
-
 	Transform_Mesh_Draw(mesh);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -403,8 +402,7 @@ void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
 
 	glPopMatrix();
 
-	//glColor4f(mesh->TextureData.Colour.r, mesh->TextureData.Colour.g, mesh->TextureData.Colour.b, mesh->TextureData.Colour.a);
-	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	
 	
 }
 

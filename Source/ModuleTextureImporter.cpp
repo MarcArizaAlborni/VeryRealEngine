@@ -169,23 +169,7 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 	return Texture;
 }
 
-//TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node,const aiScene* scene, const char* file_path)
-//{
-//	TextureInfo Texture;
-//
-//	
-//	scene->mMaterials[Node.MaterialPositionArray].
-//
-//		Utilities::ImportMaterials(scene_path, ai_scene, ai_node, game_object);
-//
-//	aiString tex_path;
-//	if (ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path) == AI_SUCCESS)										// At the moment only DIFFUSE textures will be imported.
-//	{
-//		std::string file = App->file_system->GetFileAndExtension(tex_path.C_Str());
-//
-//
-//	return Texture;
-//}
+
 
 uint ModuleTextureImporter::SetUpTexture(const void* texture, uint width, uint height, int format, uint format2)
 {
@@ -299,35 +283,7 @@ void ModuleTextureImporter::ImportTexture()
 	
 }
 
-uint ModuleTextureImporter::SetUpTexture(const void* ImageInfo, int TexWidth, int TexHeight, int Border, int intFormat, uint format, uint Target, int FilterTypus, int WrapType)
-{
-	//GLuint Texture_Id;
-	//std::string FilterType; // GL_NEAREST and GL_LINEAR no implementation for mipmaps yet so these two are the only choices
-	//std::string TextureType = "2D";
 
-	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	//glGenTextures(1, &Texture_Id);
-	//glBindTexture(Target, Texture_Id);
-	//glTexParameteri(Target, GL_TEXTURE_WRAP_S, FilterTypus);
-	//glTexParameteri(Target, GL_TEXTURE_WRAP_T, FilterTypus);
-
-	//if (FilterTypus == GL_LINEAR) {
-	//	FilterType.assign("Linear");
-	//	glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//	glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-	//}
-	//else if (FilterTypus == GL_NEAREST) {
-	//	FilterType.assign("Nearest");
- //       glTexParameteri(Target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
- //       glTexParameteri(Target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	//	
-	//}
-	//glTexImage2D(Target, 0, intFormat, TexWidth, TexHeight, 0, format, GL_UNSIGNED_BYTE, ImageInfo);
-	//glBindTexture(Target, 0);
-	//return Texture_Id;
-	return 1;
-}
 
 void ModuleTextureImporter::freeTexture()
 {
@@ -345,7 +301,6 @@ void ModuleTextureImporter::freeTexture()
 TextureInfo ModuleTextureImporter::LoadCheckersTexture()
 {
 	GLubyte checkImage[64][64][4];
-
 
 
 	for (int i = 0; i < CHECKERS_WIDTH; i++)
