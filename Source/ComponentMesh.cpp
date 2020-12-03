@@ -26,8 +26,6 @@ void Component_Mesh::Update()
 	if (MeshDraw->is_Drawn) {
 		App->geometrymanager->DrawMeshTextured(owner);
 	}
-	
-	
 }
 
 void Component_Mesh::CleanUp()

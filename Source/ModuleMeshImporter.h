@@ -68,54 +68,6 @@ struct MeshInfo
 	uint id_normals=0;                       // id of the normals in the mesh
 };
 
-struct Object_Modifiers {
-
-	bool is_Selected;                        // if this mesh is currently selected 
-
-	bool is_Textured = true;                 // if this mesh is currently textured
-
-	bool is_Drawn = true;                    // if this mesh should be rendered
-
-	bool is_Wireframed = false;              // if this mesh is currently using wireframe to be drawn
-
-	bool is_Checkered = false;               // if the checkers texture is applied to the mesh
-
-	bool ToBeDrawInspector = false;          // if the mesh info should be drawn in the inspector
-
-	bool is_EmptyParent;                     // if the mesh is an empty parent or not
-
-	bool showFaceNormals = false;            //if we draw normals for faces 
-
-	bool showVertexNormals = false;          //if we draw normals for vertex
-
-	bool is_FamilyMove = false;              // if we apply transformations to each member of the family of this mesh
-
-};
-
-struct Object_Identifiers{
-	int item_id = 0;                        // id given to each mesh to able to manage game object lists more eficiently
-	std::string path = "";                  //Vector to determine the current position of the mesh in the world
-	std::string mesh_name;                 // Name given to the mesh that will be shown in the engine to the user
-};
-
-struct GameObject {
-     
-	MeshInfo MeshData; //Information about vertex and index related to the mesh
-
-	Object_Identifiers Identifiers;
-
-	Object_Modifiers Modifier;
-
-	std::string mesh_name; // Name given to the mesh that will be shown in the engine to the user
-
-	std::vector<GameObject*> ChildObjects; // vector of child game objects inside of a game object
-
-	MeshTransformation Mesh_Transform_Modifiers; // vectors for mesh transformation
-
-	TextureInfo TextureData; // information of the texture applied to the mesh
-
-};
-
 struct NodeMap {
 
 	std::vector<NodeMap> Children;
@@ -137,47 +89,32 @@ public:
 
 public:
 
-	// LIST MESH STUFF
-
-	//Mesh Import functions 
-	//void LoadMesh(const char* file_path,bool LoadfromWAF=false);
+	// LIST MESH 
 	
 	void LoadFile_Mesh(const char* file_path);
 
 	void ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node, Game_Object* Parent);
 	std::vector<NodeMap> NodeMapList;
 
-	void CreateGameObjectsByNodes(const aiScene* scene, const char* file_path,aiMesh* meshLoad, const aiNode* node, NodeMap map);
 	std::vector<MeshInfo*> LoadSceneMeshes(const aiScene* scene, const char* file_path, const aiNode* node);
 	void CreateMaterials(aiMaterial* material, Game_Object* Object);
 	//List of meshes active
 	 //CurrentActive meshes list
 	std::vector<TextureInfo*> LoadedTexturesList; // Currently Loaded textures list
-	std::vector<GameObject*> LoadedMeshesList; //Currently Loaded textures list
 
 	// Load Assimp Node Info
 
 	vec3 LoadNodeInfo(const aiScene* scene, aiNode* rootNode);
-	// Add a mesh to the list
 	
-	//Object to add, if its a child and who is the parent
-	//void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent=NULL,bool parentfound=false);
+
 
 private:
-
-
-	std::vector<GameObject*> ChildrenToAddList;
-	//void CreateChildsWithParent(bool WithParent);
 	
 	float3 PositionValue;
 	float3 ScaleValue;
 	
 public:
 
-	Quat RotationValue = { -0.707106769,0,0,0.707106769 }; // THIS IS THE ERROR IN THE ROTATION IMPORT
-	//Quat RotationValue = Quat::identity; // THIS IS THE ERROR IN THE ROTATION IMPORT
-
-	Quat RotationImportedVal;
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
 	void CreateConsolelog(const char file[], int line, const char* format, ...);

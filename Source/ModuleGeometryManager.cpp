@@ -284,32 +284,3 @@ void ModuleGeometryManager::CreateConsolelog(const char file[], int line, const 
 
 	App->editor->ConsoleLogs.push_back(tmp_string2);
 }
-
-
-
-//TRANSFORMS
-
-
-
-// 1. TENEMOS LOS 3 VECTORES
-
-// 2. Float4x4:: FromTRS-> we get a 4x4 matrix and we set the local transforms
-
-// 3. Update worlds transforms using world from parent
-
-// 4.glPushpatrix & GLmultMatrix.transposed(); (USE THE ONE WITH FINAL D) USE MATRIX FROM WORLD 
-
-
-
-
-
-
-//IMPORT VECTORS
-
-//FROM TRS
-
-//PASAR MATRIX 4X4 A LOCAL TRANSFORM DEL OBJETO
-
-//GENERAR WORLD TRANSFORM CON WORLD TRANSFORM DEL PARENT * LOCAL DEL MESH
-
-//MULTIMATRIX.TRANSPOSED();
