@@ -117,14 +117,10 @@ update_status ModuleInput::PreUpdate(float dt)
 			if (e.wheel.y > 0) {
 				float posx = 3;
 				
-				//App->camera->Position.x -= posx;
-				
 			}
 
 			if (e.wheel.y < 0) {
 				float posx = 3;
-
-				//App->camera->Position.x -= posx;
 
 			}
 

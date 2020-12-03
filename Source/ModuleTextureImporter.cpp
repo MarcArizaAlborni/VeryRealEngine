@@ -316,8 +316,6 @@ TextureInfo ModuleTextureImporter::LoadCheckersTexture()
 		}
 	}
 
-	//me cago en las putas texturas de los hyevos
-
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glGenTextures(1, &TextureCheckers.texture_id);
 	glBindTexture(GL_TEXTURE_2D, TextureCheckers.texture_id);

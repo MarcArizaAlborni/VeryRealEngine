@@ -122,11 +122,7 @@ public:
 	int value;
 private:
 
-	///// DEFINITIONS  ///////
 	std::string SaveFileName;
-
-	
-
 
 };
 

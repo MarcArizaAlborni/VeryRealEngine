@@ -118,8 +118,6 @@ bool Application::Init()
 	return ret;
 }
 
-
-
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
@@ -174,8 +172,6 @@ void Application::FinishUpdate()
 	{
 		SDL_Delay(capped_ms - last_frame_ms);
 	}
-	
-
 
 }
 
@@ -285,18 +281,12 @@ void Application::RequestBrowser(const char* url) const
 	ShellExecuteA(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
 }
 
-
-
 float Application::GetDT()
 {
 	return dt;
 }
 
-// SAVE & LOAD
-
 
 Application* App = nullptr;;
 
 
-//
-//
