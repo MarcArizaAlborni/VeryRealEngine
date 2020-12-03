@@ -78,6 +78,10 @@ public:
 
 	int CheckImportedFileType(std::string string1, std::string string2);
 
+private:
+	void CheckSelectedChild(Game_Object* Object,TextureInfo Texture);
+
+
 public:
 
 	bool ExitEngine;
