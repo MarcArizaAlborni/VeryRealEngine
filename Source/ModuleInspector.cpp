@@ -105,34 +105,12 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo()
                     SomethingDrawn=LookForChildrenToBeDrawn(ChildFoundDraw);
                     ++ChildIteratorLoaded;
 
-					//if (ChildFoundDraw->ToBeDrawInspector == true) {
-                    //
-					//	Component_Mesh* MeshComp2 = (Component_Mesh*)ChildFoundDraw->GetComponent(Component_Types::Mesh);
-					//	Component_Texture* TexComp2 = (Component_Texture*)ChildFoundDraw->GetComponent(Component_Types::Texture);
-					//	Component_Transform* TransComp2 = (Component_Transform*)ChildFoundDraw->GetComponent(Component_Types::Transform);
-                    //
-					//	SomethingDrawn = true;
-                    //
-					//	DrawObjectInfo(ChildFoundDraw, MeshComp2, TexComp2, TransComp2);
-                    //
-					//	itB = ItemToDraw->Children_List.size();
-					//}
-					//else {
-                    //
-					//	++ChildIteratorLoaded;
-					//}
+					
 				}
 			}
 		}
 
-		//if (SomethingDrawn == false) {
-        //
-        //
-        //
-		//	ImGui::SetWindowFontScale(1.5);
-		//	ImGui::Text("No Objects Selected");
-		//	ImGui::SetWindowFontScale(1.0);
-		//}
+		
 
 		ImGui::End();
 	}
@@ -226,31 +204,24 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     if (ImGui::CollapsingHeader("Transformation")) {
     
         //NEEDS WORK
-    	/*if (ImGui::DragFloat3("Position", { &item->Mesh_Transform_Modifiers.VectorTranslation.x }, 0.2f, 0.0, 0.0, "%.2f")) { item->Mesh_Transform_Modifiers.TransformsUpdated = true; }
+    	if (ImGui::DragFloat3("Position", { &TransInfo->Translation.x }, 0.2f, 0.0, 0.0, "%.2f")) { 
+            TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
+        }
+        float3 DisplayVecRot=TransInfo->Rotation.ToEulerXYZ();
+
+    	if (ImGui::DragFloat3("Rotation", { &DisplayVecRot.x }, 0.02f, 0.0, 1.0, "%.2f")) {
     
-    	Quat val;
-    
-    
-    	val = Quat::FromEulerXYZ(item->Mesh_Transform_Modifiers.VectorEulerRotation.x,
-    		item->Mesh_Transform_Modifiers.VectorEulerRotation.y, item->Mesh_Transform_Modifiers.VectorEulerRotation.z);
-    
-    
-    
-    
-    
-    	if (ImGui::DragFloat3("Rotation", { &item->Mesh_Transform_Modifiers.VectorEulerRotation.x }, 0.02f, 0.0, 1.0, "%.3f")) {
-    
-    
-    		item->Mesh_Transform_Modifiers.TransformsUpdated = true;
-    		item->Mesh_Transform_Modifiers.VectorRotation.x = val.x;
-    		item->Mesh_Transform_Modifiers.VectorRotation.y = val.y;
-    		item->Mesh_Transform_Modifiers.VectorRotation.z = val.z;
-    		item->Mesh_Transform_Modifiers.VectorRotation.angle = val.w;
-    
+           Quat NewRot = Quat::FromEulerXYZ(DisplayVecRot.x, DisplayVecRot.y, DisplayVecRot.z);
+
+           TransInfo->Rotation = NewRot;
+
+            TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
     	}
-    	if (ImGui::DragFloat3("Scale", { &item->Mesh_Transform_Modifiers.VectorScale.x }, 0.2f, 0.0, 0.0, "%.2f")) { item->Mesh_Transform_Modifiers.TransformsUpdated = true; }
+    	if (ImGui::DragFloat3("Scale", { &TransInfo->Scale.x }, 0.2f, 0.0, 0.0, "%.2f")) {
+            TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
+        }
     
-    	ImGui::Checkbox("Move Family", &item->Modifier.is_FamilyMove);*/
+    	//ImGui::Checkbox("Move Family", &item->Modifier.is_FamilyMove);
     
     	ImGui::Separator();
     }
