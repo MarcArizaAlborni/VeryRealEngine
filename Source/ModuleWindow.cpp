@@ -1,7 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "ModuleScene.h"
 #include "ModuleEditor.h"
+#include "GameObject.h"
 
 
 ModuleWindow::ModuleWindow(Application* app, const char* name, bool start_enabled) : Module(app,"Window", start_enabled)
@@ -72,6 +74,8 @@ bool ModuleWindow::Init()
 			screen_surface = SDL_GetWindowSurface(window);
 		}
 	}
+
+
 
 	return ret;
 }

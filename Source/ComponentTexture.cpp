@@ -24,6 +24,8 @@ Component_Texture::Component_Texture(Game_Object* ComponentOwner, const char* te
 {
 }
 
-Component_Texture::Component_Texture(Game_Object* ComponentOwner, TextureInfo* rMaterial):Component(ComponentOwner)
+Component_Texture::Component_Texture(Game_Object* ComponentOwner, TextureInfo* material):Component(ComponentOwner)
 {
+	Texture = material;
+	type = Component_Types::Texture;
 }

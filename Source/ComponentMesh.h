@@ -32,7 +32,7 @@ public:
 	Component_Mesh(Game_Object* ComponentOwner);
 	Component_Mesh(Game_Object* ComponentOwner, const char* file_path, MeshInfo* meshInfo = nullptr);
 
-
+	bool is_Drawn = true;
 	
 };
 

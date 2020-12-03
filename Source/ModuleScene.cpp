@@ -11,6 +11,7 @@
 #include "libraries/Glew/include/GL/glew.h"
 #include "libraries/SDL/include/SDL_opengl.h"
 #include "Primitive.h"
+#include "GameObject.h"
 #include "ModuleMeshImporter.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -23,6 +24,10 @@
 
 ModuleScene::ModuleScene(Application* app, const char* name, bool start_enabled) : Module(app, "Scene", start_enabled)
 {
+	ROOT_SCENE_OBJECT = new Game_Object("ROOT SCENE");
+	App->geometrymanager->ObjectsOnScene.push_back(ROOT_SCENE_OBJECT);
+	ROOT_SCENE_OBJECT->Parent = nullptr;
+
 }
 
 // Destructor
@@ -40,12 +45,23 @@ bool ModuleScene::Init()
 
 bool ModuleScene::Start()
 {
+	//THIS MUST ALWAYS BE THE FIRST THING IN THE OBJECT LIST
+	//Game_Object* Item = new Game_Object("Scene Object");
+	//App->geometrymanager->ObjectsOnScene.push_back(Item);
+
+
+
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Models/Checkers/checkers.png");
 
 	// BAKER HOUSE FOR DRAW W/TEXTURES ON START
 
 	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
 	
+
+	
+	
+
+
 	//This
 	//App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");
 	//this

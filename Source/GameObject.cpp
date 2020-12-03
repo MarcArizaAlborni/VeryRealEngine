@@ -10,8 +10,15 @@
 
 Game_Object::Game_Object(std::string name) : name(name), Enabled(true)
 {
-	
+	AddExistingComponent(new Component_Transform(this));
 	this->Parent = nullptr;	
+
+	
+	is_Wireframed = false;
+	is_Checkered = false;
+	showVertexNormals = false;
+	is_Selected = false;
+
 }
 
 Game_Object::~Game_Object()
@@ -47,7 +54,7 @@ Component* Game_Object::AddComponent(Component_Types typus)
 	case Component_Types::Transform:
 		LOG("[WARNING]Component Transform added to GameObject");
 
-		Ret = new Component_Mesh(this);
+		Ret = new Component_Transform(this);
 		UniqueComponent = true;
 
 
@@ -56,7 +63,7 @@ Component* Game_Object::AddComponent(Component_Types typus)
 	case Component_Types::Camera:
 		LOG("[WARNING]Component Camera added to GameObject");
 
-		//Ret = new Component_Mesh(this); WIP
+		//Ret = new Component_Camera(this); WIP
 		UniqueComponent = true;
 		break;
 
@@ -101,6 +108,40 @@ Component* Game_Object::AddComponent(Component_Types typus)
 	return Ret;
 }
 
+Component* Game_Object::AddExistingComponent(Component* component)
+{
+	Component* Ret;
+
+	switch (component->type)
+	{
+	case(Component_Types::None):
+		//LOG("Component Type Error! Something broke...");
+		break;
+	case(Component_Types::Transform):
+		Ret = new Component_Transform(this);
+		Transformations = (Component_Transform*)component;
+		break;
+	case(Component_Types::Texture):
+		if (this->GetComponent(Component_Types::Texture) != nullptr) {
+			return nullptr;
+		}
+		Ret = new Component_Texture(this);
+		Textures = (Component_Texture*)component;
+		break;
+	case(Component_Types::Mesh):
+		Mesh = (Component_Mesh*)component;
+		Ret = new Component_Mesh(this);
+		break;
+
+	}
+
+	//components.push_back(ret);
+	Component_List.push_back(component);
+
+
+	return Ret;
+}
+
 Component* Game_Object::GetComponent(Component_Types type)
 {
 	Component* Ret;
@@ -119,6 +160,8 @@ Component* Game_Object::GetComponent(Component_Types type)
 
 void Game_Object::GenerateChildren(Game_Object* ObjectToAdd)
 {
+	ObjectToAdd->Parent = this;
+
 	this->Children_List.push_back(ObjectToAdd);
 }
 
@@ -171,16 +214,41 @@ void Game_Object::Disable()
 
 void Game_Object::Update()
 {
-	if (Component_List.size() > 0) {
 
-		std::vector<Component*>::iterator It = Component_List.begin();
+	std::vector<Game_Object*>::iterator It = this->Children_List.begin();
+
+	for (int size = 0; size < this->Children_List.size(); ++size) {
+		Game_Object* Item = *It;
+
+		Item->Update();
+
+		
+		std::vector<Component*>::iterator It2 = Item->Component_List.begin();
 		bool ret = true;
 
-		for (; It != Component_List.end() && ret == true; ++It) {
-			(*It)->Update();
-		}
+		for (; It2 != Item->Component_List.end() && ret == true; ++It2) {
 
+			if ((*It2)->type == Component_Types::Mesh) {
+				((Component_Mesh*)(*It2))->Update();
+			}
+		}
+		
+		++It;
 	}
+
+
+
+
+	//if (Component_List.size() > 0) {
+	//
+	//	std::vector<Component*>::iterator It = Component_List.begin();
+	//	bool ret = true;
+	//
+	//	for (; It != Component_List.end() && ret == true; ++It) {
+	//		(*It)->Update();
+	//	}
+	//
+	//}
 
 
 

@@ -6,6 +6,9 @@
 #include "ModuleMeshImporter.h"
 #include "ModuleEditor.h"
 #include "Game_Time.h"
+#include "GameObject.h"
+#include "ComponentTransform.h"
+
 
 #include "libraries/MathGeoLib/include/Math/MathFunc.h"
 #include "libraries/MathGeoLib/include/Geometry/LineSegment.h"
@@ -144,18 +147,16 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		//Center to object
-		
+		std::vector<Game_Object*>::iterator IteratorObject = App->geometrymanager->ObjectsOnScene.begin();
+		Game_Object* selected_object;
+		for (int count = 0; count < App->geometrymanager->ObjectsOnScene.size(); ++count) {
+			selected_object = *IteratorObject;
 
-		std::vector<GameObject*>::iterator IteratorToAddMesh = App->meshimporter->MeshesOnScene.begin();
-		GameObject* selected_mesh;
-		for (int count = 0; count < App->meshimporter->MeshesOnScene.size(); ++count)
-		{
-			selected_mesh = *IteratorToAddMesh;
-			if (selected_mesh->Modifier.ToBeDrawInspector == true)
-			{
+			if (selected_object->is_Selected == true) {
+
 				if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 				{
-					CenterToObject(selected_mesh);
+					CenterToObject(selected_object);
 					LOGFIX("Centering Object");
 				}
 
@@ -165,51 +166,59 @@ update_status ModuleCamera3D::Update(float dt)
 					{
 						//Orbit()
 						ResetRotation = true;
-						LookAt({ selected_mesh->Mesh_Transform_Modifiers.VectorTranslation.x,
-							selected_mesh->Mesh_Transform_Modifiers.VectorTranslation.y,
-							selected_mesh->Mesh_Transform_Modifiers.VectorTranslation.z 
+						LookAt({ selected_object->Transformations->Translation.x,
+							 selected_object->Transformations->Translation.y,
+							 selected_object->Transformations->Translation.z
 						});
 
 					}
 				}
+
 			}
+
 			else if (ResetRotation == true)
 			{
 				ResetRotation = false;
 				LookAt({ 0,0,0 });
 			}
 
-			std::vector<GameObject*>::iterator IteratorToAddMesh2 = selected_mesh->ChildObjects.begin();
+			std::vector<Game_Object*>::iterator IteratorObjectChild = selected_object->Children_List.begin();
 
-			GameObject* selected_mesh_child;
+			Game_Object* selected_object_child;
 
-			for (int count2 = 0; count2 < selected_mesh->ChildObjects.size(); ++count2)
-			{
-				selected_mesh_child = *IteratorToAddMesh2;
-				if (selected_mesh_child->Modifier.ToBeDrawInspector == true)
-				{
+			for (int countchild = 0; countchild < selected_object->Children_List.size(); ++countchild) {
+
+				selected_object_child = *IteratorObjectChild;
+
+				if (selected_object_child->is_Selected == true) {
+
 					if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 					{
-						CenterToObject(selected_mesh_child);
+						CenterToObject(selected_object_child);
 						LOGFIX("Centering Object");
 					}
-
-					
 
 					if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 					{
 						if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 						{
-							CenterToObject(selected_mesh_child);
+							//Orbit()
+							ResetRotation = true;
+							LookAt({ selected_object_child->Transformations->Translation.x,
+								 selected_object_child->Transformations->Translation.y,
+								 selected_object_child->Transformations->Translation.z
+								});
 
 						}
 					}
+
 				}
-				++IteratorToAddMesh2;
+
 			}
 
-			++IteratorToAddMesh;
+
 		}
+
 		// Recalculate matrix -------------
 		CalculateViewMatrix();
 	}
@@ -271,9 +280,9 @@ void ModuleCamera3D::CalculateViewMatrix()
 	ViewMatrixInverse = inverse(ViewMatrix);
 }
 
-void ModuleCamera3D::CenterToObject( GameObject* object)
+void ModuleCamera3D::CenterToObject( Game_Object* object)
 {
-	LookAt({ object->Mesh_Transform_Modifiers.VectorTranslation.x,object->Mesh_Transform_Modifiers.VectorTranslation.y,object->Mesh_Transform_Modifiers.VectorTranslation.z });
+	LookAt({ object->Transformations->Translation.x, object->Transformations->Translation.y, object->Transformations->Translation.z });
 }
 
 void ModuleCamera3D::Orbit() {

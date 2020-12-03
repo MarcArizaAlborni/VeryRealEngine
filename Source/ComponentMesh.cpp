@@ -6,7 +6,7 @@
 #include "ComponentCamera.h"
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
-
+#include "ModuleGeometryManager.h"
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
 #include "libraries/Assimp/Assimp/include/postprocess.h"
@@ -22,6 +22,9 @@ void Component_Mesh::Disable()
 
 void Component_Mesh::Update()
 {
+	App->geometrymanager->DrawMeshTextured(owner);
+	
+	
 }
 
 void Component_Mesh::CleanUp()
@@ -53,7 +56,7 @@ Component_Mesh::Component_Mesh(Game_Object* ComponentOwner) :Component(Component
 	Mesh = nullptr;
 	File_Path = "none";
 	type = Component_Types::Mesh;
-
+	//owner = ComponentOwner;
 
 }
 

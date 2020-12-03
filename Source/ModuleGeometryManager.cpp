@@ -45,33 +45,7 @@ bool ModuleGeometryManager::Start()
 {
 	 ObjectsOnScene.size();
 
-	//Game_Object* Mesh = *It;
-
-	Game_Object* Item = new Game_Object("SUICIDIO");
-
-	ObjectsOnScene.push_back(Item);
-
-
-	std::vector<Game_Object*>::iterator it=ObjectsOnScene.begin();
-	for (int i = 0; i < ObjectsOnScene.size(); ++i) {
-		Game_Object* Mesh = *it;
-
-		//Mesh->AddComponent(Component_Types::Mesh);
-
-		Component_Mesh* Cmp = (Component_Mesh*) Mesh->AddComponent(Component_Types::Mesh);
-		Component_Texture* Txt = (Component_Texture*)Mesh->AddComponent(Component_Types::Texture);
-		Component_Transform* Tra = (Component_Transform*)Mesh->AddComponent(Component_Types::Transform);
-		
-		if (Cmp != nullptr) {
-
-			Cmp->Mesh->id_index; // Aixi es fa
-			Txt->Texture->height;//
-			Tra->Transformations->EulerRot;
-
-		}
-		
-		++it;
-	}
+	
 	
 	return true;
 }
@@ -85,62 +59,15 @@ update_status ModuleGeometryManager::PreUpdate(float dt)
 update_status ModuleGeometryManager::Update(float dt)
 {
 
-	UpdateGameObjectTransforms();
+	std::vector<Game_Object*>::iterator GameObjectIt = App->geometrymanager->ObjectsOnScene.begin();
 
-	App->meshimporter->LoadedTexturesList.size();
+	for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i) {
 
-	GameObject* MoveAsFamily;
-	GameObject* MoveAsFamilyChild;
-	std::vector<GameObject*>::iterator IteratorPositionModifierFamily = App->meshimporter->MeshesOnScene.begin();
-	for (int t = 0; t < App->meshimporter->MeshesOnScene.size(); ++t) {
-	
-		MoveAsFamily = *IteratorPositionModifierFamily;
+		Game_Object* Object = *GameObjectIt;
+		Object->Update();
 
-		if (MoveAsFamily->Modifier.is_FamilyMove){
-
-			std::vector<GameObject*>::iterator IteratorModifierFamilyChild = MoveAsFamily->ChildObjects.begin();
-			for (int u = 0; u < MoveAsFamily->ChildObjects.size(); ++u) {
-
-				MoveAsFamilyChild = *IteratorModifierFamilyChild;
-
-				MoveAsFamilyChild->Mesh_Transform_Modifiers.VectorRotation = MoveAsFamily->Mesh_Transform_Modifiers.VectorRotation;
-				MoveAsFamilyChild->Mesh_Transform_Modifiers.VectorScale = MoveAsFamily->Mesh_Transform_Modifiers.VectorScale;
-				MoveAsFamilyChild->Mesh_Transform_Modifiers.VectorTranslation = MoveAsFamily->Mesh_Transform_Modifiers.VectorTranslation;
-
-				++IteratorModifierFamilyChild;
-			}
-		}
-		++IteratorPositionModifierFamily;
 	}
 
-	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	GameObject* Item;
-	GameObject* Item2;
-
-	std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
-	for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
-		Item=*IteratorLoaded;
-
-		if (Item->ChildObjects.empty()) {
-
-			if (Item->Modifier.is_Drawn == true) {
-				DrawMeshTextured(*IteratorLoaded);
-			}
-		}
-		else {
-			std::vector<GameObject*>::iterator IteratorChild = Item->ChildObjects.begin();
-			for (int b = 0; b < Item->ChildObjects.size(); ++b) {
-				Item2 = *IteratorChild;
-				if (Item2->Modifier.is_Drawn == true) {
-
-					DrawMeshTextured(*IteratorChild);
-				}
-			
-				++IteratorChild;
-			}
-		}
-		++IteratorLoaded;
-	}
 	return UPDATE_CONTINUE;
 }
 
@@ -166,7 +93,7 @@ void ModuleGeometryManager::DrawCube()
 
 void ModuleGeometryManager::DrawPyramid()
 {
-	//App->meshimporter->LoadMesh("Assets/Models/Primitives/Pyramid.FBX");
+	
 }
 
 void ModuleGeometryManager::DrawSphere()
@@ -199,10 +126,10 @@ void ModuleGeometryManager::Transform_Mesh_Rotation(GameObject* mesh, VectorTran
 
 }
 
-void ModuleGeometryManager::Transform_Mesh_Draw(GameObject* mesh)
+void ModuleGeometryManager::Transform_Mesh_Draw(Component_Transform* Transform)
 {
 	glPushMatrix();
-	glMultMatrixf((GLfloat*)&mesh->Mesh_Transform_Modifiers.WorldMatrix.Transposed());
+	glMultMatrixf((GLfloat*)&Transform->Global_Matrix.Transposed()); // sHOULDNT THIS BE THE GLOBAL???
 
 }
 
@@ -228,8 +155,6 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 				//Rot.z = Mesh->Mesh_Transform_Modifiers.VectorRotation.z;
 				//Rot.w = Mesh->Mesh_Transform_Modifiers.VectorRotation.angle;
 
-				
-
 				Mesh->Mesh_Transform_Modifiers.WorldMatrix = float4x4::FromTRS(Pos, Rot, Scal);
 
 				Mesh->Mesh_Transform_Modifiers.LocalTranslation = Pos;
@@ -241,7 +166,6 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 			}
 		}
 		else {
-
 
 			if (Mesh->Mesh_Transform_Modifiers.TransformsUpdated) {
 
@@ -260,30 +184,19 @@ void ModuleGeometryManager::UpdateGameObjectTransforms()
 
 				Quat Rot2 = { Mesh->Mesh_Transform_Modifiers.VectorRotation.x,Mesh->Mesh_Transform_Modifiers.VectorRotation.y,Mesh->Mesh_Transform_Modifiers.VectorRotation.z,Mesh->Mesh_Transform_Modifiers.VectorRotation.angle };
 				
-				
-
-				
-
 				Mesh->Mesh_Transform_Modifiers.WorldMatrix = float4x4::FromTRS(Pos, Rot, Scal);
 
 				Mesh->Mesh_Transform_Modifiers.WorldTranslation = Pos;
 				Mesh->Mesh_Transform_Modifiers.WorldScale = Scal;
 				Mesh->Mesh_Transform_Modifiers.WorldRotation = Rot;
 
-				
-				
-
 				Mesh->Mesh_Transform_Modifiers.TransformsUpdated = false;
 
 			}
-
-
 		}
 		std::vector<GameObject*>::iterator ItChild = Mesh->ChildObjects.begin();
 		for (int a = 0; a < Mesh->ChildObjects.size();++a) {
 
-			
-		
 			GameObject* MeshChild = *ItChild;
 
 			if (MeshChild->Mesh_Transform_Modifiers.TransformsUpdated) {
@@ -328,96 +241,106 @@ void ModuleGeometryManager::DrawPlane()
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Primitives/Plane.FBX");
 }
 
-void ModuleGeometryManager::DrawMeshTextured(GameObject* mesh)
+void ModuleGeometryManager::DrawMeshTextured(Game_Object* Object)
 {
-	GLfloat Null_Array[] = { 0,0,0,0 };
+	Component_Mesh* MeshVals = Object->Mesh;
+	Component_Texture* TextVals = Object->Textures;
+	Component_Transform* TransVals = Object->Transformations;
 
-	VectorTransformations ZeroArray;
-	VectorTransformations OneArray;
+	if (MeshVals!=nullptr) {
 
-	OneArray = { 1,1,1,1 };
-	ZeroArray = { 0,0,0,0 };
 
-	if (mesh->Modifier.is_Wireframed == true) {
-		glLineWidth(3);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-
-	//glColor4f(0.49f, 0.74f, 0.24f, 1.0f);
-
-	if (mesh->TextureData.Colour.r != NULL) {
-		//glColor4f(0.49f, 0.74f, 0.24f, 1.0f);
-
-		mesh->TextureData.Colour.r;
-	    glColor4f(mesh->TextureData.Colour.r, mesh->TextureData.Colour.g, mesh->TextureData.Colour.b, mesh->TextureData.Colour.a);
-	}
-
-	Transform_Mesh_Draw(mesh);
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	if (mesh->Modifier.is_Checkered == true) {
-
-		glBindTexture(GL_TEXTURE_2D, App->textureImporter->TextureCheckers.texture_id);
-
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id);
-		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-	}
-
-	DrawVertexNormals(mesh);
-
-	if (mesh->MeshData.texcoords != NULL) {
-		if (mesh->Modifier.is_Textured == true) {
-
-			glBindTexture(GL_TEXTURE_2D, mesh->TextureData.texture_id);
-			glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.texcoords_id);
-			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+		if (Object->is_Wireframed) {
+			glLineWidth(3);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		}
 		else {
-			
-			
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
+
+
+
+		if (TransVals != nullptr) {
+			Transform_Mesh_Draw(TransVals);
+		}
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+
+		if (Object->is_Checkered == true) {
+
+			glBindTexture(GL_TEXTURE_2D, App->textureImporter->TextureCheckers.texture_id);
+
+			glBindBuffer(GL_ARRAY_BUFFER, MeshVals->Mesh->texcoords_id);
+			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+		}
+
+		DrawVertexNormals(Object);
+	
+
+			if (TextVals != nullptr) {
+
+				if (TextVals->Texture->Colour.r != NULL) {
+					//glColor4f(0.49f, 0.74f, 0.24f, 1.0f);
+
+
+					glColor4f(TextVals->Texture->Colour.r, TextVals->Texture->Colour.g, TextVals->Texture->Colour.b, TextVals->Texture->Colour.a);
+				}
+				if (Object->Textures->is_Textured ) {
+
+					glBindTexture(GL_TEXTURE_2D, TextVals->Texture->texture_id);
+					glBindBuffer(GL_ARRAY_BUFFER, MeshVals->Mesh->texcoords_id);
+					glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+				}
+				
+			}
+
+		
+
+		
+
+		glBindBuffer(GL_ARRAY_BUFFER, MeshVals->Mesh->id_vertex);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, MeshVals->Mesh->id_index);
+		glDrawElements(GL_TRIANGLES, MeshVals->Mesh->num_index, GL_UNSIGNED_INT, NULL);
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glColor4f(0.5f, 0.5f, 0.5f, 1.0f);
+		glPopMatrix();
+		
+
 	}
 
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->MeshData.id_vertex);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,mesh->MeshData.id_index);
-	glDrawElements(GL_TRIANGLES,mesh->MeshData.num_index, GL_UNSIGNED_INT, NULL);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	
-	
-		glBindTexture(GL_TEXTURE_2D, 0);
-	
-
-	glPopMatrix();
+		
 
 	
 	
 }
 
-void ModuleGeometryManager::DrawVertexNormals(GameObject* object)
+void ModuleGeometryManager::DrawVertexNormals(Game_Object* object)
 {
-	if (object->Modifier.showVertexNormals == true)
+	if (object->showVertexNormals == true)
 	{
 		float3 mid;
 		float3 normal;
 
-		for (int i = 0; i < object->MeshData.num_index; i += 3)
+		for (int i = 0; i < object->Mesh->Mesh->num_index; i += 3)
 		{
-			Vertex_Sub vert1 = object->MeshData.vertex[object->MeshData.index[i]];
-			Vertex_Sub vert2 = object->MeshData.vertex[object->MeshData.index[i + 1]];
-			Vertex_Sub vert3 = object->MeshData.vertex[object->MeshData.index[i + 2]];
+			Vertex_Sub vert1 = object->Mesh->Mesh->vertex[object->Mesh->Mesh->index[i]];
+			Vertex_Sub vert2 = object->Mesh->Mesh->vertex[object->Mesh->Mesh->index[i + 1]];
+			Vertex_Sub vert3 = object->Mesh->Mesh->vertex[object->Mesh->Mesh->index[i + 2]];
 
 			float3 vert1F = { vert1.x,vert1.y,vert1.z };
 			float3 vert2F = { vert2.x,vert2.y,vert2.z };

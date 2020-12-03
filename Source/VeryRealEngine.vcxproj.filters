@@ -202,6 +202,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Things.cpp">
+      <Filter>Source\TRASH</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -925,6 +928,9 @@
     </Filter>
     <Filter Include="Source\External Libraries\PhysFS">
       <UniqueIdentifier>{89e90d3b-e174-4579-99ac-fcf897c9bdf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TRASH">
+      <UniqueIdentifier>{11427c27-7f3d-4d2e-a050-93cc0fb46c16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

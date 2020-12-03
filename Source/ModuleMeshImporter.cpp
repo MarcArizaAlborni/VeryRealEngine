@@ -4,6 +4,12 @@
 #include "ModuleRenderer3D.h"
 #include "FileSystem.h"
 #include "ModuleEditor.h"
+#include "GameObject.h"
+#include "Component.h"
+#include "ComponentTexture.h"
+#include "ComponentMesh.h"
+#include "ComponentTransform.h"
+#include "ModuleScene.h"
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
 #include "libraries/Assimp/Assimp/include/postprocess.h"
@@ -286,6 +292,7 @@ update_status ModuleMeshImporter::Update(float dt)
 //	}
 //}
 
+
 void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 {
 	
@@ -293,27 +300,19 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 	if (scene != nullptr) {
 
-		ProcessNode(file_path, scene, scene->mRootNode, nullptr);
-		//GenerateNode(file_path, scene, scene->mRootNode);
-		//CreateGameObjectsNodeMap(scene, file_path);
+		std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
+		Game_Object* Parent = *It;
 
-		if (ChildrenToAddList.size() == 1) {
-
-			CreateChildsWithParent(false);
-		}
-		else if (ChildrenToAddList.size() > 1) {
-
-			CreateChildsWithParent(true);
-		}
-
-		ChildrenToAddList.clear();
-
+		ProcessNode(file_path, scene, scene->mRootNode, App->scene->ROOT_SCENE_OBJECT);
+		
 		aiReleaseImport(scene);
 	}
 }
 
-void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,GameObject* item)
+void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,Game_Object* Parent)
 {
+	Game_Object* ObjectToAdd = new Game_Object(node->mName.C_Str());
+
 	aiVector3D  Imported_Translation;
 	aiVector3D  Imported_Scale;
 	aiQuaternion Imported_Rotation;
@@ -324,15 +323,16 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 	float3	Scale_Calculated(Imported_Scale.x, Imported_Scale.y, Imported_Scale.z);
 	Quat	Rotation_Calculated(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
 	Quat    RotMat;
-	float3 EulerAngle;
 	
-
 	
 	while (strstr(node->mName.C_Str(), "_$AssimpFbx$") != nullptr && node->mNumChildren == 1)
 	{
 		node = node->mChildren[0];
 
 		node->mTransformation.Decompose(Imported_Scale, Imported_Rotation, Imported_Translation);
+
+		RotMat = Quat(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
+
 
 		Translation_Calculated.x += Imported_Translation.x;
 		Translation_Calculated.y += Imported_Translation.y;
@@ -342,84 +342,51 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		Scale_Calculated.y *= Imported_Scale.y;
 		Scale_Calculated.z *= Imported_Scale.z;
 
-		RotMat = Quat(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
-
-		
-
-
-
 		Rotation_Calculated = Rotation_Calculated * RotMat;
+
 		
-		EulerAngle = Rotation_Calculated.ToEulerXYX();
+
 	}
 
-	//The error is that we dont apply the transforms from the dummy to the parent of the meshes
+	if (node->mNumMeshes > 0) {
+
+		std::vector<MeshInfo*> Mesh = LoadSceneMeshes(scene, file_path, node);
+
+		for (int number = 0; number < Mesh.size(); ++number) {
+
+		
+			Component_Mesh* Comp_Mesh = new Component_Mesh(ObjectToAdd);
+
+			Comp_Mesh->CreateMesh(Mesh[number]);
+			Comp_Mesh->CreatePath(file_path);
+			ObjectToAdd->AddExistingComponent(Comp_Mesh);
+			
+			aiMesh* MeshImported = scene->mMeshes[node->mMeshes[number]];
+
+			if (MeshImported->mMaterialIndex >= 0) {
+				
+				aiMaterial* texture = scene->mMaterials[MeshImported->mMaterialIndex];
+
+				CreateMaterials(texture, ObjectToAdd);
+			}
+		}
+	}
 
 	
 
-	for (int size = 0; size < node->mNumMeshes; ++size) {
+	Parent->GenerateChildren(ObjectToAdd);
 
-		if (size == 0) {
-			RotationImportedVal = Rotation_Calculated;
-		}
-		NodeMap NodeToAdd;
-		aiMesh* MeshLoaded = scene->mMeshes[node->mMeshes[size]];
-		
-			NodeToAdd.ScenePositionArray = node->mMeshes[size];
+	//ObjectToAdd->Parent = Parent;
 
-			if (MeshLoaded->mMaterialIndex >= 0) {
 
-				aiMaterial* MaterialLoaded;
-				MaterialLoaded = scene->mMaterials[MeshLoaded->mMaterialIndex];
-				NodeToAdd.MaterialPositionArray = MeshLoaded->mMaterialIndex;
-				NodeToAdd.Name = node->mName.C_Str();
+	ObjectToAdd->Transformations->UpdateTransformationsObjects(Translation_Calculated, Scale_Calculated, Rotation_Calculated);
 
-				aiString PathMaterial;
-				if ((MaterialLoaded->GetTexture(aiTextureType_DIFFUSE, 0, &PathMaterial) == AI_SUCCESS)) {
-					NodeToAdd.MaterialPath = PathMaterial.C_Str();
-				}
-		    }
+	//Parent->Children_List.push_back(ObjectToAdd);
 
-	    CreateGameObjectsByNodes(scene, file_path, MeshLoaded,node, NodeToAdd);
 
-		if (NodeToAdd.ScenePositionArray != -1) {
-			NodeMapList.push_back(NodeToAdd);
-		}
-		
-	}
-
-	std::vector<GameObject*>::reverse_iterator It = ChildrenToAddList.rbegin();
-
-	for (int last = ChildrenToAddList.size() - 1; last < ChildrenToAddList.size(); ++last) {
-
-		GameObject* Mesh = *It;
-
-		Mesh->Mesh_Transform_Modifiers.VectorTranslation.x = Translation_Calculated.x;
-		Mesh->Mesh_Transform_Modifiers.VectorTranslation.y = Translation_Calculated.y;
-		Mesh->Mesh_Transform_Modifiers.VectorTranslation.z = Translation_Calculated.z;
-
-		Mesh->Mesh_Transform_Modifiers.VectorScale.x = Scale_Calculated.x;
-		Mesh->Mesh_Transform_Modifiers.VectorScale.y = Scale_Calculated.y;
-		Mesh->Mesh_Transform_Modifiers.VectorScale.z = Scale_Calculated.z;
-
-		Mesh->Mesh_Transform_Modifiers.VectorRotation.x = Rotation_Calculated.x;
-		Mesh->Mesh_Transform_Modifiers.VectorRotation.y = Rotation_Calculated.y;
-		Mesh->Mesh_Transform_Modifiers.VectorRotation.z = Rotation_Calculated.z;
-		Mesh->Mesh_Transform_Modifiers.VectorRotation.angle = Rotation_Calculated.w;
-
-		Mesh->Mesh_Transform_Modifiers.VectorEulerRotation = EulerAngle;
-
-		Mesh->Mesh_Transform_Modifiers.TransformsUpdated = true;
-
-		//App->geometrymanager->UpdateGameObjectTransforms();
-	}
-	
-	for (int i = 0; i < node->mNumChildren; ++i) {
-
-		if (ChildrenToAddList.size() != 33) { // to fix the last house position
-			ProcessNode(file_path, scene, node->mChildren[i], nullptr);
-		}
-		
+	for (uint i = 0; i < node->mNumChildren; ++i)
+	{
+		ProcessNode(file_path, scene, node->mChildren[i], ObjectToAdd);
 	}
 
 }
@@ -534,7 +501,7 @@ void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const ch
      if (ourGameObject->MeshData.texcoords != NULL) {
      	App->renderer3D->GenerateTextBuffer(ourGameObject->MeshData.texcoords, ourGameObject->MeshData.num_texcoords, ourGameObject->MeshData.texcoords_id);
      }
-     App->renderer3D->GenerateNormalBuffer(ourGameObject, ourGameObject->MeshData.normals);
+    // App->renderer3D->GenerateNormalBuffer(ourGameObject, ourGameObject->MeshData.normals);
 
      
      
@@ -575,6 +542,123 @@ void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const ch
 	//aiReleaseImport(scene);
 
 	NodeMapList.clear();
+
+
+
+}
+
+std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene, const char* file_path,  const aiNode* node)
+{
+	std::vector<MeshInfo*> ItemList;
+
+	for (int number = 0; number < node->mNumMeshes; number++) {
+
+
+		MeshInfo* OurMesh = new MeshInfo();
+
+		aiMesh* meshLoad = scene->mMeshes[node->mMeshes[number]];
+
+		OurMesh->num_vertex = meshLoad->mNumVertices;
+
+		OurMesh->vertex = new Vertex_Sub[OurMesh->num_vertex * 3];
+
+		memcpy(OurMesh->vertex, meshLoad->mVertices, sizeof(float) * OurMesh->num_vertex * 3);
+
+		if (meshLoad->HasFaces()) {
+
+			OurMesh->num_index = meshLoad->mNumFaces * 3;
+
+
+			OurMesh->index = new uint[OurMesh->num_index];
+
+			for (int c = 0; c < meshLoad->mNumFaces; ++c) {
+
+				unsigned int IndexCopy[3];
+
+				memcpy(&OurMesh->index[c * 3], meshLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+			}
+		}
+
+		if (meshLoad->HasNormals()) {
+
+			OurMesh->normals = new Vertex_Sub[OurMesh->num_vertex * 3];
+			memcpy(OurMesh->normals, meshLoad->mNormals, sizeof(float) * OurMesh->num_vertex * 3);
+
+		}
+
+
+		if (meshLoad->HasTextureCoords(0))
+		{
+			OurMesh->num_texcoords = meshLoad->mNumVertices;
+			OurMesh->texcoords = new float[OurMesh->num_vertex * 2];
+
+
+			for (int Z = 0; Z < OurMesh->num_texcoords; ++Z) {
+
+				OurMesh->texcoords[Z * 2] = meshLoad->mTextureCoords[0][Z].x;
+				OurMesh->texcoords[Z * 2 + 1] = meshLoad->mTextureCoords[0][Z].y;
+			}
+		}
+
+		App->renderer3D->GenerateVertexBuffer(OurMesh->vertex, OurMesh->num_vertex, OurMesh->id_vertex);
+		App->renderer3D->GenerateIndexBuffer(OurMesh->index, OurMesh->num_index, OurMesh->id_index);
+		if (OurMesh->texcoords != NULL) {
+			App->renderer3D->GenerateTextBuffer(OurMesh->texcoords, OurMesh->num_texcoords, OurMesh->texcoords_id);
+		}
+		App->renderer3D->GenerateNormalBuffer(OurMesh, OurMesh->normals);
+
+
+
+		ItemList.push_back(OurMesh);
+
+	}
+
+	return ItemList;
+}
+
+void ModuleMeshImporter::CreateMaterials(aiMaterial* material, Game_Object* Object)
+{
+
+	TextureInfo* OurMat = new TextureInfo();
+
+	aiColor4D	color;
+	aiString	texPath;
+	std::string		texName;
+	std::string		texExtension;
+
+	if (material->Get(AI_MATKEY_COLOR_DIFFUSE, color) == AI_SUCCESS)										// Could also get specular and ambient occlusion colours.
+	{
+		//OurMat->SetColor(Color(color.r, color.g, color.b, color.a));
+		OurMat->Colour.r = color.r;
+		OurMat->Colour.g = color.g;
+		OurMat->Colour.b = color.b;
+		OurMat->Colour.a = color.a;
+
+	}
+	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &texPath) == AI_SUCCESS)
+	{
+		App->filemanager->SplitFilePath(texPath.C_Str(), nullptr, &texName, &texExtension);
+
+		texName = "Assets/Textures/" + texName + "." + texExtension;
+		
+		TextureInfo MaterialLoad = App->textureImporter->LoadTextureImage(texName.c_str());
+
+		
+
+		OurMat->height = MaterialLoad.height;
+		OurMat->width = MaterialLoad.width;
+		OurMat->texture_id = MaterialLoad.texture_id;
+		OurMat->texture_name = MaterialLoad.texture_name;
+		OurMat->texture_path = MaterialLoad.texture_path;
+
+
+
+
+	}
+
+
+	Component_Texture* TextureComponent = new Component_Texture(Object, OurMat);
+	Object->AddExistingComponent(TextureComponent);
 
 
 

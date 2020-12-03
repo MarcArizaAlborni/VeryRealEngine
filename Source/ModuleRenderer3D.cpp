@@ -149,15 +149,15 @@ void ModuleRenderer3D::GenerateTextBuffer(float* text_coords, uint& num_text_coo
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ModuleRenderer3D::GenerateNormalBuffer(GameObject* mesh, Vertex_Sub* normals)
+void ModuleRenderer3D::GenerateNormalBuffer(MeshInfo* Mesh, Vertex_Sub* normals)
 {
-	if (mesh->MeshData.normals != nullptr) {
-		if (mesh->MeshData.id_normals != NULL) {
+	if (Mesh->normals != nullptr) {
+		if (Mesh->id_normals != NULL) {
 
 			uint val = 0;
-			glGenBuffers(1, (GLuint*)&(mesh->MeshData.id_normals));
-			glBindBuffer(GL_ARRAY_BUFFER, (GLuint) & (mesh->MeshData.id_normals));
-			glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->MeshData.id_normals * 3, mesh->MeshData.normals, GL_STATIC_DRAW);
+			glGenBuffers(1, (GLuint*)&(Mesh->id_normals));
+			glBindBuffer(GL_ARRAY_BUFFER, (GLuint) & (Mesh->id_normals));
+			glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * Mesh->id_normals * 3, Mesh->normals, GL_STATIC_DRAW);
 		}
 
 	}

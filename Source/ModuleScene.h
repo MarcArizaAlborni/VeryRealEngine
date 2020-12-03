@@ -7,6 +7,7 @@
 #include "Light.h"
 
 #include "JScene.h"
+class Game_Object;
 
 class ModuleScene : public Module
 {
@@ -27,6 +28,7 @@ public:
 	/*bool SaveGameObject(JScene go_scene, GameObject* obj, int* i);*/
 	bool LoadScene();
 	
+	Game_Object* ROOT_SCENE_OBJECT = nullptr;
 
 public:
 	//------------ CONSOLE STUFF

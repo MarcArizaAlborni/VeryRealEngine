@@ -144,11 +144,12 @@ public:
 	
 	void LoadFile_Mesh(const char* file_path);
 
-	void ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node, GameObject* Parent);
+	void ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node, Game_Object* Parent);
 	std::vector<NodeMap> NodeMapList;
 
 	void CreateGameObjectsByNodes(const aiScene* scene, const char* file_path,aiMesh* meshLoad, const aiNode* node, NodeMap map);
-
+	std::vector<MeshInfo*> LoadSceneMeshes(const aiScene* scene, const char* file_path, const aiNode* node);
+	void CreateMaterials(aiMaterial* material, Game_Object* Object);
 	//List of meshes active
 	std::vector<GameObject*> MeshesOnScene; //CurrentActive meshes list
 	std::vector<TextureInfo*> LoadedTexturesList; // Currently Loaded textures list

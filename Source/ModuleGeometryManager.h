@@ -8,11 +8,14 @@
 #include "Light.h"
 #include "libraries/Glew/include/GL/glew.h"
 
+
 #define MAX_LIGHTS 8
 
 struct MeshInfo;
 struct GameObject;
 class Game_Object;
+class Components;
+class Component_Transform;
 struct VectorTransformations {
 
 	GLfloat angle,x,y,z;
@@ -45,7 +48,7 @@ public:
 	void Transform_Mesh_Translation(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
 	void Transform_Mesh_Scale(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
 	void Transform_Mesh_Rotation(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
-	void Transform_Mesh_Draw(GameObject* mesh);
+	void Transform_Mesh_Draw(Component_Transform* mesh);
 
 
 
@@ -53,15 +56,15 @@ public:
 
 
 	//Meshes
-	void DrawMeshTextured(GameObject* mesh);
+	void DrawMeshTextured(Game_Object* mesh);
 
 	//Normals
-	void DrawVertexNormals(GameObject* object);
+	void DrawVertexNormals(Game_Object* object);
 
-
+	
 
 	std::vector<Game_Object*> ObjectsOnScene;
-
+	
 
 
 

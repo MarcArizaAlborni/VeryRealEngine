@@ -21,7 +21,7 @@ public:
 	void LookAt(const vec3& Spot);
 	void Move(const vec3& Movement);
 
-	void CenterToObject(GameObject* object);
+	void CenterToObject(Game_Object* object);
 	void Orbit();
 
 	float* GetViewMatrix();

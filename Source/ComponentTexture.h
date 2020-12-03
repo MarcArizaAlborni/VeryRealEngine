@@ -4,7 +4,7 @@
 
 #include "Component.h"
 
-class TextureInfo;
+struct TextureInfo;
 
 class Component_Texture :public Component {
 
@@ -25,7 +25,12 @@ public:
 
 	Component_Texture(Game_Object* parent); //DEFAULTS TO 0,0
 	Component_Texture(Game_Object* parent, const char* texturePath, unsigned int id);
-	Component_Texture(Game_Object* parent, TextureInfo* rMaterial);
+	Component_Texture(Game_Object* parent, TextureInfo* material);
+
+
+
+	bool is_Textured;
+	 //MOVE TO MESH COMPONENT
 };
 
 

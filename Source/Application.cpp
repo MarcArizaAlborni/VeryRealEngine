@@ -295,7 +295,7 @@ float Application::GetDT()
 // SAVE & LOAD
 
 
-extern Application* App;
+Application* App = nullptr;;
 
 
 //
