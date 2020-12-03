@@ -212,7 +212,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 		CreateAboutWindow();
 		CreateConsoleWindow();
 		App->hierarchy->CreateHierarchyWindow();
-		App->inspector->CreateInspectorWindow();
+		App->inspector->DrawInspectorWindowInfo();
 		App->resources->CreateResourcesWindow();
 
 

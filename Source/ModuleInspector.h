@@ -7,6 +7,10 @@
 
 struct GameObject;
 struct TextureInfo;
+class Game_Object;
+class Component_Mesh;
+class Component_Texture;
+class Component_Transform;
 class ModuleInspectorGameObject : public Module
 {
 public:
@@ -19,10 +23,12 @@ public:
 
 	//Inspector Window Functions
 
-	void CreateInspectorWindow();
+
 	void ShowSelectedObjectInfo(GameObject* object);
 	GameObject* ObjectToBeShownInspector = NULL;
-	void DrawInspectorWindowInfo(GameObject* item);
+	void DrawInspectorWindowInfo();
+	void DrawObjectInfo(Game_Object* item, Component_Mesh* MeshInfo, Component_Texture* TextureInfo, Component_Transform* TransInfo);
+	bool LookForChildrenToBeDrawn(Game_Object* item);
 	//Inspector Window Bools
 
 	//bool ShowInspectorWindow;

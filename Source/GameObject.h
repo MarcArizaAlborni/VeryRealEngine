@@ -21,6 +21,7 @@ public:
 	std::string name;
 	int item_id;
 	
+	
 
 	Component_Transform* Transformations = nullptr;
 	Component_Texture* Textures = nullptr;
