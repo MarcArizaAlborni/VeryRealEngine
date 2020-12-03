@@ -19,7 +19,7 @@ public:
 	~Game_Object();
 
 	std::string name;
-	
+	int item_id;
 	
 
 	Component_Transform* Transformations = nullptr;
@@ -57,6 +57,7 @@ public:
 	bool is_Checkered;
 	bool showVertexNormals;
 	bool is_Selected;
+	bool ToBeDrawInspector;
 
 	
 

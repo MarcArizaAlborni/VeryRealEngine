@@ -4,6 +4,11 @@
 #include "ModuleMeshImporter.h"
 #include "ModuleTextureImporter.h"
 #include "ModuleEditor.h"
+#include "GameObject.h"
+#include "Component.h"
+#include "ComponentTexture.h"
+#include "ComponentMesh.h"
+
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -54,27 +59,24 @@ update_status ModuleHierarchyGameObject::Update(float dt)
                itemp2->Mesh_Transform_Modifiers.VectorTranslation = itemp->Mesh_Transform_Modifiers.VectorTranslation;
 
               
-
            }
-
        }
 
         ++IteratorLoadedFamily;
     }
-
 
 	return UPDATE_CONTINUE;
 }
 
 bool ModuleHierarchyGameObject::CleanUp()
 {
-
 	return true;
 }
 
+
 void ModuleHierarchyGameObject::CreateHierarchyWindow()
 {
-	if (App->editor->show_hierarchy_window) {
+    if (App->editor->show_hierarchy_window) {
 
         bool itemRemoved;
         int uid2 = 0;
@@ -82,23 +84,23 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
         ImGui::Begin("HierarchyWindow", &App->editor->show_hierarchy_window);
 
         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(2, 2));
-     
+
         ImGui::Separator();
 
-        std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
-        for (int count = 0; count < App->meshimporter->MeshesOnScene.size(); ++count) {
+        std::vector<Game_Object*>::iterator ObjectIterator = App->geometrymanager->ObjectsOnScene.begin();
 
-            GameObject* Mesh = *IteratorLoaded;
-           
+        for (int count = 0; count < App->geometrymanager->ObjectsOnScene.size(); ++count) {
 
-            itemRemoved=InspectorInfo(Mesh, count);
+            Game_Object* Mesh = *ObjectIterator;
+
+            itemRemoved = InspectorInfo(Mesh, count);
 
             if (itemRemoved == true) {
-                count = App->meshimporter->MeshesOnScene.size();
-                uid2 = count+1;
+                count = App->geometrymanager->ObjectsOnScene.size();
+                uid2 = count + 1;
             }
             else {
-                ++IteratorLoaded;
+                ++ObjectIterator;
             }
         }
 
@@ -122,9 +124,10 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
             ImGui::Text("");
             ImGui::Spacing();
             ImGui::Spacing();
+
             if (ImGui::Button("Yes", { 80,20 }))
             {
-                App->meshimporter->MeshesOnScene.erase(App->meshimporter->MeshesOnScene.begin() + (uid2));
+                App->geometrymanager->ObjectsOnScene.erase(App->geometrymanager->ObjectsOnScene.begin() + (uid2));
                 App->editor->delete_object = false;
                 itemRemoved = true;
             }
@@ -138,28 +141,28 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
             ImGui::End();
         }
 
-       // ImGui::Columns(1);
         ImGui::Separator();
         ImGui::PopStyleVar();
         ImGui::End();
 
-	}
+    }
 }
 
-bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
+
+bool ModuleHierarchyGameObject::InspectorInfo(Game_Object* Object, int uid)
 {
     ImGui::PushID(uid);
 
     bool ItemRemoved = false;
     const char* prefix;
 
-    prefix = Object->mesh_name.c_str();
+    prefix = Object->name.c_str();
 
     // Text and Tree nodes are less high than framed widgets, using AlignTextToFramePadding() we add vertical spacing to make the tree lines equal high.
     ImGui::AlignTextToFramePadding();
     bool node_open;
    
-    if(Object->Modifier.is_EmptyParent==true){
+    if(Object->Children_List.size()==0){
         if (node_open = ImGui::TreeNode("Node ID", "%s", prefix, uid)) {
 
         }
@@ -175,29 +178,29 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     ImGui::NextColumn();
     ImGui::SameLine(0, 20.0f);
 
-    GameObject* Item2;
-    GameObject* Item4;
+    Game_Object* Item2;
+    Game_Object* Item4;
     bool has_been_found = false;
-    if (ImGui::Checkbox("", &Object->Modifier.ToBeDrawInspector)) {
+    if (ImGui::Checkbox("", &Object->ToBeDrawInspector)) {
 
-        std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
+        std::vector<Game_Object*>::iterator IteratorLoaded = App->geometrymanager->ObjectsOnScene.begin();
         for (int a = 0; a < App->meshimporter->MeshesOnScene.size(); ++a) {
 
             Item2 = *IteratorLoaded;
 
-            if (Object->Identifiers.item_id != Item2->Identifiers.item_id) {
-                Item2->Modifier.ToBeDrawInspector = false;
+            if (Object->item_id != Item2->item_id) {
+                Item2->ToBeDrawInspector = false;
             }
 
-            if (Item2->ChildObjects.size() > 0) {
-                GameObject* Item3;
-                std::vector<GameObject*>::iterator ChildIteratorLoadedIns = Item2->ChildObjects.begin();
-                for (int c = 0; c < Item2->ChildObjects.size(); ++c) {
+            if (Item2->Children_List.size() > 0) {
+                Game_Object* Item3;
+                std::vector<Game_Object*>::iterator ChildIteratorLoadedIns = Item2->Children_List.begin();
+                for (int c = 0; c < Item2->Children_List.size(); ++c) {
 
                     Item3 = *ChildIteratorLoadedIns;
-                    if (Object->Identifiers.item_id != Item3->Identifiers.item_id) {
-                        Item3->Modifier.ToBeDrawInspector = false;
-                       //Item2->ToBeDrawInspector = false; 
+                    if (Object->item_id != Item3->item_id) {
+                        Item3->ToBeDrawInspector = false;
+                    
                     }
                     ++ChildIteratorLoadedIns;
                 }
@@ -210,46 +213,50 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
     
     ImGui::SameLine();
 
-    if (Object->Modifier.is_Drawn) {
-
-        if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyOpen.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
-             (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
-
-            Object->Modifier.is_Drawn = false;
-
-            if (Object->ChildObjects.size() > 0) {
-
-                GameObject* Mesh;
-                std::vector<GameObject*>::iterator Item = Object->ChildObjects.begin();
-                for (int count = 0; count < Object->ChildObjects.size(); ++count) {
-                    Mesh = *Item;
-
-                    Mesh->Modifier.is_Drawn = false;
-
-                    ++Item;
-
-                }
-            }
-        }
-    }
-    else {
-        if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyClosed.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
-            (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
-
-            Object->Modifier.is_Drawn = true;
-
-            GameObject* Mesh;
-            std::vector<GameObject*>::iterator Item = Object->ChildObjects.begin();
-            for (int count = 0; count < Object->ChildObjects.size(); ++count) {
-                Mesh = *Item;
-
-                Mesh->Modifier.is_Drawn = true;
-                ++Item;
+   Component_Mesh* MeshComp= (Component_Mesh*)Object->GetComponent(Component_Types::Mesh);
+   if (MeshComp != nullptr) {
+       if (MeshComp->is_Drawn) {
 
 
-            }
-        }
-    }
+           if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyOpen.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
+                (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
+
+               MeshComp->is_Drawn = false;
+
+               if (Object->Children_List.size() > 0) {
+
+                   Game_Object* Mesh;
+                   std::vector<Game_Object*>::iterator Item = Object->Children_List.begin();
+                   for (int count = 0; count < Object->Children_List.size(); ++count) {
+                       Mesh = *Item;
+
+                       MeshComp->is_Drawn = false;
+
+                       ++Item;
+
+                   }
+               }
+           }
+       }
+       else {
+           if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyClosed.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
+               (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
+
+               MeshComp->is_Drawn = true;
+
+               Game_Object* Mesh;
+               std::vector<Game_Object*>::iterator Item = Object->Children_List.begin();
+               for (int count = 0; count < Object->Children_List.size(); ++count) {
+                   Mesh = *Item;
+
+                   MeshComp->is_Drawn = true;
+                   ++Item;
+
+
+               }
+           }
+       }
+   }
 
     ImGui::SameLine();
 
@@ -265,19 +272,19 @@ bool ModuleHierarchyGameObject::InspectorInfo(GameObject* Object, int uid)
 
     if (node_open)
     {
-        GameObject* Mesh;
+        Game_Object* Mesh;
        // App->inspector->ShowSelectedObjectInfo(Object);
-        if(Object->ChildObjects.size()>0){
-            std::vector<GameObject*>::iterator IteratorChild = Object->ChildObjects.begin();
+        if(Object->Children_List.size()>0){
+            std::vector<Game_Object*>::iterator IteratorChild = Object->Children_List.begin();
            
-            for (int childNum = 0; childNum < Object->ChildObjects.size(); ++childNum) {
+            for (int childNum = 0; childNum < Object->Children_List.size(); ++childNum) {
            
                 Mesh = *IteratorChild;
           
                 ImGui::PushID(childNum);
-                if (childNum < Object->ChildObjects.size()+1) // Amount of childrens displayed in the editor
+                if (childNum < Object->Children_List.size()+1) // Amount of childrens displayed in the editor
                 {
-                     InspectorInfo(Mesh, Mesh->Identifiers.item_id);
+                     InspectorInfo(Mesh, Mesh->item_id);
                 }
                 else
                 {

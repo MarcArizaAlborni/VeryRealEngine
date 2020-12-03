@@ -18,6 +18,7 @@ Game_Object::Game_Object(std::string name) : name(name), Enabled(true)
 	is_Checkered = false;
 	showVertexNormals = false;
 	is_Selected = false;
+	ToBeDrawInspector = false;
 
 }
 

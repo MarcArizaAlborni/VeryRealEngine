@@ -19,7 +19,7 @@ public:
 
 	void CreateHierarchyWindow();
 	
-	bool InspectorInfo(GameObject* Object, int uid);
+	bool InspectorInfo(Game_Object* Object, int uid);
 	//Hierarchy Window Bools
 
 	//bool ShowHierarchyWindow;

@@ -22,7 +22,10 @@ void Component_Mesh::Disable()
 
 void Component_Mesh::Update()
 {
-	App->geometrymanager->DrawMeshTextured(owner);
+	Component_Mesh* MeshDraw = (Component_Mesh*)owner->GetComponent(Component_Types::Mesh);
+	if (MeshDraw->is_Drawn) {
+		App->geometrymanager->DrawMeshTextured(owner);
+	}
 	
 	
 }
