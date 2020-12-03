@@ -202,9 +202,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Things.cpp">
-      <Filter>Source\TRASH</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">

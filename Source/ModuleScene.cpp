@@ -115,7 +115,8 @@ bool ModuleScene::CleanUp()
 
 bool ModuleScene::ResetScene()
 {
-	App->meshimporter->MeshesOnScene.clear();
+	
+	App->geometrymanager->ObjectsOnScene.clear();
 	//SHOULD WE DELETE BUFFERS
 
 	return true;

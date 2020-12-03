@@ -74,7 +74,7 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo()
 	{
 		ImGui::Begin("Inspector", &App->editor->show_inspector_window);
 
-		//std::vector<GameObject*>::iterator IteratorLoaded = App->meshimporter->MeshesOnScene.begin();
+		
 		bool SomethingDrawn = false; // if there isnt an object in the list or if none of them
 
 		//has ToBeDrawInspector==true we print a message saying theres nothing to draw
@@ -204,20 +204,23 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     if (ImGui::CollapsingHeader("Transformation")) {
     
         //NEEDS WORK
-    	if (ImGui::DragFloat3("Position", { &TransInfo->Translation.x }, 0.2f, 0.0, 0.0, "%.2f")) { 
+        
+        if (ImGui::InputFloat3("Position", { &TransInfo->Translation.x }, 2)) {
             TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
         }
+
+    	
         float3 DisplayVecRot=TransInfo->Rotation.ToEulerXYZ();
 
-    	if (ImGui::DragFloat3("Rotation", { &DisplayVecRot.x }, 0.02f, 0.0, 1.0, "%.2f")) {
+    	if (ImGui::InputFloat3("Rotation", { &DisplayVecRot.x }, 2)) {
     
            Quat NewRot = Quat::FromEulerXYZ(DisplayVecRot.x, DisplayVecRot.y, DisplayVecRot.z);
 
            TransInfo->Rotation = NewRot;
 
-            TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
+           TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
     	}
-    	if (ImGui::DragFloat3("Scale", { &TransInfo->Scale.x }, 0.2f, 0.0, 0.0, "%.2f")) {
+        if (ImGui::InputFloat3("Scale", { &TransInfo->Scale.x }, 2)) {
             TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
         }
     

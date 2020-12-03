@@ -151,7 +151,7 @@ public:
 	std::vector<MeshInfo*> LoadSceneMeshes(const aiScene* scene, const char* file_path, const aiNode* node);
 	void CreateMaterials(aiMaterial* material, Game_Object* Object);
 	//List of meshes active
-	std::vector<GameObject*> MeshesOnScene; //CurrentActive meshes list
+	 //CurrentActive meshes list
 	std::vector<TextureInfo*> LoadedTexturesList; // Currently Loaded textures list
 	std::vector<GameObject*> LoadedMeshesList; //Currently Loaded textures list
 
@@ -161,13 +161,13 @@ public:
 	// Add a mesh to the list
 	
 	//Object to add, if its a child and who is the parent
-	void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent=NULL,bool parentfound=false);
+	//void AddMeshToListMeshesOnScene(GameObject* ObjectToBeAdded,bool isChildfrom,GameObject* parent=NULL,bool parentfound=false);
 
 private:
 
 
 	std::vector<GameObject*> ChildrenToAddList;
-	void CreateChildsWithParent(bool WithParent);
+	//void CreateChildsWithParent(bool WithParent);
 	
 	float3 PositionValue;
 	float3 ScaleValue;

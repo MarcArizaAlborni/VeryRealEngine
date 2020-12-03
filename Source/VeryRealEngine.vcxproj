@@ -372,7 +372,6 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
     <ClCompile Include="Game_Time.cpp" />
-    <ClCompile Include="Things.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

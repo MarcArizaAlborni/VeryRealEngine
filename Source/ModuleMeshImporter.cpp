@@ -153,45 +153,7 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 
 
 
-void ModuleMeshImporter::CreateChildsWithParent(bool WithParent)
-{
 
-	if (WithParent == true) {
-
-		GameObject* ItemParentMesh = new GameObject();
-		ItemParentMesh->Modifier.is_Drawn = true;
-		ItemParentMesh->Modifier.is_EmptyParent = true;
-		ItemParentMesh->Identifiers.path = "path";
-		ItemParentMesh->Mesh_Transform_Modifiers.TransformsUpdated = true;
-		//ItemParentMesh->is_FamilyMove = true;
-
-		ItemParentMesh->Mesh_Transform_Modifiers.VectorRotation.x = RotationImportedVal.x;
-		ItemParentMesh->Mesh_Transform_Modifiers.VectorRotation.y = RotationImportedVal.y;
-		ItemParentMesh->Mesh_Transform_Modifiers.VectorRotation.z = RotationImportedVal.z;
-		ItemParentMesh->Mesh_Transform_Modifiers.VectorRotation.angle = RotationImportedVal.w;
-		AddMeshToListMeshesOnScene(ItemParentMesh, false, NULL, true);
-
-		std::vector<GameObject*>::iterator IteratorChild = ChildrenToAddList.begin();
-
-		for (int i = 0; i < ChildrenToAddList.size(); ++i) {
-
-			GameObject* Mesh = *IteratorChild;
-
-			Mesh->Identifiers.item_id = i+1;
-
-			App->meshimporter->MeshesOnScene.back()->ChildObjects.push_back(Mesh);
-
-			++IteratorChild;
-
-		}
-	}
-	else {
-
-		std::vector<GameObject*>::iterator IteratorChild = ChildrenToAddList.begin();
-
-		App->meshimporter->MeshesOnScene.push_back(*IteratorChild);
-	}
-}
 
 void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const char* file_path, aiMesh* meshLoad, const aiNode* node,NodeMap map)
 {
@@ -285,13 +247,7 @@ void ModuleMeshImporter::CreateGameObjectsByNodes(const aiScene* scene, const ch
      }
      
      
-     /*if (ParentIsFound == true) {
      
-     	AddMeshToListMeshesOnScene(ourGameObject, true, NULL);
-     }
-     else {
-     	AddMeshToListMeshesOnScene(ourGameObject, false, NULL);
-     }*/
      
      
      ChildrenToAddList.push_back(ourGameObject);
@@ -442,38 +398,7 @@ vec3 ModuleMeshImporter::LoadNodeInfo(const aiScene* scene, aiNode* rootNode)
 	return RetVec;
 }
 
-void ModuleMeshImporter::AddMeshToListMeshesOnScene(GameObject* Object, bool isChildfrom, GameObject* parent,bool parentFound )
-{
-	if (isChildfrom == true) {
 
-			std::vector<GameObject*>::reverse_iterator IteratorToAddParent = App->meshimporter->MeshesOnScene.rbegin();
-			
-			GameObject* itemParent = *IteratorToAddParent;
-
-			int size2 = itemParent->ChildObjects.size() + 1;
-
-			Object->Identifiers.item_id = size2;
-
-			Object->Modifier.is_Selected = false;
-			Object->Modifier.is_Textured = true;
-			//Object->mesh_name = "Empty Parent";
-			itemParent->ChildObjects.push_back(Object);
-	}
-	else {
-
-		int size = MeshesOnScene.size() +1;
-
-		Object->Identifiers.item_id = size;
-		Object->Modifier.is_Selected = false;
-		Object->Modifier.is_Textured = true;
-		
-		if (parentFound) {
-			Object->mesh_name = "Empty Parent";
-		}
-		
-		MeshesOnScene.push_back(Object);
-	}
-}
 
 
 
