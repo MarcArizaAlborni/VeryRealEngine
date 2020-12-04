@@ -130,10 +130,8 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 				CreateMaterials(texture, ObjectToAdd);
 			}
 		}
-
-		Comp_Mesh->CreateLocalAABB();
-		Comp_Mesh->GetGlobalAABB();
-		Comp_Mesh->GenerateBBBufers();
+		
+		
 	}
 
 	Parent->GenerateChildren(ObjectToAdd);
@@ -142,6 +140,14 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 
 
 	ObjectToAdd->Transformations->UpdateTransformationsObjects(Translation_Calculated, Scale_Calculated, Rotation_Calculated);
+	Component_Transform* MeshTrans = (Component_Transform*)ObjectToAdd->GetComponent(Component_Types::Transform);
+
+	if (ObjectToAdd->Mesh != nullptr && MeshTrans != nullptr)
+	{
+		ObjectToAdd->Mesh->CreateLocalAABB();
+		ObjectToAdd->Mesh->GetGlobalAABB();
+		ObjectToAdd->Mesh->GenerateBBBufers();
+	}
 
 	//Parent->Children_List.push_back(ObjectToAdd);
 

@@ -14,6 +14,8 @@ class Component_Mesh : public Component {
 
 public:
 
+	~Component_Mesh();
+
 	MeshInfo* Mesh;
 	std::string File_Path;
 
@@ -22,8 +24,6 @@ public:
 	void Update() override;
 	void CleanUp() override;
 	
-
-
 	MeshInfo* GetMesh() const;
 	std::string GetPath()const;
 
@@ -35,29 +35,27 @@ public:
 
 	bool is_Drawn = true;
 
-	//AABB properties (temporal location)
-	AABB local_AABB;
-	AABB global_AABB;
-	OBB global_OBB;
-
-	uint id_vertexAABB = 0;
-	uint id_indexAABB = 0;
-	uint id_vertexOBB = 0;
-	uint id_indexOBB = 0;
-
-	std::vector<float3> vertices_AABB;
-	std::vector<float3> vertices_OBB;
-	std::vector<uint> index_AABB;
-	std::vector<uint> index_OBB;
-
+	//BB properties 
 	void GenerateBBBufers();
 	AABB CreateLocalAABB();
 	AABB GetGlobalAABB();
 	OBB GetOBB();
 
-	void DrawAABB();
-	void DrawOBB();
-	
+	void DrawBB();
+	void UpdateOnTransformOBB();
+
+	AABB local_AABB;
+	AABB global_AABB;
+	OBB global_OBB;
+
+	uint id_vertexAABB = 0;
+	uint id_vertexOBB = 0;
+	uint id_indexBB = 0;
+
+	std::vector<float3> vertices_AABB;
+	std::vector<float3> vertices_OBB;
+	std::vector<uint> index_BB;
+
 };
 
 #endif

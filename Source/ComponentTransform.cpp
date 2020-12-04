@@ -4,6 +4,27 @@
 #include "ComponentTransform.h"
 #include "libraries/MathGeoLib/include/MathGeoLib.h"
 
+Component_Transform::Component_Transform(Game_Object* owner) : Component(owner), Translation(float3(0.0f, 0.0f, 0.0f)), Rotation(Quat::identity), Scale(float3(1.0f, 1.0f, 1.0f))
+{
+	Local_Matrix = float4x4::FromTRS(Translation, Rotation, Scale);
+	Global_Matrix = Quat::identity;
+	type = Component_Types::Transform;
+	//UpdateEulerAngles();
+};
+
+Component_Transform::Component_Transform(Game_Object* owner, float3 position, float3 scale, Quat rotation) : Component(owner), Scale(scale), Rotation(rotation), Translation(position)
+{
+	Local_Matrix = float4x4::FromTRS(position, rotation, scale);
+	Global_Matrix = Quat::identity;
+	type = Component_Types::Transform;
+	//UpdateEulerAngles();
+};
+
+
+Component_Transform::~Component_Transform()
+{
+}
+
 void Component_Transform::Enable()
 {
 }
@@ -73,23 +94,23 @@ void Component_Transform::UpdateEulerAngles()
 	EulerRot *= RADTODEG;
 }
 
-Component_Transform::Component_Transform(Game_Object* owner) : Component(owner), Translation(float3(0.0f, 0.0f, 0.0f)), Rotation(Quat::identity), Scale(float3(1.0f, 1.0f, 1.0f))
-{
-	Local_Matrix = float4x4::FromTRS(Translation, Rotation, Scale);
-	Global_Matrix = Quat::identity;
-	type = Component_Types::Transform;
-	//UpdateEulerAngles();
-};
+//float4x4 Component_Transform::GetGlobalTransformMatrix()
+//{
+//	Rotation = Quat::FromEulerXYZ(EulerRot.x * DEGTORAD, EulerRot.y * DEGTORAD, EulerRot.z * DEGTORAD);
+//	Local_Matrix = float4x4::FromTRS(Translation, Rotation, Scale);
+//
+//	if (owner->GetParent())
+//	{
+//		Global_Matrix = my_go->GetParent()->GetComponentTransform()->GetGlobalTransformMatrix() * local_matrix;
+//	}
+//		
+//	else
+//	{
+//		Global_Matrix = Local_Matrix;
+//	}
+//		
+//	Global_Matrix.Decompose(position, rotation, scale);
+//
+//	return global_matrix;
+//}
 
-Component_Transform::Component_Transform(Game_Object* owner, float3 position, float3 scale, Quat rotation) : Component(owner), Scale(scale), Rotation(rotation), Translation(position)
-{
-	Local_Matrix = float4x4::FromTRS(position, rotation, scale);
-	Global_Matrix = Quat::identity;
-	type = Component_Types::Transform;
-	//UpdateEulerAngles();
-};
-
-
-Component_Transform::~Component_Transform()
-{
-}

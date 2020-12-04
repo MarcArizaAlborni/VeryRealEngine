@@ -30,8 +30,6 @@ public:
 	virtual void Disable() {};
 	virtual void Update() {};
 	virtual void CleanUp() {};
-	
-	
 
 };
 

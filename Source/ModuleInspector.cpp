@@ -207,6 +207,8 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
         
         if (ImGui::InputFloat3("Position", { &TransInfo->Translation.x }, 2)) {
             TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
+
+            MeshInfo->UpdateOnTransformOBB();
         }
 
     	
@@ -219,9 +221,13 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
            TransInfo->Rotation = NewRot;
 
            TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
+
+           MeshInfo->UpdateOnTransformOBB();
     	}
         if (ImGui::InputFloat3("Scale", { &TransInfo->Scale.x }, 2)) {
             TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
+
+            MeshInfo->UpdateOnTransformOBB();
         }
     
     	//ImGui::Checkbox("Move Family", &item->Modifier.is_FamilyMove);
