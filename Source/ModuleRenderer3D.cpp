@@ -4,6 +4,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleScene.h"
 #include "ModuleCamera3D.h"
+#include "ComponentCamera.h"
 #include "ModuleTextureImporter.h"
 #include "ComponentMesh.h"
 #include "ModuleEditor.h"
@@ -173,10 +174,10 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
+	glLoadMatrixf(App->camera->scene_camera->GetViewMatrix());
 
 	// light 0 on cam pos
-	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	lights[0].SetPos(App->camera->scene_camera->Position.x, App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z);
 
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();

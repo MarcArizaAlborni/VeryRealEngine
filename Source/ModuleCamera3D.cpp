@@ -8,21 +8,13 @@
 #include "Game_Time.h"
 #include "GameObject.h"
 #include "ComponentTransform.h"
-
+#include "ComponentCamera.h"
 
 #include "libraries/MathGeoLib/include/Math/MathFunc.h"
 #include "libraries/MathGeoLib/include/Geometry/LineSegment.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, const char* name, bool start_enabled) : Module(app,name, start_enabled)
 {
-	CalculateViewMatrix();
-
-	X = vec3(1.0f, 0.0f, 0.0f);
-	Y = vec3(0.0f, 1.0f, 0.0f);
-	Z = vec3(0.0f, 0.0f, 1.0f);
-
-	Position = vec3(0.0f, 0.0f, 5.0f);
-	Reference = vec3(0.0f, 0.0f, 0.0f);
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -33,6 +25,8 @@ bool ModuleCamera3D::Start()
 {
 	LOGFIX("Setting up the camera");
 	bool ret = true;
+
+	scene_camera = new ComponentCamera(Component_Types::Camera, true, nullptr);
 
 	return ret;
 }
@@ -55,41 +49,40 @@ update_status ModuleCamera3D::Update(float dt)
 	{
 		// Movement Camera
 		vec3 newPos(0, 0, 0);
-		float speed = 20.0f * dt;
 		if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-			speed = 40.0f * dt;
+			scene_camera->camera_speed = 40.0f * dt;
 
-		if (App->input->GetKey(SDL_SCANCODE_KP_7) == KEY_REPEAT) newPos.y += speed;
-		if (App->input->GetKey(SDL_SCANCODE_KP_9) == KEY_REPEAT) newPos.y -= speed;
+		if (App->input->GetKey(SDL_SCANCODE_KP_7) == KEY_REPEAT) newPos.y += scene_camera->camera_speed;
+		if (App->input->GetKey(SDL_SCANCODE_KP_9) == KEY_REPEAT) newPos.y -= scene_camera->camera_speed;
 
 		//if ((App->input->GetKey(SDL_SCANCODE_KP_8) == KEY_REPEAT) && (App->input->GetKey(SDL_BUTTON_LEFT) == SDL_MOUSEBUTTONDOWN))newPos -= Z * speed;
 
-		if (App->input->GetKey(SDL_SCANCODE_KP_8) == KEY_REPEAT) newPos -= Z * speed;
-		else if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)&& (App->input->GetMouseButton(SDL_BUTTON_RIGHT))) newPos -= Z * speed;
-		if (App->input->GetKey(SDL_SCANCODE_KP_5) == KEY_REPEAT) newPos += Z * speed;
-		else if ((App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT))) newPos += Z * speed;
+		if (App->input->GetKey(SDL_SCANCODE_KP_8) == KEY_REPEAT) newPos -= scene_camera->Z * scene_camera->camera_speed;
+		else if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)&& (App->input->GetMouseButton(SDL_BUTTON_RIGHT))) newPos -= scene_camera->Z * scene_camera->camera_speed;
+		if (App->input->GetKey(SDL_SCANCODE_KP_5) == KEY_REPEAT) newPos += scene_camera->Z * scene_camera->camera_speed;
+		else if ((App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT))) newPos += scene_camera->Z * scene_camera->camera_speed;
 
-		if (App->input->GetKey(SDL_SCANCODE_KP_4) == KEY_REPEAT) newPos -= X * speed;
-		else if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT))) newPos -= X * speed;
-		if (App->input->GetKey(SDL_SCANCODE_KP_6) == KEY_REPEAT) newPos += X * speed;
-		else if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT))) newPos += X * speed;
+		if (App->input->GetKey(SDL_SCANCODE_KP_4) == KEY_REPEAT) newPos -= scene_camera->X * scene_camera->camera_speed;
+		else if ((App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT))) newPos -= scene_camera->X * scene_camera->camera_speed;
+		if (App->input->GetKey(SDL_SCANCODE_KP_6) == KEY_REPEAT) newPos += scene_camera->X * scene_camera->camera_speed;
+		else if ((App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT))) newPos += scene_camera->X * scene_camera->camera_speed;
 
-		Position += newPos;
-		Reference += newPos;
+		scene_camera->Position += newPos;
+		scene_camera->Reference += newPos;
 
 		// Wheel Zoom
 		if (App->input->GetMouseZ() != 0)
 		{
-			vec3 Distance = Position - Reference;
+			vec3 Distance = scene_camera->Position - scene_camera->Reference;
 			vec3 newPos = { 0,0,0 };
 
 			if (App->input->GetMouseZ() > 0 || App->input->GetMouseZ() < 0)
 			{
-				newPos -= Z * App->input->GetMouseZ() * length(Distance) / (1 / zoomValue * 4);
-				Position += newPos;
+				newPos -= scene_camera->Z * App->input->GetMouseZ() * length(Distance) / (1 / scene_camera->zoomValue * 4);
+				scene_camera->Position += newPos;
 			}
 
-			Position += newPos;
+			scene_camera->Position += newPos;
 		}
 
 		//Left Click (altenative for the arrows)
@@ -102,12 +95,12 @@ update_status ModuleCamera3D::Update(float dt)
 
 			if (dx != 0 || dy != 0)
 			{
-				newPos -= Y * dy * App->GetDT() * wheelSpeedValue;
-				newPos += X * dx * App->GetDT() * wheelSpeedValue;
+				newPos -= scene_camera->Y * dy * App->GetDT() * scene_camera->wheelSpeedValue;
+				newPos += scene_camera->X * dx * App->GetDT() * scene_camera->wheelSpeedValue;
 			}
 
-			Position += newPos;
-			Reference += newPos;
+			scene_camera->Position += newPos;
+			scene_camera->Reference += newPos;
 		}
 
 		// Mouse motion ----------------
@@ -118,32 +111,32 @@ update_status ModuleCamera3D::Update(float dt)
 
 			float Sensitivity = 0.25f;
 
-			Position -= Reference;
+			scene_camera->Position -= scene_camera->Reference;
 
 			if (dx != 0)
 			{
 				float DeltaX = (float)dx * Sensitivity;
 
-				X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-				Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-				Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				scene_camera->X = rotate(scene_camera->X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				scene_camera->Y = rotate(scene_camera->Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				scene_camera->Z = rotate(scene_camera->Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
 			}
 
 			if (dy != 0)
 			{
 				float DeltaY = (float)dy * Sensitivity;
 
-				Y = rotate(Y, DeltaY, X);
-				Z = rotate(Z, DeltaY, X);
+				scene_camera->Y = rotate(scene_camera->Y, DeltaY, scene_camera->X);
+				scene_camera->Z = rotate(scene_camera->Z, DeltaY, scene_camera->X);
 
-				if (Y.y < 0.0f)
+				if (scene_camera->Y.y < 0.0f)
 				{
-					Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-					Y = cross(Z, X);
+					scene_camera->Z = vec3(0.0f, scene_camera->Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+					scene_camera->Y = cross(scene_camera->Z, scene_camera->X);
 				}
 			}
 
-			Position = Reference + Z * length(Position);
+			scene_camera->Position = scene_camera->Reference + scene_camera->Z * length(scene_camera->Position);
 		}
 
 		//Center to object
@@ -165,7 +158,7 @@ update_status ModuleCamera3D::Update(float dt)
 					if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 					{
 						//Orbit()
-						ResetRotation = true;
+						scene_camera->ResetRotation = true;
 						LookAt({ selected_object->Transformations->Translation.x,
 							 selected_object->Transformations->Translation.y,
 							 selected_object->Transformations->Translation.z
@@ -176,9 +169,9 @@ update_status ModuleCamera3D::Update(float dt)
 
 			}
 
-			else if (ResetRotation == true)
+			else if (scene_camera->ResetRotation == true)
 			{
-				ResetRotation = false;
+				scene_camera->ResetRotation = false;
 				LookAt({ 0,0,0 });
 			}
 
@@ -203,7 +196,7 @@ update_status ModuleCamera3D::Update(float dt)
 						if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 						{
 							//Orbit()
-							ResetRotation = true;
+							scene_camera->ResetRotation = true;
 							LookAt({ selected_object_child->Transformations->Translation.x,
 								 selected_object_child->Transformations->Translation.y,
 								 selected_object_child->Transformations->Translation.z
@@ -220,7 +213,7 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		// Recalculate matrix -------------
-		CalculateViewMatrix();
+		scene_camera->CalculateViewMatrix();
 	}
 
 	return UPDATE_CONTINUE;
@@ -229,55 +222,42 @@ update_status ModuleCamera3D::Update(float dt)
 // -----------------------------------------------------------------
 void ModuleCamera3D::Look(const vec3& Position, const vec3& Reference, bool RotateAroundReference)
 {
-	this->Position = Position;
-	this->Reference = Reference;
+	scene_camera->Position = Position;
+	scene_camera->Reference = Reference;
 
-	Z = normalize(Position - Reference);
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);
+	scene_camera->Z = normalize(Position - Reference);
+	scene_camera->X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), scene_camera->Z));
+	scene_camera->Y = cross(scene_camera->Z, scene_camera->X);
 
 	if (!RotateAroundReference)
 	{
-		this->Reference = this->Position;
-		this->Position += Z * 0.05f;
+		scene_camera->Reference = scene_camera->Position;
+		scene_camera->Position += scene_camera->Z * 0.05f;
 	}
 
-	CalculateViewMatrix();
+	scene_camera->CalculateViewMatrix();
 }
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::LookAt(const vec3& Spot)
 {
-	Reference = Spot;
+	scene_camera->Reference = Spot;
 
-	Z = normalize(Position - Reference);
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);
+	scene_camera->Z = normalize(scene_camera->Position - scene_camera->Reference);
+	scene_camera->X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), scene_camera->Z));
+	scene_camera->Y = cross(scene_camera->Z, scene_camera->X);
 
-	CalculateViewMatrix();
+	scene_camera->CalculateViewMatrix();
 }
 
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::Move(const vec3& Movement)
 {
-	Position += Movement;
-	Reference += Movement;
+	scene_camera->Position += Movement;
+	scene_camera->Reference += Movement;
 
-	CalculateViewMatrix();
-}
-
-// -----------------------------------------------------------------
-float* ModuleCamera3D::GetViewMatrix()
-{
-	return &ViewMatrix;
-}
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::CalculateViewMatrix()
-{
-	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
-	ViewMatrixInverse = inverse(ViewMatrix);
+	scene_camera->CalculateViewMatrix();
 }
 
 void ModuleCamera3D::CenterToObject( Game_Object* object)
@@ -287,6 +267,13 @@ void ModuleCamera3D::CenterToObject( Game_Object* object)
 
 void ModuleCamera3D::Orbit() {
 
+}
+
+update_status ModuleCamera3D::Load()
+{
+	scene_camera->Load();
+
+	return UPDATE_CONTINUE;
 }
 
 void ModuleCamera3D::CreateConsolelog(const char file[], int line, const char* format, ...)

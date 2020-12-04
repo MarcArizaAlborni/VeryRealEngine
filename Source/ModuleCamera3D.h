@@ -6,6 +6,7 @@
 #include "glmath.h"
 
 class Game_Time;
+class ComponentCamera;
 
 class ModuleCamera3D : public Module
 {
@@ -14,6 +15,8 @@ public:
 	~ModuleCamera3D();
 
 	bool Start();
+	update_status Load();
+	update_status Save() { return UPDATE_CONTINUE; };
 	update_status Update(float dt);
 	bool CleanUp();
 
@@ -24,24 +27,8 @@ public:
 	void CenterToObject(Game_Object* object);
 	void Orbit();
 
-	float* GetViewMatrix();
+	ComponentCamera* scene_camera = nullptr;
 
-private:
-
-	void CalculateViewMatrix();
-
-public:
-
-	vec3 X, Y, Z, Position, Reference;
-
-	float wheelSpeedValue = 0.8f; // sensitivity left click 
-	float zoomValue = 0.5f; //sensitivity of the zoom
-
-	bool ResetRotation = false;
-
-private:
-
-	mat4x4 ViewMatrix, ViewMatrixInverse;
 
 
 
