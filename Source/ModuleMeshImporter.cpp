@@ -229,7 +229,8 @@ void ModuleMeshImporter::CreateMaterials(aiMaterial* material, Game_Object* Obje
 	aiString	texPath;
 	std::string		texName;
 	std::string		texExtension;
-
+	TextureInfo* Val;
+	
 	if (material->Get(AI_MATKEY_COLOR_DIFFUSE, color) == AI_SUCCESS)										// Could also get specular and ambient occlusion colours.
 	{
 		//OurMat->SetColor(Color(color.r, color.g, color.b, color.a));
