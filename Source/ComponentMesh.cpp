@@ -29,7 +29,7 @@ Component_Mesh::Component_Mesh(Game_Object* ComponentOwner, const char* file_pat
 	File_Path = file_path;
 	type = Component_Types::Mesh;
 
-	local_AABB.SetNegativeInfinity();
+	local_AABB.SetNegativeInfinity(); // This sets the values of the minimum infinity to a fixed value
 	global_AABB.SetNegativeInfinity();
 }
 
