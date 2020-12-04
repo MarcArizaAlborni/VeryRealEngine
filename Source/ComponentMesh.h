@@ -5,9 +5,8 @@
 #include "Component.h"
 #include "ModuleGeometryManager.h"
 #include <string>
-#include "libraries/MathGeoLib/include/Geometry/AABB.h"
-#include "libraries/MathGeoLib/include/Geometry/OBB.h"
-#include "glmath.h"
+#include "libraries/MathGeoLib/include/MathGeoLib.h"
+
 
 struct MeshInfo;
 
@@ -23,7 +22,7 @@ public:
 	void Update() override;
 	void CleanUp() override;
 	
-	std::vector<float3> vertices;
+
 
 	MeshInfo* GetMesh() const;
 	std::string GetPath()const;

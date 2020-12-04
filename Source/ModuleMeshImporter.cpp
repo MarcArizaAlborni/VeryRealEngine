@@ -21,7 +21,8 @@
 #pragma comment (lib, "libraries/PhysFS/include/physfs.h")
 #include "libraries/PhysFS/include/physfs.h"
 
-#include "libraries/MathGeoLib/include/MathGeoLib.h"
+//#include "libraries/MathGeoLib/include/MathGeoLib.h"
+#include "libraries/MathGeoLib/include/Math/float3.h"
 
 ModuleMeshImporter::ModuleMeshImporter(Application* app, const char* name, bool start_enabled) : Module(app,"Importer", start_enabled)
 {
@@ -166,7 +167,7 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 
 		OurMesh->num_vertex = meshLoad->mNumVertices;
 
-		OurMesh->vertex = new Vertex_Sub[OurMesh->num_vertex * 3];
+		OurMesh->vertex = new float3[OurMesh->num_vertex * 3];
 
 		memcpy(OurMesh->vertex, meshLoad->mVertices, sizeof(float) * OurMesh->num_vertex * 3);
 
@@ -187,7 +188,7 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 
 		if (meshLoad->HasNormals()) {
 
-			OurMesh->normals = new Vertex_Sub[OurMesh->num_vertex * 3];
+			OurMesh->normals = new float3[OurMesh->num_vertex * 3];
 			memcpy(OurMesh->normals, meshLoad->mNormals, sizeof(float) * OurMesh->num_vertex * 3);
 
 		}

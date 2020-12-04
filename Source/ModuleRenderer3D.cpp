@@ -126,11 +126,11 @@ bool ModuleRenderer3D::Start()
 	return true;
 }
 
-void ModuleRenderer3D::GenerateVertexBuffer(Vertex_Sub* vertex, uint& size, uint& id_vertex)
+void ModuleRenderer3D::GenerateVertexBuffer(float3* vertex, uint& size, uint& id_vertex)
 {
 	glGenBuffers(1, (GLuint*)&(id_vertex));
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertex);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex_Sub) * size, vertex, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * size, vertex, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -150,7 +150,7 @@ void ModuleRenderer3D::GenerateTextBuffer(float* text_coords, uint& num_text_coo
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ModuleRenderer3D::GenerateNormalBuffer(MeshInfo* Mesh, Vertex_Sub* normals)
+void ModuleRenderer3D::GenerateNormalBuffer(MeshInfo* Mesh, float3* normals)
 {
 	if (Mesh->normals != nullptr) {
 		if (Mesh->id_normals != NULL) {

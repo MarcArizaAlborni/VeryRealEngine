@@ -9,7 +9,7 @@
 struct aiScene;
 
 struct TextureInfo;
-struct Vertex_Sub;
+
 struct MeshInfo;
 struct GameObject;
 

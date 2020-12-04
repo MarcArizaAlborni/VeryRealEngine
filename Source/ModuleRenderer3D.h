@@ -4,14 +4,16 @@
 
 #include "Module.h"
 #include "Globals.h"
-#include "glmath.h"
+
 #include "Light.h"
 
+#include "libraries/MathGeoLib/include/Math/float3.h"
 #define MAX_LIGHTS 8
 
 struct MeshInfo;
-struct Vertex_Sub;
+
 struct GameObject;
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -27,10 +29,10 @@ public:
 
 	void OnResize(int width, int height);
 
-	void GenerateVertexBuffer(Vertex_Sub* vertex, uint& size, uint& id_vertex);
+	void GenerateVertexBuffer(float3* vertex, uint& size, uint& id_vertex);
 	void GenerateIndexBuffer(uint* index, uint& size, uint& id_index);
 	void GenerateTextBuffer(float* text_coords, uint& num_text_coords, uint& id_text_coords);
-	void GenerateNormalBuffer(MeshInfo* mesh, Vertex_Sub* normals);
+	void GenerateNormalBuffer(MeshInfo* mesh, float3* normals);
 
 
 public:

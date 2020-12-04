@@ -245,9 +245,9 @@ void ModuleGeometryManager::DrawVertexNormals(Game_Object* object)
 
 		for (int i = 0; i < object->Mesh->Mesh->num_index; i += 3)
 		{
-			Vertex_Sub vert1 = object->Mesh->Mesh->vertex[object->Mesh->Mesh->index[i]];
-			Vertex_Sub vert2 = object->Mesh->Mesh->vertex[object->Mesh->Mesh->index[i + 1]];
-			Vertex_Sub vert3 = object->Mesh->Mesh->vertex[object->Mesh->Mesh->index[i + 2]];
+			float3 vert1 = object->Mesh->Mesh->vertex[object->Mesh->Mesh->index[i]];
+			float3 vert2 = object->Mesh->Mesh->vertex[object->Mesh->Mesh->index[i + 1]];
+			float3 vert3 = object->Mesh->Mesh->vertex[object->Mesh->Mesh->index[i + 2]];
 
 			float3 vert1F = { vert1.x,vert1.y,vert1.z };
 			float3 vert2F = { vert2.x,vert2.y,vert2.z };

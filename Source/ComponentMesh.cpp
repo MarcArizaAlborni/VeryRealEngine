@@ -18,7 +18,8 @@ Component_Mesh::Component_Mesh(Game_Object* ComponentOwner) :Component(Component
 	Mesh = nullptr;
 	File_Path = "none";
 	type = Component_Types::Mesh;
-	//owner = ComponentOwner;
+	local_AABB.SetNegativeInfinity();
+	global_AABB.SetNegativeInfinity();
 
 }
 
@@ -46,12 +47,12 @@ void Component_Mesh::Update()
 	if (MeshDraw->is_Drawn) {
 		App->geometrymanager->DrawMeshTextured(owner);
 
-		
+		DrawAABB();
+
+		DrawOBB();
 	}
 
-	DrawAABB();
-
-	DrawOBB();
+	
 
 }
 
@@ -107,8 +108,19 @@ void Component_Mesh::GenerateBBBufers()
 
 AABB Component_Mesh::CreateLocalAABB()
 {
-	local_AABB.Enclose(vertices.data(), vertices.size()); // Falta arreglar vertex sub
+	std::vector<float3> Vertices;
 
+	for (int size = 0; size < Mesh->num_vertex; ++size) {
+
+		Vertices.push_back(Mesh->vertex[size]);
+	}
+
+	//local_AABB.Enclose(Mesh->vertex, Mesh->num_vertex); // Falta arreglar vertex sub
+
+	local_AABB.Enclose(Vertices.data(), Vertices.size());
+	
+	
+	
 	return local_AABB;
 }
 

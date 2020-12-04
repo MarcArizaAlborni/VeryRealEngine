@@ -4,9 +4,9 @@
 #include "Module.h"
 #include "Globals.h"
 
+
+
 #include "libraries/MathGeoLib/include/MathGeoLib.h"
-#include "libraries/MathGeoLib/include/Geometry/AABB.h"
-#include "libraries/MathGeoLib/include/Geometry/OBB.h"
 
 
 // Class Mesh
@@ -18,24 +18,15 @@ struct aiNode;
 struct StoredFile;
 struct aiMesh;
 
-
-
-
-
-
-struct Vertex_Sub {
-
-	float x = 0, y = 0, z=0;
-};
-
 struct MeshInfo
 {
+	
 	uint id_index=0;                         // index in VRAM
 	uint num_index = 0;                      // amount of indexes in a mesh
 	uint* index = nullptr;                   // id of the index
 	uint id_vertex = 0;                      // unique vertex in VRAM
 	uint num_vertex = 0;                     // amount of vertex in a mesh
-	Vertex_Sub* vertex=nullptr;              // id of the vertex
+	float3* vertex=nullptr;                  // id of the vertex
 
 	float* texcoords = nullptr;              //coordinates of the texture in the mesh
 	uint num_texcoords = 0;                  // amount of coordinates of the texture in the mesh
@@ -43,7 +34,7 @@ struct MeshInfo
 	
 	GLuint TextureName=0;                    // name of the current texture aplied to the mesh
 
-	Vertex_Sub* normals;                     // amount of normals in the mesh
+	float3* normals;                     // amount of normals in the mesh
 	uint id_normals=0;                       // id of the normals in the mesh
 };
 
