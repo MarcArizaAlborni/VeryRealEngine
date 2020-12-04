@@ -95,6 +95,10 @@ public:
 	GLuint mTextureWidth=0;
 	GLuint mTextureHeight=0;
 
+
+
+	std::vector<TextureInfo*> Textures_Resource_List;
+
 };
 
 #endif
