@@ -111,12 +111,11 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 	if (node->mNumMeshes > 0) {
 
 		std::vector<MeshInfo*> Mesh = LoadSceneMeshes(scene, file_path, node);
+		Component_Mesh* Comp_Mesh = new Component_Mesh(ObjectToAdd);
 
 		for (int number = 0; number < Mesh.size(); ++number) {
 
 		
-			Component_Mesh* Comp_Mesh = new Component_Mesh(ObjectToAdd);
-
 			Comp_Mesh->CreateMesh(Mesh[number]);
 			Comp_Mesh->CreatePath(file_path);
 			ObjectToAdd->AddExistingComponent(Comp_Mesh);
@@ -130,6 +129,10 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 				CreateMaterials(texture, ObjectToAdd);
 			}
 		}
+
+		Comp_Mesh->CreateLocalAABB();
+		Comp_Mesh->GetGlobalAABB();
+		Comp_Mesh->GenerateBBBufers();
 	}
 
 	Parent->GenerateChildren(ObjectToAdd);
@@ -209,8 +212,6 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 			App->renderer3D->GenerateTextBuffer(OurMesh->texcoords, OurMesh->num_texcoords, OurMesh->texcoords_id);
 		}
 		App->renderer3D->GenerateNormalBuffer(OurMesh, OurMesh->normals);
-
-
 
 		ItemList.push_back(OurMesh);
 

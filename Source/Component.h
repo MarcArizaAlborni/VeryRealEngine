@@ -20,6 +20,8 @@ class Component {
 
 public:
 
+	Component(Game_Object* ComponentOwner) : Enabled(true), owner(ComponentOwner), type(Component_Types::None) {};
+
 	Component_Types type;
 	bool Enabled;
 	Game_Object* owner;
@@ -29,7 +31,7 @@ public:
 	virtual void Update() {};
 	virtual void CleanUp() {};
 	
-	Component(Game_Object* ComponentOwner) : Enabled(true), owner(ComponentOwner), type(Component_Types::None) {};
+	
 
 };
 

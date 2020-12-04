@@ -5,6 +5,7 @@
 #include "ModuleScene.h"
 #include "ModuleCamera3D.h"
 #include "ModuleTextureImporter.h"
+#include "ComponentMesh.h"
 #include "ModuleEditor.h"
 #include "libraries/Glew/include/GL/glew.h"
 #include "libraries/SDL/include/SDL_opengl.h"
@@ -159,10 +160,10 @@ void ModuleRenderer3D::GenerateNormalBuffer(MeshInfo* Mesh, Vertex_Sub* normals)
 			glBindBuffer(GL_ARRAY_BUFFER, (GLuint) & (Mesh->id_normals));
 			glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * Mesh->id_normals * 3, Mesh->normals, GL_STATIC_DRAW);
 		}
-
 	}
-
 }
+
+
 
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)

@@ -32,6 +32,7 @@ public:
 	void GenerateTextBuffer(float* text_coords, uint& num_text_coords, uint& id_text_coords);
 	void GenerateNormalBuffer(MeshInfo* mesh, Vertex_Sub* normals);
 
+
 public:
 
 	Light lights[MAX_LIGHTS];
