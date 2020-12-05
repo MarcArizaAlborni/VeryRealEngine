@@ -5,13 +5,15 @@
 #include "Globals.h"
 #include "glmath.h"
 
-class ComponentCamera : public Component
+#include "libraries/MathGeoLib/include/Geometry/Frustum.h"
+
+class Component_Camera : public Component
 {
 public:
-	ComponentCamera(Component_Types comp_type, bool act, Game_Object* obj);
-	~ComponentCamera() {};
+	Component_Camera(Game_Object* obj);
+	~Component_Camera() {};
 
-	void CreateFrustum();
+	void CreateFrustum(const float3* corners, Color color);
 
 	float* GetViewMatrix();
 	void CalculateViewMatrix();

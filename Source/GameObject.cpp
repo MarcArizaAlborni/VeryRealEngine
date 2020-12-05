@@ -64,7 +64,7 @@ Component* Game_Object::AddComponent(Component_Types typus)
 	case Component_Types::Camera:
 		LOG("[WARNING]Component Camera added to GameObject");
 
-		//Ret = new Component_Camera(this); WIP
+		Ret = new Component_Camera(this); 
 		UniqueComponent = true;
 		break;
 
@@ -132,6 +132,10 @@ Component* Game_Object::AddExistingComponent(Component* component)
 	case(Component_Types::Mesh):
 		Mesh = (Component_Mesh*)component;
 		Ret = new Component_Mesh(this);
+		break;
+	case(Component_Types::Camera):
+		Camera = (Component_Camera*)component;
+		Ret = new Component_Camera(this);
 		break;
 
 	}

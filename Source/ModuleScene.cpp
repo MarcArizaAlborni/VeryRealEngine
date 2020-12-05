@@ -4,6 +4,8 @@
 #include "Definitions.h"
 #include "ModuleRenderer3D.h"
 #include "FileSystem.h"
+#include "ModuleCamera3D.h"
+#include "ComponentCamera.h"
 #include "ModuleScene.h"
 #include "ModuleCamera3D.h"
 #include "ModuleTextureImporter.h"
@@ -28,6 +30,10 @@ ModuleScene::ModuleScene(Application* app, const char* name, bool start_enabled)
 	App->geometrymanager->ObjectsOnScene.push_back(ROOT_SCENE_OBJECT);
 	ROOT_SCENE_OBJECT->Parent = nullptr;
 
+	scene_camera = new Game_Object("Scene Camera");
+	App->geometrymanager->ObjectsOnScene.push_back(scene_camera);
+	scene_camera->Parent = nullptr;
+
 }
 
 // Destructor
@@ -45,11 +51,6 @@ bool ModuleScene::Init()
 
 bool ModuleScene::Start()
 {
-	//THIS MUST ALWAYS BE THE FIRST THING IN THE OBJECT LIST
-	//Game_Object* Item = new Game_Object("Scene Object");
-	//App->geometrymanager->ObjectsOnScene.push_back(Item);
-
-
 
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Models/Checkers/checkers.png");
 

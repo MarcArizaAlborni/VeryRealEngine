@@ -26,7 +26,7 @@ bool ModuleCamera3D::Start()
 	LOGFIX("Setting up the camera");
 	bool ret = true;
 
-	scene_camera = new ComponentCamera(Component_Types::Camera, true, nullptr);
+	scene_camera = new Component_Camera(nullptr);
 
 	return ret;
 }

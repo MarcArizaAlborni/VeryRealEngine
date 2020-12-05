@@ -6,7 +6,7 @@
 #include "glmath.h"
 
 class Game_Time;
-class ComponentCamera;
+class Component_Camera;
 
 class ModuleCamera3D : public Module
 {
@@ -27,7 +27,7 @@ public:
 	void CenterToObject(Game_Object* object);
 	void Orbit();
 
-	ComponentCamera* scene_camera = nullptr;
+	Component_Camera* scene_camera = nullptr;
 
 
 
