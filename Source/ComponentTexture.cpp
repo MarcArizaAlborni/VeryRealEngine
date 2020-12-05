@@ -29,3 +29,9 @@ Component_Texture::Component_Texture(Game_Object* ComponentOwner, TextureInfo* m
 	Texture = material;
 	type = Component_Types::Texture;
 }
+
+Component_Texture::Component_Texture(Game_Object* ComponentOwner,int Position) :Component(ComponentOwner)
+{
+	PositionInListCmp = Position;
+	type = Component_Types::Texture;
+}

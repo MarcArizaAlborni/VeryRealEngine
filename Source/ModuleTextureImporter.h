@@ -18,7 +18,8 @@ struct TextureInfo {
 	std::string texture_name=""; // name of the texture
 	std::string texture_path = ""; // path to the texture file
 	Color Colour;
-	int uses;
+	int uses; // Times the texture is used
+	int PositionInList; //Position of the texture in the resource textures list
 
 };
 
@@ -32,6 +33,7 @@ public:
 	TextureInfo LoadTextureImage(const char* path);
 	TextureInfo CreateTexturesNodeMap(NodeMap Node,const aiScene* scene,const char* file_path);
 	uint SetUpTexture(const void* texture, uint width, uint height, int format, uint format2);
+	int CheckTextureExistance(std::string TexturePath);
 	
 	bool LoadTexture(const char* path);
 	bool TextureBuffersLoad(GLuint* pixels, GLuint width, GLuint height);

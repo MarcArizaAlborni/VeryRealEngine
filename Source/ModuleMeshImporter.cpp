@@ -186,7 +186,7 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 
 			for (int c = 0; c < meshLoad->mNumFaces; ++c) {
 
-				unsigned int IndexCopy[3];
+				
 
 				memcpy(&OurMesh->index[c * 3], meshLoad->mFaces[c].mIndices, 3 * sizeof(uint));
 			}
@@ -236,7 +236,7 @@ void ModuleMeshImporter::CreateMaterials(aiMaterial* material, Game_Object* Obje
 	aiString	texPath;
 	std::string		texName;
 	std::string		texExtension;
-	TextureInfo* Val;
+	
 	
 	if (material->Get(AI_MATKEY_COLOR_DIFFUSE, color) == AI_SUCCESS)										// Could also get specular and ambient occlusion colours.
 	{
@@ -251,26 +251,43 @@ void ModuleMeshImporter::CreateMaterials(aiMaterial* material, Game_Object* Obje
 	{
 		App->filemanager->SplitFilePath(texPath.C_Str(), nullptr, &texName, &texExtension);
 
+		
 		texName = "Assets/Textures/" + texName + "." + texExtension;
 		
-		TextureInfo MaterialLoad = App->textureImporter->LoadTextureImage(texName.c_str());
-
 		
+		int TexturePosition = -1;
 
-		OurMat->height = MaterialLoad.height;
-		OurMat->width = MaterialLoad.width;
-		OurMat->texture_id = MaterialLoad.texture_id;
-		OurMat->texture_name = MaterialLoad.texture_name;
-		OurMat->texture_path = MaterialLoad.texture_path;
+		TexturePosition = App->textureImporter->CheckTextureExistance(texName);
 
+		if (TexturePosition == -1) {
+			TextureInfo MaterialLoad = App->textureImporter->LoadTextureImage(texName.c_str());
 
+			OurMat->height = MaterialLoad.height;
+			OurMat->width = MaterialLoad.width;
+			OurMat->texture_id = MaterialLoad.texture_id;
+			OurMat->texture_name = MaterialLoad.texture_name;
+			OurMat->texture_path = MaterialLoad.texture_path;
+			OurMat->uses = MaterialLoad.uses = 1;
+			App->textureImporter->Textures_Resource_List.push_back(OurMat);
 
+		}
+		else {
+			TextureInfo MaterialLoad = *App->textureImporter->Textures_Resource_List[TexturePosition];
+			++App->textureImporter->Textures_Resource_List[TexturePosition]->uses;
 
+			OurMat->height = MaterialLoad.height;
+			OurMat->width = MaterialLoad.width;
+			OurMat->texture_id = MaterialLoad.texture_id;
+			OurMat->texture_name = MaterialLoad.texture_name;
+			OurMat->texture_path = MaterialLoad.texture_path;
+			++OurMat->uses;
+		}
 	}
 
 	Component_Texture* TextureComponent = new Component_Texture(Object, OurMat);
 	Object->AddExistingComponent(TextureComponent);
-
+	
+	
 }
 
 
