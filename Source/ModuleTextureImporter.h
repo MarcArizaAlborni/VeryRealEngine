@@ -18,6 +18,7 @@ struct TextureInfo {
 	std::string texture_name=""; // name of the texture
 	std::string texture_path = ""; // path to the texture file
 	Color Colour;
+	int uses;
 
 };
 

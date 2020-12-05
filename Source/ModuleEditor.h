@@ -89,6 +89,7 @@ public:
 	void CreateMainMenuBar_Edit();
 	void CreateMainMenuBar_View();
 	void CreateMainMenuBar_Help();
+	
 
 	void CreateBar_Play();
 
@@ -138,6 +139,7 @@ public:
 	void CreateConfigWindow_Input();
 	void CreateConfigWindow_Hardware();
 	void GetHardwareStatus();
+	void CreateConfigWindow_Resource();
 
 	bool vSync = true;
 

@@ -27,7 +27,7 @@ public:
 	Component_Texture(Game_Object* parent, const char* texturePath, unsigned int id);
 	Component_Texture(Game_Object* parent, TextureInfo* material);
 
-
+	int Texture_ListPos;
 
 	bool is_Textured;
 	 //MOVE TO MESH COMPONENT
