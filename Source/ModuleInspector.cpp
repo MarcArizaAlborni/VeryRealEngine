@@ -264,6 +264,10 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     		ImGui::Checkbox("Show Vertex Normals", &item->showVertexNormals);
     		ImGui::TreePop();
     	}
+
+        ImGui::Text("Bounding Boxes:");
+        ImGui::Checkbox("Show AABB", &MeshInfo->show_aabb);
+        ImGui::Checkbox("Show OBB", &MeshInfo->show_obb);
     }
     
     

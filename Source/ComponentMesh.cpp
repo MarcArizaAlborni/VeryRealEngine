@@ -3,6 +3,7 @@
 #include "ModuleMeshImporter.h"
 #include "Globals.h"
 #include "GameObject.h"
+#include "ModuleInspector.h"
 #include "ComponentCamera.h"
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
@@ -161,20 +162,28 @@ void Component_Mesh::DrawBB()
 	glEnableClientState(GL_VERTEX_ARRAY);
 
 	//Draw Global AABB
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
-	glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
+	if (show_aabb) 
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
+		glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
+	}
+
 
 	//Draw OBB
 	glColor3f(0, 200, 150);
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
-	glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
+	if (show_obb)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, id_vertexOBB);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indexBB);
+		glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
+	}
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glLineWidth(1);
+	
 }
 
 //Called on insoector to update OBB
