@@ -74,7 +74,6 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo()
 	{
 		ImGui::Begin("Inspector", &App->editor->show_inspector_window);
 
-		
 		bool SomethingDrawn = false; // if there isnt an object in the list or if none of them
 
 		//has ToBeDrawInspector==true we print a message saying theres nothing to draw
@@ -167,6 +166,9 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 {
     const char* Name;
     Name = item->name.c_str();
+
+    item->Mesh->DrawOutlineMesh(TransInfo);
+
     
     ImGui::Text(Name);
     //GENERAL INFORMATION
@@ -324,8 +326,6 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     
     	ImGui::Image((void*)(intptr_t)TextureInfo->Texture->texture_id, { 200,200 });
     }
-    
-    
 }
 
 

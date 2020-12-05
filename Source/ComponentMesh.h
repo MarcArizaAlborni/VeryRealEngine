@@ -58,6 +58,12 @@ public:
 
 	bool show_aabb = false;
 	bool show_obb = false;
+
+	//Stencil properties
+	void DrawOutlineMesh(Component_Transform* transform);
+
+	vec4 outline_color;
+	int outline_width;
 };
 
 #endif

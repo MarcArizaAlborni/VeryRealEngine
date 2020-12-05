@@ -19,6 +19,10 @@ Component_Mesh::Component_Mesh(Game_Object* ComponentOwner) :Component(Component
 	Mesh = nullptr;
 	File_Path = "none";
 	type = Component_Types::Mesh;
+
+	outline_color = vec4(0.30, 0.85, 0.96, 0);
+	outline_width = 1;
+
 	local_AABB.SetNegativeInfinity();
 
 }
@@ -210,3 +214,47 @@ void Component_Mesh::UpdateOnTransformOBB()
 	GenerateBBBufers();
 }
 
+//Stencil Buffer
+void Component_Mesh::DrawOutlineMesh(Component_Transform* transform)
+{
+	Component_Mesh* MeshOutline = (Component_Mesh*)owner->GetComponent(Component_Types::Mesh);
+
+	glPushMatrix();
+
+	float3 position, scale;
+	Quat rotation;
+	float4x4 scaledTransform = transform->Global_Matrix;
+
+	scaledTransform.Decompose(position, rotation, scale);
+	scale *= 1.02;
+	scaledTransform = float4x4::FromTRS(position, rotation, scale);
+
+	glMultMatrixf((float*)&scaledTransform.Transposed());
+
+	glEnable(GL_STENCIL_TEST);
+		
+	glColor3f(outline_color.r, outline_color.g, outline_color.b);
+	glLineWidth(outline_width);
+
+	glStencilFunc(GL_NOTEQUAL, 1, -1);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
+	glPolygonMode(GL_FRONT, GL_LINE);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glBindBuffer(GL_ARRAY_BUFFER, MeshOutline->Mesh->id_vertex);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, MeshOutline->Mesh->id_index);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+
+	glDrawElements(GL_TRIANGLES, MeshOutline->Mesh->num_index * 3, GL_UNSIGNED_INT, 0);
+
+	glDisable(GL_STENCIL_TEST);
+	glDisable(GL_POLYGON_OFFSET_FILL);
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glLineWidth(1);
+
+	glPopMatrix();
+
+}
