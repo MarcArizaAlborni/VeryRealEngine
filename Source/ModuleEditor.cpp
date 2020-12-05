@@ -639,6 +639,7 @@ void ModuleEditor::CreateConfigWindow() {
 		CreateConfigWindow_FileSystem();
 		CreateConfigWindow_Input();
 		CreateConfigWindow_Hardware();
+		CreateConfigWindow_Resource();
 		ImGui::End();
 
 	}
@@ -905,6 +906,31 @@ void ModuleEditor::GetHardwareStatus()
 	HardwareStat.CPU.isActive_SSE3 = SDL_HasSSE3();
 	HardwareStat.CPU.isActive_SSE41 = SDL_HasSSE41();
 	HardwareStat.CPU.isActive_SSE42 = SDL_HasSSE42();
+}
+
+void ModuleEditor::CreateConfigWindow_Resource()
+{
+	if (ImGui::CollapsingHeader("Resources")) {
+
+		int AmountOfTextures = App->textureImporter->Textures_Resource_List.size();
+		ImGui::Text("Active Textures: %d", AmountOfTextures);
+		std::vector<TextureInfo*>::iterator It= App->textureImporter->Textures_Resource_List.begin();
+		for (int size = 0; size < App->textureImporter->Textures_Resource_List.size(); ++size) {
+
+			TextureInfo* Text = *It;
+
+			ImGui::Text("%d.",size);
+			ImGui::SameLine();
+			ImGui::Text(Text->texture_path.c_str());
+			ImGui::SameLine();
+			ImGui::TextColored({ 255,255,0,1 }, "%d", Text->uses);
+
+
+		}
+	
+	
+	
+	}
 }
 
 
