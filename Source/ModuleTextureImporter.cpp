@@ -128,12 +128,15 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 	
 
 	std::string texName;
+	std::string CompletePath;
 	std::string	texExtension;
 
 	aiColor4D colorMat = { 0,0,0,0 };
 
 
 	
+
+
 
 	aiString tex_path;
 
@@ -145,14 +148,16 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 			std::string file = App->filemanager->GetFileAndExtension(tex_path.C_Str());
 			App->filemanager->SplitFilePath(Texture_Path.c_str(), nullptr, &texName, &texExtension);
 
-			texName = "Assets/Textures/" + texName + "." + texExtension;
+			CompletePath = "Assets/Textures/" + texName + "." + texExtension;
 
 
-			Texture = App->textureImporter->LoadTextureImage(texName.c_str());
-			Texture.texture_path = texName;
+			Texture = App->textureImporter->LoadTextureImage(CompletePath.c_str());
+			Texture.texture_path = CompletePath;
+			Texture.texture_name = texName;
+			
 
 			
-			// Redundant: r_material and r_texture will store the tex_id.
+			
 		}
 	}
 	
@@ -192,6 +197,26 @@ uint ModuleTextureImporter::SetUpTexture(const void* texture, uint width, uint h
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	return id_texture;
+}
+
+int ModuleTextureImporter::CheckTextureExistance(std::string TexturePath)
+{
+	int PositionFOUND=-1;
+
+	std::vector<TextureInfo*>::iterator It = App->textureImporter->Textures_Resource_List.begin();
+
+	for (int size = 0; size < App->textureImporter->Textures_Resource_List.size(); ++size) {
+
+
+		TextureInfo* Texture = *It;
+
+		if (Texture->texture_path == TexturePath) {
+			return size;
+		}
+		++It;
+	}
+
+	return PositionFOUND;
 }
 
 bool ModuleTextureImporter::LoadTexture(const char* path)

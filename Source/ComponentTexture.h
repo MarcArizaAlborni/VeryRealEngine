@@ -13,7 +13,7 @@ public:
 
 	TextureInfo* Texture = nullptr;
 	//Color color;
-
+	int PositionInListCmp;
 
 	void Enable()override;
 	void Disable()override;
@@ -26,6 +26,7 @@ public:
 	Component_Texture(Game_Object* parent); //DEFAULTS TO 0,0
 	Component_Texture(Game_Object* parent, const char* texturePath, unsigned int id);
 	Component_Texture(Game_Object* parent, TextureInfo* material);
+	Component_Texture(Game_Object* parent, int Position);
 
 	int Texture_ListPos;
 

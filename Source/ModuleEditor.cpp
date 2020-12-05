@@ -925,7 +925,7 @@ void ModuleEditor::CreateConfigWindow_Resource()
 			ImGui::SameLine();
 			ImGui::TextColored({ 255,255,0,1 }, "%d", Text->uses);
 
-
+			++It;
 		}
 	
 	
