@@ -56,6 +56,8 @@ public:
 	std::vector<float3> vertices_OBB;
 	std::vector<uint> index_BB;
 
+	bool show_aabb = false;
+	bool show_obb = false;
 };
 
 #endif

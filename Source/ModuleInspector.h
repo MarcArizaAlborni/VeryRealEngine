@@ -34,6 +34,9 @@ public:
 	//bool ShowInspectorWindow;
 	float testoa;
 
+	// For bounding boxes
+	
+
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
