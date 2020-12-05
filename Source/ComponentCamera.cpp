@@ -18,6 +18,7 @@ ComponentCamera::ComponentCamera(Component_Types comp_type, bool act, Game_Objec
 
 void ComponentCamera::CreateFrustum()
 {
+	
 
 }
 
