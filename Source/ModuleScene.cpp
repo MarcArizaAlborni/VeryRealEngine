@@ -31,8 +31,8 @@ ModuleScene::ModuleScene(Application* app, const char* name, bool start_enabled)
 	ROOT_SCENE_OBJECT->Parent = nullptr;
 
 	scene_camera = new Game_Object("Scene Camera");
-	App->geometrymanager->ObjectsOnScene.push_back(scene_camera);
-	scene_camera->Parent = nullptr;
+	ROOT_SCENE_OBJECT->Children_List.push_back(scene_camera);
+	scene_camera->Parent = ROOT_SCENE_OBJECT;
 
 }
 
