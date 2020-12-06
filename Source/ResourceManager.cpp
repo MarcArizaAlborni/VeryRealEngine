@@ -97,6 +97,14 @@ void ResourceManager::CreateResourcesWindow()
 
 						
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+								ItemR->SelectedFolderHoverClick = true;
+
+							}
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -108,6 +116,14 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+								ItemR->SelectedFolderHoverClick = true;
+
+							}
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -118,6 +134,14 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+								ItemR->SelectedFolderHoverClick = true;
+
+							}
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -129,6 +153,14 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+								ItemR->SelectedFolderHoverClick = true;
+
+							}
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -140,6 +172,14 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+								ItemR->SelectedFolderHoverClick = true;
+
+							}
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -151,6 +191,14 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+								ItemR->SelectedFolderHoverClick = true;
+
+							}
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -162,6 +210,14 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+								ItemR->SelectedFolderHoverClick = true;
+
+							}
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -173,6 +229,14 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+								ItemR->SelectedFolderHoverClick = true;
+
+							}
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -184,6 +248,14 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+								ItemR->SelectedFolderHoverClick = true;
+
+							}
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -195,6 +267,14 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+								ItemR->SelectedFolderHoverClick = true;
+
+							}
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -217,17 +297,10 @@ void ResourceManager::CreateResourcesWindow()
 							
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
 
-
-								
 								ItemR->SelectedFolderHoverClick = true;
 								
 							}
-							
 						}
-
-
-						
-						
 					}
 		    
 		    	}
@@ -507,6 +580,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+								ItemRC->SelectedFolderHoverClick = true;
+
+							}
+
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -518,6 +602,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+								ItemRC->SelectedFolderHoverClick = true;
+
+							}
+
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -528,6 +623,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+								ItemRC->SelectedFolderHoverClick = true;
+
+							}
+
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -539,6 +645,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+								ItemRC->SelectedFolderHoverClick = true;
+
+							}
+
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -550,6 +667,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+								ItemRC->SelectedFolderHoverClick = true;
+
+							}
+
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -561,6 +689,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+								ItemRC->SelectedFolderHoverClick = true;
+
+							}
+
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -572,6 +711,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+								ItemRC->SelectedFolderHoverClick = true;
+
+							}
+
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -583,6 +733,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+								ItemRC->SelectedFolderHoverClick = true;
+
+							}
+
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -594,6 +755,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+								ItemRC->SelectedFolderHoverClick = true;
+
+							}
+
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -605,6 +777,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+								ItemRC->SelectedFolderHoverClick = true;
+
+							}
+
+						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
@@ -616,6 +799,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				   	ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 				   	ImGui::SameLine();
 				   	ImGui::Button(PathName_R, { 150,20 });
+					if (ImGui::IsItemHovered()) {
+
+						if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+							ItemRC->SelectedFolderHoverClick = true;
+
+						}
+
+					}
 				   	ImGui::SameLine();
 				   	ImGui::Text(PathName_R);
 				   }
@@ -627,6 +821,17 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				  	ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 				  	ImGui::SameLine();
 				  	ImGui::Button(PathName_R, { 150,20 });
+					if (ImGui::IsItemHovered()) {
+
+						if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+							ItemRC->SelectedFolderHoverClick = true;
+
+						}
+
+					}
 				  	ImGui::SameLine();
 				  	ImGui::Text(PathName_R);
 				  }
@@ -640,11 +845,26 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						if (ImGui::Button(PathName_R, { 150,20 })) {
 							ItemRC->ChildsToBeDrawnResources = true;
 						}
+
+						if (ImGui::IsItemHovered()) {
+
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+
+								ItemRC->SelectedFolderHoverClick = true;
+
+							}
+
+						}
+
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
+
+
 					}
 				}
-
+				DrawFolderOptionsButtons(ItemRC);
 				++ResItChild;
 			}
 
