@@ -5,6 +5,7 @@
 #include "ModuleTextureImporter.h"
 #include "ModuleEditor.h"
 #include <filesystem>
+#include "FileSystem.h"
 
 namespace fs = std::filesystem;
 
@@ -403,10 +404,24 @@ void ResourceManager::DrawFolderOptionsButtons(Resource* Item)
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 1.0f, 0.0f, 0.25f));
 		if (ImGui::Button("RENAME"))
 		{
+			std::string Name;
+			std::string Extension;
+
+			GetSplittedFile(Item->Name.c_str(), nullptr, &Name, &Extension);
+
+			const char* NewName;
+			ImGui::InputText("New Folder Name ", (char*)NewName, 100, ImGuiInputTextFlags_EnterReturnsTrue);
+
+			std::string Copy = NewName;
+			std::string FinalCopy;
+			FinalCopy = Name + Copy;
+
+
+			fs::rename(Item->Name, FinalCopy);
+
+			Item->Name = FinalCopy;
+
 			ImGui::CloseCurrentPopup();
-
-
-
 		}
 		ImGui::PopStyleColor();
 
@@ -415,9 +430,9 @@ void ResourceManager::DrawFolderOptionsButtons(Resource* Item)
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.0f, 0.0f, 0.25f));
 		if (ImGui::Button("DELETE"))
 		{
-			delete Item;
-			ImGui::CloseCurrentPopup();
+			
 
+			ImGui::CloseCurrentPopup();
 		}
 		ImGui::PopStyleColor();
 
@@ -434,6 +449,61 @@ void ResourceManager::DrawFolderOptionsButtons(Resource* Item)
 	}
 
 	
+}
+
+void ResourceManager::GetSplittedFile(const char* full_path, std::string* path, std::string* file, std::string* extension) const
+{
+	if (full_path != nullptr)
+	{
+		std::string full(full_path);
+		NormalizedFolderPath(full);
+		size_t pos_separator = full.find_last_of("\\/") + 1; //+ 1 maybe
+
+		size_t pos_dot = full.find_last_of(".");
+
+		*file = full.front();
+
+		if (file != nullptr)
+		{
+
+			if (pos_separator < full.length()) {
+
+				*file = full.substr(0, pos_separator);
+
+				//*file = full.substr(pos_separator + 1);
+			}
+			else
+				*file = full;
+		}
+
+		if (extension != nullptr)
+		{
+			if (pos_dot < full.length())
+			{
+				*extension = full.substr(pos_dot + 1);
+				if (file != nullptr)
+					file->resize(file->length() - extension->length() - 1);
+			}
+			else
+				extension->clear();
+		}
+	}
+}
+
+void ResourceManager::NormalizedFolderPath(std::string& full_path) const
+{
+	for (std::string::iterator it = full_path.begin(); it != full_path.end(); ++it)
+	{
+		if (*it == '\\')
+		{
+			*it = '/';
+		}
+
+		else
+		{
+			//*it = tolower(*it);
+		}
+	}
 }
 
 

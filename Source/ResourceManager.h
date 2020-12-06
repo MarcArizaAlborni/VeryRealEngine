@@ -85,7 +85,8 @@ private:
 	std::string StoredName=""; //^This function
 	
 	void DrawFolderOptionsButtons(Resource* Item);
-
+	void GetSplittedFile(const char* full_path, std::string* path, std::string* file = nullptr, std::string* extension = nullptr) const;
+	void NormalizedFolderPath(std::string& full_path) const;
 public:
 
 	//------------ CONSOLE STUFF
