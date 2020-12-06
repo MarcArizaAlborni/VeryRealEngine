@@ -18,6 +18,7 @@ struct Resource {
 	std::string Name = "Name";
 	bool ChildsToBeDrawnResources = false;
 	std::vector<Resource*> ResourceEntryChildsList;
+	bool SelectedFolderHoverClick = false;
 
 };
 class ResourceManager : public Module
@@ -82,6 +83,8 @@ private:
 	void SetOpenFolder();
 	void SetOpenFolderChildren(Resource* Item);
 	std::string StoredName=""; //^This function
+	
+	void DrawFolderOptionsButtons(Resource* Item);
 
 public:
 

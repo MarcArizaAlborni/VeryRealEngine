@@ -62,8 +62,11 @@ void ResourceManager::CreateResourcesWindow()
 			++ResIt;
 		}
 
+		
+
 		if (DrawInitialParents == true) {
 
+			
 			StoreCurrentOpenFolderUpdate(""); //This case is the general folder so no name
 			
 		       ImGui::Begin("Resouces", &App->editor->show_resources_window);
@@ -80,6 +83,7 @@ void ResourceManager::CreateResourcesWindow()
 		    
 		    for (int r = 0; r < ResourceEntryList.size(); ++r) {
 				
+
 				
 		    	Resource* ItemR = *ResIt;
 		    
@@ -91,7 +95,7 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 
-
+						
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -204,17 +208,38 @@ void ResourceManager::CreateResourcesWindow()
 
 						ImGui::Image((void*)(intptr_t)App->textureImporter->FolderIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
+						
+
 						if (ImGui::Button(PathName_R, { 150,20 })) {
 							ItemR->ChildsToBeDrawnResources = true;
 						}
-						//ImGui::SameLine();
-						//ImGui::Text(PathName_R);
+						if (ImGui::IsItemHovered()) {
+							
+							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+
+								
+								ItemR->SelectedFolderHoverClick = true;
+								
+							}
+							
+						}
+
+
+						
+						
 					}
 		    
 		    	}
+
+
+				DrawFolderOptionsButtons(ItemR);
 				
 		    	++ResIt;
 		    }
+
+
+			
 		    
 		    ResourceEntryList.size();
 		    
@@ -232,7 +257,7 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 	ImGui::Dummy(ImVec2(60.0f, 0.0f));
 	ImGui::SameLine();
 
-	// ZONA DE RIESGO
+	
 	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->AddFolderIcon.texture_id, { 30,30 })) {
 		//resource_add_folder = true;
 	}
@@ -248,7 +273,7 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 
 	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RenameFolderIcon.texture_id, { 30,30 })) {
 
-		//BRUTAL CRASH HERE
+		
 		//resource_rename_folder = true;
 	}
 }
@@ -303,6 +328,45 @@ void ResourceManager::SetOpenFolderChildren(Resource* Item)
 
 		++It;
 	}
+}
+
+void ResourceManager::DrawFolderOptionsButtons(Resource* Item)
+{
+	if (Item->SelectedFolderHoverClick) {
+		ImGui::SameLine();
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 1.0f, 0.0f, 0.25f));
+		if (ImGui::Button("RENAME"))
+		{
+			ImGui::CloseCurrentPopup();
+
+
+
+		}
+		ImGui::PopStyleColor();
+
+		ImGui::SameLine();
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.0f, 0.0f, 0.25f));
+		if (ImGui::Button("DELETE"))
+		{
+			ImGui::CloseCurrentPopup();
+
+		}
+		ImGui::PopStyleColor();
+
+		/*ImGui::SameLine();
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.9f, 1.0f, 1.0f, 0.5f));
+		if (ImGui::Button("BACK"))
+		{
+			Item->SelectedFolderHoverClick = false;
+			ImGui::CloseCurrentPopup();
+
+		}
+		ImGui::PopStyleColor();*/
+	}
+
+	
 }
 
 
