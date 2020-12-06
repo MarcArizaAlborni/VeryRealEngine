@@ -404,7 +404,7 @@ void ResourceManager::DrawFolderOptionsButtons(Resource* Item)
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 1.0f, 0.0f, 0.25f));
 		if (ImGui::Button("RENAME"))
 		{
-			std::string Name;
+			/*std::string Name;
 			std::string Extension;
 
 			GetSplittedFile(Item->Name.c_str(), nullptr, &Name, &Extension);
@@ -419,7 +419,7 @@ void ResourceManager::DrawFolderOptionsButtons(Resource* Item)
 
 			fs::rename(Item->Name, FinalCopy);
 
-			Item->Name = FinalCopy;
+			Item->Name = FinalCopy;*/
 
 			ImGui::CloseCurrentPopup();
 		}
