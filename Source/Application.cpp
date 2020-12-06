@@ -129,12 +129,15 @@ void Application::PrepareUpdate()
 	dt = (float)frame_time.ReadSec();
 	frame_time.Start();
 
+
+
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
 	Game_Time::Update();
+	
 
 	if (last_sec_frame_time.Read() > 1000)
 	{

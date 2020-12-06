@@ -12,7 +12,7 @@ struct TextureInfo;
 
 struct MeshInfo;
 struct GameObject;
-
+class Timer;
 struct Resource {
 
 	std::string Name = "Name";
@@ -64,8 +64,14 @@ public:
 	void ResourceAddChildren(Resource* Parent);
 
 	void DrawResourcesItems(Resource* Parent);
+
+	void ClearResourceList(Resource* Parent);
 private:
 	char TextBuffer[256] = "";
+
+	Timer ResourceTimer;
+	int Time;
+
 public:
 
 	//------------ CONSOLE STUFF

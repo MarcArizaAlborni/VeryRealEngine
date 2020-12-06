@@ -18,6 +18,8 @@ ResourceManager::~ResourceManager()
 
 bool ResourceManager::Start()
 {
+	ResourceTimer.Start();
+	Time = 0;
 	ReadMainResourcesFolder();
 
 	return true;
@@ -25,6 +27,15 @@ bool ResourceManager::Start()
 
 update_status ResourceManager::Update(float dt)
 {
+
+	if (ResourceTimer.ReadSec() > Time + 5) {
+
+		Time = ResourceTimer.ReadSec();
+		ReadMainResourcesFolder();
+
+	}
+
+
 	return UPDATE_CONTINUE;
 }
 
@@ -285,6 +296,20 @@ void ResourceManager::CreateRenameFolderWindow()
 
 void ResourceManager::ReadMainResourcesFolder()
 {
+	std::vector<Resource*>::iterator It = ResourceEntryList.begin();
+	for (int size = 0; size < ResourceEntryList.size(); ++size) {
+		Resource* Object = *It;
+
+		ClearResourceList(Object);
+
+		++It;
+
+		delete Object;
+	}
+
+	ResourceEntryList.clear();
+
+
 	std::string path = "Assets";
 	for (const auto& entry : fs::directory_iterator(path)) {
 
@@ -337,31 +362,7 @@ void ResourceManager::ResourceAddChildren(Resource* Parent)
 		std::string PathName = entry.path().string();
 		const char* PathName_C = PathName.c_str();
 		Item->Name = PathName;
-		if (App->input->CheckImportedFileType(".fbx", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".FBX", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".png", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".PNG", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".dds", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".waf", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".DDS", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".tga", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".TGA", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".jpg", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".JPG", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".meta", PathName_C) != -1) {
-		}
-		else {
+		if (entry.is_directory()) {
 
 			ResourceAddChildren(Item);
 		}
@@ -571,6 +572,25 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 		}
 		
 	}
+}
+
+void ResourceManager::ClearResourceList(Resource* Parent)
+{
+
+	std::vector<Resource*>::iterator It = Parent->ResourceEntryChildsList.begin();
+
+	int size = 0;
+	for (;size < Parent->ResourceEntryChildsList.size(); ++size) {
+
+		Resource* Item = *It;
+		
+		ClearResourceList(Item);
+		delete Item;
+		++It;
+	}
+
+	
+	
 }
 
 void ResourceManager::CreateConsolelog(const char file[], int line, const char* format, ...)
