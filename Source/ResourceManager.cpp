@@ -35,7 +35,6 @@ update_status ResourceManager::Update(float dt)
 
 	}
 
-
 	return UPDATE_CONTINUE;
 }
 
@@ -239,13 +238,14 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 	}
 	ImGui::SameLine();
 
-	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RemoveFolderIcon.texture_id, { 30,30 })) {
+	//if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RemoveFolderIcon.texture_id, { 30,30 })) {
 
-		//fs::remove_all("//Assets"); 
+	//	//fs::remove_all("//Assets"); 
 
-		//resource_remove_folder = true;
-	}
-	ImGui::SameLine();
+	//	//resource_remove_folder = true;
+	//}
+	//ImGui::SameLine();
+
 	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RenameFolderIcon.texture_id, { 30,30 })) {
 
 		//BRUTAL CRASH HERE
@@ -579,7 +579,6 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
 					}
-
 				}
 
 				++ResItChild;
