@@ -292,31 +292,8 @@ void ResourceManager::ReadMainResourcesFolder()
 		
 		std::string PathName = entry.path().string();
 		const char* PathName_C = PathName.c_str();
-
-
-		if (App->input->CheckImportedFileType(".fbx", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".FBX", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".png", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".PNG", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".dds", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".DDS", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".tga", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".TGA", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".jpg", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".JPG", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".waf", PathName_C) != -1) {
-		}
-		else {
+		
+		if(entry.is_directory()) {
 
 			Item->Name = PathName;
 			//CheckFolderChilds(Item);
@@ -332,35 +309,12 @@ void ResourceManager::ReadMainResourcesFolder()
 		std::string PathName = entry.path().string();
 		const char* PathName_C = PathName.c_str();
 
-
-		if (App->input->CheckImportedFileType(".fbx", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".FBX", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".png", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".PNG", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".dds", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".DDS", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".tga", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".TGA", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".jpg", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".JPG", PathName_C) != -1) {
-		}
-		else if (App->input->CheckImportedFileType(".waf", PathName_C) != -1) {
-		}
-		else {
+		 if (entry.is_directory()) {
 
 			Item->Name = PathName;
 			//CheckFolderChilds(Item);
 			ResourceEntryList.push_back(Item);
-		}
+		 }
 	}
 
 	std::vector<Resource*>::iterator IteratorRes = ResourceEntryList.begin();
@@ -411,6 +365,8 @@ void ResourceManager::ResourceAddChildren(Resource* Parent)
 
 			ResourceAddChildren(Item);
 		}
+
+
 		Parent->ResourceEntryChildsList.push_back(Item);
 	}
 
