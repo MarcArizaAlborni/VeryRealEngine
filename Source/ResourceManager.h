@@ -53,7 +53,9 @@ public:
 	bool resource_add_folder_window = false;
 	bool resource_rename_folder_window = false;
 
-	void DrawFolderOptionIcons(std::string FolderName);
+	
+	
+
 	void CreateDeleteFolderWindow();
 	void CreateAddFolderWindow();
 	void CreateRenameFolderWindow();
@@ -67,11 +69,19 @@ public:
 	void DrawResourcesItems(Resource* Parent);
 
 	void ClearResourceList(Resource* Parent);
+
 private:
 	char TextBuffer[256] = "";
 
 	Timer ResourceTimer;
 	int Time;
+
+
+	void DrawFolderOptionIcons(std::string FolderName);
+	void StoreCurrentOpenFolderUpdate(std::string FolderName);
+	void SetOpenFolder();
+	void SetOpenFolderChildren(Resource* Item);
+	std::string StoredName=""; //^This function
 
 public:
 

@@ -31,7 +31,7 @@ update_status ResourceManager::Update(float dt)
 	if (ResourceTimer.ReadSec() > Time + 5) {
 
 		Time = ResourceTimer.ReadSec();
-		//ReadMainResourcesFolder();
+		ReadMainResourcesFolder();
 
 	}
 
@@ -65,6 +65,7 @@ void ResourceManager::CreateResourcesWindow()
 
 		if (DrawInitialParents == true) {
 
+			StoreCurrentOpenFolderUpdate(""); //This case is the general folder so no name
 			
 		       ImGui::Begin("Resouces", &App->editor->show_resources_window);
 		       
@@ -74,7 +75,7 @@ void ResourceManager::CreateResourcesWindow()
 			   ImGui::SameLine();
 			   ImGui::Checkbox("Show Folders", &resource_display_folder);
 
-			  
+			   DrawFolderOptionIcons("");
 		  
 		    std::vector<Resource*>::iterator ResIt = ResourceEntryList.begin();
 		    
@@ -221,9 +222,7 @@ void ResourceManager::CreateResourcesWindow()
 		    ImGui::End();
 	        
 		}
-		CreateAddFolderWindow();
-		CreateRenameFolderWindow();
-		CreateDeleteFolderWindow();
+	
 	}
 }
 
@@ -254,50 +253,58 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 	}
 }
 
-void ResourceManager::CreateDeleteFolderWindow()
+void ResourceManager::StoreCurrentOpenFolderUpdate(std::string FolderName)
 {
-	if (resource_remove_folder) {
-		std::string path = "Assets";
-		for (const auto& entry : fs::directory_iterator(path)) {
+	StoredName = FolderName;
+}
+
+void ResourceManager::SetOpenFolder()
+{
+	std::vector<Resource*>::iterator It = ResourceEntryList.begin();
+
+	for (int size = 0; size < ResourceEntryList.size(); ++size) {
+
+		Resource* Item = *It;
+
+		if (Item->Name == StoredName) {
+
+			Item->ChildsToBeDrawnResources = true;
 
 		}
 		
-		ImGui::Begin("Remove Folder ",&resource_remove_folder);
-		
-			//std::string FolderName;
-			//const char* FolderName_C = FolderName.c_str();
-			const char* FolderName;
 
-			const char* name;
-			//ImGui::ShowDemoWindow();
-			if (ImGui::InputText("Delete Folder", TextBuffer, IM_ARRAYSIZE(TextBuffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
-				name = TextBuffer;
-				
-			}
-			
-			//ImGui::Text(name);
-		
-		ImGui::End();
+		SetOpenFolderChildren(Item);
 
-		//resource_remove_folder = false;
+
+		++It;
 	}
+
+
+
 }
 
-void ResourceManager::CreateAddFolderWindow()
+void ResourceManager::SetOpenFolderChildren(Resource* Item)
 {
-	if (resource_add_folder) {
+	std::vector<Resource*>::iterator It = Item->ResourceEntryChildsList.begin();
 
-		resource_add_folder = false;
+	for (int size = 0; size < Item->ResourceEntryChildsList.size(); ++size) {
+
+		Resource* ItemC = *It;
+
+		if (ItemC->Name == StoredName) {
+
+			ItemC->ChildsToBeDrawnResources = true;
+
+		}
+
+
+		SetOpenFolderChildren(ItemC);
+
+
+		++It;
 	}
 }
 
-void ResourceManager::CreateRenameFolderWindow()
-{
-	if (resource_rename_folder) {
-
-		resource_rename_folder = false;
-	}
-}
 
 void ResourceManager::ReadMainResourcesFolder()
 {
@@ -354,6 +361,9 @@ void ResourceManager::ReadMainResourcesFolder()
 		ResourceAddChildren(ResItem);
 		++IteratorRes;
 	}
+
+
+	SetOpenFolder();
 }
 
 void ResourceManager::ResourceAddChildren(Resource* Parent)
@@ -398,6 +408,8 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 
 		if (DrawInitialParents == true) {
 
+			StoreCurrentOpenFolderUpdate(Parent->Name);  ///
+
 			ImGui::Begin("Resouces", &App->editor->show_resources_window);
 
 			ImGui::Checkbox("Show Textures", &resource_display_textures);
@@ -406,6 +418,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 			ImGui::SameLine();
 			ImGui::Checkbox("Show Folders", &resource_display_folder);
 
+			DrawFolderOptionIcons("");
 
 			std::vector<Resource*>::iterator ResItChild = Parent->ResourceEntryChildsList.begin();
 
