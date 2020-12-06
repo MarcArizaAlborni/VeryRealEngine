@@ -288,8 +288,7 @@ void ResourceManager::CreateResourcesWindow()
 
 						ImGui::Image((void*)(intptr_t)App->textureImporter->FolderIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
-						
-
+			
 						if (ImGui::Button(PathName_R, { 150,20 })) {
 							ItemR->ChildsToBeDrawnResources = true;
 						}
@@ -302,18 +301,12 @@ void ResourceManager::CreateResourcesWindow()
 							}
 						}
 					}
-		    
 		    	}
-
 
 				DrawFolderOptionsButtons(ItemR);
 				
 		    	++ResIt;
 		    }
-
-
-			
-		    
 		    ResourceEntryList.size();
 		    
 		    ImGui::End();
@@ -422,6 +415,7 @@ void ResourceManager::DrawFolderOptionsButtons(Resource* Item)
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.0f, 0.0f, 0.25f));
 		if (ImGui::Button("DELETE"))
 		{
+			delete Item;
 			ImGui::CloseCurrentPopup();
 
 		}
