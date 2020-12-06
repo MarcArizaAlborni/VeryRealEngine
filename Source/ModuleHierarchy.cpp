@@ -88,9 +88,34 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
 
     ImGui::AlignTextToFramePadding();
 
+
+
+
+    /*if (Item->Mesh != nullptr) {
+    
+        if (Item->Mesh->is_Drawn == true) {
+            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyOpen.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,(float)App->textureImporter->DrawIconHierarchyOpen.height }))
+            {
+
+                Item->Mesh->is_Drawn = false;
+            }
+
+        }
+        else {
+            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyClosed.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,(float)App->textureImporter->DrawIconHierarchyOpen.height })) {
+
+                Item->Mesh->is_Drawn = true;
+
+            }
+
+        }
+        ImGui::SameLine();
+    }*/
+
+  
     if (ImGui::TreeNodeEx(Item->name.c_str(), FlagsNodes)) {
 
-        
+      
         if (ImGui::IsItemClicked())						
         {
              if((Component_Mesh*)Item->GetComponent(Component_Types::Mesh)!=nullptr){
@@ -101,53 +126,10 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
              }
             
         }
-        //ImGui::SameLine();
-        //if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyOpen.texture_id, 
-        //    { (float)App->textureImporter->DrawIconHierarchyOpen.width,(float)App->textureImporter->DrawIconHierarchyOpen.height })) 
-        //{
-        //    Item->Mesh->is_Drawn = false;
-        //}
        
 
-       /* if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyOpen.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
-                (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
-
-            MeshComp->is_Drawn = false;
-
-            if (Object->Children_List.size() > 0) {
-
-                Game_Object* Mesh;
-                std::vector<Game_Object*>::iterator Item = Object->Children_List.begin();
-                for (int count = 0; count < Object->Children_List.size(); ++count) {
-                    Mesh = *Item;
-
-                    MeshComp->is_Drawn = false;
-
-                    ++Item;
-
-                }
-            }
-        }
-    }
-    else {
-        if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyClosed.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
-            (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
-
-            MeshComp->is_Drawn = true;
-
-            Game_Object* Mesh;
-            std::vector<Game_Object*>::iterator Item = Object->Children_List.begin();
-            for (int count = 0; count < Object->Children_List.size(); ++count) {
-                Mesh = *Item;
-
-                MeshComp->is_Drawn = true;
-                ++Item;
-
-
-            }
-        }
-    }*/
-        
+       
+ 
         std::vector<Game_Object*>::iterator It = Item->Children_List.begin();
         for (int size = 0; size < Item->Children_List.size(); ++size) {
 
@@ -162,7 +144,9 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
         ImGui::TreePop();
 
     }
+    
 
+   
 }
 
 void ModuleHierarchyGameObject::SelectItemHierarchy(Game_Object* SelectedItem)
