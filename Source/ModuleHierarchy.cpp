@@ -72,77 +72,6 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
 
 
 
-
-    //if (App->editor->show_hierarchy_window) {
-
-    //    bool itemRemoved;
-    //    int uid2 = 0;
-
-    //    ImGui::Begin("HierarchyWindow", &App->editor->show_hierarchy_window);
-
-    //    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(2, 2));
-
-    //    ImGui::Separator();
-
-    //    std::vector<Game_Object*>::iterator ObjectIterator = App->geometrymanager->ObjectsOnScene.begin();
-
-    //    for (int count = 0; count < App->geometrymanager->ObjectsOnScene.size(); ++count) {
-
-    //        Game_Object* Mesh = *ObjectIterator;
-
-    //        itemRemoved = InspectorInfo(Mesh, count);
-
-    //        if (itemRemoved == true) {
-    //            count = App->geometrymanager->ObjectsOnScene.size();
-    //            uid2 = count + 1;
-    //        }
-    //        else {
-    //            ++ObjectIterator;
-    //        }
-    //    }
-
-    //    //Delete Object
-    //    if (App->editor->delete_object == true)
-    //    {
-    //        ImGui::SetNextWindowSize({ 320,150 });
-    //        ImGui::SetNextWindowPos({ 625, 300 });
-
-    //        ImGui::Begin("VeryReal Engine", &App->editor->delete_object, ImGuiWindowFlags_NoCollapse
-    //            | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-
-    //        ImGui::Separator();
-    //        ImGui::Text("Are you sure you want to delete the Object?");
-
-    //        ImGui::Spacing();
-    //        ImGui::Text("This proces can't be undone");
-    //        ImGui::Spacing();
-    //        ImGui::Text("");
-    //        ImGui::Spacing();
-    //        ImGui::Text("");
-    //        ImGui::Spacing();
-    //        ImGui::Spacing();
-
-    //        if (ImGui::Button("Yes", { 80,20 }))
-    //        {
-    //            App->geometrymanager->ObjectsOnScene.erase(App->geometrymanager->ObjectsOnScene.begin() + (uid2));
-    //            App->editor->delete_object = false;
-    //            itemRemoved = true;
-    //        }
-
-    //        ImGui::SameLine(0.0F, 125.0f);
-    //        if (ImGui::Button("No", { 80,20 }))
-    //        {
-    //            App->editor->delete_object = false;
-    //        }
-
-    //        ImGui::End();
-    //    }
-
-    //    ImGui::Separator();
-    //    ImGui::PopStyleVar();
-    //    ImGui::End();
-
-    //}
 }
 
 void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
@@ -161,6 +90,7 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
 
     if (ImGui::TreeNodeEx(Item->name.c_str(), FlagsNodes)) {
 
+        
         if (ImGui::IsItemClicked())						
         {
              if((Component_Mesh*)Item->GetComponent(Component_Types::Mesh)!=nullptr){
@@ -171,8 +101,52 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
              }
             
         }
+        //ImGui::SameLine();
+        //if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyOpen.texture_id, 
+        //    { (float)App->textureImporter->DrawIconHierarchyOpen.width,(float)App->textureImporter->DrawIconHierarchyOpen.height })) 
+        //{
+        //    Item->Mesh->is_Drawn = false;
+        //}
+       
+
+       /* if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyOpen.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
+                (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
+
+            MeshComp->is_Drawn = false;
+
+            if (Object->Children_List.size() > 0) {
+
+                Game_Object* Mesh;
+                std::vector<Game_Object*>::iterator Item = Object->Children_List.begin();
+                for (int count = 0; count < Object->Children_List.size(); ++count) {
+                    Mesh = *Item;
+
+                    MeshComp->is_Drawn = false;
+
+                    ++Item;
+
+                }
+            }
+        }
+    }
+    else {
+        if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyClosed.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,
+            (float)App->textureImporter->DrawIconHierarchyOpen.height })) {
+
+            MeshComp->is_Drawn = true;
+
+            Game_Object* Mesh;
+            std::vector<Game_Object*>::iterator Item = Object->Children_List.begin();
+            for (int count = 0; count < Object->Children_List.size(); ++count) {
+                Mesh = *Item;
+
+                MeshComp->is_Drawn = true;
+                ++Item;
 
 
+            }
+        }
+    }*/
         
         std::vector<Game_Object*>::iterator It = Item->Children_List.begin();
         for (int size = 0; size < Item->Children_List.size(); ++size) {
@@ -235,14 +209,9 @@ void ModuleHierarchyGameObject::SelectItemHierarchy(Game_Object* SelectedItem)
                     ChildObject->ToBeDrawInspector = false;
                 }
 
-
                 ++ItC;
-
-
             }
         }
-
-
 
         ++It;
     }
@@ -266,7 +235,6 @@ void ModuleHierarchyGameObject::SelectItemHierarchyChildren(Game_Object* Selecte
             else {
                 Object->ToBeDrawInspector = true;
             }
-
         }
         else {
             Object->ToBeDrawInspector = false;
@@ -287,20 +255,14 @@ void ModuleHierarchyGameObject::SelectItemHierarchyChildren(Game_Object* Selecte
                     else {
                         ChildObject->ToBeDrawInspector = true;
                     }
-
                 }
                 else {
                     ChildObject->ToBeDrawInspector = false;
                 }
 
-
                 ++ItC;
-
-
             }
         }
-
-
 
         ++It;
     }
