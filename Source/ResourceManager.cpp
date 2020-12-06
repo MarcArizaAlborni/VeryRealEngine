@@ -31,7 +31,7 @@ update_status ResourceManager::Update(float dt)
 	if (ResourceTimer.ReadSec() > Time + 5) {
 
 		Time = ResourceTimer.ReadSec();
-		ReadMainResourcesFolder();
+		//ReadMainResourcesFolder();
 
 	}
 
@@ -74,29 +74,7 @@ void ResourceManager::CreateResourcesWindow()
 			   ImGui::SameLine();
 			   ImGui::Checkbox("Show Folders", &resource_display_folder);
 
-			  // ImGui::SameLine();
-			   ImGui::SameLine();
-			   ImGui::Dummy(ImVec2(60.0f, 0.0f));
-			   ImGui::SameLine();
-
-			  // ZONA DE RIESGO
-			 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->AddFolderIcon.texture_id, { 30,30 })) {
-				 resource_add_folder = true;
-			 }
-			 ImGui::SameLine();
-
-			 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RemoveFolderIcon.texture_id, { 30,30 })) {
-
-				 //fs::remove_all("//Assets"); 
-				 
-				 resource_remove_folder = true;
-			 }
-			 ImGui::SameLine();
-			 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RenameFolderIcon.texture_id, { 30,30 })) {
-			
-				 //BRUTAL CRASH HERE
-				 //resource_rename_folder = true;
-			 }
+			  
 		  
 		    std::vector<Resource*>::iterator ResIt = ResourceEntryList.begin();
 		    
@@ -246,6 +224,33 @@ void ResourceManager::CreateResourcesWindow()
 		CreateAddFolderWindow();
 		CreateRenameFolderWindow();
 		CreateDeleteFolderWindow();
+	}
+}
+
+void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
+{
+	// ImGui::SameLine();
+	ImGui::SameLine();
+	ImGui::Dummy(ImVec2(60.0f, 0.0f));
+	ImGui::SameLine();
+
+	// ZONA DE RIESGO
+	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->AddFolderIcon.texture_id, { 30,30 })) {
+		//resource_add_folder = true;
+	}
+	ImGui::SameLine();
+
+	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RemoveFolderIcon.texture_id, { 30,30 })) {
+
+		//fs::remove_all("//Assets"); 
+
+		//resource_remove_folder = true;
+	}
+	ImGui::SameLine();
+	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RenameFolderIcon.texture_id, { 30,30 })) {
+
+		//BRUTAL CRASH HERE
+		//resource_rename_folder = true;
 	}
 }
 

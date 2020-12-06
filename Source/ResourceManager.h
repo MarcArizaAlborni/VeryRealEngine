@@ -53,6 +53,7 @@ public:
 	bool resource_add_folder_window = false;
 	bool resource_rename_folder_window = false;
 
+	void DrawFolderOptionIcons(std::string FolderName);
 	void CreateDeleteFolderWindow();
 	void CreateAddFolderWindow();
 	void CreateRenameFolderWindow();
