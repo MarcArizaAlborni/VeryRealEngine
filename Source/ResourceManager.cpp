@@ -327,7 +327,7 @@ void ResourceManager::CreateResourcesWindow()
 
 void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 {
-	// ImGui::SameLine();
+	
 	ImGui::SameLine();
 	ImGui::Dummy(ImVec2(60.0f, 0.0f));
 	ImGui::SameLine();
@@ -336,11 +336,11 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->AddFolderIcon.texture_id, { 30,30 })) {
 		
 	}
+
 	ImGui::SameLine();
 
 	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawReloadIcon.texture_id, { 30,30 })) {
 		ModificationHasBeen = true;
-		
 	}
 	
 
