@@ -29,12 +29,14 @@ bool ResourceManager::Start()
 update_status ResourceManager::Update(float dt)
 {
 
-	if (ResourceTimer.ReadSec() > Time + 5) {
+	if (ResourceTimer.ReadSec() > Time + 20) {
 
 		Time = ResourceTimer.ReadSec();
 		ReadMainResourcesFolder();
 
 	}
+
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -315,6 +317,8 @@ void ResourceManager::CreateResourcesWindow()
 		}
 	
 	}
+
+	
 }
 
 void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
@@ -330,6 +334,13 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 	}
 	ImGui::SameLine();
 
+	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawReloadIcon.texture_id, { 30,30 })) {
+		ReadMainResourcesFolder();
+
+		//resource_rename_folder = true;
+	}
+	ImGui::SameLine();
+
 	//if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RemoveFolderIcon.texture_id, { 30,30 })) {
 
 	//	//fs::remove_all("//Assets"); 
@@ -339,7 +350,7 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 	//ImGui::SameLine();
 
 	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RenameFolderIcon.texture_id, { 30,30 })) {
-
+		
 		
 		//resource_rename_folder = true;
 	}
@@ -404,24 +415,12 @@ void ResourceManager::DrawFolderOptionsButtons(Resource* Item)
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 1.0f, 0.0f, 0.25f));
 		if (ImGui::Button("RENAME"))
 		{
-			/*std::string Name;
-			std::string Extension;
+			WantRenameFolder = true;
+			
+			Item->toBeRenamed = true;
+		
 
-			GetSplittedFile(Item->Name.c_str(), nullptr, &Name, &Extension);
-
-			const char* NewName;
-			ImGui::InputText("New Folder Name ", (char*)NewName, 100, ImGuiInputTextFlags_EnterReturnsTrue);
-
-			std::string Copy = NewName;
-			std::string FinalCopy;
-			FinalCopy = Name + Copy;
-
-
-			fs::rename(Item->Name, FinalCopy);
-
-			Item->Name = FinalCopy;*/
-
-			ImGui::CloseCurrentPopup();
+			//ImGui::CloseCurrentPopup();
 		}
 		ImGui::PopStyleColor();
 
@@ -430,9 +429,10 @@ void ResourceManager::DrawFolderOptionsButtons(Resource* Item)
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.0f, 0.0f, 0.25f));
 		if (ImGui::Button("DELETE"))
 		{
-			
+			WantDeleteFolder = true;
 
-			ImGui::CloseCurrentPopup();
+			Item->toBeDeleted = true;
+			//ImGui::CloseCurrentPopup();
 		}
 		ImGui::PopStyleColor();
 
@@ -448,10 +448,13 @@ void ResourceManager::DrawFolderOptionsButtons(Resource* Item)
 		ImGui::PopStyleColor();*/
 	}
 
+
+	CreateWindowRenameFolder(Item);
+	CreateWindowDeleteFolder(Item);
 	
 }
 
-void ResourceManager::GetSplittedFile(const char* full_path, std::string* path, std::string* file, std::string* extension) const
+void ResourceManager::GetSplittedFile(const char* full_path, std::string* path, std::string* file, std::string* NameF) const
 {
 	if (full_path != nullptr)
 	{
@@ -476,16 +479,14 @@ void ResourceManager::GetSplittedFile(const char* full_path, std::string* path, 
 				*file = full;
 		}
 
-		if (extension != nullptr)
+		if (NameF != nullptr)
 		{
-			if (pos_dot < full.length())
+			if (pos_separator < full.length())
 			{
-				*extension = full.substr(pos_dot + 1);
-				if (file != nullptr)
-					file->resize(file->length() - extension->length() - 1);
+				*NameF = full.substr(pos_separator);
+			
 			}
-			else
-				extension->clear();
+			
 		}
 	}
 }
@@ -504,6 +505,59 @@ void ResourceManager::NormalizedFolderPath(std::string& full_path) const
 			//*it = tolower(*it);
 		}
 	}
+}
+
+void ResourceManager::CreateWindowRenameFolder(Resource* Item)
+{
+	
+	if (WantRenameFolder == true) {
+
+		if (Item->toBeRenamed) {
+			ImGui::Begin("RenameFolder", &WantRenameFolder, ImGuiWindowFlags_NoDocking |
+				ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+
+
+			std::string Name;
+			std::string Extension;
+
+			GetSplittedFile(Item->Name.c_str(), nullptr, &Name, &Extension);
+
+			const char* NewNameC = Extension.c_str();
+
+			if (ImGui::InputText("New Folder Name ", (char*)NewNameC, 100, ImGuiInputTextFlags_EnterReturnsTrue)) {
+
+				std::string FinalName = NewNameC;
+				if(FinalName !=""){
+
+				    std::string Copy = FinalName;
+				    std::string FinalCopy;
+				    FinalCopy = Name + Copy;
+				    
+				    
+				    fs::rename(Item->Name, FinalCopy);
+
+					WantRenameFolder = false;
+					Item->toBeRenamed = false;
+					//ReadMainResourcesFolder();
+					//ModificationHasBeen = true;
+				    Item->Name = FinalCopy;
+				}
+			}
+
+
+
+
+			ImGui::End();
+		}
+
+	}
+
+	
+
+}
+
+void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
+{
 }
 
 

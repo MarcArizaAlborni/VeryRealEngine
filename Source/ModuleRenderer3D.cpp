@@ -263,4 +263,5 @@ void ModuleRenderer3D::LoadIconsTextures()
 	App->textureImporter->DrawPauseIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/pause_icon.png");
 	App->textureImporter->DrawStopIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/stop_icon.png");
 	App->textureImporter->DrawResumeIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/Resume_Icon.png");
+	App->textureImporter->DrawReloadIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/Reload.png");
 }

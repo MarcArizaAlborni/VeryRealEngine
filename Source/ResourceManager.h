@@ -19,6 +19,8 @@ struct Resource {
 	bool ChildsToBeDrawnResources = false;
 	std::vector<Resource*> ResourceEntryChildsList;
 	bool SelectedFolderHoverClick = false;
+	bool toBeDeleted;
+	bool toBeRenamed;
 
 };
 class ResourceManager : public Module
@@ -87,6 +89,11 @@ private:
 	void DrawFolderOptionsButtons(Resource* Item);
 	void GetSplittedFile(const char* full_path, std::string* path, std::string* file = nullptr, std::string* extension = nullptr) const;
 	void NormalizedFolderPath(std::string& full_path) const;
+	void CreateWindowRenameFolder(Resource* Item);
+	void CreateWindowDeleteFolder(Resource* Item);
+	bool WantDeleteFolder;
+	bool WantRenameFolder;
+	bool ModificationHasBeen=false;
 public:
 
 	//------------ CONSOLE STUFF

@@ -78,6 +78,7 @@ public:
 	TextureInfo DrawPauseIcon;
 	TextureInfo DrawStopIcon;
 	TextureInfo DrawResumeIcon;
+	TextureInfo DrawReloadIcon;
 
 	
 	//Resources
