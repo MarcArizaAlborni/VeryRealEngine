@@ -334,29 +334,17 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 
 	
 	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->AddFolderIcon.texture_id, { 30,30 })) {
-		//resource_add_folder = true;
+		
 	}
 	ImGui::SameLine();
 
 	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawReloadIcon.texture_id, { 30,30 })) {
 		ModificationHasBeen = true;
-		//resource_rename_folder = true;
-	}
-	ImGui::SameLine();
-
-	//if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RemoveFolderIcon.texture_id, { 30,30 })) {
-
-	//	//fs::remove_all("//Assets"); 
-
-	//	//resource_remove_folder = true;
-	//}
-	//ImGui::SameLine();
-
-	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->RenameFolderIcon.texture_id, { 30,30 })) {
 		
-		
-		//resource_rename_folder = true;
 	}
+	
+
+	
 }
 
 void ResourceManager::StoreCurrentOpenFolderUpdate(std::string FolderName)
@@ -542,7 +530,7 @@ void ResourceManager::CreateWindowRenameFolder(Resource* Item)
 					WantRenameFolder = false;
 					Item->toBeRenamed = false;
 					//ReadMainResourcesFolder();
-					//ModificationHasBeen = true;
+					ModificationHasBeen = true;
 				    Item->Name = FinalCopy;
 				}
 			}
@@ -585,6 +573,7 @@ void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
 				fs::remove(FinalName);
 				WantDeleteFolder = false;
 			    Item->toBeDeleted = false;
+				ModificationHasBeen = true;
 				
 			}
 
@@ -598,6 +587,7 @@ void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
 				WantDeleteFolder = false;
 
 				Item->toBeDeleted = false;
+				ModificationHasBeen = true;
 				//ImGui::CloseCurrentPopup();
 			}
 			ImGui::PopStyleColor();
