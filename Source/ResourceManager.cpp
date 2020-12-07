@@ -29,13 +29,17 @@ bool ResourceManager::Start()
 update_status ResourceManager::Update(float dt)
 {
 
-	if (ResourceTimer.ReadSec() > Time + 20) {
+	if (ResourceTimer.ReadSec() > Time + 1) {
 
 		Time = ResourceTimer.ReadSec();
 		ReadMainResourcesFolder();
 
 	}
 
+	if (ModificationHasBeen) {
+		ModificationHasBeen = false;
+		ReadMainResourcesFolder();
+	}
 	
 
 	return UPDATE_CONTINUE;
@@ -335,8 +339,7 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 	ImGui::SameLine();
 
 	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawReloadIcon.texture_id, { 30,30 })) {
-		ReadMainResourcesFolder();
-
+		ModificationHasBeen = true;
 		//resource_rename_folder = true;
 	}
 	ImGui::SameLine();
