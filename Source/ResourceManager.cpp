@@ -29,7 +29,7 @@ bool ResourceManager::Start()
 update_status ResourceManager::Update(float dt)
 {
 
-	if (ResourceTimer.ReadSec() > Time + 1) {
+	if (ResourceTimer.ReadSec() > Time + 30) {
 
 		Time = ResourceTimer.ReadSec();
 		ReadMainResourcesFolder();
@@ -561,6 +561,51 @@ void ResourceManager::CreateWindowRenameFolder(Resource* Item)
 
 void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
 {
+	if (WantDeleteFolder == true) {
+
+		if (Item->toBeDeleted) {
+			ImGui::Begin("DeleteFolder", &WantDeleteFolder, ImGuiWindowFlags_NoDocking |
+				ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+
+
+			std::string PreName;
+			std::string FileName;
+
+			GetSplittedFile(Item->Name.c_str(), nullptr, &PreName, &FileName);
+
+			const char* NewNameC = FileName.c_str();
+
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 1.0f, 0.0f, 0.25f));
+			if (ImGui::Button("YES"))
+			{
+				
+
+				
+
+				//fs::remove()
+				WantDeleteFolder = false;
+			    Item->toBeDeleted = false;
+				
+			}
+
+			ImGui::PopStyleColor();
+
+			ImGui::SameLine();
+
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.0f, 0.0f, 0.25f));
+			if (ImGui::Button("NO"))
+			{
+				WantDeleteFolder = false;
+
+				Item->toBeDeleted = false;
+				//ImGui::CloseCurrentPopup();
+			}
+			ImGui::PopStyleColor();
+
+			ImGui::End();
+		}
+
+	}
 }
 
 
