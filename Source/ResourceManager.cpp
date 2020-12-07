@@ -524,7 +524,7 @@ void ResourceManager::CreateWindowRenameFolder(Resource* Item)
 
 			const char* NewNameC = Extension.c_str();
 
-			if (ImGui::InputText("New Folder Name ", (char*)NewNameC, 100, ImGuiInputTextFlags_EnterReturnsTrue)) {
+			if (ImGui::InputText("Folder Name ", (char*)NewNameC, 100, ImGuiInputTextFlags_EnterReturnsTrue)) {
 
 				std::string FinalName = NewNameC;
 				if(FinalName !=""){
