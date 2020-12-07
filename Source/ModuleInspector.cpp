@@ -172,7 +172,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     
     ImGui::Text(Name);
     //GENERAL INFORMATION
-    if (ImGui::CollapsingHeader("General Information"))
+    if (ImGui::CollapsingHeader("General Information", ImGuiTreeNodeFlags_DefaultOpen))
     {
     	int ChildAmount;
     
@@ -203,7 +203,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     }
     
     ///TRANSFORMATIONS
-    if (ImGui::CollapsingHeader("Transformation")) {
+    if (ImGui::CollapsingHeader("Transformation", ImGuiTreeNodeFlags_DefaultOpen)) {
     
         //NEEDS WORK
         
@@ -216,29 +216,28 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     	
         float3 DisplayVecRot=TransInfo->Rotation.ToEulerXYZ();
 
-    	if (ImGui::InputFloat3("Rotation", { &DisplayVecRot.x }, 2)) {
+    	if (ImGui::InputFloat3("Rotation", { &TransInfo->EulerRot.x }, 2)) {
     
-           Quat NewRot = Quat::FromEulerXYZ(DisplayVecRot.x, DisplayVecRot.y, DisplayVecRot.z);
+           Quat NewRot = Quat::FromEulerXYZ(TransInfo->EulerRot.x, TransInfo->EulerRot.y, TransInfo->EulerRot.z);
 
-           TransInfo->Rotation = NewRot;
-
-           TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
+           TransInfo->SetEulerRotation(TransInfo->EulerRot);
 
            MeshInfo->UpdateOnTransformOBB();
     	}
         if (ImGui::InputFloat3("Scale", { &TransInfo->Scale.x }, 2)) {
+
             TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
 
             MeshInfo->UpdateOnTransformOBB();
         }
     
-    	//ImGui::Checkbox("Move Family", &item->Modifier.is_FamilyMove);
+    	
     
     	ImGui::Separator();
     }
     
     //MESH INFO
-    if (ImGui::CollapsingHeader("Mesh")) {
+    if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen)) {
     
     	ImGui::Text("Index Amount:");
     	ImGui::SameLine(0.0f, 10.0f);
@@ -274,7 +273,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     
     
     //TEXTURES INFO
-    if (ImGui::CollapsingHeader("Texture")) {
+    if (ImGui::CollapsingHeader("Texture", ImGuiTreeNodeFlags_DefaultOpen) ) {
     
     	ImGui::Checkbox("Checkered", &item->is_Checkered);
     

@@ -48,6 +48,7 @@ public:
 	float4x4  GetLocalTransform() const { return this->Local_Matrix; };
 	float4x4  GetGlobalTransform() const { return this->Global_Matrix; };
 
+
 	float4x4 GetGlobalTransformMatrix();
 
 	void UpdateLocalTransform();
