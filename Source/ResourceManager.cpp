@@ -579,10 +579,10 @@ void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
 			if (ImGui::Button("YES"))
 			{
 				
-
+				std::string FinalName = PreName + FileName;
 				
 
-				//fs::remove()
+				fs::remove(FinalName);
 				WantDeleteFolder = false;
 			    Item->toBeDeleted = false;
 				
