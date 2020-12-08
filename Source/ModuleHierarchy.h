@@ -23,9 +23,9 @@ public:
 	void SelectItemHierarchyChildren(Game_Object* SelectedItem,Game_Object* ItemToCheck);
 	
 	bool InspectorInfo(Game_Object* Object, int uid);
-	//Hierarchy Window Bools
+	
 
-	//bool ShowHierarchyWindow;
+	
 	
 	bool IconDrawHierarchy=true;
 	//------------ CONSOLE STUFF

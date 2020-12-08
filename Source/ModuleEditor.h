@@ -125,6 +125,12 @@ public:
 	bool drawcylinder;
 	bool drawsphere;
 
+	//Drag Drop
+
+	
+
+	
+	Game_Object* DragedItem=nullptr;
 
 	// CONFIG---------------------------------------------------------------------------------
 

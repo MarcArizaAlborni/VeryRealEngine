@@ -23,7 +23,24 @@
 ModuleHierarchyGameObject::ModuleHierarchyGameObject(Application* app, const char* name, bool start_enabled) : Module(app, name, start_enabled)
 {
 	
+    /*if (ImGui::IsItemHovered()) {
+        if (ImGui::BeginDragDropSource()) {
+            ImGui::SetDragDropPayload("Dragged_Object", ItemToCheck, sizeof(Game_Object));
+            App->editor->DragedItem = ItemToCheck;
+            ImGui::EndDragDropSource();
+        }
 
+        if (ImGui::BeginDragDropTarget())
+        {
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Dragged_Object"))
+            {
+
+                ItemToCheck->GenerateChildren(App->editor->DragedItem);
+                App->editor->DragedItem = nullptr;
+            }
+            ImGui::EndDragDropTarget();
+        }
+    }*/
 	
 }
 
@@ -56,22 +73,14 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
     if (App->editor->show_hierarchy_window) {
         ImGui::Begin("HierarchyWindow", &App->editor->show_hierarchy_window);
         for (int size = 0; size < App->geometrymanager->ObjectsOnScene.size(); ++size) {
-
-
             Game_Object* Item = *It;
 
             DrawHierarchyChildren(Item);
 
-
             ++It;
         }
-
         ImGui::End();
-
     }
-
-
-
 }
 
 void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
@@ -88,53 +97,21 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
 
     ImGui::AlignTextToFramePadding();
 
-
-
-
-    /*if (Item->Mesh != nullptr) {
-    
-        if (Item->Mesh->is_Drawn == true) {
-            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyOpen.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,(float)App->textureImporter->DrawIconHierarchyOpen.height }))
-            {
-
-                Item->Mesh->is_Drawn = false;
-            }
-
-        }
-        else {
-            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawIconHierarchyClosed.texture_id, { (float)App->textureImporter->DrawIconHierarchyOpen.width,(float)App->textureImporter->DrawIconHierarchyOpen.height })) {
-
-                Item->Mesh->is_Drawn = true;
-
-            }
-
-        }
-        ImGui::SameLine();
-    }*/
-
-  
     if (ImGui::TreeNodeEx(Item->name.c_str(), FlagsNodes)) {
 
-      
         if (ImGui::IsItemClicked())						
         {
              if((Component_Mesh*)Item->GetComponent(Component_Types::Mesh)!=nullptr){
-             
-             
+            
                 SelectItemHierarchy(Item);
                
              }
-            
         }
        
-
-       
- 
         std::vector<Game_Object*>::iterator It = Item->Children_List.begin();
         for (int size = 0; size < Item->Children_List.size(); ++size) {
 
             Game_Object* Child = *It;
-
 
             DrawHierarchyChildren(Child);
             ++It;
@@ -144,14 +121,10 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
         ImGui::TreePop();
 
     }
-    
-
-   
 }
 
 void ModuleHierarchyGameObject::SelectItemHierarchy(Game_Object* SelectedItem)
 {
-
     std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
 
     for (int size = 0; size < App->geometrymanager->ObjectsOnScene.size(); ++size) {
@@ -212,6 +185,8 @@ void ModuleHierarchyGameObject::SelectItemHierarchyChildren(Game_Object* Selecte
         Game_Object* Object = *It;
 
         if (ItemToCheck == Object) {
+
+            
 
             if (Object->ToBeDrawInspector == true) {
                 Object->ToBeDrawInspector = false;

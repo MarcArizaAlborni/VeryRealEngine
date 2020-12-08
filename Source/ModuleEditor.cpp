@@ -630,6 +630,8 @@ void ModuleEditor::CreateBar_Play()
 }
 
 
+
+
 // ---------------------------------CONFIG--------------------------------
 // ----------------------------CONFIG WINDOW-------------------------------------
 //Creation
@@ -1062,11 +1064,10 @@ void ModuleEditor::ItChildrenObjTextCount(Game_Object* Object,TextureInfo* Text)
 		++It;
 
 	}
-
-
-
-
 }
+
+
+
 
 void ModuleEditor::ItChildrenObjMeshCount(Game_Object* Object, MeshInfo* Mesh)
 {
