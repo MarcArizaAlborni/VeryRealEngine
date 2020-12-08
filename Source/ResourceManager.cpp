@@ -610,13 +610,17 @@ void ResourceManager::SelectTypeOfFile(std::string Name)
 {
 	std::string LastName;
 	std::string StarterName;
-	App->filemanager->SplitFilePath(Name.c_str(), nullptr, &StarterName, &LastName);
+	std::string Extension;
+	App->filemanager->SplitFilePath(Name.c_str(), nullptr, &StarterName, &Extension);
 
+	GetSplittedFile(Name.c_str(), nullptr, &StarterName, &LastName);
 
-	if (LastName == "fbx" || LastName == "FBX") {
+	std::string FullPath = StarterName + LastName;
 
+	if (Extension == "fbx" || Extension == "FBX") {
+		App->meshimporter->LoadFile_Mesh(FullPath.c_str());
 	}
-	else if (LastName == "PNG" || LastName == "png" || LastName == "tga" || LastName == "TGA" || LastName == "DDS" || LastName == "dds") {
+	else if (Extension == "PNG" || Extension == "png" || Extension == "tga" || Extension == "TGA" || Extension == "DDS" || Extension == "dds") {
 
 
 	}
