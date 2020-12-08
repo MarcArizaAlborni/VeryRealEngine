@@ -59,9 +59,7 @@ public:
 	
 	
 
-	void CreateDeleteFolderWindow();
-	void CreateAddFolderWindow();
-	void CreateRenameFolderWindow();
+
 
 	std::vector<Resource*> ResourceEntryList;
 	
@@ -72,6 +70,8 @@ public:
 	void DrawResourcesItems(Resource* Parent);
 
 	void ClearResourceList(Resource* Parent);
+
+	void CreateWindowDropFile();
 
 private:
 	char TextBuffer[256] = "";
@@ -94,8 +94,12 @@ private:
 	bool WantDeleteFolder;
 	bool WantRenameFolder;
 	bool ModificationHasBeen=false;
-public:
 
+	void SelectTypeOfFile(std::string Name);
+	
+	
+public:
+	Resource* CopyItemFileResource=nullptr;
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
 	void CreateConsolelog(const char file[], int line, const char* format, ...);

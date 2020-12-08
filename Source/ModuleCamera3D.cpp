@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
+#include "ResourceManager.h"
 
 #include "libraries/MathGeoLib/include/Math/MathFunc.h"
 #include "libraries/MathGeoLib/include/Geometry/LineSegment.h"
@@ -43,10 +44,15 @@ bool ModuleCamera3D::CleanUp()
 update_status ModuleCamera3D::Update(float dt)
 {
 
+	
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 	if (io.WantCaptureMouse == false || Game_Time::running == true)
 	{
+
+		
+
+
 		// Movement Camera
 		vec3 newPos(0, 0, 0);
 		if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)

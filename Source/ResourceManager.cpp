@@ -6,11 +6,14 @@
 #include "ModuleEditor.h"
 #include <filesystem>
 #include "FileSystem.h"
+#include "ModuleMeshImporter.h"
 
 namespace fs = std::filesystem;
 
 ResourceManager::ResourceManager(Application* app, const char* name, bool start_enabled) : Module(app, "ResourceManager", start_enabled)
 {
+
+	
 }
 
 ResourceManager::~ResourceManager()
@@ -29,7 +32,11 @@ bool ResourceManager::Start()
 update_status ResourceManager::Update(float dt)
 {
 
-	if (ResourceTimer.ReadSec() > Time + 30) {
+	
+
+
+
+	if (ResourceTimer.ReadSec() > Time + 120) {
 
 		Time = ResourceTimer.ReadSec();
 		ReadMainResourcesFolder();
@@ -41,7 +48,6 @@ update_status ResourceManager::Update(float dt)
 		ReadMainResourcesFolder();
 	}
 	
-
 	return UPDATE_CONTINUE;
 }
 
@@ -103,7 +109,11 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::SameLine();
 
 						
-						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						if (ImGui::Button(PathName_R, { 20,20 })) {
+						
+							
+
+						}
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -289,9 +299,7 @@ void ResourceManager::CreateResourcesWindow()
 				}
 		    	else {
 					if (resource_display_folder) {
-						/*if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->FolderIcon.texture_id, { 50,50 })) {
-							ItemR->ChildsToBeDrawnResources = true;
-						}*/
+						
 
 						ImGui::Image((void*)(intptr_t)App->textureImporter->FolderIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
@@ -598,6 +606,53 @@ void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
 	}
 }
 
+void ResourceManager::SelectTypeOfFile(std::string Name)
+{
+	std::string LastName;
+	std::string StarterName;
+	App->filemanager->SplitFilePath(Name.c_str(), nullptr, &StarterName, &LastName);
+
+
+	if (LastName == "fbx" || LastName == "FBX") {
+
+	}
+	else if (LastName == "PNG" || LastName == "png" || LastName == "tga" || LastName == "TGA" || LastName == "DDS" || LastName == "dds") {
+
+
+	}
+
+	
+}
+
+void ResourceManager::CreateWindowDropFile()
+{
+	if (CopyItemFileResource != nullptr) {
+
+		ImGuiWindowFlags Flags=NULL;
+		Flags = ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
+		ImGui::Begin("DropFileHere",nullptr,Flags);
+		ImVec2 SizeW=ImGui::GetWindowSize();
+		ImGui::BeginChild("DropFileHereChild", { SizeW.x,SizeW.y },false, Flags);
+		
+		ImGui::EndChild();
+
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Dragged_Folder_File"))
+			{
+
+				std::string FileToLoad = CopyItemFileResource->Name;
+
+				SelectTypeOfFile(FileToLoad);
+				CopyItemFileResource = nullptr;
+
+			}
+			ImGui::EndDragDropTarget();
+		}
+		ImGui::End();
+	}
+}
+
 
 void ResourceManager::ReadMainResourcesFolder()
 {
@@ -735,7 +790,23 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						}*/
 						ImGui::Image((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
-						ImGui::Button(PathName_R, { 150,20 });
+
+						
+						if (ImGui::Button(PathName_R, { 150,20 })) {}
+
+						//THIS HERE WORKS
+						if (ImGui::BeginDragDropSource()) {
+
+							ImGui::SetDragDropPayload("Dragged_Folder_File", ItemRC, sizeof(Resource));
+							CopyItemFileResource = ItemRC;
+							ImGui::EndDragDropSource();
+						}
+
+						
+						
+						
+						//THIS HERE WORKS
+
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {

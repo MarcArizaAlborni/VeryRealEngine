@@ -220,6 +220,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 		App->hierarchy->CreateHierarchyWindow();
 		App->inspector->DrawInspectorWindowInfo();
 		App->resources->CreateResourcesWindow();
+		App->resources->CreateWindowDropFile();
 
 
 		//Popups close
@@ -327,6 +328,9 @@ update_status ModuleEditor::PostUpdate(float dt)
 // Main docking
 bool ModuleEditor::MainWindow(char* id, bool docking, ImGuiWindowFlags windowFlags)
 {
+	
+
+
 	ImGuiViewport* viewport = ImGui::GetWindowViewport();
 	ImGui::SetNextWindowPos(viewport->Pos);
 	ImGui::SetNextWindowSize(viewport->Size);
@@ -339,7 +343,12 @@ bool ModuleEditor::MainWindow(char* id, bool docking, ImGuiWindowFlags windowFla
 	static bool open = true;
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	open = ImGui::Begin(id, &open, windowFlags);
+	
 	ImGui::PopStyleVar(3);
+
+	
+	
+
 
 	if (docking) {
 
@@ -349,6 +358,10 @@ bool ModuleEditor::MainWindow(char* id, bool docking, ImGuiWindowFlags windowFla
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
 		}
 	}
+
+	
+
+
 
 	return open;
 }
