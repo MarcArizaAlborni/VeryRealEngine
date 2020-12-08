@@ -75,15 +75,20 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
         for (int size = 0; size < App->geometrymanager->ObjectsOnScene.size(); ++size) {
             Game_Object* Item = *It;
 
-            DrawHierarchyChildren(Item);
+            if (!DrawHierarchyChildren(Item, false)) {
 
-            ++It;
+              ++It;
+
+            }
+            else{
+                size = App->geometrymanager->ObjectsOnScene.size();
+            }
         }
         ImGui::End();
     }
 }
 
-void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
+bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Reparented)
 {
     ImGuiTreeNodeFlags FlagsNodes =   ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth| ImGuiTreeNodeFlags_OpenOnArrow;
 
@@ -113,6 +118,7 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
                 
                 Item->ChangeParentFromObject(App->editor->DragedItem);
                 App->editor->DragedItem = nullptr;
+                Reparented = true;
             }
             ImGui::EndDragDropTarget();
         }
@@ -134,14 +140,19 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
 
             Game_Object* Child = *It;
 
-            DrawHierarchyChildren(Child);
-            ++It;
+            if (!DrawHierarchyChildren(Child, Reparented)) {
+                ++It;
+            }
+            else {
+                size = Item->Children_List.size();
+            }
 
         }
 
         ImGui::TreePop();
 
     }
+    return Reparented;
 }
 
 void ModuleHierarchyGameObject::SelectItemHierarchy(Game_Object* SelectedItem)

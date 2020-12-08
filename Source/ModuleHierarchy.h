@@ -18,7 +18,7 @@ public:
 	//Hierarchy Window Functions
 
 	void CreateHierarchyWindow();
-	void DrawHierarchyChildren(Game_Object* Item);
+	bool DrawHierarchyChildren(Game_Object* Item,bool Val);
 	void SelectItemHierarchy(Game_Object* SelectedItem);
 	void SelectItemHierarchyChildren(Game_Object* SelectedItem,Game_Object* ItemToCheck);
 	
