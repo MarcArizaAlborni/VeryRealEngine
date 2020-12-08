@@ -23,24 +23,7 @@
 ModuleHierarchyGameObject::ModuleHierarchyGameObject(Application* app, const char* name, bool start_enabled) : Module(app, name, start_enabled)
 {
 	
-    /*if (ImGui::IsItemHovered()) {
-        if (ImGui::BeginDragDropSource()) {
-            ImGui::SetDragDropPayload("Dragged_Object", ItemToCheck, sizeof(Game_Object));
-            App->editor->DragedItem = ItemToCheck;
-            ImGui::EndDragDropSource();
-        }
-
-        if (ImGui::BeginDragDropTarget())
-        {
-            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Dragged_Object"))
-            {
-
-                ItemToCheck->GenerateChildren(App->editor->DragedItem);
-                App->editor->DragedItem = nullptr;
-            }
-            ImGui::EndDragDropTarget();
-        }
-    }*/
+   
 	
 }
 
@@ -133,8 +116,7 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
              }
            
         }
-       
-       
+
         std::vector<Game_Object*>::iterator It = Item->Children_List.begin();
         for (int size = 0; size < Item->Children_List.size(); ++size) {
 
@@ -148,9 +130,7 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
             }
 
         }
-
         ImGui::TreePop();
-
     }
     return Reparented;
 }
@@ -197,9 +177,6 @@ void ModuleHierarchyGameObject::SelectItemHierarchy(Game_Object* SelectedItem)
                 else {
                     ChildObject->ToBeDrawInspector = false;
                 }
-
-                
-
                 ++ItC;
             }
         }
@@ -219,8 +196,6 @@ void ModuleHierarchyGameObject::SelectItemHierarchyChildren(Game_Object* Selecte
         Game_Object* Object = *It;
 
         if (SelectedItem == Object) {
-
-            
 
             if (Object->ToBeDrawInspector == true) {
                 Object->ToBeDrawInspector = false;
