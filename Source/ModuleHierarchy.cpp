@@ -198,6 +198,8 @@ void ModuleHierarchyGameObject::SelectItemHierarchy(Game_Object* SelectedItem)
                     ChildObject->ToBeDrawInspector = false;
                 }
 
+                
+
                 ++ItC;
             }
         }
@@ -216,7 +218,7 @@ void ModuleHierarchyGameObject::SelectItemHierarchyChildren(Game_Object* Selecte
 
         Game_Object* Object = *It;
 
-        if (ItemToCheck == Object) {
+        if (SelectedItem == Object) {
 
             
 
@@ -236,7 +238,7 @@ void ModuleHierarchyGameObject::SelectItemHierarchyChildren(Game_Object* Selecte
             for (int sizeC = 0; sizeC < Object->Children_List.size(); ++sizeC) {
                 Game_Object* ChildObject = *ItC;
 
-                SelectItemHierarchyChildren(ItemToCheck,ChildObject);
+                SelectItemHierarchyChildren(SelectedItem,ChildObject);
 
                 if (SelectedItem == ChildObject) {
 
