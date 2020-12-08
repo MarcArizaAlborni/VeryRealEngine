@@ -36,6 +36,8 @@ struct MeshInfo
 
 	float3* normals;                     // amount of normals in the mesh
 	uint id_normals=0;                       // id of the normals in the mesh
+
+	std::string Name;
 };
 
 struct NodeMap {
@@ -71,7 +73,8 @@ public:
 	//List of meshes active
 	 //CurrentActive meshes list
 	std::vector<TextureInfo*> LoadedTexturesList; // Currently Loaded textures list
-
+	int CheckMeshExistance(std::string MeshPath);
+	std::vector<MeshInfo*> Mesh_Resource_List;
 	// Load Assimp Node Info
 
 	vec3 LoadNodeInfo(const aiScene* scene, aiNode* rootNode);

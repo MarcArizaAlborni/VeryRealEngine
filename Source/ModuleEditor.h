@@ -170,6 +170,16 @@ public:
 
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
 	void CreateConsolelog(const char file[], int line, const char* format, ...);
+
+
+
+
+private:
+
+		void ItChildrenObjTextCount(Game_Object* Object,TextureInfo* Text);
+		void ItChildrenObjMeshCount(Game_Object* Object, MeshInfo* Mesh);
+		int AmountOfUsesTexture;
+		int AmountOfUsesMesh;
    
 };
 

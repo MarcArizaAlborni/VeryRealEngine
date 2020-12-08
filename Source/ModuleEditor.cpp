@@ -5,6 +5,7 @@
 #include "ModuleGeometryManager.h"
 #include "Game_Time.h"
 #include "ModuleEditor.h"
+#include "ModuleMeshImporter.h"
 #include "ModuleHierarchy.h"
 #include "ModuleInspector.h"
 #include "ResourceManager.h"
@@ -12,6 +13,11 @@
 
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
+#include "GameObject.h"
+#include "ComponentTexture.h"
+#include "Component.h"
+#include "ComponentMesh.h"
+
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -918,18 +924,75 @@ void ModuleEditor::CreateConfigWindow_Resource()
 		for (int size = 0; size < App->textureImporter->Textures_Resource_List.size(); ++size) {
 
 			TextureInfo* Text = *It;
+			
+			AmountOfUsesTexture = 0;
+
+			std::vector<Game_Object*>::iterator ItObj = App->geometrymanager->ObjectsOnScene.begin();
+			for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i) {
+
+				Game_Object* Object = *ItObj;
+
+				ItChildrenObjTextCount(Object,Text);
+				
+				Component_Texture* MeshDraw = (Component_Texture*)Object->GetComponent(Component_Types::Texture);
+
+				
+				if (MeshDraw != nullptr) {
+					if (MeshDraw->Texture->texture_id == Text->texture_id) {
+						++AmountOfUsesTexture;
+					}
+				}
+
+				++ItObj;
+			}
 
 			ImGui::Text("%d.",size);
 			ImGui::SameLine();
 			ImGui::Text(Text->texture_path.c_str());
 			ImGui::SameLine();
-			ImGui::TextColored({ 255,255,0,1 }, "%d", Text->uses);
+			ImGui::TextColored({ 255,255,0,1 }, "%d", AmountOfUsesTexture);
 
 			++It;
 		}
 	
+		ImGui::Separator();
 	
-	
+
+		/*int AmountOfMeshes = App->meshimporter->Mesh_Resource_List.size(); 
+		ImGui::Text("Active Meshes: %d", AmountOfMeshes);
+		std::vector<MeshInfo*>::iterator Itm = App->meshimporter->Mesh_Resource_List.begin();
+		for (int size = 0; size < App->textureImporter->Textures_Resource_List.size(); ++size) {
+
+			MeshInfo* Mesh = *Itm;
+
+			AmountOfUsesMesh = 0;
+
+			std::vector<Game_Object*>::iterator ItObj = App->geometrymanager->ObjectsOnScene.begin();
+			for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i) {
+
+				Game_Object* Object = *ItObj;
+
+				ItChildrenObjMeshCount(Object, Mesh);
+
+				Component_Mesh* MeshDraw = (Component_Mesh*)Object->GetComponent(Component_Types::Mesh);
+			
+				if (MeshDraw != nullptr) {
+					if (MeshDraw->Mesh->Name == Mesh->Name) {
+						++AmountOfUsesMesh;
+					}
+				}
+
+				++ItObj;
+			}
+
+			ImGui::Text("%d.", size);
+			ImGui::SameLine();
+			ImGui::Text(Mesh->Name.c_str());
+			ImGui::SameLine();
+			ImGui::TextColored({ 255,255,0,1 }, "%d", AmountOfUsesMesh);
+
+			++Itm;
+		}*/
 	}
 }
 
@@ -975,6 +1038,58 @@ void ModuleEditor::CreateConsolelog(const char file[], int line, const char* for
 
 	ConsoleLogs.push_back(tmp_string2);
 
+}
+
+void ModuleEditor::ItChildrenObjTextCount(Game_Object* Object,TextureInfo* Text)
+{
+	std::vector<Game_Object*>::iterator It = Object->Children_List.begin();
+
+	for (int size = 0; size < Object->Children_List.size(); ++size) {
+
+		Game_Object* Item = *It;
+
+		ItChildrenObjTextCount(Item,Text);
+
+		Component_Texture* MeshDraw = (Component_Texture*)Item->GetComponent(Component_Types::Texture);
+
+
+		if (MeshDraw != nullptr) {
+			if (MeshDraw->Texture->texture_id == Text->texture_id) {
+				++AmountOfUsesTexture;
+			}
+		}
+
+		++It;
+
+	}
+
+
+
+
+}
+
+void ModuleEditor::ItChildrenObjMeshCount(Game_Object* Object, MeshInfo* Mesh)
+{
+	std::vector<Game_Object*>::iterator It = Object->Children_List.begin();
+
+	for (int size = 0; size < Object->Children_List.size(); ++size) {
+
+		Game_Object* Item = *It;
+
+		ItChildrenObjMeshCount(Item, Mesh);
+
+		Component_Mesh* MeshDraw = (Component_Mesh*)Item->GetComponent(Component_Types::Mesh);
+
+
+		if (MeshDraw != nullptr) {
+			if (MeshDraw->Mesh->Name == Mesh->Name) {
+				++AmountOfUsesMesh;
+			}
+		}
+
+		++It;
+
+	}
 }
 
 

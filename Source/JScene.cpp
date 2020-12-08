@@ -17,7 +17,6 @@ JScene::JScene(char* buffer)
 
 JScene::JScene(JSON_Object* obj) : node(obj)
 {
-
 }
 
 JScene::~JScene()

@@ -48,6 +48,11 @@ bool ModuleMeshImporter::CleanUp()
 update_status ModuleMeshImporter::Update(float dt)
 {
 
+	
+	
+	
+
+
 	return UPDATE_CONTINUE;
 }
 
@@ -131,6 +136,7 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 			}
 		}
 		
+
 		
 	}
 
@@ -149,7 +155,7 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		ObjectToAdd->Mesh->GenerateBBBufers();
 	}
 
-	//Parent->Children_List.push_back(ObjectToAdd);
+	
 
 
 	for (uint i = 0; i < node->mNumChildren; ++i)
@@ -167,61 +173,73 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 	for (int number = 0; number < node->mNumMeshes; number++) {
 
 
-		MeshInfo* OurMesh = new MeshInfo();
-
 		aiMesh* meshLoad = scene->mMeshes[node->mMeshes[number]];
 
-		OurMesh->num_vertex = meshLoad->mNumVertices;
+		int PositionMeshList = -1;
 
-		OurMesh->vertex = new float3[OurMesh->num_vertex * 3];
+		PositionMeshList=CheckMeshExistance(node->mName.C_Str());
 
-		memcpy(OurMesh->vertex, meshLoad->mVertices, sizeof(float) * OurMesh->num_vertex * 3);
+		
+			
+			MeshInfo* OurMesh = new MeshInfo();
 
-		if (meshLoad->HasFaces()) {
+			OurMesh->Name = node->mName.C_Str();
 
-			OurMesh->num_index = meshLoad->mNumFaces * 3;
+			OurMesh->num_vertex = meshLoad->mNumVertices;
+			//OurMesh->Name = meshLoad->mName.C_Str();
+			OurMesh->vertex = new float3[OurMesh->num_vertex * 3];
+
+			memcpy(OurMesh->vertex, meshLoad->mVertices, sizeof(float) * OurMesh->num_vertex * 3);
+
+			if (meshLoad->HasFaces()) {
+
+				OurMesh->num_index = meshLoad->mNumFaces * 3;
 
 
-			OurMesh->index = new uint[OurMesh->num_index];
+				OurMesh->index = new uint[OurMesh->num_index];
 
-			for (int c = 0; c < meshLoad->mNumFaces; ++c) {
+				for (int c = 0; c < meshLoad->mNumFaces; ++c) {
 
-				
 
-				memcpy(&OurMesh->index[c * 3], meshLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+
+					memcpy(&OurMesh->index[c * 3], meshLoad->mFaces[c].mIndices, 3 * sizeof(uint));
+				}
 			}
-		}
 
-		if (meshLoad->HasNormals()) {
+			if (meshLoad->HasNormals()) {
 
-			OurMesh->normals = new float3[OurMesh->num_vertex * 3];
-			memcpy(OurMesh->normals, meshLoad->mNormals, sizeof(float) * OurMesh->num_vertex * 3);
+				OurMesh->normals = new float3[OurMesh->num_vertex * 3];
+				memcpy(OurMesh->normals, meshLoad->mNormals, sizeof(float) * OurMesh->num_vertex * 3);
 
-		}
-
-
-		if (meshLoad->HasTextureCoords(0))
-		{
-			OurMesh->num_texcoords = meshLoad->mNumVertices;
-			OurMesh->texcoords = new float[OurMesh->num_vertex * 2];
-
-
-			for (int Z = 0; Z < OurMesh->num_texcoords; ++Z) {
-
-				OurMesh->texcoords[Z * 2] = meshLoad->mTextureCoords[0][Z].x;
-				OurMesh->texcoords[Z * 2 + 1] = meshLoad->mTextureCoords[0][Z].y;
 			}
-		}
 
-		App->renderer3D->GenerateVertexBuffer(OurMesh->vertex, OurMesh->num_vertex, OurMesh->id_vertex);
-		App->renderer3D->GenerateIndexBuffer(OurMesh->index, OurMesh->num_index, OurMesh->id_index);
-		if (OurMesh->texcoords != NULL) {
-			App->renderer3D->GenerateTextBuffer(OurMesh->texcoords, OurMesh->num_texcoords, OurMesh->texcoords_id);
-		}
-		App->renderer3D->GenerateNormalBuffer(OurMesh, OurMesh->normals);
 
-		ItemList.push_back(OurMesh);
+			if (meshLoad->HasTextureCoords(0))
+			{
+				OurMesh->num_texcoords = meshLoad->mNumVertices;
+				OurMesh->texcoords = new float[OurMesh->num_vertex * 2];
 
+
+				for (int Z = 0; Z < OurMesh->num_texcoords; ++Z) {
+
+					OurMesh->texcoords[Z * 2] = meshLoad->mTextureCoords[0][Z].x;
+					OurMesh->texcoords[Z * 2 + 1] = meshLoad->mTextureCoords[0][Z].y;
+				}
+			}
+
+			App->renderer3D->GenerateVertexBuffer(OurMesh->vertex, OurMesh->num_vertex, OurMesh->id_vertex);
+			App->renderer3D->GenerateIndexBuffer(OurMesh->index, OurMesh->num_index, OurMesh->id_index);
+			if (OurMesh->texcoords != NULL) {
+				App->renderer3D->GenerateTextBuffer(OurMesh->texcoords, OurMesh->num_texcoords, OurMesh->texcoords_id);
+			}
+			App->renderer3D->GenerateNormalBuffer(OurMesh, OurMesh->normals);
+
+			
+
+			ItemList.push_back(OurMesh);
+
+			Mesh_Resource_List.push_back(OurMesh);
+		
 	}
 
 	return ItemList;
@@ -254,7 +272,6 @@ void ModuleMeshImporter::CreateMaterials(aiMaterial* material, Game_Object* Obje
 		
 		texName = "Assets/Textures/" + texName + "." + texExtension;
 		
-		
 		int TexturePosition = -1;
 
 		TexturePosition = App->textureImporter->CheckTextureExistance(texName);
@@ -272,14 +289,14 @@ void ModuleMeshImporter::CreateMaterials(aiMaterial* material, Game_Object* Obje
 
 		}
 		else {
-			TextureInfo MaterialLoad = *App->textureImporter->Textures_Resource_List[TexturePosition];
+			TextureInfo* MaterialLoad = App->textureImporter->Textures_Resource_List[TexturePosition];
 			++App->textureImporter->Textures_Resource_List[TexturePosition]->uses;
 
-			OurMat->height = MaterialLoad.height;
-			OurMat->width = MaterialLoad.width;
-			OurMat->texture_id = MaterialLoad.texture_id;
-			OurMat->texture_name = MaterialLoad.texture_name;
-			OurMat->texture_path = MaterialLoad.texture_path;
+			OurMat->height = MaterialLoad->height;
+			OurMat->width = MaterialLoad->width;
+			OurMat->texture_id = MaterialLoad->texture_id;
+			OurMat->texture_name = MaterialLoad->texture_name;
+			OurMat->texture_path = MaterialLoad->texture_path;
 			++OurMat->uses;
 		}
 	}
@@ -287,9 +304,29 @@ void ModuleMeshImporter::CreateMaterials(aiMaterial* material, Game_Object* Obje
 	Component_Texture* TextureComponent = new Component_Texture(Object, OurMat);
 	Object->AddExistingComponent(TextureComponent);
 	
-	
 }
 
+
+int ModuleMeshImporter::CheckMeshExistance(std::string MeshPath)
+{
+	int Ret = -1;
+
+	std::vector<MeshInfo*>::iterator It = Mesh_Resource_List.begin();
+
+	for (int size = 0; size < Mesh_Resource_List.size(); ++size) {
+
+		MeshInfo* Mesh = *It;
+
+		if (Mesh->Name == MeshPath) {
+
+			Ret = size;
+		}
+		++It;
+	}
+
+
+	return Ret;
+}
 
 vec3 ModuleMeshImporter::LoadNodeInfo(const aiScene* scene, aiNode* rootNode)
 {

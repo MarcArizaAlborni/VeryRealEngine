@@ -26,7 +26,7 @@
 
 ModuleScene::ModuleScene(Application* app, const char* name, bool start_enabled) : Module(app, "Scene", start_enabled)
 {
-	ROOT_SCENE_OBJECT = new Game_Object("ROOT SCENE");
+	ROOT_SCENE_OBJECT = new Game_Object("MainScene");
 	App->geometrymanager->ObjectsOnScene.push_back(ROOT_SCENE_OBJECT);
 	ROOT_SCENE_OBJECT->Parent = nullptr;
 
@@ -99,6 +99,8 @@ update_status ModuleScene::Update(float dt)
 	{
 		p.Render();
 	}
+
+
 
 	return UPDATE_CONTINUE;
 }
