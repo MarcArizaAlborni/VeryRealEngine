@@ -43,8 +43,10 @@ public:
 
 
 	void GenerateChildren(Game_Object* ObjectToAdd);
+	void ChangeParentFromObject(Game_Object* ObjectToAdd);
 	void DeleteSpecificChildren(Game_Object* ObjectToDelete);
 	void DeleteAllChildren();
+	void GiveNewParent(Game_Object* Parent);
 
 	void Enable();
 	void Disable();

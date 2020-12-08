@@ -170,20 +170,54 @@ void Game_Object::GenerateChildren(Game_Object* ObjectToAdd)
 	this->Children_List.push_back(ObjectToAdd);
 }
 
+void Game_Object::ChangeParentFromObject(Game_Object* ObjectToAdd)
+{
+	if (this->Parent != nullptr)
+	{
+		Game_Object* ParentItem = this->Parent;
+
+		while (ParentItem != App->geometrymanager->ObjectsOnScene[0])
+		{
+			if (ParentItem == ObjectToAdd)
+			{
+			}
+			else if (ParentItem->Parent != nullptr)
+			{
+				ParentItem = ParentItem->Parent;
+			}
+		}
+	}
+
+	if (ObjectToAdd->Parent != nullptr)
+	{
+		ObjectToAdd->Parent->DeleteSpecificChildren(ObjectToAdd);
+		
+		ObjectToAdd->GiveNewParent(this);
+	}
+	else if (ObjectToAdd->Parent == nullptr)
+	{
+		ObjectToAdd->GiveNewParent(this);
+	}
+	this->Children_List.push_back(ObjectToAdd);
+	
+
+
+	//ObjectToAdd->Parent = this;
+	
+
+	
+}
+
 void Game_Object::DeleteSpecificChildren(Game_Object* ObjectToDelete)
 {
 
-	if (Children_List.size() > 0) {
-
-		for (int i = 0; i < Children_List.size(); ++i) {
-
-			
-			if (Children_List[i] == ObjectToDelete) {
-
-				Children_List[i]->CleanUp();
-
-				delete 	Children_List[i];
-
+	if (Children_List.size() > 0)
+	{
+		for (uint i = 0; i < Children_List.size(); ++i)
+		{
+			if (Children_List[i] == ObjectToDelete)
+			{
+				
 				Children_List.erase(Children_List.begin() + i);
 			}
 		}
@@ -205,6 +239,21 @@ void Game_Object::DeleteAllChildren()
 
 		Children_List.clear();
 	}
+}
+
+void Game_Object::GiveNewParent(Game_Object*  NewParent)
+{
+
+	
+	if (this != nullptr && NewParent != nullptr)
+	{
+		this->Parent = NewParent;
+		
+	}
+	
+
+
+
 }
 
 void Game_Object::Enable()

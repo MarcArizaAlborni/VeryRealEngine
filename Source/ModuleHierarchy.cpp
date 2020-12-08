@@ -99,8 +99,8 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
 
     if (ImGui::TreeNodeEx(Item->name.c_str(), FlagsNodes)) {
 
-
         if (ImGui::BeginDragDropSource()) {
+            
             ImGui::SetDragDropPayload("Dragged_Object", Item, sizeof(Game_Object));
             App->editor->DragedItem = Item;
             ImGui::EndDragDropSource();
@@ -110,8 +110,8 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
         {
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Dragged_Object"))
             {
-
-                Item->GenerateChildren(App->editor->DragedItem);
+                
+                Item->ChangeParentFromObject(App->editor->DragedItem);
                 App->editor->DragedItem = nullptr;
             }
             ImGui::EndDragDropTarget();
@@ -127,6 +127,7 @@ void ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item)
              }
            
         }
+       
        
         std::vector<Game_Object*>::iterator It = Item->Children_List.begin();
         for (int size = 0; size < Item->Children_List.size(); ++size) {
