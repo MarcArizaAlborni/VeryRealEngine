@@ -1,5 +1,5 @@
-#ifndef __MODULEFILESYSTEM_H__
-#define __MODULEFILESYSTEM_H__
+#ifndef __FILESYSTEM_H__
+#define __FILESYSTEM_H__
 
 #include "Module.h"
 #include <vector>
@@ -42,4 +42,4 @@ public:
 	std::string GetFileAndExtension(const char* path);
 };
 
-#endif // __MODULEFILESYSTEM_H__
+#endif  
