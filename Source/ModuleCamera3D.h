@@ -30,10 +30,12 @@ public:
 	void MouseEvent();
 	void CreatingRay(float norm_x, float norm_y);
 
-	Component_Camera* scene_camera = nullptr;
-
 	float norm_x;
 	float norm_y;
+
+	Component_Camera* scene_camera = nullptr;
+
+	
 
 
 	//------------ CONSOLE STUFF

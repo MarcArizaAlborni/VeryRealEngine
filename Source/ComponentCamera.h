@@ -36,8 +36,6 @@ public:
 
 	vec* GetFrustumPoints();
 
-	
-
 	Frustum frustum;
 
 	vec* frustum_corners = nullptr;
