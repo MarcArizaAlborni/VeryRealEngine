@@ -2,6 +2,13 @@
 #include "Application.h"
 #include "Definitions.h"
 #include "FileSystem.h"
+#include "Component.h"
+#include "ComponentTexture.h"
+#include "ComponentMesh.h"
+#include "ComponentTransform.h"
+#include "ModuleMeshImporter.h"
+#include "ModuleTextureImporter.h"
+#include "GameObject.h"
 #include "libraries/PhysFS/include/physfs.h"
 #include "libraries/Assimp/Assimp/include/cfileio.h"
 #include "libraries/Assimp/Assimp/include/types.h"
@@ -29,20 +36,23 @@ ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool star
 		LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
 	}
 		
-	// Check if standard paths exist
-	const char* paths[] = {
-		LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER, LIBRARY_MODELS_FOLDER,LIBRARY_SCENE_FOLDER
-	};
+	//// Check if standard paths exist
+	//const char* paths[] = {
+	//	LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER, LIBRARY_MODELS_FOLDER,LIBRARY_SCENE_FOLDER
+	//};
 
-	for (uint i = 0; i < sizeof(paths) / sizeof(const char*); ++i)
-	{
-		// Adds to the existing dirs your path
-		if (PHYSFS_exists(paths[i]) == 0)
-		{
-			PHYSFS_mkdir(paths[i]);
-		}
-			
-	}
+	//for (uint i = 0; i < sizeof(paths) / sizeof(const char*); ++i)
+	//{
+	//	// Adds to the existing dirs your path
+	//	if (PHYSFS_exists(paths[i]) == 0)
+	//	{
+	//		PHYSFS_mkdir(paths[i]);
+	//	}
+	//		
+	//}
+
+
+	CreateLibraryDirectories();
 
 }
 
@@ -82,6 +92,16 @@ bool ModuleFileSystem::AddPath(const char* path_or_zip)
 bool ModuleFileSystem::Exists(const char* file) const
 {
 	return PHYSFS_exists(file) != 0;
+}
+
+bool ModuleFileSystem::CreateDir(const char* dir)
+{
+	if (IsDirectory(dir) == false)
+	{
+		PHYSFS_mkdir(dir);
+		return true;
+	}
+	return false;
 }
 
 // Checks if a file is inside a directory
@@ -285,6 +305,17 @@ bool ModuleFileSystem::IsInDirectory(const char* directory, const char* p)
 	return ret;
 }
 
+void ModuleFileSystem::CreateLibraryDirectories()
+{
+	
+	CreateDir(LIBRARY_FOLDER);
+	CreateDir(LIBRARY_TEXTURES_FOLDER);
+	CreateDir(LIBRARY_MESH_FOLDER);
+	CreateDir(LIBRARY_MODELS_FOLDER);
+	CreateDir(LIBRARY_SCENE_FOLDER);
+	
+}
+
 bool ModuleFileSystem::RemovePath(std::string* directory, const char* p)
 {
 	bool ret = true;
@@ -471,4 +502,71 @@ std::string ModuleFileSystem::GetFileAndExtension(const char* path)
 	}
 
 	return full_path;
+}
+
+void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh)
+{
+
+	//Generate Random Value
+	int NewId = App->GiveRandomNum_Undefined();
+
+	uint ranges[2] = { Mesh->num_index,Mesh->num_vertex };
+
+	uint size = sizeof(ranges) + sizeof(uint) * Mesh->num_index + sizeof(float) * Mesh->num_vertex * 3;
+
+	char* buffer = new char[size];
+
+	char* cursor = buffer;
+
+	uint bytes = sizeof(ranges);
+
+	memcpy(cursor, ranges, bytes);
+
+	cursor += bytes;
+
+	std::string NewId_C=std::to_string(NewId);
+	std::string Extension = ".waf";
+	std::string GeneralPath = "Library/Meshes/";
+
+	std::string FinalPath = GeneralPath + NewId_C+Extension;
+
+
+     PHYSFS_File* WFile = PHYSFS_openWrite(FinalPath.c_str());
+
+
+	PHYSFS_sint64 AmountWritten= PHYSFS_write(WFile, (const void*)buffer, 1, size);
+
+
+	PHYSFS_close(WFile);
+
+	
+
+	
+	//KEEP THIS ORDER OF OPERATIONS!!
+
+	PHYSFS_File* RFile = PHYSFS_openRead(FinalPath.c_str());
+
+	PHYSFS_sint32 Rsize = (PHYSFS_sint32)PHYSFS_fileLength(RFile);
+
+	char* Rbuffer = new char[Rsize];
+
+	char* Rcursor = Rbuffer;
+
+	PHYSFS_sint64 AmountRead = PHYSFS_read(RFile, Rbuffer, 1, Rsize);
+
+
+	
+	uint Rranges[2];
+
+	uint Rbytes = sizeof(Rranges);
+
+	memcpy(Rranges, Rcursor, Rbytes);
+
+	Rcursor += Rbytes;
+
+	uint NumIndex = Rranges[0];
+	uint NumVertex = Rranges[1];
+
+
+
 }

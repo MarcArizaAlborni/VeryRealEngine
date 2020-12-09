@@ -20,6 +20,7 @@ public:
 
 	bool AddPath(const char* path_or_zip);
 	bool Exists(const char* file) const;
+	bool CreateDir(const char* dir);
 	bool IsDirectory(const char* file) const;
 	void CreateDirectory(const char* directory);
 	void DiscoverFiles(const char* directory, std::vector<std::string>& file_list, std::vector<std::string>& direction_list) const;
@@ -29,7 +30,7 @@ public:
 	std::string NormalizeNodePath(const char* full_path);
 	void NormalizePath(std::string& full_path) const;
 	bool IsInDirectory(const char* directory, const char* p);
-
+	void CreateLibraryDirectories();
 	bool RemovePath(std::string* directory, const char* p);
 
 	// Read/Write
@@ -40,6 +41,15 @@ public:
 	bool Remove(const char* file);
 
 	std::string GetFileAndExtension(const char* path);
+
+
+	// Mine
+
+	void SaveMeshInto_WAF(MeshInfo* Mesh);
+
+
+
+	
 };
 
 #endif  
