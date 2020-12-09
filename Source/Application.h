@@ -31,7 +31,7 @@ class ModuleMeshImporter;
 class ModuleHierarchyGameObject;
 class ModuleInspectorGameObject;
 class ResourceManager;
-class ModuleFileSystem;
+class FileSystem;
 
 class ModuleScene;
 
@@ -51,7 +51,7 @@ public:
 	ModuleMeshImporter* meshimporter;
 	
 	ModuleGeometryManager* geometrymanager;
-	ModuleFileSystem* filemanager;
+	FileSystem* filemanager;
 
 	//Windows & Menus
 

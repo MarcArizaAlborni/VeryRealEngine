@@ -8,7 +8,7 @@
 
 #pragma comment( lib, "libraries/PhysFS/libx86/physfs.lib" )
 
-ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool start_enabled) : Module(app, "FileSystem", start_enabled)
+FileSystem::FileSystem(Application* app, const char* name, bool start_enabled) : Module(app, "FileSystem", start_enabled)
 {
 	// Init PhysFS
 	char* base_path = SDL_GetBasePath();
@@ -47,20 +47,20 @@ ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool star
 }
 
 // Destructor
-ModuleFileSystem::~ModuleFileSystem()
+FileSystem::~FileSystem()
 {
 	PHYSFS_deinit();
 }
 
 // Called before quitting
-bool ModuleFileSystem::CleanUp()
+bool FileSystem::CleanUp()
 {
 	LOG("Freeing File System subsystem");
 
 	return true;
 }
 
-bool ModuleFileSystem::AddPath(const char* path_or_zip)
+bool FileSystem::AddPath(const char* path_or_zip)
 {
 	bool ret = false;
 
@@ -89,7 +89,7 @@ char normalize_char(char c)
 	return tolower(c);
 }
 
-std::string ModuleFileSystem::NormalizeNodePath(const char* full_path)
+std::string FileSystem::NormalizeNodePath(const char* full_path)
 {
 	std::string normalized_path(full_path);
 
@@ -104,7 +104,7 @@ std::string ModuleFileSystem::NormalizeNodePath(const char* full_path)
 	return normalized_path;
 }
 
-void ModuleFileSystem::NormalizePath(std::string& full_path) const
+void FileSystem::NormalizePath(std::string& full_path) const
 {
 	for (std::string::iterator it = full_path.begin(); it != full_path.end(); ++it)
 	{
@@ -120,7 +120,7 @@ void ModuleFileSystem::NormalizePath(std::string& full_path) const
 	}
 }
 
-void ModuleFileSystem::SplitFilePath(const char* full_path, std::string* path, std::string* file, std::string* extension) const
+void FileSystem::SplitFilePath(const char* full_path, std::string* path, std::string* file, std::string* extension) const
 {
 	if (full_path != nullptr)
 	{
@@ -166,7 +166,7 @@ int close_sdl_rwops(SDL_RWops* rw)
 	return 0;
 }
 
-std::string ModuleFileSystem::GetFileAndExtension(const char* path)
+std::string FileSystem::GetFileAndExtension(const char* path)
 {
 	std::string full_path = path;
 	std::string file = "";
