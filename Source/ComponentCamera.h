@@ -13,13 +13,31 @@ public:
 	Component_Camera(Game_Object* obj);
 	~Component_Camera() {};
 
-	void CreateFrustum(const float3* corners, Color color);
+	void DrawFrustum(const float3* corners, Color color);
 
 	float* GetViewMatrix();
 	void CalculateViewMatrix();
 
 	update_status Load();
 	update_status Save() { return UPDATE_CONTINUE; };
+
+	float GetFOV();
+	void SetFOV(float fov);
+
+	float GetAspectRatio();
+	void SetAspectRatio(float AspectRatio);
+
+	float GetNearPlane();
+	void SetNearPlane(float distance);
+
+	float GetFarPlane();
+	void SetFarPlane(float distance);
+
+	vec* GetFrustumPoints();
+
+	Frustum frustum;
+
+	vec* frustum_corners = nullptr;
 
 public:
 	vec3 X, Y, Z, Position, Reference;

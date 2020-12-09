@@ -10,6 +10,7 @@
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
+#include "ComponentCamera.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -83,9 +84,10 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo()
 				Component_Mesh* MeshComp = (Component_Mesh*)ItemToDraw->GetComponent(Component_Types::Mesh);
 				Component_Texture* TexComp = (Component_Texture*)ItemToDraw->GetComponent(Component_Types::Texture);
 				Component_Transform* TransComp = (Component_Transform*)ItemToDraw->GetComponent(Component_Types::Transform);
+                Component_Camera* CamComp = (Component_Camera*)ItemToDraw->GetComponent(Component_Types::Camera);
 
 				SomethingDrawn = true;
-				DrawObjectInfo(ItemToDraw, MeshComp, TexComp, TransComp);
+				DrawObjectInfo(ItemToDraw, MeshComp, TexComp, TransComp, CamComp);
 			}
 			else if (ItemToDraw->Children_List.size() > 0) {
 
@@ -119,9 +121,10 @@ bool ModuleInspectorGameObject::LookForChildrenToBeDrawn(Game_Object* item)
             Component_Mesh* MeshComp = (Component_Mesh*)item->GetComponent(Component_Types::Mesh);
             Component_Texture* TexComp = (Component_Texture*)item->GetComponent(Component_Types::Texture);
             Component_Transform* TransComp = (Component_Transform*)item->GetComponent(Component_Types::Transform);
+            Component_Camera* CamComp = (Component_Camera*)item->GetComponent(Component_Types::Camera);
 
             SomethingDrawn = true;
-            DrawObjectInfo(item, MeshComp, TexComp, TransComp);
+            DrawObjectInfo(item, MeshComp, TexComp, TransComp, CamComp);
         }
         else if (item->Children_List.size() > 0) {
 
@@ -136,10 +139,11 @@ bool ModuleInspectorGameObject::LookForChildrenToBeDrawn(Game_Object* item)
                     Component_Mesh* MeshComp2 = (Component_Mesh*)ChildFoundDraw->GetComponent(Component_Types::Mesh);
                     Component_Texture* TexComp2 = (Component_Texture*)ChildFoundDraw->GetComponent(Component_Types::Texture);
                     Component_Transform* TransComp2 = (Component_Transform*)ChildFoundDraw->GetComponent(Component_Types::Transform);
+                    Component_Camera* CamComp2 = (Component_Camera*)item->GetComponent(Component_Types::Camera);
 
                     SomethingDrawn = true;
 
-                    DrawObjectInfo(ChildFoundDraw, MeshComp2, TexComp2, TransComp2);
+                    DrawObjectInfo(ChildFoundDraw, MeshComp2, TexComp2, TransComp2, CamComp2);
 
                     itB = item->Children_List.size();
                 }
@@ -156,169 +160,203 @@ bool ModuleInspectorGameObject::LookForChildrenToBeDrawn(Game_Object* item)
         return SomethingDrawn;
 }
 
-void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh* MeshInfo, Component_Texture* TextureInfo, Component_Transform* TransInfo)
+void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh* MeshInfo, Component_Texture* TextureInfo, Component_Transform* TransInfo, Component_Camera* CameraInfo)
 {
     const char* Name;
     Name = item->name.c_str();
 
-    item->Mesh->DrawOutlineMesh(TransInfo);
+    if (MeshInfo != nullptr)
+    {
+        item->Mesh->DrawOutlineMesh(TransInfo);
+    }
 
     
     ImGui::Text(Name);
-    //GENERAL INFORMATION
-    if (ImGui::CollapsingHeader("General Information", ImGuiTreeNodeFlags_DefaultOpen))
+    
+    
+
+
+        //GENERAL INFORMATION
+        if (ImGui::CollapsingHeader("General Information", ImGuiTreeNodeFlags_DefaultOpen))
+        {
+            int ChildAmount;
+
+            ImGui::InputText(" ", (char*)item->name.c_str(), 100, ImGuiInputTextFlags_EnterReturnsTrue);
+
+            ImGui::Text("Child Amount  %d", ChildAmount = item->Children_List.size());
+
+            ImGui::Text("Currently Textured:");
+            ImGui::SameLine(0.0f, 10.0f);
+
+
+            if (TextureInfo != nullptr && TextureInfo->is_Textured == true) {
+
+                ImGui::Text("True");
+            }
+            else {
+                ImGui::Text("False");
+            }
+
+            ImGui::Checkbox("Wireframed", &item->is_Wireframed);
+
+            if (MeshInfo != nullptr)
+            {
+                ImGui::Checkbox("Draw", &MeshInfo->is_Drawn);
+            }
+            
+            ImGui::Text("Item Id:");
+            ImGui::SameLine(0.0f, 10.0f);
+            ImGui::Text("%d", item->item_id);
+
+            ImGui::Separator();
+        }
+
+        if (TransInfo != nullptr)
+        {
+
+            ///TRANSFORMATIONS
+            if (ImGui::CollapsingHeader("Transformation", ImGuiTreeNodeFlags_DefaultOpen)) {
+
+
+                if (ImGui::InputFloat3("Position", { &TransInfo->Translation.x }, 2)) {
+                    TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
+
+                    MeshInfo->UpdateOnTransformOBB();
+                }
+
+
+                float3 DisplayVecRot = TransInfo->Rotation.ToEulerXYZ();
+
+                if (ImGui::InputFloat3("Rotation", { &TransInfo->EulerRot.x }, 2)) {
+
+                    Quat NewRot = Quat::FromEulerXYZ(TransInfo->EulerRot.x, TransInfo->EulerRot.y, TransInfo->EulerRot.z);
+
+                    TransInfo->SetEulerRotation(TransInfo->EulerRot);
+
+                    MeshInfo->UpdateOnTransformOBB();
+                }
+                if (ImGui::InputFloat3("Scale", { &TransInfo->Scale.x }, 2)) {
+
+                    TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
+
+                    MeshInfo->UpdateOnTransformOBB();
+                }
+
+
+
+                ImGui::Separator();
+            }
+        }
+
+
+        if (MeshInfo != nullptr)
+        {
+            //MESH INFO
+            if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen)) {
+
+                ImGui::Text("Index Amount:");
+                ImGui::SameLine(0.0f, 10.0f);
+                ImGui::Text("%d", MeshInfo->Mesh->num_index);
+
+                ImGui::Text("Vertex Amount:");
+                ImGui::SameLine(0.0f, 10.0f);
+                ImGui::Text("%d", MeshInfo->Mesh->num_vertex);
+
+                ImGui::Text("Id Index:");
+                ImGui::SameLine(0.0f, 10.0f);
+                ImGui::Text("%d", MeshInfo->Mesh->id_index);
+
+                ImGui::Text("Id Vertex:");
+                ImGui::SameLine(0.0f, 10.0f);
+                ImGui::Text("%d", MeshInfo->Mesh->id_vertex);
+
+                ImGui::Separator();
+                ImGui::Text("Mesh Path:");
+                ImGui::SameLine();
+                ImGui::TextColored({ 255,255,0,1 }, "%s", &MeshInfo->File_Path);
+
+                if (ImGui::TreeNodeEx("Vertex Normals:", ImGuiTreeNodeFlags_DefaultOpen)) {
+
+                    ImGui::Checkbox("Show Vertex Normals", &item->showVertexNormals);
+                    ImGui::TreePop();
+                }
+
+                ImGui::Text("Bounding Boxes:");
+                ImGui::Checkbox("Show AABB", &MeshInfo->show_aabb);
+                ImGui::Checkbox("Show OBB", &MeshInfo->show_obb);
+            }
+
+        }
+
+        if (TextureInfo != nullptr)
+        {
+
+            //TEXTURES INFO
+            if (ImGui::CollapsingHeader("Texture", ImGuiTreeNodeFlags_DefaultOpen)) {
+
+                ImGui::Checkbox("Checkered", &item->is_Checkered);
+
+                if (item->is_Checkered == true) {
+                    TextureInfo->is_Textured = false;
+                }
+
+                ImGui::Checkbox("Textured", &TextureInfo->is_Textured);
+
+                if (TextureInfo->is_Textured == true) {
+                    item->is_Checkered = false;
+                }
+
+                ImGui::Text("Texture Name: ");
+                ImGui::SameLine(0.0f, 10.0f);
+                const char* nameTexture = TextureInfo->Texture->texture_name.c_str();
+                ImGui::TextColored({ 255,255,0,1 }, "%s", nameTexture);
+
+                if (TextureInfo->is_Textured) {
+                    ImGui::Text("Texture Path:");
+                    ImGui::SameLine(0.0f, 10.0f);
+                    const char* pathnameTexture = TextureInfo->Texture->texture_path.c_str();
+                    ImGui::TextColored({ 255,255,0,1 }, "%s", pathnameTexture);
+                }
+                else if (item->is_Checkered) {
+                    ImGui::Text("Texture Path:");
+                    ImGui::SameLine(0.0f, 10.0f);
+
+                    ImGui::Text("Checkered Texture");
+                }
+                else {
+                    ImGui::Text("Texture Path:");
+                    ImGui::SameLine(0.0f, 10.0f);
+
+                    ImGui::Text("No texture Selected");
+                }
+
+                ImGui::Text("Texture Width");
+                ImGui::SameLine(0.0f, 10.0f);
+                ImGui::TextColored({ 255,255,0,1 }, "%d", TextureInfo->Texture->width);
+
+                ImGui::Text("Texture Height");
+                ImGui::SameLine(0.0f, 10.0f);
+                ImGui::TextColored({ 255,255,0,1 }, "%d", TextureInfo->Texture->height);
+
+                ImGui::Text("Texture id");
+                ImGui::SameLine(0.0f, 10.0f);
+                ImGui::TextColored({ 255,255,0,1 }, "%d", TextureInfo->Texture->texture_id);
+
+                ImGui::Image((void*)(intptr_t)TextureInfo->Texture->texture_id, { 200,200 });
+            }
+        }
+
+    
+
+    if (CameraInfo != nullptr)
     {
-    	int ChildAmount;
-    
-    	ImGui::InputText(" ", (char*)item->name.c_str(), 100, ImGuiInputTextFlags_EnterReturnsTrue);
-    
-    	ImGui::Text("Child Amount  %d", ChildAmount = item->Children_List.size());
-    
-    	ImGui::Text("Currently Textured:");
-    	ImGui::SameLine(0.0f, 10.0f);
-    
-    	if (TextureInfo->is_Textured == true) {
-    
-    		ImGui::Text("True");
-    	}
-    	else {
-    		ImGui::Text("False");
-    	}
-    
-    	ImGui::Checkbox("Wireframed", &item->is_Wireframed);
-    
-    	ImGui::Checkbox("Draw", &MeshInfo->is_Drawn);
-    
-    	ImGui::Text("Item Id:");
-    	ImGui::SameLine(0.0f, 10.0f);
-    	ImGui::Text("%d", item->item_id);
-    
-    	ImGui::Separator();
-    }
-    
-    ///TRANSFORMATIONS
-    if (ImGui::CollapsingHeader("Transformation", ImGuiTreeNodeFlags_DefaultOpen)) {
-    
-        //NEEDS WORK
-        
-        if (ImGui::InputFloat3("Position", { &TransInfo->Translation.x }, 2)) {
-            TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
+        if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen)) {
 
-            MeshInfo->UpdateOnTransformOBB();
+
         }
-
-    	
-        float3 DisplayVecRot=TransInfo->Rotation.ToEulerXYZ();
-
-    	if (ImGui::InputFloat3("Rotation", { &TransInfo->EulerRot.x }, 2)) {
-    
-           Quat NewRot = Quat::FromEulerXYZ(TransInfo->EulerRot.x, TransInfo->EulerRot.y, TransInfo->EulerRot.z);
-
-           TransInfo->SetEulerRotation(TransInfo->EulerRot);
-
-           MeshInfo->UpdateOnTransformOBB();
-    	}
-        if (ImGui::InputFloat3("Scale", { &TransInfo->Scale.x }, 2)) {
-
-            TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
-
-            MeshInfo->UpdateOnTransformOBB();
-        }
-    
-    	
-    
-    	ImGui::Separator();
     }
-    
-    //MESH INFO
-    if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen)) {
-    
-    	ImGui::Text("Index Amount:");
-    	ImGui::SameLine(0.0f, 10.0f);
-    	ImGui::Text("%d", MeshInfo->Mesh->num_index);
-    
-    	ImGui::Text("Vertex Amount:");
-    	ImGui::SameLine(0.0f, 10.0f);
-    	ImGui::Text("%d", MeshInfo->Mesh->num_vertex);
-    
-    	ImGui::Text("Id Index:");
-    	ImGui::SameLine(0.0f, 10.0f);
-    	ImGui::Text("%d", MeshInfo->Mesh->id_index);
-    
-    	ImGui::Text("Id Vertex:");
-    	ImGui::SameLine(0.0f, 10.0f);
-    	ImGui::Text("%d", MeshInfo->Mesh->id_vertex);
-    
-    	ImGui::Separator();
-    	ImGui::Text("Mesh Path:");
-    	ImGui::SameLine();
-    	ImGui::TextColored({ 255,255,0,1 }, "%s", &MeshInfo->File_Path);
-    
-    	if (ImGui::TreeNodeEx("Vertex Normals:", ImGuiTreeNodeFlags_DefaultOpen)) {
-    
-    		ImGui::Checkbox("Show Vertex Normals", &item->showVertexNormals);
-    		ImGui::TreePop();
-    	}
 
-        ImGui::Text("Bounding Boxes:");
-        ImGui::Checkbox("Show AABB", &MeshInfo->show_aabb);
-        ImGui::Checkbox("Show OBB", &MeshInfo->show_obb);
-    }
-    
-    
-    //TEXTURES INFO
-    if (ImGui::CollapsingHeader("Texture", ImGuiTreeNodeFlags_DefaultOpen) ) {
-    
-    	ImGui::Checkbox("Checkered", &item->is_Checkered);
-    
-    	if (item->is_Checkered == true) {
-            TextureInfo->is_Textured = false;
-    	}
-    
-    	ImGui::Checkbox("Textured", &TextureInfo->is_Textured);
-    
-    	if (TextureInfo->is_Textured == true) {
-    		item->is_Checkered = false;
-    	}
-    
-    	ImGui::Text("Texture Name: ");
-    	ImGui::SameLine(0.0f, 10.0f);
-    	const char* nameTexture = TextureInfo->Texture->texture_name.c_str();
-    	ImGui::TextColored({ 255,255,0,1 }, "%s", nameTexture);
-    
-    	if (TextureInfo->is_Textured) {
-    		ImGui::Text("Texture Path:");
-    		ImGui::SameLine(0.0f, 10.0f);
-    		const char* pathnameTexture = TextureInfo->Texture->texture_path.c_str();
-    		ImGui::TextColored({ 255,255,0,1 }, "%s", pathnameTexture);
-    	}
-    	else if (item->is_Checkered) {
-    		ImGui::Text("Texture Path:");
-    		ImGui::SameLine(0.0f, 10.0f);
-    
-    		ImGui::Text("Checkered Texture");
-    	}
-    	else {
-    		ImGui::Text("Texture Path:");
-    		ImGui::SameLine(0.0f, 10.0f);
-    
-    		ImGui::Text("No texture Selected");
-    	}
-    
-    	ImGui::Text("Texture Width");
-    	ImGui::SameLine(0.0f, 10.0f);
-    	ImGui::TextColored({ 255,255,0,1 }, "%d", TextureInfo->Texture->width);
-    
-    	ImGui::Text("Texture Height");
-    	ImGui::SameLine(0.0f, 10.0f);
-    	ImGui::TextColored({ 255,255,0,1 }, "%d", TextureInfo->Texture->height);
-    
-    	ImGui::Text("Texture id");
-    	ImGui::SameLine(0.0f, 10.0f);
-    	ImGui::TextColored({ 255,255,0,1 }, "%d", TextureInfo->Texture->texture_id);
-    
-    	ImGui::Image((void*)(intptr_t)TextureInfo->Texture->texture_id, { 200,200 });
-    }
+   
 }
 
 

@@ -62,9 +62,6 @@ public:
 	
 
 	std::vector<Game_Object*> ObjectsOnScene;
-	
-
-
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
