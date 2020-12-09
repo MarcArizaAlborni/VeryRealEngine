@@ -197,8 +197,11 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                 ImGui::Text("False");
             }
 
-            ImGui::Checkbox("Wireframed", &item->is_Wireframed);
-
+            if (MeshInfo != nullptr)
+            {
+                ImGui::Checkbox("Wireframed", &item->is_Wireframed);
+            }
+            
             if (MeshInfo != nullptr)
             {
                 ImGui::Checkbox("Draw", &MeshInfo->is_Drawn);
@@ -350,7 +353,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
     if (CameraInfo != nullptr)
     {
-        if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen)) {
+        if (ImGui::CollapsingHeader("Camera Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
 
 
         }

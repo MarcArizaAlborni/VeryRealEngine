@@ -24,7 +24,7 @@ Component_Camera::Component_Camera(Game_Object* obj) : Component(obj)
 	frustum.SetUp(float3::unitY);
 	frustum.SetViewPlaneDistances(0.1f, 100.0f);
 	frustum.SetPerspective(1.0f, 1.0f);
-	SetFOV(80.0f);
+	SetFOV(50.0f);
 
 	frustum_corners = new vec[8];
 }
