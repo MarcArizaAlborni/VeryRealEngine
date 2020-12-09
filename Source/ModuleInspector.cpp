@@ -167,6 +167,9 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
     if (MeshInfo != nullptr)
     {
+        glEnable(GL_STENCIL_TEST);
+        glStencilFunc(GL_ALWAYS, 1, -1);
+        glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
         item->Mesh->DrawOutlineMesh(TransInfo);
     }
 

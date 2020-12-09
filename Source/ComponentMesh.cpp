@@ -226,7 +226,7 @@ void Component_Mesh::DrawOutlineMesh(Component_Transform* transform)
 	float4x4 scaledTransform = transform->Global_Matrix;
 
 	scaledTransform.Decompose(position, rotation, scale);
-	scale *= 1.02;
+	scale *= 1.00;
 	scaledTransform = float4x4::FromTRS(position, rotation, scale);
 
 	glMultMatrixf((float*)&scaledTransform.Transposed());
