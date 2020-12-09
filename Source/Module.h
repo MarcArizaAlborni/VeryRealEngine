@@ -52,11 +52,7 @@ public:
 		return true;
 	}
 
-	virtual void SaveJScene(JScene& root) const
-	{}
 
-	virtual void LoadJScene(JScene& root)
-	{}
 
 	
 };
