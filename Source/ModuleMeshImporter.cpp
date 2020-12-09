@@ -10,6 +10,7 @@
 #include "ComponentMesh.h"
 #include "ModuleHierarchy.h"
 #include "ComponentTransform.h"
+#include "FileSystem.h"
 #include "ModuleScene.h"
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
@@ -240,7 +241,7 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 			}
 			App->renderer3D->GenerateNormalBuffer(OurMesh, OurMesh->normals);
 
-			
+			App->filemanager->SaveMeshInto_WAF(OurMesh);
 
 			ItemList.push_back(OurMesh);
 
