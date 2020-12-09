@@ -7,6 +7,8 @@
 #include <filesystem>
 #include "FileSystem.h"
 #include "ModuleMeshImporter.h"
+#include "GameObject.h"
+#include "Component.h"
 
 namespace fs = std::filesystem;
 
@@ -359,8 +361,6 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 		ModificationHasBeen = true;
 	}
 	
-
-	
 }
 
 void ResourceManager::StoreCurrentOpenFolderUpdate(std::string FolderName)
@@ -382,7 +382,6 @@ void ResourceManager::SetOpenFolder()
 
 		}
 		
-
 		SetOpenFolderChildren(Item);
 
 
@@ -629,6 +628,39 @@ void ResourceManager::SelectTypeOfFile(std::string Name)
 		App->meshimporter->LoadFile_Mesh(FullPath.c_str());
 	}
 	else if (Extension == "PNG" || Extension == "png" || Extension == "tga" || Extension == "TGA" || Extension == "DDS" || Extension == "dds") {
+		
+		
+
+		std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
+		for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i) {
+
+			Game_Object* Object = *It;
+
+			if (Object->ToBeDrawInspector == true) {
+				ModelSelected = true;
+			}
+
+
+			CheckSelectedObjectsChild(Object);
+
+			++It;
+		}
+
+
+		if (ModelSelected == true) {
+
+			ModelSelected = false;
+
+		}
+		else {
+
+			App->editor->ToVisualizeTexture=App->textureImporter->LoadTextureImage(FullPath.c_str());
+
+			App->editor->VisualizeTextureWindow = true;
+
+
+		}
+
 
 
 	}
@@ -643,6 +675,24 @@ void ResourceManager::DragDropSetAsSource(Resource* ItemToDrag)
 		ImGui::SetDragDropPayload("Dragged_Folder_File", ItemToDrag, sizeof(Resource));
 		CopyItemFileResource = ItemToDrag;
 		ImGui::EndDragDropSource();
+	}
+}
+
+void ResourceManager::CheckSelectedObjectsChild(Game_Object* ItemToCheck)
+{
+	std::vector<Game_Object*>::iterator It = ItemToCheck->Children_List.begin();
+	for (int i = 0; i < ItemToCheck->Children_List.size(); ++i) {
+
+		Game_Object* Object = *It;
+
+		if (Object->ToBeDrawInspector == true) {
+			ModelSelected = true;
+		}
+
+
+		CheckSelectedObjectsChild(Object);
+
+		++It;
 	}
 }
 

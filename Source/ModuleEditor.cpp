@@ -221,6 +221,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 		App->inspector->DrawInspectorWindowInfo();
 		App->resources->CreateResourcesWindow();
 		App->resources->CreateWindowDropFile();
+		CreateTextureVisualizer();
 
 
 		//Popups close
@@ -1009,6 +1010,31 @@ void ModuleEditor::CreateConfigWindow_Resource()
 			++Itm;
 		}*/
 	}
+}
+
+void ModuleEditor::CreateTextureVisualizer()
+{
+	if (VisualizeTextureWindow) {
+
+
+		ImGui::Begin("Texture Visualizer", &VisualizeTextureWindow);
+
+		ImVec2 Size=ImGui::GetWindowSize();
+
+
+		ImGui::Image((void*)(intptr_t)ToVisualizeTexture.texture_id, { Size.x,Size.y });
+
+
+
+		ImGui::End();
+
+		
+
+
+	}
+
+
+
 }
 
 

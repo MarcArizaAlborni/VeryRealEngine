@@ -146,6 +146,7 @@ public:
 	void CreateConfigWindow_Hardware();
 	void GetHardwareStatus();
 	void CreateConfigWindow_Resource();
+	void CreateTextureVisualizer();
 
 	bool vSync = true;
 
@@ -160,6 +161,9 @@ public:
 	bool show_grid;
 	bool show_ui;
 
+	//texture visualizer window
+	bool VisualizeTextureWindow = false;
+	TextureInfo ToVisualizeTexture;
 
 	// CONSOLE--------------------------------------------------------------------------------
 

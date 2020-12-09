@@ -100,7 +100,9 @@ private:
 
 	void DragDropSetAsSource(Resource* ItemToDrag);
 	
-	
+	void CheckSelectedObjectsChild(Game_Object* ItemToCheck);
+	bool ModelSelected = false;
+
 public:
 	Resource* CopyItemFileResource=nullptr;
 	//------------ CONSOLE STUFF
