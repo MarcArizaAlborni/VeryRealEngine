@@ -6,6 +6,7 @@
 #include "glmath.h"
 
 #include "libraries/MathGeoLib/include/Geometry/Frustum.h"
+#include "libraries/MathGeoLib/include/MathGeoLib.h"
 
 class Component_Camera : public Component
 {
@@ -34,6 +35,8 @@ public:
 	void SetFarPlane(float distance);
 
 	vec* GetFrustumPoints();
+
+	
 
 	Frustum frustum;
 

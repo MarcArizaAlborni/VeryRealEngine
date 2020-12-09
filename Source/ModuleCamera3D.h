@@ -27,9 +27,13 @@ public:
 	void CenterToObject(Game_Object* object);
 	void Orbit();
 
+	void MouseEvent();
+	void CreatingRay(float norm_x, float norm_y);
+
 	Component_Camera* scene_camera = nullptr;
 
-
+	float norm_x;
+	float norm_y;
 
 
 	//------------ CONSOLE STUFF
