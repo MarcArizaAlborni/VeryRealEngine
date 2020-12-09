@@ -110,10 +110,8 @@ void ResourceManager::CreateResourcesWindow()
 
 						
 						if (ImGui::Button(PathName_R, { 20,20 })) {
-						
-							
-
 						}
+						DragDropSetAsSource(ItemR);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -133,6 +131,7 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						DragDropSetAsSource(ItemR);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -151,6 +150,7 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						DragDropSetAsSource(ItemR);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -170,6 +170,7 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						DragDropSetAsSource(ItemR);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -189,6 +190,7 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						DragDropSetAsSource(ItemR);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -208,6 +210,7 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						DragDropSetAsSource(ItemR);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -227,6 +230,7 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						DragDropSetAsSource(ItemR);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -246,6 +250,7 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						DragDropSetAsSource(ItemR);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -265,6 +270,7 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						DragDropSetAsSource(ItemR);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -284,6 +290,7 @@ void ResourceManager::CreateResourcesWindow()
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 20,20 })) {}
+						DragDropSetAsSource(ItemR);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -307,6 +314,7 @@ void ResourceManager::CreateResourcesWindow()
 						if (ImGui::Button(PathName_R, { 150,20 })) {
 							ItemR->ChildsToBeDrawnResources = true;
 						}
+					
 						if (ImGui::IsItemHovered()) {
 							
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -628,6 +636,16 @@ void ResourceManager::SelectTypeOfFile(std::string Name)
 	
 }
 
+void ResourceManager::DragDropSetAsSource(Resource* ItemToDrag)
+{
+	if (ImGui::BeginDragDropSource()) {
+
+		ImGui::SetDragDropPayload("Dragged_Folder_File", ItemToDrag, sizeof(Resource));
+		CopyItemFileResource = ItemToDrag;
+		ImGui::EndDragDropSource();
+	}
+}
+
 void ResourceManager::CreateWindowDropFile()
 {
 	if (CopyItemFileResource != nullptr) {
@@ -798,18 +816,10 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						
 						if (ImGui::Button(PathName_R, { 150,20 })) {}
 
-						//THIS HERE WORKS
-						if (ImGui::BeginDragDropSource()) {
-
-							ImGui::SetDragDropPayload("Dragged_Folder_File", ItemRC, sizeof(Resource));
-							CopyItemFileResource = ItemRC;
-							ImGui::EndDragDropSource();
-						}
+						
+						DragDropSetAsSource(ItemRC);
 
 						
-						
-						
-						//THIS HERE WORKS
 
 						if (ImGui::IsItemHovered()) {
 
@@ -833,16 +843,12 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						DragDropSetAsSource(ItemRC);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
-
-
-
 								ItemRC->SelectedFolderHoverClick = true;
-
 							}
-
 						}
 						ImGui::SameLine();
 						ImGui::Text(PathName_R);
@@ -854,6 +860,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						DragDropSetAsSource(ItemRC);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -876,6 +883,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						DragDropSetAsSource(ItemRC);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -898,6 +906,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						DragDropSetAsSource(ItemRC);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -920,6 +929,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						DragDropSetAsSource(ItemRC);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -942,6 +952,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						DragDropSetAsSource(ItemRC);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -964,6 +975,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						DragDropSetAsSource(ItemRC);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -986,6 +998,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						DragDropSetAsSource(ItemRC);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -1008,6 +1021,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
+						DragDropSetAsSource(ItemRC);
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -1030,19 +1044,20 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				   	ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 				   	ImGui::SameLine();
 				   	ImGui::Button(PathName_R, { 150,20 });
-					if (ImGui::IsItemHovered()) {
-
-						if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
-
-
-
-							ItemRC->SelectedFolderHoverClick = true;
-
-						}
-
-					}
-				   	ImGui::SameLine();
-				   	ImGui::Text(PathName_R);
+					DragDropSetAsSource(ItemRC);
+					  if (ImGui::IsItemHovered()) {
+					  
+					  	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+					  
+					  
+					  
+					  		ItemRC->SelectedFolderHoverClick = true;
+					  
+					  	}
+					  
+					  }
+				   	  ImGui::SameLine();
+				   	  ImGui::Text(PathName_R);
 				   }
 
 				}
@@ -1052,6 +1067,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				  	ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 				  	ImGui::SameLine();
 				  	ImGui::Button(PathName_R, { 150,20 });
+					DragDropSetAsSource(ItemRC);
 					if (ImGui::IsItemHovered()) {
 
 						if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -1076,6 +1092,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						if (ImGui::Button(PathName_R, { 150,20 })) {
 							ItemRC->ChildsToBeDrawnResources = true;
 						}
+
 
 						if (ImGui::IsItemHovered()) {
 

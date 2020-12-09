@@ -96,6 +96,9 @@ private:
 	bool ModificationHasBeen=false;
 
 	void SelectTypeOfFile(std::string Name);
+
+
+	void DragDropSetAsSource(Resource* ItemToDrag);
 	
 	
 public:

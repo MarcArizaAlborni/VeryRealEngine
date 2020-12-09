@@ -56,7 +56,7 @@ bool ModuleScene::Start()
 
 	// BAKER HOUSE FOR DRAW W/TEXTURES ON START
 
-	App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
+	//App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
 	
 
 	
@@ -68,7 +68,7 @@ bool ModuleScene::Start()
 	//this
 	
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
-	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
+	//App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
 	
 
 
