@@ -43,7 +43,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	
 
 
-	filemanager = new FileSystem(this);
+	filemanager = new ModuleFileSystem(this);
 
 
 	geometrymanager = new ModuleGeometryManager(this);

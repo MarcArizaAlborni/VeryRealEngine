@@ -125,11 +125,18 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 	
 	aiMaterial* material = scene->mMaterials[Node.MaterialPositionArray];
 
+	
+
 	std::string texName;
 	std::string CompletePath;
 	std::string	texExtension;
 
 	aiColor4D colorMat = { 0,0,0,0 };
+
+
+	
+
+
 
 	aiString tex_path;
 
@@ -147,7 +154,10 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 			Texture = App->textureImporter->LoadTextureImage(CompletePath.c_str());
 			Texture.texture_path = CompletePath;
 			Texture.texture_name = texName;
+			
 
+			
+			
 		}
 	}
 	
@@ -160,6 +170,7 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 
 	}
 	
+
 	return Texture;
 }
 
@@ -180,6 +191,8 @@ uint ModuleTextureImporter::SetUpTexture(const void* texture, uint width, uint h
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, texture);
+	
+
 	
 	glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -202,6 +215,8 @@ int ModuleTextureImporter::CheckTextureExistance(std::string TexturePath)
 		}
 		++It;
 	}
+
+	
 
 	return PositionFOUND;
 }
@@ -340,6 +355,7 @@ TextureInfo ModuleTextureImporter::LoadCheckersTexture()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+
 
 	return TextureCheckers;
 }
