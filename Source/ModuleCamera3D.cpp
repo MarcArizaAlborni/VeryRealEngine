@@ -58,7 +58,7 @@ update_status ModuleCamera3D::Update(float dt)
 		// Movement Camera
 		vec3 newPos(0, 0, 0);
 		if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-			scene_camera->camera_speed = 40.0f * dt;
+			scene_camera->camera_speed = 80.0f * dt;
 
 		if (App->input->GetKey(SDL_SCANCODE_KP_7) == KEY_REPEAT) newPos.y += scene_camera->camera_speed;
 		if (App->input->GetKey(SDL_SCANCODE_KP_9) == KEY_REPEAT) newPos.y -= scene_camera->camera_speed;

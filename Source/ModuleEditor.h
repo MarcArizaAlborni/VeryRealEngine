@@ -178,6 +178,15 @@ public:
 	Timer scene_timer;
 
 
+
+	//SCENE STUFF
+
+	void LoadScene(std::string SceneFileName);
+	void SaveScene();
+	Scene_Manager* SceneElement = nullptr;
+	void SaveGameObjectsChilds(Scene_Manager Scene, Game_Object* Object, int* iterator);
+	void LoadGameObject(Scene_Manager Scene);
+
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
 	void CreateConsolelog(const char file[], int line, const char* format, ...);
 

@@ -290,22 +290,6 @@ void Game_Object::Update()
 		++It;
 	}
 
-
-
-
-	//if (Component_List.size() > 0) {
-	//
-	//	std::vector<Component*>::iterator It = Component_List.begin();
-	//	bool ret = true;
-	//
-	//	for (; It != Component_List.end() && ret == true; ++It) {
-	//		(*It)->Update();
-	//	}
-	//
-	//}
-
-
-
 }
 
 void Game_Object::CleanUp()

@@ -123,6 +123,14 @@ bool ModuleEditor::Start()
 
 	scene_timer.Start();
 
+
+
+	SceneElement = new Scene_Manager("Library/Scenes/Scene1.scene");
+	if (!SceneElement->ReadJValueRoot()) {
+		SceneElement = new Scene_Manager();
+	}
+
+
 	return ret;
 }
 
@@ -146,7 +154,13 @@ bool ModuleEditor::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleEditor::Update(float dt)
 {
-	
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
+		SaveScene();
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+		//LoadScene();
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -1062,6 +1076,96 @@ void ModuleEditor::CreateConsoleWindow()
 
 }
 
+
+
+void ModuleEditor::SaveScene()
+{
+
+	Scene_Manager SceneToSave = SceneElement->AddJArray("GameObjects");
+
+	
+	int Sections = -1;
+
+	std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
+	for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i) {
+
+		Game_Object* Item = *It;
+		SaveGameObjectsChilds(SceneToSave, Item, &Sections);
+
+			++It;
+	}
+
+	SceneElement->Save("Library/Scenes/Scene1.scene");
+
+}
+
+void ModuleEditor::SaveGameObjectsChilds(Scene_Manager Scene, Game_Object* Object, int* iterator)
+{
+
+	(*iterator)++;
+
+	Scene_Manager Item = Scene.AddSectionArray(*iterator);
+
+	Item.WriteInt("Enabled", Object->Enabled);
+	Item.WriteInt("ItemId", Object->item_id);
+	Item.WriteString("Name", Object->name);
+	
+	Scene_Manager Item_Components = Item.AddJArray("Components");
+	//Object->
+
+	std::vector<Game_Object*>::iterator It = Object->Children_List.begin();
+	for (int i = 0; i < Object->Children_List.size(); ++i) {
+
+		Game_Object* Item = *It;
+		SaveGameObjectsChilds(Scene, Item, iterator);
+
+		++It;
+	}
+
+}
+
+void ModuleEditor::LoadScene(std::string SceneFileName)
+{
+
+	App->geometrymanager->ObjectsOnScene.clear(); //This is wrong neeeds to be fixed
+
+
+	SceneElement = new Scene_Manager("Library/Scenes/Scene1.scene");
+
+	Scene_Manager SceneItem = SceneElement->GetJArray("GameObjects");
+	int j = 0;
+
+	while (j != -1) {
+
+
+		if (SceneItem.IsArraySection(j)) {
+
+			LoadGameObject(SceneItem.GetSectionArray(j));
+			++j;
+
+		}
+		else {
+			j = -1;
+		}
+
+	}
+
+}
+
+void ModuleEditor::LoadGameObject(Scene_Manager Scene)
+{
+
+	if (!Scene.CheckString("Name")) {
+
+	}
+
+	
+
+
+
+
+
+}
 
 void ModuleEditor::CreateConsolelog(const char file[], int line, const char* format, ...)
 {

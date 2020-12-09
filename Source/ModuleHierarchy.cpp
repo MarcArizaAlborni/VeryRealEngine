@@ -113,6 +113,7 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
             if ((Component_Camera*)Item->GetComponent(Component_Types::Camera) != nullptr) 
             { 
                 SelectItemHierarchy(Item); 
+
             }
             
              if ((Component_Mesh*)Item->GetComponent(Component_Types::Mesh) != nullptr) {

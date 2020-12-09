@@ -1,276 +1,184 @@
 #include "JScene.h"
 
-JScene::JScene()
+
+Scene_Manager::Scene_Manager()
 {
-	vroot = json_value_init_object();
-	node = json_value_get_object(vroot);
+	JValue_Root = json_value_init_object();
+	Root = json_value_get_object(JValue_Root);
 }
 
-JScene::JScene(char* buffer)
+Scene_Manager::Scene_Manager(const char* FileName)
 {
-	vroot = json_parse_string(buffer);
-	if (vroot)
+	if (FileName != nullptr)
 	{
-		node = json_value_get_object(vroot);
+		JValue_Root = json_parse_file(FileName);
+		if (JValue_Root != nullptr) {
+			Root = json_value_get_object(JValue_Root);
+			scene_name = FileName;
+		}
 	}
 }
 
-JScene::JScene(JSON_Object* obj) : node(obj)
+Scene_Manager::Scene_Manager(JSON_Object* Object): Root(Object)
 {
 }
 
-JScene::~JScene()
+Scene_Manager::Scene_Manager(JSON_Object* Object, JSON_Array* Value):Root(Object),JArray(Value)
 {
-	Release();
 }
 
-//Converts a object into a string
-uint JScene::Serialize(char** buffer)
+Scene_Manager::~Scene_Manager()
 {
-	size_t size = json_serialization_size_pretty(vroot);
-	*buffer = new char[size];
-	json_serialize_to_buffer_pretty(vroot, *buffer, size);
-	return size;
+	json_value_free(JValue_Root);
 }
 
-bool JScene::NodeExists()
+void Scene_Manager::WriteInt(const char* field, int value)
 {
-	return vroot != nullptr;
+	 json_object_set_number(Root, field, (uint32)value) == JSONSuccess;
 }
 
-void JScene::Release()
+void Scene_Manager::WriteBool(const char* field, bool value)
 {
-	// Clean
-	if (vroot)
-	{
-		json_value_free(vroot);
-	}
+	 json_object_set_boolean(Root, field, (bool)value) == JSONSuccess;
 }
 
-//Getters
-double JScene::GetDouble(const char* name, double std) const
+void Scene_Manager::WriteFloat(const char* field, float value)
 {
-	if (json_object_has_value_of_type(node, name, JSONNumber))
-	{
-		return json_object_get_number(node, name);
-	}
-		
-	return std;
+	 json_object_set_number(Root, field, (float)value) == JSONSuccess;
 }
 
-std::string JScene::GetString(const char* name, const char* std) const
+void Scene_Manager::WriteDouble(const char* field, double value)
 {
-	if (json_object_has_value_of_type(node, name, JSONString))
-	{
-		return json_object_get_string(node, name);
-	}
-		
-	return std;
+	 json_object_set_number(Root, field, (double)value) == JSONSuccess;
 }
 
-bool JScene::GetBool(const char* name, bool std) const
+void Scene_Manager::WriteQuad(const char* field, Quat value)   //???? No idea how this works
 {
-	if (json_object_has_value_of_type(node, name, JSONBoolean))
-	{
-		return json_object_get_boolean(node, name);
-	}
-		
-	return std;
+	JSON_Value* va = json_value_init_array();
+	JArray = json_value_get_array(va);
+	json_object_set_value(Root, field, va);
+
+	json_array_append_number(JArray, value.x);
+	json_array_append_number(JArray, value.y);
+	json_array_append_number(JArray, value.z);
+	json_array_append_number(JArray, value.w);
+
+	
 }
 
-JScene_Array JScene::GetArray(const char* name) const
+void Scene_Manager::WriteString(const char* field, std::string value)
 {
-	if (json_object_has_value_of_type(node, name, JSONArray))
-	{
-		return JScene_Array(json_object_get_array(node, name));
-	}
-		
+	 json_object_set_string(Root, field, value.c_str()) == JSONSuccess;
+}
+
+int Scene_Manager::ReadInt(const char* field)
+{
+	return int(json_object_get_number(Root, field));
+}
+
+bool Scene_Manager::ReadBool(const char* field)
+{
+	return bool(json_object_get_boolean(Root, field));;
+}
+
+float Scene_Manager::ReadFloat(const char* field)
+{
+	return float(json_object_get_number(Root, field));
+}
+
+double Scene_Manager::ReadDouble(const char* field)
+{
+	return double(json_object_get_number(Root, field));
+}
+
+Quat Scene_Manager::ReadQuat(const char* field) //???? No idea how this works
+{
+	Quat value;
+
+	Sub_JArray = json_object_get_array(Root, field);
+
+	value.x = json_array_get_number(Sub_JArray, 0);
+	value.y = json_array_get_number(Sub_JArray, 1);
+	value.z = json_array_get_number(Sub_JArray, 2);
+	value.w = json_array_get_number(Sub_JArray, 3);
+
+	return value;
+}
+
+std::string Scene_Manager::ReadString(const char* field)
+{
+	return json_object_get_string(Root, field);
+}
+
+bool Scene_Manager::CheckString(const char* name) const
+{
+	return json_object_has_value_of_type(Root, name, JSONString);
+}
+
+Scene_Manager Scene_Manager::GetSection(const char* name) const
+{
+	return Scene_Manager(json_object_get_object(Root, name));
+}
+
+Scene_Manager Scene_Manager::AddSection(const char* name)
+{
+	json_object_set_value(Root, name, json_value_init_object());
+	scene_name = name;
+	return GetSection(name);
+}
+
+Scene_Manager Scene_Manager::AddSectionArray(int num)
+{
+	JSON_Value* leaf_value = json_value_init_object();
+	JSON_Object* leaf_obj = json_value_get_object(leaf_value);
+	json_array_append_value(JArray, leaf_value);
+
+	return Scene_Manager(json_value_get_object(json_array_get_value(JArray, num)));
+}
+
+Scene_Manager Scene_Manager::GetSectionArray(int num)
+{
+	return Scene_Manager(json_value_get_object(json_array_get_value(JArray, num)), JArray);
+}
+
+bool Scene_Manager::IsArraySection(int num)
+{
+	bool ret = true;
+	JSON_Value* obj = json_array_get_value(JArray, num);
+	if (obj)
+		ret = true;
 	else
-	{
-		return JScene_Array();
-	}
-}
-
-JScene JScene::GetNode(const char* name) const
-{
-	return JScene(json_object_get_object(node, name));
-}
-
-
-//Setters
-void JScene::SetDouble(const char* name, double new_data)
-{
-	json_object_set_number(node, name, new_data);
-}
-
-void JScene::SetString(const char* name, const char* new_data)
-{
-	json_object_set_string(node, name, new_data);
-}
-
-void JScene::SetBool(const char* name, bool new_data)
-{
-	json_object_set_boolean(node, name, new_data);
-}
-
-JScene_Array JScene::SetArray(const char* name)
-{
-	json_object_set_value(node, name, json_value_init_array());
-
-	return JScene_Array(json_object_get_array(node, name));
-}
-
-JScene JScene::SetNode(const char* name)
-{
-	json_object_set_value(node, name, json_value_init_object());
-
-	return JScene(json_object_get_object(node, name));
-}
-
-
-// Class JScene_Array
-JScene_Array::JScene_Array()
-{
-	arr = json_value_get_array(json_value_init_array());
-}
-
-JScene_Array::JScene_Array(JSON_Array * arr) : arr(arr)
-{
-	size = json_array_get_count(arr);
-}
-
-//Add functions (GO)
-void JScene_Array::AddNum(double num)
-{
-	json_array_append_number(arr, num);
-	size++;
-}
-
-void JScene_Array::AddString(char* string)
-{
-	json_array_append_string(arr, string);
-	size++;
-}
-
-void JScene_Array::AddBool(bool boolean)
-{
-	json_array_append_boolean(arr, boolean);
-	size++;
-}
-
-void JScene_Array::AddFloat3(const float3 & data)
-{
-	json_array_append_number(arr, data.x);
-	json_array_append_number(arr, data.y);
-	json_array_append_number(arr, data.z);
-	size += 3;
-}
-
-void JScene_Array::AddQuat(const Quat & data)
-{
-	json_array_append_number(arr, data.x);
-	json_array_append_number(arr, data.y);
-	json_array_append_number(arr, data.z);
-	json_array_append_number(arr, data.w);
-	size += 4;
-}
-
-JScene JScene_Array::AddNode()
-{
-	json_array_append_value(arr, json_value_init_object());
-	size++;
-	return JScene(json_array_get_object(arr, size - 1));
-}
-
-//Getter for Json Array
-double JScene_Array::GetNumber(uint index, double default) const
-{
-	if (index < size)
-		return json_array_get_number(arr, index);
-	else
-	{
-		return 0;
-	}
-}
-
-const char* JScene_Array::GetString(uint index, const char* default) const
-{
-	if (index < size)
-		return json_array_get_string(arr, index);
-	else
-	{
-		LOG("[Warning] JSON Array: Index out of size");
-		return default;
-	}
-}
-
-float3 JScene_Array::GetFloat3(uint index, float3 default) const
-{
-	index *= 3;
-	float3 ret = default;
-
-	ret.x = GetNumber(index + 0, ret.x);
-	ret.y = GetNumber(index + 1, ret.y);
-	ret.z = GetNumber(index + 2, ret.z);
+		ret = false;
 
 	return ret;
 }
 
-Quat JScene_Array::GetQuat(uint index, Quat  default) const
+Scene_Manager Scene_Manager::AddJArray(const char* name)
 {
-	index *= 4;
-	Quat ret = default;
+	JSON_Value* va = json_value_init_array();
+	JArray = json_value_get_array(va);
+	json_object_set_value(Root, name, va);
 
-	ret.x = GetNumber(index + 0, ret.x);
-	ret.y = GetNumber(index + 1, ret.y);
-	ret.z = GetNumber(index + 2, ret.z);
-	ret.w = GetNumber(index + 3, ret.w);
-
-	return ret;
+	return Scene_Manager(json_value_get_object(JValue_Root), JArray);
 }
 
-bool JScene_Array::GetBool(uint index, bool default) const
+Scene_Manager Scene_Manager::GetJArray(const char* name)
 {
-	if (index < size)
-		return json_array_get_boolean(arr, index);
-	else
-	{
-		LOG("[Warning] JSON Array: Index out of size");
-		return default;
-	}
+	JArray = json_object_get_array(Root, name);
+	return Scene_Manager(json_value_get_object(JValue_Root), JArray);
 }
 
-JScene JScene_Array::GetNode(uint index) const
+bool Scene_Manager::Save(const char* name)
 {
-	return JScene(json_array_get_object(arr, index));
+	return json_serialize_to_file(JValue_Root, name) == JSONSuccess;
 }
 
-uint JScene_Array::GetSize() const
+std::string Scene_Manager::ReadName() const
 {
-	return size;
+	return scene_name;
 }
 
-void JScene_Array::SaveVectorNumber(std::vector<double> & vector) 
+JSON_Value* Scene_Manager::ReadJValueRoot() const
 {
-	for (uint i = 0; i < size; i++)
-	{
-		vector.push_back(GetNumber(i));
-	}
+	return JValue_Root;
 }
-
-void JScene_Array::SaveVectorString(std::vector<char*> & vector)
-{
-	for (uint i = 0; i < size; i++)
-	{
-		vector.push_back((char*)GetString(i));
-	}
-}
-
-void JScene_Array::SaveVectorBoool(std::vector<bool> & vector) 
-{
-	for (uint i = 0; i < size; i++)
-	{
-		vector.push_back(GetBool(i));
-	}
-}
-

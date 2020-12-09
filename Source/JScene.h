@@ -8,69 +8,63 @@
 #include <string>
 #include "libraries/Parson/parson.h"
 
-class string;
 
-class JScene_Array;
 
-class JScene
-{
-	public:
-		JScene();						//New Files
-		JScene(char* buffer);			//Read Data
-		JScene(JSON_Object * obj);		//Nodes
-		~JScene();					
 
-		uint Serialize(char** buffer);	//Serialize function
-		bool NodeExists();
-		void Release();
+class Scene_Manager {
 
-		double GetDouble(const char* name, double std = 0) const;
-		std::string GetString(const char* name, const char* std = "") const;
-		bool GetBool(const char* name, bool std = true) const;
-		JScene_Array GetArray(const char* name) const;
-		JScene GetNode(const char* name) const;
-
-		void SetDouble(const char* name, double new_data);
-		void SetString(const char* name, const char* new_data);
-		void SetBool(const char* name, bool new_data);
-		JScene_Array SetArray(const char* name);
-		JScene SetNode(const char* name);
-
-	private:
-		JSON_Value* vroot = nullptr; 
-		JSON_Object* node = nullptr;
-};
-
-class JScene_Array
-{
 public:
 
-	JScene_Array();
-	JScene_Array(JSON_Array* arr);
-
-	void AddNum(double num);
-	void AddString(char* string);
-	void AddBool(bool boolean);
-	void AddFloat3(const float3& data);
-	void AddQuat(const Quat& data);
-	JScene AddNode();
+	Scene_Manager(); //EMPTY CONSTRUCTOR
+	Scene_Manager(const char* FileName);
+	Scene_Manager(JSON_Object* Object);
+	Scene_Manager(JSON_Object* Object, JSON_Array* Value);
+	~Scene_Manager();
 
 
-	double GetNumber(uint index, double default = 0) const;
-	const char* GetString(uint index, const char* default = "") const;
-	bool GetBool(uint index, bool default = true) const;
-	float3 GetFloat3(uint index, float3 default = float3::zero) const;
-	Quat GetQuat(uint index, Quat  default = Quat::identity) const;
-	JScene GetNode(uint index) const;
-	uint GetSize() const;
+	void WriteInt(const char* field, int value);
+	void WriteBool(const char* field, bool value);
+	void WriteFloat(const char* field, float value);
+	void WriteDouble(const char* field, double value);
+	void WriteQuad(const char* field, Quat value);
+	void WriteString(const char* field, std::string value);
 
-	void SaveVectorNumber(std::vector<double>& vector); //Saves array pos of the type inside a vector of the same type
-	void SaveVectorString(std::vector<char*>& vector);
-	void SaveVectorBoool(std::vector<bool>& vector);
-	
+
+
+	int ReadInt(const char* field);
+	bool ReadBool(const char* field);
+	float ReadFloat(const char* field);
+	double ReadDouble(const char* field);
+	Quat ReadQuat(const char* field);
+	std::string ReadString(const char* field);
+
+
+
+	bool CheckString(const char* name) const;
+
+	Scene_Manager GetSection(const char* name) const;
+	Scene_Manager AddSection(const char* name);
+
+	Scene_Manager AddSectionArray(int num);
+	Scene_Manager GetSectionArray(int num);
+	bool IsArraySection(int num);
+
+	Scene_Manager AddJArray(const char* name);
+	Scene_Manager GetJArray(const char* name);
+
+	bool Save(const char* name);
+
+	std::string ReadName() const;
+	JSON_Value* ReadJValueRoot() const;
+
 private:
-	JSON_Array* arr;
-	uint size = 0;
+	JSON_Value* JValue_Root = nullptr;
+	JSON_Object* Root = nullptr;
+	JSON_Array* JArray = nullptr;
+	JSON_Array* Sub_JArray = nullptr;
+	std::string scene_name;
 };
+
+
 
 #endif //__CONFIG_H__
