@@ -171,8 +171,10 @@ void ModuleGeometryManager::DrawMeshTextured(Game_Object* Object)
 
 			if (TextVals != nullptr) {
 
+				glColor4f(0.5f, 0.5f, 0.5f, 1.0f);
+
 				if (TextVals->Texture->Colour.r != NULL) {
-					//glColor4f(0.49f, 0.74f, 0.24f, 1.0f);
+					
 
 
 					glColor4f(TextVals->Texture->Colour.r, TextVals->Texture->Colour.g, TextVals->Texture->Colour.b, TextVals->Texture->Colour.a);

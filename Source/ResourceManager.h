@@ -102,7 +102,7 @@ private:
 	
 	void CheckSelectedObjectsChild(Game_Object* ItemToCheck);
 	bool ModelSelected = false;
-
+	Game_Object* ObjectToGiveTexture = nullptr;
 public:
 	Resource* CopyItemFileResource=nullptr;
 	//------------ CONSOLE STUFF

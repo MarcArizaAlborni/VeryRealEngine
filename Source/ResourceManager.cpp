@@ -9,6 +9,7 @@
 #include "ModuleMeshImporter.h"
 #include "GameObject.h"
 #include "Component.h"
+#include "ComponentTexture.h"
 
 namespace fs = std::filesystem;
 
@@ -638,8 +639,8 @@ void ResourceManager::SelectTypeOfFile(std::string Name)
 
 			if (Object->ToBeDrawInspector == true) {
 				ModelSelected = true;
+				ObjectToGiveTexture = Object;
 			}
-
 
 			CheckSelectedObjectsChild(Object);
 
@@ -648,6 +649,15 @@ void ResourceManager::SelectTypeOfFile(std::string Name)
 
 
 		if (ModelSelected == true) {
+
+			App->editor->ToVisualizeTexture = App->textureImporter->LoadTextureImage(FullPath.c_str());
+
+			Component_Texture* MeshComp = (Component_Texture*)ObjectToGiveTexture->GetComponent(Component_Types::Texture);
+
+			MeshComp->Texture = &App->editor->ToVisualizeTexture;
+
+			
+			ObjectToGiveTexture = nullptr;
 
 			ModelSelected = false;
 
@@ -687,6 +697,7 @@ void ResourceManager::CheckSelectedObjectsChild(Game_Object* ItemToCheck)
 
 		if (Object->ToBeDrawInspector == true) {
 			ModelSelected = true;
+			ObjectToGiveTexture = Object;
 		}
 
 
