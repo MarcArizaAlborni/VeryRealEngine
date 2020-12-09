@@ -5,6 +5,7 @@
 #include "ModuleGeometryManager.h"
 #include "ModuleMeshImporter.h"
 #include "ModuleEditor.h"
+#include "ModuleScene.h"
 #include "Game_Time.h"
 #include "GameObject.h"
 #include "ComponentTransform.h"
@@ -27,7 +28,8 @@ bool ModuleCamera3D::Start()
 	LOGFIX("Setting up the camera");
 	bool ret = true;
 
-	scene_camera = new Component_Camera(nullptr);
+	scene_camera = new Component_Camera(App->scene->object_scene_camera);
+	App->geometrymanager->ObjectsOnScene.begin();
 
 	return ret;
 }

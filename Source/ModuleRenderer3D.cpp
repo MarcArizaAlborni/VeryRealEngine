@@ -181,13 +181,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
+	
+	App->camera->scene_camera->DrawFrustum(App->camera->scene_camera->GetFrustumPoints(), Color(1.0f, 0.0f, 0.0f, 1.0f));
 
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleRenderer3D::Update(float dt)
 {
-	
 	return UPDATE_CONTINUE;
 }
 

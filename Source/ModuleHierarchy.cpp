@@ -110,10 +110,9 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
 
         if (ImGui::IsItemClicked())						
         {
-
-            if ((Component_Camera*)Item->GetComponent(Component_Types::Camera) != nullptr) {
-
-                SelectItemHierarchy(Item);
+            if ((Component_Camera*)Item->GetComponent(Component_Types::Camera) != nullptr) 
+            { 
+                SelectItemHierarchy(Item); 
 
             }
             

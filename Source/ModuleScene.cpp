@@ -30,9 +30,9 @@ ModuleScene::ModuleScene(Application* app, const char* name, bool start_enabled)
 	App->geometrymanager->ObjectsOnScene.push_back(ROOT_SCENE_OBJECT);
 	ROOT_SCENE_OBJECT->Parent = nullptr;
 
-	scene_camera = new Game_Object("Scene Camera");
-	ROOT_SCENE_OBJECT->Children_List.push_back(scene_camera);
-	scene_camera->Parent = ROOT_SCENE_OBJECT;
+	object_scene_camera = new Game_Object("Scene Camera");
+	ROOT_SCENE_OBJECT->Children_List.push_back(object_scene_camera);
+	object_scene_camera->Parent = ROOT_SCENE_OBJECT;
 
 }
 
@@ -51,15 +51,14 @@ bool ModuleScene::Init()
 
 bool ModuleScene::Start()
 {
+	object_scene_camera->AddExistingComponent(App->camera->scene_camera);
 
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Models/Checkers/checkers.png");
 
 	// BAKER HOUSE FOR DRAW W/TEXTURES ON START
 
 	//App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
-	
 
-	
 	
 
 
@@ -99,8 +98,6 @@ update_status ModuleScene::Update(float dt)
 	{
 		p.Render();
 	}
-
-
 
 	return UPDATE_CONTINUE;
 }

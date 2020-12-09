@@ -29,7 +29,8 @@ public:
 	bool LoadScene();
 	
 	Game_Object* ROOT_SCENE_OBJECT = nullptr;
-	Game_Object* scene_camera = nullptr;
+	Game_Object* object_scene_camera = nullptr;
+
 public:
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);

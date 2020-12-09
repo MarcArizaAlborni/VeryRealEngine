@@ -11,7 +11,7 @@
 #define MAX_LIGHTS 8
 
 struct MeshInfo;
-
+class Component_Camera;
 
 
 class ModuleRenderer3D : public Module
@@ -34,6 +34,7 @@ public:
 	void GenerateTextBuffer(float* text_coords, uint& num_text_coords, uint& id_text_coords);
 	void GenerateNormalBuffer(MeshInfo* mesh, float3* normals);
 
+	Component_Camera* comp_camera = nullptr;
 
 public:
 

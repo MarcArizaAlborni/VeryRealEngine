@@ -111,7 +111,7 @@ Component* Game_Object::AddComponent(Component_Types typus)
 
 Component* Game_Object::AddExistingComponent(Component* component)
 {
-	Component* Ret;
+	Component* Ret = nullptr;
 
 	switch (component->type)
 	{
