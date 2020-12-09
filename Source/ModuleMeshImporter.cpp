@@ -8,6 +8,7 @@
 #include "Component.h"
 #include "ComponentTexture.h"
 #include "ComponentMesh.h"
+#include "ModuleHierarchy.h"
 #include "ComponentTransform.h"
 #include "ModuleScene.h"
 #include "libraries/Assimp/Assimp/include/cimport.h"
@@ -78,6 +79,11 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,Game_Object* Parent)
 {
 	Game_Object* ObjectToAdd = new Game_Object(node->mName.C_Str());
+
+	if (ObjectToAdd->name == "RootNode") {
+		ObjectToAdd->name = ObjectToAdd->name + std::to_string(App->hierarchy->RootNodeCount);
+		++App->hierarchy->RootNodeCount;
+	}
 
 	aiVector3D  Imported_Translation;
 	aiVector3D  Imported_Scale;

@@ -60,13 +60,7 @@ bool ModuleInspectorGameObject::CleanUp()
 
 
 
-void ModuleInspectorGameObject::ShowSelectedObjectInfo(GameObject* object)
-{
 
-	// THIS ONLY COPIES INFORMATION IT DOESNT MODIFY THE OBJECT ITSELF SO LATER ON WE WILL HAVE TO CHANGE THIS TO BE ABLE TO MODIFY ITEMS FROM THE INSPECTOR
-	ObjectToBeShownInspector = object;
-
-}
 
 void ModuleInspectorGameObject::DrawInspectorWindowInfo()
 {

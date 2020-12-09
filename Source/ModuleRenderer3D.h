@@ -12,7 +12,7 @@
 
 struct MeshInfo;
 
-struct GameObject;
+
 
 class ModuleRenderer3D : public Module
 {

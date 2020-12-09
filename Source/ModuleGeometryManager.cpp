@@ -106,25 +106,7 @@ void ModuleGeometryManager::DrawCylinder()
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Primitives/Cylinder.FBX");
 }
 
-void ModuleGeometryManager::Transform_Mesh_Translation(GameObject* mesh, VectorTransformations Current, VectorTransformations New)
-{
-	glPushMatrix();
-	glTranslatef( Current.x + New.x, Current.y + New.y, Current.z + New.z);
-}
 
-void ModuleGeometryManager::Transform_Mesh_Scale(GameObject* mesh, VectorTransformations Current, VectorTransformations New)
-{
-	glPushMatrix();
-	glScalef(Current.x + New.x, Current.y + New.y, Current.z + New.z);
-}
-
-void ModuleGeometryManager::Transform_Mesh_Rotation(GameObject* mesh, VectorTransformations Current, VectorTransformations New)
-{
-	
-	glPushMatrix();
-	glRotatef(Current.angle + New.angle, Current.x + New.x, Current.y + New.y, Current.z + New.z);
-
-}
 
 void ModuleGeometryManager::Transform_Mesh_Draw(Component_Transform* Transform)
 {

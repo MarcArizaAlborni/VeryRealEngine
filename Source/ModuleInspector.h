@@ -5,7 +5,7 @@
 #include "Globals.h"
 #include "glmath.h"
 
-struct GameObject;
+
 struct TextureInfo;
 class Game_Object;
 class Component_Mesh;
@@ -24,8 +24,8 @@ public:
 	//Inspector Window Functions
 
 
-	void ShowSelectedObjectInfo(GameObject* object);
-	GameObject* ObjectToBeShownInspector = NULL;
+	
+	
 	void DrawInspectorWindowInfo();
 	void DrawObjectInfo(Game_Object* item, Component_Mesh* MeshInfo, Component_Texture* TextureInfo, Component_Transform* TransInfo);
 	bool LookForChildrenToBeDrawn(Game_Object* item);

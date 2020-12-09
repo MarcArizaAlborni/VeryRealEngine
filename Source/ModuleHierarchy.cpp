@@ -57,7 +57,7 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
         ImGui::Begin("HierarchyWindow", &App->editor->show_hierarchy_window);
         for (int size = 0; size < App->geometrymanager->ObjectsOnScene.size(); ++size) {
             Game_Object* Item = *It;
-
+            
             if (!DrawHierarchyChildren(Item, false)) {
 
               ++It;
@@ -84,6 +84,8 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
     }
 
     ImGui::AlignTextToFramePadding();
+
+   
 
     if (ImGui::TreeNodeEx(Item->name.c_str(), FlagsNodes)) {
 

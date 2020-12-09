@@ -68,7 +68,7 @@ bool ModuleScene::Start()
 	//this
 	
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
-
+	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
 	
 
 

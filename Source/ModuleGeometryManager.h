@@ -12,7 +12,7 @@
 #define MAX_LIGHTS 8
 
 struct MeshInfo;
-struct GameObject;
+
 class Game_Object;
 class Components;
 class Component_Transform;
@@ -45,9 +45,7 @@ public:
 
 	//Transformations
 
-	void Transform_Mesh_Translation(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
-	void Transform_Mesh_Scale(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
-	void Transform_Mesh_Rotation(GameObject* mesh, VectorTransformations Current, VectorTransformations New);
+	
 	void Transform_Mesh_Draw(Component_Transform* mesh);
 
 

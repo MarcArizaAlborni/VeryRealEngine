@@ -11,7 +11,7 @@ struct aiScene;
 struct TextureInfo;
 
 struct MeshInfo;
-struct GameObject;
+
 class Timer;
 struct Resource {
 

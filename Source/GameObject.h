@@ -19,7 +19,7 @@ public:
 	~Game_Object();
 
 	std::string name;
-	int item_id;
+	int item_id=0;
 	
 	
 

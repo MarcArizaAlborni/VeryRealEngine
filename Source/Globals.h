@@ -49,7 +49,7 @@ enum update_status
 #define WIN_RESIZABLE false
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
-#define WIN_MAXIMIZED true
+#define WIN_MAXIMIZED false
 
 #define VSYNC true
 #define TITLE "VeryRealEngine"
