@@ -56,7 +56,7 @@ public:
 	//META FILES
 
 	void CreateMesh_META(int id, std::string FilePath);
-	
+	std::string CurrentlyDetectedMETA = "";
 };
 
 #endif  

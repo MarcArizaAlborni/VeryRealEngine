@@ -73,6 +73,8 @@ public:
 
 	void CreateWindowDropFile();
 
+
+	void GetSplittedFile(const char* full_path, std::string* path, std::string* file = nullptr, std::string* extension = nullptr) const;
 private:
 	char TextBuffer[256] = "";
 
@@ -87,7 +89,7 @@ private:
 	std::string StoredName=""; //^This function
 	
 	void DrawFolderOptionsButtons(Resource* Item);
-	void GetSplittedFile(const char* full_path, std::string* path, std::string* file = nullptr, std::string* extension = nullptr) const;
+	
 	void NormalizedFolderPath(std::string& full_path) const;
 	void CreateWindowRenameFolder(Resource* Item);
 	void CreateWindowDeleteFolder(Resource* Item);

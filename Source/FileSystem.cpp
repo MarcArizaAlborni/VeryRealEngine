@@ -528,12 +528,6 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 	
 
 
-
-
-	
-
-	
-	
 	//num index, num vertex
 	uint ranges[3] = { Mesh->num_index,Mesh->num_vertex, Mesh->num_texcoords };
 

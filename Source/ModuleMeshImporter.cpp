@@ -11,6 +11,7 @@
 #include "ModuleHierarchy.h"
 #include "ComponentTransform.h"
 #include "FileSystem.h"
+#include "ResourceManager.h"
 #include "ModuleScene.h"
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
@@ -58,15 +59,63 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 	
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 
-	if (scene != nullptr) {
+	//path modification
+	std::string OGPath = file_path;
+	std::string PreName;
+	std::string Name;
+	std::string NoExte;
+	std::string FinalPath;
+	std::string NewExte = ".meta";
+	
+	App->resources->GetSplittedFile(file_path, nullptr, &PreName, &Name);
 
-		std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
-		Game_Object* Parent = *It;
+	size_t pos_dot = Name.find_last_of(".");
 
-		ProcessNode(file_path, scene, scene->mRootNode, App->scene->ROOT_SCENE_OBJECT);
-		
-		aiReleaseImport(scene);
+	NoExte = Name.substr(0,pos_dot);
+
+	FinalPath = PreName + NoExte + NewExte;
+
+	///
+
+	App->filemanager->CurrentlyDetectedMETA = FinalPath;  // We set the path to the meta we will be using
+
+
+	if (App->filemanager->Exists(FinalPath.c_str())) {
+
+		if (scene != nullptr) {
+
+			std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
+			Game_Object* Parent = *It;
+
+			ProcessNode(file_path, scene, scene->mRootNode, App->scene->ROOT_SCENE_OBJECT);
+
+			aiReleaseImport(scene);
+		}
 	}
+	else {
+
+		//HERE SHOULD GO AND CREATE META
+
+		PHYSFS_openWrite(FinalPath.c_str());
+
+
+
+
+
+		if (scene != nullptr) {
+
+			std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
+			Game_Object* Parent = *It;
+
+			ProcessNode(file_path, scene, scene->mRootNode, App->scene->ROOT_SCENE_OBJECT);
+
+			aiReleaseImport(scene);
+		}
+
+	}
+
+
+
 }
 
 void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,Game_Object* Parent)
@@ -222,7 +271,7 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 			App->renderer3D->GenerateNormalBuffer(OurMesh, OurMesh->normals);
 
 			
-			App->filemanager->SaveMeshInto_WAF(OurMesh, meshLoad);
+			//App->filemanager->SaveMeshInto_WAF(OurMesh, meshLoad);  //COMMENTED FOR NOW SO WE DONT GENERATE 
 
 			ItemList.push_back(OurMesh);
 
