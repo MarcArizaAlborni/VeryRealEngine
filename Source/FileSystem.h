@@ -46,7 +46,8 @@ public:
 	// Mine
 
 	void SaveMeshInto_WAF(MeshInfo* Mesh);
-
+	MeshInfo* LoadMeshFrom_WAF(int FileID);
+	uint GenerateSafeBuffer_Mesh(MeshInfo* Mesh);
 
 
 	

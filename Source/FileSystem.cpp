@@ -506,13 +506,39 @@ std::string ModuleFileSystem::GetFileAndExtension(const char* path)
 
 void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh)
 {
+	//ORDER OF WRITING
+
+	//Mesh->num_index;
+	//Mesh->num_vertex;
+    //Mesh->num_texcoords;
+	Mesh->index;
+	Mesh->vertex;
+	Mesh->texcoords;
+	Mesh->Name;
+	Mesh->TextureName;
+	
+	
+	
+
 
 	//Generate Random Value
 	int NewId = App->GiveRandomNum_Undefined();
 
-	uint ranges[2] = { Mesh->num_index,Mesh->num_vertex };
+	//Generate Path
+	std::string NewId_C = std::to_string(NewId);
+	std::string Extension = ".waf";
+	std::string GeneralPath = "Library/Meshes/";
 
-	uint size = sizeof(ranges) + sizeof(uint) * Mesh->num_index + sizeof(float) * Mesh->num_vertex * 3;
+	std::string FinalPath = GeneralPath + NewId_C + Extension;
+
+
+
+	//To Write
+	
+	//num index, num vertex
+	uint ranges[4] = { Mesh->num_index,Mesh->num_vertex, Mesh->num_texcoords };
+
+	uint size = sizeof(ranges) + sizeof(uint) * Mesh->num_index + sizeof(float) * Mesh->num_vertex * 3+ sizeof(uint)*Mesh->num_texcoords;
 
 	char* buffer = new char[size];
 
@@ -524,25 +550,21 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh)
 
 	cursor += bytes;
 
-	std::string NewId_C=std::to_string(NewId);
-	std::string Extension = ".waf";
-	std::string GeneralPath = "Library/Meshes/";
-
-	std::string FinalPath = GeneralPath + NewId_C+Extension;
 
 
-     PHYSFS_File* WFile = PHYSFS_openWrite(FinalPath.c_str());
 
+
+
+
+	// WRITING THE INFO INTO THE FILE
+    PHYSFS_File* WFile = PHYSFS_openWrite(FinalPath.c_str());
 
 	PHYSFS_sint64 AmountWritten= PHYSFS_write(WFile, (const void*)buffer, 1, size);
-
 
 	PHYSFS_close(WFile);
 
 	
 
-	
-	//KEEP THIS ORDER OF OPERATIONS!!
 
 	PHYSFS_File* RFile = PHYSFS_openRead(FinalPath.c_str());
 
@@ -554,8 +576,48 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh)
 
 	PHYSFS_sint64 AmountRead = PHYSFS_read(RFile, Rbuffer, 1, Rsize);
 
+	uint Rranges[3];
+
+	uint Rbytes = sizeof(Rranges);
+
+	memcpy(Rranges, Rcursor, Rbytes);
+
+	Rcursor += Rbytes;
+
+	uint NumIndex = Rranges[0];
+	uint NumVertex = Rranges[1];
+	uint NumTexCoords = Rranges[2];
 
 	
+
+	
+	
+
+
+
+}
+
+MeshInfo* ModuleFileSystem::LoadMeshFrom_WAF(int FileId)
+{
+	MeshInfo* LoadedItem;
+	//KEEP THIS ORDER OF OPERATIONS!!
+
+	std::string NewId_C = std::to_string(FileId);
+	std::string Extension = ".waf";
+	std::string GeneralPath = "Library/Meshes/";
+
+	std::string FinalPath = GeneralPath + NewId_C + Extension;
+
+	PHYSFS_File* RFile = PHYSFS_openRead(FinalPath.c_str());
+
+	PHYSFS_sint32 Rsize = (PHYSFS_sint32)PHYSFS_fileLength(RFile);
+
+	char* Rbuffer = new char[Rsize];
+
+	char* Rcursor = Rbuffer;
+
+	PHYSFS_sint64 AmountRead = PHYSFS_read(RFile, Rbuffer, 1, Rsize);
+
 	uint Rranges[2];
 
 	uint Rbytes = sizeof(Rranges);
@@ -567,6 +629,20 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh)
 	uint NumIndex = Rranges[0];
 	uint NumVertex = Rranges[1];
 
+	uint Rranges2[1];
 
+	uint Rbytes2 = sizeof(Rranges2);
 
+	memcpy(Rranges2, Rcursor, Rbytes2);
+
+	Rcursor += Rbytes2;
+
+	uint NumTexcoord = Rranges2[0];
+
+	return LoadedItem;
+}
+
+uint ModuleFileSystem::GenerateSafeBuffer_Mesh(MeshInfo* Mesh)
+{
+	return uint();
 }
