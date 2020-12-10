@@ -56,7 +56,11 @@ public:
 	//META FILES
 
 	void CreateMesh_META(int id, std::string FilePath);
+	void LoadMesh_META();
 	std::string CurrentlyDetectedMETA = "";
+	std::vector<int> StoreMetaIDs_List;
+	std::vector<int> LoadMetaIDs_List;
+
 };
 
 #endif  

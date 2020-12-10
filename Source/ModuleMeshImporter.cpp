@@ -75,7 +75,7 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 	FinalPath = PreName + NoExte + NewExte;
 
-	///
+	
 
 	App->filemanager->CurrentlyDetectedMETA = FinalPath;  // We set the path to the meta we will be using
 
@@ -115,6 +115,10 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 	}
 
 
+	App->filemanager->CreateMesh_META(NULL, file_path);
+
+	App->filemanager->StoreMetaIDs_List.clear();
+	App->filemanager->CurrentlyDetectedMETA = "";
 
 }
 
@@ -271,7 +275,10 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 			App->renderer3D->GenerateNormalBuffer(OurMesh, OurMesh->normals);
 
 			
-			//App->filemanager->SaveMeshInto_WAF(OurMesh, meshLoad);  //COMMENTED FOR NOW SO WE DONT GENERATE 
+			App->filemanager->SaveMeshInto_WAF(OurMesh, meshLoad);  //COMMENTED FOR NOW SO WE DONT GENERATE 
+
+
+
 
 			ItemList.push_back(OurMesh);
 

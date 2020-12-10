@@ -518,6 +518,9 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 	//Generate Random Value
 	int NewId = App->GiveRandomNum_Undefined();
 
+	StoreMetaIDs_List.push_back(NewId);
+
+
 	//Generate Path
 	std::string NewId_C = std::to_string(NewId);
 	std::string Extension = ".waf";
@@ -695,4 +698,51 @@ uint ModuleFileSystem::GenerateSafeBuffer_Mesh(MeshInfo* Mesh)
 
 void ModuleFileSystem::CreateMesh_META(int id, std::string FilePath)
 {
+
+	PHYSFS_File* MetaFile = PHYSFS_openWrite(CurrentlyDetectedMETA.c_str());
+
+
+	  PHYSFS_write(MetaFile, &FilePath, 1, sizeof(std::string));
+
+	  std::vector<int>::iterator It = StoreMetaIDs_List.begin();
+	  for (int i = 0; i < StoreMetaIDs_List.size(); ++i) {
+
+		  int ID = *It;
+		  PHYSFS_write(MetaFile, &ID, 1, sizeof(int));
+
+
+		  ++It;
+	  }
+
+	  PHYSFS_close(MetaFile);
+
+	  LoadMesh_META();
+
+}
+
+void ModuleFileSystem::LoadMesh_META()
+{
+
+	PHYSFS_File* MetaFile = PHYSFS_openRead(CurrentlyDetectedMETA.c_str());
+
+
+	//PHYSFS_write(MetaFile, &FilePath, 1, sizeof(std::string));
+
+	std::string PathLoaded;
+	PHYSFS_read(MetaFile, &PathLoaded, 1, sizeof(std::string));
+
+	std::vector<int>::iterator It = StoreMetaIDs_List.begin();
+	for (int i = 0; i < StoreMetaIDs_List.size(); ++i) {
+
+		int ID = *It;
+		PHYSFS_read(MetaFile, &ID, 1, sizeof(int));
+
+		LoadMetaIDs_List.push_back(ID);
+
+		++It;
+	}
+
+
+	PHYSFS_close(MetaFile);
+
 }
