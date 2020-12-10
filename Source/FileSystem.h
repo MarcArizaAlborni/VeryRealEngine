@@ -42,7 +42,7 @@ public:
 
 	std::string GetFileAndExtension(const char* path);
 
-
+////////////////////////////////////////////////////////////////////
 	// Mine
 
 	void SaveMeshInto_WAF(MeshInfo* Mesh,aiMesh* RawMesh);
@@ -51,6 +51,11 @@ public:
 	uint GenerateSafeBuffer_Mesh(MeshInfo* Mesh);
 
 
+
+
+	//META FILES
+
+	void CreateMesh_META(int id, std::string FilePath);
 	
 };
 

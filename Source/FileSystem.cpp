@@ -100,7 +100,6 @@ bool ModuleFileSystem::Exists(const char* file) const
 {
 	return PHYSFS_exists(file) != 0;
 }
-
 bool ModuleFileSystem::CreateDir(const char* dir)
 {
 	if (IsDirectory(dir) == false)
@@ -110,21 +109,17 @@ bool ModuleFileSystem::CreateDir(const char* dir)
 	}
 	return false;
 }
-
 // Checks if a file is inside a directory
 bool ModuleFileSystem::IsDirectory(const char* file) const
 {
 	return PHYSFS_isDirectory(file) != 0;
 }
-
 // Adds a directory
 void ModuleFileSystem::CreateDirectory(const char* directory)
 {
 	PHYSFS_mkdir(directory);
 }
-
 //Gets a file listing of a search path's directory.
-
 void ModuleFileSystem::DiscoverFiles(const char* directory, std::vector<std::string>& file_list, std::vector<std::string>& direction_list) const
 {
 	char** rc = PHYSFS_enumerateFiles(directory);
@@ -145,7 +140,6 @@ void ModuleFileSystem::DiscoverFiles(const char* directory, std::vector<std::str
 
 	PHYSFS_freeList(rc);
 }
-
 bool ModuleFileSystem::CopyFromOutsideFS(const char* full_path, const char* destination)
 {
 	// Only place we acces non virtual filesystem (defined functions)
@@ -178,7 +172,6 @@ bool ModuleFileSystem::CopyFromOutsideFS(const char* full_path, const char* dest
 
 	return ret;
 }
-
 bool ModuleFileSystem::Copy(const char* source, const char* destination)
 {
 	bool ret = false;
@@ -210,7 +203,6 @@ bool ModuleFileSystem::Copy(const char* source, const char* destination)
 		
 	return ret;
 }
-
 // Force to always use lowercase and / as folder separator
 char normalize_char(char c)
 {
@@ -221,7 +213,6 @@ char normalize_char(char c)
 
 	return tolower(c);
 }
-
 std::string ModuleFileSystem::NormalizeNodePath(const char* full_path)
 {
 	std::string normalized_path(full_path);
@@ -236,7 +227,6 @@ std::string ModuleFileSystem::NormalizeNodePath(const char* full_path)
 
 	return normalized_path;
 }
-
 void ModuleFileSystem::NormalizePath(std::string& full_path) const
 {
 	for (std::string::iterator it = full_path.begin(); it != full_path.end(); ++it)
@@ -252,7 +242,6 @@ void ModuleFileSystem::NormalizePath(std::string& full_path) const
 		}	
 	}
 }
-
 void ModuleFileSystem::SplitFilePath(const char* full_path, std::string* path, std::string* file, std::string* extension) const
 {
 	if (full_path != nullptr)
@@ -291,7 +280,6 @@ void ModuleFileSystem::SplitFilePath(const char* full_path, std::string* path, s
 		}
 	}
 }
-
 bool ModuleFileSystem::IsInDirectory(const char* directory, const char* p)
 {
 	bool ret = true;
@@ -311,7 +299,6 @@ bool ModuleFileSystem::IsInDirectory(const char* directory, const char* p)
 
 	return ret;
 }
-
 void ModuleFileSystem::CreateLibraryDirectories()
 {
 	
@@ -322,7 +309,6 @@ void ModuleFileSystem::CreateLibraryDirectories()
 	CreateDir(LIBRARY_SCENE_FOLDER);
 	
 }
-
 bool ModuleFileSystem::RemovePath(std::string* directory, const char* p)
 {
 	bool ret = true;
@@ -341,14 +327,12 @@ bool ModuleFileSystem::RemovePath(std::string* directory, const char* p)
 		
 	return ret;
 }
-
 unsigned int ModuleFileSystem::Load(const char* path, const char* file, char** buffer) const
 {
 	std::string full_path(path);
 	full_path += file;
 	return Load(full_path.c_str(), buffer);
 }
-
 // Read a file and writes it on a buffer
 uint ModuleFileSystem::Load(const char* file, char** buffer) const
 {
@@ -386,7 +370,6 @@ uint ModuleFileSystem::Load(const char* file, char** buffer) const
 		
 	return ret;
 }
-
 SDL_RWops* ModuleFileSystem::Load(const char* file) const
 {
 	char* buffer;
@@ -408,15 +391,12 @@ SDL_RWops* ModuleFileSystem::Load(const char* file) const
 	}
 		
 }
-
 int close_sdl_rwops(SDL_RWops* rw)
 {
 	RELEASE_ARRAY(rw->hidden.mem.base);
 	SDL_FreeRW(rw);
 	return 0;
 }
-
-
 // Saves all buffers to disk
 uint ModuleFileSystem::Save(const char* file, const void* buffer, unsigned int size, bool append) const
 {
@@ -459,7 +439,6 @@ uint ModuleFileSystem::Save(const char* file, const void* buffer, unsigned int s
 		
 	return ret;
 }
-
 bool ModuleFileSystem::Remove(const char* file)
 {
 	bool ret = false;
@@ -477,6 +456,9 @@ bool ModuleFileSystem::Remove(const char* file)
 
 	return ret;
 }
+
+
+
 
 std::string ModuleFileSystem::GetFileAndExtension(const char* path)
 {
@@ -550,7 +532,7 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 
 	
 
-	//To Write
+	
 	
 	//num index, num vertex
 	uint ranges[3] = { Mesh->num_index,Mesh->num_vertex, Mesh->num_texcoords };
@@ -715,4 +697,8 @@ MeshInfo* ModuleFileSystem::LoadMeshFrom_WAF(int FileId)
 uint ModuleFileSystem::GenerateSafeBuffer_Mesh(MeshInfo* Mesh)
 {
 	return uint();
+}
+
+void ModuleFileSystem::CreateMesh_META(int id, std::string FilePath)
+{
 }

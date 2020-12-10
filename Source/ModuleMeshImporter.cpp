@@ -50,16 +50,8 @@ bool ModuleMeshImporter::CleanUp()
 update_status ModuleMeshImporter::Update(float dt)
 {
 
-	
-	
-	
-
-
 	return UPDATE_CONTINUE;
 }
-
-
-
 
 void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 {
@@ -97,7 +89,6 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 	Quat	Rotation_Calculated(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
 	Quat    RotMat;
 	
-	
 	while (strstr(node->mName.C_Str(), "_$AssimpFbx$") != nullptr && node->mNumChildren == 1)
 	{
 		node = node->mChildren[0];
@@ -105,7 +96,6 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		node->mTransformation.Decompose(Imported_Scale, Imported_Rotation, Imported_Translation);
 
 		RotMat = Quat(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
-
 
 		Translation_Calculated.x += Imported_Translation.x;
 		Translation_Calculated.y += Imported_Translation.y;
@@ -116,8 +106,6 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		Scale_Calculated.z *= Imported_Scale.z;
 
 		Rotation_Calculated = Rotation_Calculated * RotMat;
-
-		
 
 	}
 
@@ -143,14 +131,11 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 			}
 		}
 		
-
-		
 	}
 
 	Parent->GenerateChildren(ObjectToAdd);
 
 	//ObjectToAdd->Parent = Parent;
-
 
 	ObjectToAdd->Transformations->UpdateTransformationsObjects(Translation_Calculated, Scale_Calculated, Rotation_Calculated);
 	Component_Transform* MeshTrans = (Component_Transform*)ObjectToAdd->GetComponent(Component_Types::Transform);
@@ -161,9 +146,6 @@ void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene
 		ObjectToAdd->Mesh->GetGlobalAABB();
 		ObjectToAdd->Mesh->GenerateBBBufers();
 	}
-
-	
-
 
 	for (uint i = 0; i < node->mNumChildren; ++i)
 	{
@@ -179,15 +161,12 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 
 	for (int number = 0; number < node->mNumMeshes; number++) {
 
-
 		aiMesh* meshLoad = scene->mMeshes[node->mMeshes[number]];
 
-		int PositionMeshList = -1;
-
-		PositionMeshList=CheckMeshExistance(node->mName.C_Str());
-
+		  
+		    node->mName.C_Str();
 		
-			
+
 			MeshInfo* OurMesh = new MeshInfo();
 
 			OurMesh->Name = node->mName.C_Str();
