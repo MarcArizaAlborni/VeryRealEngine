@@ -45,15 +45,11 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
-
 	
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 	if (io.WantCaptureMouse == false || Game_Time::running == true)
 	{
-
-		
-
 
 		// Movement Camera
 		vec3 newPos(0, 0, 0);
@@ -66,7 +62,7 @@ update_status ModuleCamera3D::Update(float dt)
 		//if ((App->input->GetKey(SDL_SCANCODE_KP_8) == KEY_REPEAT) && (App->input->GetKey(SDL_BUTTON_LEFT) == SDL_MOUSEBUTTONDOWN))newPos -= Z * speed;
 
 		if (App->input->GetKey(SDL_SCANCODE_KP_8) == KEY_REPEAT) newPos -= scene_camera->Z * scene_camera->camera_speed;
-		else if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)&& (App->input->GetMouseButton(SDL_BUTTON_RIGHT))) newPos -= scene_camera->Z * scene_camera->camera_speed;
+		else if ((App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT))) newPos -= scene_camera->Z * scene_camera->camera_speed;
 		if (App->input->GetKey(SDL_SCANCODE_KP_5) == KEY_REPEAT) newPos += scene_camera->Z * scene_camera->camera_speed;
 		else if ((App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) && (App->input->GetMouseButton(SDL_BUTTON_RIGHT))) newPos += scene_camera->Z * scene_camera->camera_speed;
 
@@ -77,6 +73,8 @@ update_status ModuleCamera3D::Update(float dt)
 
 		scene_camera->Position += newPos;
 		scene_camera->Reference += newPos;
+
+		
 
 		// Wheel Zoom
 		if (App->input->GetMouseZ() != 0)
@@ -92,6 +90,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 			scene_camera->Position += newPos;
 		}
+
 
 		//Left Click (altenative for the arrows)
 		if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
@@ -208,7 +207,7 @@ update_status ModuleCamera3D::Update(float dt)
 							LookAt({ selected_object_child->Transformations->Translation.x,
 								 selected_object_child->Transformations->Translation.y,
 								 selected_object_child->Transformations->Translation.z
-								});
+							});
 
 						}
 					}
@@ -258,6 +257,11 @@ void ModuleCamera3D::LookAt(const vec3& Spot)
 	scene_camera->CalculateViewMatrix();
 }
 
+void ModuleCamera3D::Zoom(float dt)
+{
+	scene_camera->Position -= scene_camera->Z * (float)App->input->GetMouseZ() * scene_camera->zoomValue * dt;
+}
+
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::Move(const vec3& Movement)
@@ -282,6 +286,11 @@ update_status ModuleCamera3D::Load()
 	scene_camera->Load();
 
 	return UPDATE_CONTINUE;
+}
+
+Component_Camera* ModuleCamera3D::GetSceneCamera() const
+{
+	return scene_camera;
 }
 
 void ModuleCamera3D::CreateConsolelog(const char file[], int line, const char* format, ...)

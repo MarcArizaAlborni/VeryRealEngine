@@ -23,14 +23,16 @@ public:
 	void Look(const vec3& Position, const vec3& Reference, bool RotateAroundReference = false);
 	void LookAt(const vec3& Spot);
 	void Move(const vec3& Movement);
+	void Zoom(float dt);
 
 	void CenterToObject(Game_Object* object);
 	void Orbit();
 
+	//Settings
+	Component_Camera* GetSceneCamera() const;
 	Component_Camera* scene_camera = nullptr;
 
 	
-
 
 	//------------ CONSOLE STUFF
 #define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);

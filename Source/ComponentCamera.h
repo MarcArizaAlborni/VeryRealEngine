@@ -34,15 +34,26 @@ public:
 	float GetFarPlane();
 	void SetFarPlane(float distance);
 
+	float GetCameraSpeed();
+	void SetCameraSpeed(float speed);
+
+	float GetWheelSpeed();
+	void SetWheelSpeed(float speed);
+
+	float GetZoomValue();
+	void SetZoomValue(float zoom);
+
 	vec* GetFrustumPoints();
 
 	Frustum frustum;
 
 	vec* frustum_corners = nullptr;
 
+	bool camera_drawn = true;
+
 public:
 	vec3 X, Y, Z, Position, Reference;
-	float camera_speed = 0.015f;
+	float camera_speed = 0.15f;
 
 	float wheelSpeedValue = 0.8f; // sensitivity left click 
 	float zoomValue = 0.5f; //sensitivity of the zoom

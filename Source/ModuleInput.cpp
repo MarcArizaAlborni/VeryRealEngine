@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentTexture.h"
+#include "ModuleCamera3D.h"
 
 
 #include "libraries/ImGUI/imgui.h"
