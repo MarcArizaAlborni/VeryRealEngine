@@ -273,16 +273,6 @@ void ModuleCamera3D::CenterToObject( Game_Object* object)
 	LookAt({ object->Transformations->Translation.x, object->Transformations->Translation.y, object->Transformations->Translation.z });
 }
 
-void ModuleCamera3D::MouseEvent()
-{
-	Frustum* frustum = &scene_camera->frustum;
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) 
-	{
-		float2 mouse_pos = { (float)App->input->GetMouseX(),(float)App->input->GetMouseY() };
-	}
-
-}
-
 void ModuleCamera3D::Orbit() {
 
 }
