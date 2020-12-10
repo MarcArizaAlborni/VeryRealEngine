@@ -284,6 +284,11 @@ update_status ModuleCamera3D::Load()
 	return UPDATE_CONTINUE;
 }
 
+Component_Camera* ModuleCamera3D::GetSceneCamera() const
+{
+	return scene_camera;
+}
+
 void ModuleCamera3D::CreateConsolelog(const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];

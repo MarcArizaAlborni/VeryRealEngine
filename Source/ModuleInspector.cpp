@@ -11,6 +11,7 @@
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
+#include "ModuleCamera3D.h"
 
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
@@ -209,6 +210,12 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             {
                 ImGui::Checkbox("Draw", &MeshInfo->is_Drawn);
             }
+
+            else if (MeshInfo == nullptr)
+            {
+               ImGui::Checkbox("Activate", &CameraInfo->camera_drawn);
+            }
+            
             
             ImGui::Text("Item Id:");
             ImGui::SameLine(0.0f, 10.0f);
@@ -224,28 +231,41 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             if (ImGui::CollapsingHeader("Transformation", ImGuiTreeNodeFlags_DefaultOpen)) {
 
 
-                if (ImGui::InputFloat3("Position", { &TransInfo->Translation.x }, 2)) {
+                if (ImGui::DragFloat3("Position", { &TransInfo->Translation.x }, 2)) {
                     TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
 
-                    MeshInfo->UpdateOnTransformOBB();
+                    if (MeshInfo != nullptr)
+                    {
+                        MeshInfo->UpdateOnTransformOBB();
+                    }
+                    
                 }
 
 
                 float3 DisplayVecRot = TransInfo->Rotation.ToEulerXYZ();
 
-                if (ImGui::InputFloat3("Rotation", { &TransInfo->EulerRot.x }, 2)) {
+                if (ImGui::DragFloat3("Rotation", { &TransInfo->EulerRot.x }, 2)) {
 
                     Quat NewRot = Quat::FromEulerXYZ(TransInfo->EulerRot.x, TransInfo->EulerRot.y, TransInfo->EulerRot.z);
 
                     TransInfo->SetEulerRotation(TransInfo->EulerRot);
 
-                    MeshInfo->UpdateOnTransformOBB();
+                    if (MeshInfo != nullptr)
+                    {
+                        MeshInfo->UpdateOnTransformOBB();
+                    }
+                    
                 }
-                if (ImGui::InputFloat3("Scale", { &TransInfo->Scale.x }, 2)) {
+                //This crashes if >0.01f
+                if (ImGui::DragFloat3("Scale", { &TransInfo->Scale.x }, 2, 0.0f)) {
 
                     TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
 
-                    MeshInfo->UpdateOnTransformOBB();
+                    if (MeshInfo != nullptr)
+                    {
+                        MeshInfo->UpdateOnTransformOBB();
+                    }
+                    
                 }
 
 
@@ -356,13 +376,59 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
     if (CameraInfo != nullptr)
     {
+        Component_Camera* comp_camera = (Component_Camera*)App->camera->GetSceneCamera();
         if (ImGui::CollapsingHeader("Camera Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
 
+            float camSpeed = comp_camera->GetCameraSpeed();
+            if (ImGui::DragFloat("Camera Speed", &camSpeed, 0.05f, 0.1f))
+            {
+                comp_camera->SetCameraSpeed(camSpeed);
+            }
 
+            float wheelSpeed = comp_camera->GetWheelSpeed();
+            if (ImGui::DragFloat("Wheel Speed Value", &wheelSpeed, 0.05f, 0.1f))
+            {
+                comp_camera->SetWheelSpeed(wheelSpeed);
+            }
+
+            float zoomValue = comp_camera->GetZoomValue();
+            if (ImGui::DragFloat("Zoom Value", &zoomValue, 0.05f, 0.1f))
+            {
+                comp_camera->SetZoomValue(zoomValue);
+            }
+        }
+
+        if (ImGui::CollapsingHeader("Frustum Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
+
+
+            float verticalFov = comp_camera->GetFOV();
+            if (ImGui::DragFloat("Field of View", &verticalFov, 0.1f, 0.1f))
+            {
+                comp_camera->SetFOV(verticalFov);
+            }
+
+            float nearPlane = comp_camera->GetNearPlane();
+            if (ImGui::DragFloat("Near Plane Distance", &nearPlane, 0.5f, 0.1f))
+            {
+                comp_camera->SetNearPlane(nearPlane);
+            }
+
+            float farPlane = comp_camera->GetFarPlane();
+            if (ImGui::DragFloat("Far Plane Distance", &farPlane, 0.5f, 0.1f))
+            {
+                comp_camera->SetFarPlane(farPlane);
+            }
+
+            //Should we???????????
+            float aspectRatio = comp_camera->GetAspectRatio();
+            if (ImGui::DragFloat("Aspect Ratio", &aspectRatio, 0.5f, 0.1f))
+            {
+                comp_camera->SetAspectRatio(aspectRatio);
+            }
+            
         }
     }
 
-   
 }
 
 

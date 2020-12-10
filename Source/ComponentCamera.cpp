@@ -1,7 +1,11 @@
 #include "Application.h"
 #include "ComponentCamera.h"
 #include "Component.h"
+#include "GameObject.h"
+#include "ModuleCamera3D.h"
+#include "ComponentTransform.h"
 #include "ModuleWindow.h"
+#include "ModuleScene.h"
 #include "Globals.h"
 
 
@@ -31,51 +35,62 @@ Component_Camera::Component_Camera(Game_Object* obj) : Component(obj)
 
 void Component_Camera::DrawFrustum(const float3* corners, Color color)
 {
-	glColor4f(color.r, color.g, color.b, color.a);
-	
-	glBegin(GL_LINES);
+	if (camera_drawn)
+	{
+		glColor4f(color.r, color.g, color.b, color.a);
 
-	//Between-planes right
-	glVertex3fv((GLfloat*)&corners[1]);
-	glVertex3fv((GLfloat*)&corners[5]);
-	glVertex3fv((GLfloat*)&corners[7]);
-	glVertex3fv((GLfloat*)&corners[3]);
+		Component_Transform* Cam_Trans = (Component_Transform*)App->scene->object_scene_camera->GetComponent(Component_Types::Transform);
 
-	//Between-planes left
-	glVertex3fv((GLfloat*)&corners[4]);
-	glVertex3fv((GLfloat*)&corners[0]);
-	glVertex3fv((GLfloat*)&corners[2]);
-	glVertex3fv((GLfloat*)&corners[6]);
+		glPushMatrix();
+		glMultMatrixf((GLfloat*)&Cam_Trans->Global_Matrix.Transposed());
 
-	//Far plane horizontal
-	glVertex3fv((GLfloat*)&corners[5]);
-	glVertex3fv((GLfloat*)&corners[4]);
-	glVertex3fv((GLfloat*)&corners[6]);
-	glVertex3fv((GLfloat*)&corners[7]);
+		glBegin(GL_LINES);
 
-	//Near plane horizontal
-	glVertex3fv((GLfloat*)&corners[0]);
-	glVertex3fv((GLfloat*)&corners[1]);
-	glVertex3fv((GLfloat*)&corners[3]);
-	glVertex3fv((GLfloat*)&corners[2]);
+		//Between-planes right
+		glVertex3fv((GLfloat*)&corners[1]);
+		glVertex3fv((GLfloat*)&corners[5]);
+		glVertex3fv((GLfloat*)&corners[7]);
+		glVertex3fv((GLfloat*)&corners[3]);
 
-	//Near plane vertical
-	glVertex3fv((GLfloat*)&corners[1]);
-	glVertex3fv((GLfloat*)&corners[3]);
-	glVertex3fv((GLfloat*)&corners[0]);
-	glVertex3fv((GLfloat*)&corners[2]);
+		//Between-planes left
+		glVertex3fv((GLfloat*)&corners[4]);
+		glVertex3fv((GLfloat*)&corners[0]);
+		glVertex3fv((GLfloat*)&corners[2]);
+		glVertex3fv((GLfloat*)&corners[6]);
 
-	//Far plane vertical
-	glVertex3fv((GLfloat*)&corners[5]);
-	glVertex3fv((GLfloat*)&corners[7]);
-	glVertex3fv((GLfloat*)&corners[4]);
-	glVertex3fv((GLfloat*)&corners[6]);
+		//Far plane horizontal
+		glVertex3fv((GLfloat*)&corners[5]);
+		glVertex3fv((GLfloat*)&corners[4]);
+		glVertex3fv((GLfloat*)&corners[6]);
+		glVertex3fv((GLfloat*)&corners[7]);
 
-	glEnd();
+		//Near plane horizontal
+		glVertex3fv((GLfloat*)&corners[0]);
+		glVertex3fv((GLfloat*)&corners[1]);
+		glVertex3fv((GLfloat*)&corners[3]);
+		glVertex3fv((GLfloat*)&corners[2]);
 
-	glColor4f(1.0, 1.0, 1.0, 1.0);
+		//Near plane vertical
+		glVertex3fv((GLfloat*)&corners[1]);
+		glVertex3fv((GLfloat*)&corners[3]);
+		glVertex3fv((GLfloat*)&corners[0]);
+		glVertex3fv((GLfloat*)&corners[2]);
+
+		//Far plane vertical
+		glVertex3fv((GLfloat*)&corners[5]);
+		glVertex3fv((GLfloat*)&corners[7]);
+		glVertex3fv((GLfloat*)&corners[4]);
+		glVertex3fv((GLfloat*)&corners[6]);
+
+		glEnd();
+
+		glPopMatrix();
+
+		glColor4f(1.0, 1.0, 1.0, 1.0);
+	}
 }
 
+// Frustum settings
 float Component_Camera::GetFOV()
 {
 	return frustum.VerticalFov() * RADTODEG;
@@ -133,6 +148,37 @@ void Component_Camera::CalculateViewMatrix()
 {
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
 	ViewMatrixInverse = inverse(ViewMatrix);
+}
+
+// Camera settings
+float Component_Camera::GetCameraSpeed()
+{
+	return camera_speed;
+}
+
+void Component_Camera::SetCameraSpeed(float speed)
+{
+	camera_speed = speed;
+}
+
+float Component_Camera::GetWheelSpeed()
+{
+	return wheelSpeedValue;
+}
+
+void Component_Camera::SetWheelSpeed(float speed)
+{
+	wheelSpeedValue = speed;
+}
+
+float Component_Camera::GetZoomValue()
+{
+	return zoomValue;
+}
+
+void Component_Camera::SetZoomValue(float zoom)
+{
+	zoomValue = zoom;
 }
 
 update_status Component_Camera::Load()
