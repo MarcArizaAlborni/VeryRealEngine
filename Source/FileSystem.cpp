@@ -13,6 +13,13 @@
 #include "libraries/Assimp/Assimp/include/cfileio.h"
 #include "libraries/Assimp/Assimp/include/types.h"
 
+
+
+#include "libraries/Assimp/Assimp/include/cimport.h"
+#include "libraries/Assimp/Assimp/include/scene.h"
+#include "libraries/Assimp/Assimp/include/postprocess.h"
+#pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
+
 #pragma comment( lib, "libraries/PhysFS/libx86/physfs.lib" )
 
 ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool start_enabled) : Module(app, "FileSystem", start_enabled)
@@ -504,16 +511,21 @@ std::string ModuleFileSystem::GetFileAndExtension(const char* path)
 	return full_path;
 }
 
-void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh)
+void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 {
-	//ORDER OF WRITING
+	//ORDER OF WRITING!!!!!!
 
+	//Mesh
 	//Mesh->num_index;
 	//Mesh->num_vertex;
     //Mesh->num_texcoords;
-	Mesh->index;
+
 	Mesh->vertex;
 	Mesh->texcoords;
+	Mesh->normals;
+
+	Mesh->index;
+
 	Mesh->Name;
 	Mesh->TextureName;
 	
@@ -531,14 +543,20 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh)
 
 	std::string FinalPath = GeneralPath + NewId_C + Extension;
 
+	
 
+
+
+
+	
 
 	//To Write
 	
 	//num index, num vertex
-	uint ranges[4] = { Mesh->num_index,Mesh->num_vertex, Mesh->num_texcoords };
+	uint ranges[3] = { Mesh->num_index,Mesh->num_vertex, Mesh->num_texcoords };
 
-	uint size = sizeof(ranges) + sizeof(uint) * Mesh->num_index + sizeof(float) * Mesh->num_vertex * 3+ sizeof(uint)*Mesh->num_texcoords;
+	uint size = sizeof(ranges) + sizeof(uint) * Mesh->num_index + sizeof(float) * Mesh->num_vertex * 3 + 
+	            sizeof(float)*Mesh->num_texcoords*2;
 
 	char* buffer = new char[size];
 
@@ -549,21 +567,46 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh)
 	memcpy(cursor, ranges, bytes);
 
 	cursor += bytes;
+	//index
+	bytes = sizeof(uint) * Mesh->num_index;
 
+	memcpy(cursor, Mesh->index, bytes);
 
+	cursor += bytes;
 
+	//vertex
+	bytes = sizeof(float) * Mesh->num_vertex*3;
 
+	memcpy(cursor, Mesh->vertex, bytes);
+
+	cursor += bytes;
+
+	//texcoords
+	bytes = sizeof(float) * Mesh->num_texcoords * 2;
+
+	memcpy(cursor, Mesh->texcoords, bytes);
+	
+	cursor += bytes;
+
+	
 
 
 
 	// WRITING THE INFO INTO THE FILE
-    PHYSFS_File* WFile = PHYSFS_openWrite(FinalPath.c_str());
 
-	PHYSFS_sint64 AmountWritten= PHYSFS_write(WFile, (const void*)buffer, 1, size);
+	PHYSFS_File* WFile = PHYSFS_openWrite(FinalPath.c_str());
+
+	PHYSFS_sint64 AmountWritten = PHYSFS_write(WFile, (const void*)buffer, 1, size);
 
 	PHYSFS_close(WFile);
+	///////////////////
 
-	
+
+
+
+
+
+	//READING FROM THE FILE
 
 
 	PHYSFS_File* RFile = PHYSFS_openRead(FinalPath.c_str());
@@ -588,14 +631,41 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh)
 	uint NumVertex = Rranges[1];
 	uint NumTexCoords = Rranges[2];
 
-	
 
-	
-	
+	//Index reading
+	Rbytes = sizeof(uint) * Mesh->num_index;
 
+	uint* Indexes = new uint[Mesh->num_index];
+
+	memcpy(Indexes, Rcursor, Rbytes);
+
+	Rcursor += Rbytes;
+
+
+	//Vertex
+	Rbytes = sizeof(float) * Mesh->num_vertex*3;
+
+	float* Vertexes = new float[Mesh->num_vertex*3];
+
+	memcpy(Vertexes, Rcursor, Rbytes);
+
+	Rcursor += Rbytes;
+
+
+	//Texcoords
+	Rbytes = sizeof(float) * Mesh->num_texcoords*2;
+
+	float* Texcoordses = new float[Mesh->num_texcoords*2];
+
+	memcpy(Texcoordses, Rcursor, Rbytes);
+
+	Rcursor += Rbytes;
+	
 
 
 }
+
+
 
 MeshInfo* ModuleFileSystem::LoadMeshFrom_WAF(int FileId)
 {

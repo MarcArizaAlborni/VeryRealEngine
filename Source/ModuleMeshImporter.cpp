@@ -239,9 +239,11 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 			if (OurMesh->texcoords != NULL) {
 				App->renderer3D->GenerateTextBuffer(OurMesh->texcoords, OurMesh->num_texcoords, OurMesh->texcoords_id);
 			}
+
 			App->renderer3D->GenerateNormalBuffer(OurMesh, OurMesh->normals);
 
-			App->filemanager->SaveMeshInto_WAF(OurMesh);
+			
+			App->filemanager->SaveMeshInto_WAF(OurMesh, meshLoad);
 
 			ItemList.push_back(OurMesh);
 

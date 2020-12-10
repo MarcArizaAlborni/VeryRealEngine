@@ -9,7 +9,7 @@
 struct SDL_RWops;
 int close_sdl_rwops(SDL_RWops* rwops);
 
-
+struct aiMesh;
 class ModuleFileSystem : public Module
 {
 public:
@@ -45,7 +45,8 @@ public:
 
 	// Mine
 
-	void SaveMeshInto_WAF(MeshInfo* Mesh);
+	void SaveMeshInto_WAF(MeshInfo* Mesh,aiMesh* RawMesh);
+	
 	MeshInfo* LoadMeshFrom_WAF(int FileID);
 	uint GenerateSafeBuffer_Mesh(MeshInfo* Mesh);
 
