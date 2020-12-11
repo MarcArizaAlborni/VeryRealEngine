@@ -181,6 +181,9 @@ void Component_Camera::SetZoomValue(float zoom)
 	zoomValue = zoom;
 }
 
+
+
+
 update_status Component_Camera::Load()
 {
 

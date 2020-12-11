@@ -62,6 +62,9 @@ public:
 	//Stencil properties
 	void DrawOutlineMesh(Component_Transform* transform);
 
+	//Cull
+	bool CullCheck();
+
 	vec4 outline_color;
 	int outline_width;
 };

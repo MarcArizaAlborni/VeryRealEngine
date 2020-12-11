@@ -7,6 +7,8 @@
 #include "Primitive.h"
 #include "Light.h"
 #include "libraries/Glew/include/GL/glew.h"
+#include "libraries/MathGeoLib/include/Geometry/Frustum.h"
+#include "libraries/MathGeoLib/include/MathGeoLib.h"
 
 
 #define MAX_LIGHTS 8
@@ -16,6 +18,7 @@ struct MeshInfo;
 class Game_Object;
 class Components;
 class Component_Transform;
+class Component_Camera;
 struct VectorTransformations {
 
 	GLfloat angle,x,y,z;
@@ -59,7 +62,8 @@ public:
 	//Normals
 	void DrawVertexNormals(Game_Object* object);
 
-	
+	//Cull
+	bool ContainsAABB(const AABB& aabb) const;
 
 	std::vector<Game_Object*> ObjectsOnScene;
 

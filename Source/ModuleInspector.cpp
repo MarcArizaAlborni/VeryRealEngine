@@ -11,6 +11,7 @@
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
+#include "ModuleScene.h"
 #include "ModuleCamera3D.h"
 
 #include "libraries/ImGUI/imgui.h"
@@ -214,6 +215,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             else if (MeshInfo == nullptr)
             {
                ImGui::Checkbox("Activate", &CameraInfo->camera_drawn);
+               ImGui::Checkbox("Camera Culling", &App->scene->camera_culling);
             }
             
             

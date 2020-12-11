@@ -28,7 +28,7 @@ public:
 	Component_Mesh* Mesh = nullptr;
 	Component_Camera* Camera = nullptr;
 	
-	
+	Component_Camera* GetComponentCamera();
 
 	Game_Object* Parent = nullptr;
 

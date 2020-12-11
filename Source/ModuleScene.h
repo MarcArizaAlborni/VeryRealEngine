@@ -27,6 +27,8 @@ public:
 	void SaveScene();
 	/*bool SaveGameObject(JScene go_scene, GameObject* obj, int* i);*/
 	bool LoadScene();
+
+	bool camera_culling = false;
 	
 	Game_Object* ROOT_SCENE_OBJECT = nullptr;
 	Game_Object* object_scene_camera = nullptr;

@@ -283,13 +283,29 @@ void Game_Object::Update()
 		for (; It2 != Item->Component_List.end() && ret == true; ++It2) {
 
 			if ((*It2)->type == Component_Types::Mesh) {
+
 				((Component_Mesh*)(*It2))->Update();
 			}
+
+
 		}
 		
 		++It;
 	}
 
+}
+
+Component_Camera* Game_Object::GetComponentCamera()
+{
+	for (auto it_comp = Component_List.begin(); it_comp != Component_List.end(); ++it_comp)
+	{
+		if ((*it_comp)->type == Component_Types::Camera)
+		{
+			return (Component_Camera*)(*it_comp);
+		}
+	}
+
+	return nullptr;
 }
 
 void Game_Object::CleanUp()

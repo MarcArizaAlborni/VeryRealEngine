@@ -43,6 +43,8 @@ public:
 	float GetZoomValue();
 	void SetZoomValue(float zoom);
 
+
+
 	vec* GetFrustumPoints();
 
 	Frustum frustum;
