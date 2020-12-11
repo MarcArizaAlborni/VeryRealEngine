@@ -702,7 +702,7 @@ void ModuleFileSystem::CreateMesh_META(int id, std::string FilePath)
 	PHYSFS_File* MetaFile = PHYSFS_openWrite(CurrentlyDetectedMETA.c_str());
 
 
-	  PHYSFS_write(MetaFile, &FilePath, 1, sizeof(std::string));
+	  /*PHYSFS_write(MetaFile, &FilePath, 1, sizeof(std::string));
 
 	  std::vector<int>::iterator It = StoreMetaIDs_List.begin();
 	  for (int i = 0; i < StoreMetaIDs_List.size(); ++i) {
@@ -712,7 +712,12 @@ void ModuleFileSystem::CreateMesh_META(int id, std::string FilePath)
 
 
 		  ++It;
-	  }
+	  }*/
+
+
+	PHYSFS_write(MetaFile, &FilePath, sizeof(std::string),1 );
+
+
 
 	  PHYSFS_close(MetaFile);
 
@@ -729,20 +734,64 @@ void ModuleFileSystem::LoadMesh_META()
 	//PHYSFS_write(MetaFile, &FilePath, 1, sizeof(std::string));
 
 	std::string PathLoaded;
-	PHYSFS_read(MetaFile, &PathLoaded, 1, sizeof(std::string));
+	PHYSFS_read(MetaFile, &PathLoaded, sizeof(std::string),1);
 
-	std::vector<int>::iterator It = StoreMetaIDs_List.begin();
-	for (int i = 0; i < StoreMetaIDs_List.size(); ++i) {
-
-		int ID = *It;
-		PHYSFS_read(MetaFile, &ID, 1, sizeof(int));
-
-		LoadMetaIDs_List.push_back(ID);
-
-		++It;
-	}
+	//std::vector<int>::iterator It = StoreMetaIDs_List.begin();
+	//for (int i = 0; i < StoreMetaIDs_List.size(); ++i) {
+	//
+	//	int ID = *It;
+	//	PHYSFS_read(MetaFile, &ID, 1, sizeof(int));
+	//
+	//	LoadMetaIDs_List.push_back(ID);
+	//
+	//	++It;
+	//}
 
 
 	PHYSFS_close(MetaFile);
 
 }
+
+
+///PHYSFS_File* MetaFile = PHYSFS_openWrite(CurrentlyDetectedMETA.c_str());
+//
+//uint size = sizeof(FilePath) * sizeof(std::string) + sizeof(StoreMetaIDs_List) * sizeof(int);
+//
+//
+//// path
+//char* buffer = new char[size];
+//
+//char* cursor = buffer;
+//
+//uint bytes = sizeof(FilePath);
+//
+//memcpy(cursor, &FilePath, bytes);
+//
+//cursor += bytes;
+//
+////ID'S
+//
+//std::vector<int>::iterator It = StoreMetaIDs_List.begin();
+//for (int i = 0; i < StoreMetaIDs_List.size(); ++i) {
+//
+//	int ID = *It;
+//
+//
+//	bytes = sizeof(int) * ID;
+//
+//	memcpy(cursor, &ID, bytes);
+//
+//	cursor += bytes;
+//
+//
+//	++It;
+//
+//}
+//
+//
+//
+//PHYSFS_sint64 AmountWritten = PHYSFS_write(MetaFile, (const void*)buffer, 1, size);
+//
+//PHYSFS_close(MetaFile);
+//
+//LoadMesh_META();

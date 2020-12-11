@@ -114,7 +114,7 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 	}
 
-
+	App->filemanager->LoadMesh_META();
 	App->filemanager->CreateMesh_META(NULL, file_path);
 
 	App->filemanager->StoreMetaIDs_List.clear();
