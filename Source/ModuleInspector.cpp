@@ -240,6 +240,10 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     {
                         MeshInfo->UpdateOnTransformOBB();
                     }
+                    if (MeshInfo == nullptr)
+                    {
+                        CameraInfo->FrustumUpdateTransform(TransInfo->GetGlobalTransform());
+                    }
                     
                 }
 
@@ -256,6 +260,11 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     {
                         MeshInfo->UpdateOnTransformOBB();
                     }
+
+                    if (MeshInfo == nullptr)
+                    {
+                        CameraInfo->FrustumUpdateTransform(TransInfo->GetGlobalTransform());
+                    }
                     
                 }
                 //This crashes if >0.01f
@@ -267,10 +276,13 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     {
                         MeshInfo->UpdateOnTransformOBB();
                     }
+
+                    if (MeshInfo == nullptr)
+                    {
+                        CameraInfo->FrustumUpdateTransform(TransInfo->GetGlobalTransform());
+                    }
                     
                 }
-
-
 
                 ImGui::Separator();
             }
