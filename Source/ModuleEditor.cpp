@@ -26,6 +26,7 @@
 
 #include "libraries/Glew/include/GL/glew.h" 
 #include "libraries/SDL/include/SDL_opengl.h"
+#include "libraries/imGuizmo/ImGuizmo.h"
 
 
 
@@ -161,6 +162,7 @@ update_status ModuleEditor::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
 		//LoadScene();
 	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -216,7 +218,6 @@ update_status ModuleEditor::PostUpdate(float dt)
     ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
-
 
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	/*if (show_demo_window)

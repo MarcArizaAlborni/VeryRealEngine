@@ -105,6 +105,10 @@
     <ClInclude Include="libraries\DevIL\include\ilut_config.h" />
     <ClInclude Include="libraries\DevIL\include\ilu_region.h" />
     <ClInclude Include="libraries\DevIL\include\il_wrap.h" />
+    <ClInclude Include="libraries\imGuizmo\ImCurveEdit.h" />
+    <ClInclude Include="libraries\imGuizmo\ImGradient.h" />
+    <ClInclude Include="libraries\imGuizmo\ImGuizmo.h" />
+    <ClInclude Include="libraries\imGuizmo\ImSequencer.h" />
     <ClInclude Include="libraries\MathGeoLib\include\Algorithm\GJK.h" />
     <ClInclude Include="libraries\MathGeoLib\include\Algorithm\GJK2D.h" />
     <ClInclude Include="libraries\MathGeoLib\include\Algorithm\Random\LCG.h" />
@@ -330,6 +334,10 @@
     <ClCompile Include="ComponentTransform.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="JScene.cpp" />
+    <ClCompile Include="libraries\imGuizmo\ImCurveEdit.cpp" />
+    <ClCompile Include="libraries\imGuizmo\ImGradient.cpp" />
+    <ClCompile Include="libraries\imGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="libraries\imGuizmo\ImSequencer.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Algorithm\GJK.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Algorithm\GJK2D.cpp" />
     <ClCompile Include="libraries\MathGeoLib\include\Algorithm\Random\LCG.cpp" />
@@ -411,6 +419,9 @@
     <None Include="libraries\Assimp\Assimp\include\vector2.inl" />
     <None Include="libraries\Assimp\Assimp\include\vector3.inl" />
     <None Include="libraries\DevIL\include\config.h.win" />
+    <None Include="libraries\imGuizmo\.editorconfig" />
+    <None Include="libraries\imGuizmo\LICENSE" />
+    <None Include="libraries\imGuizmo\README.md" />
     <None Include="libraries\MathGeoLib\include\Geometry\KDTree.inl" />
     <None Include="libraries\MathGeoLib\include\Geometry\QuadTree.inl" />
     <None Include="libraries\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_AVX.inl" />

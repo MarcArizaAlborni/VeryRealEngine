@@ -6,6 +6,7 @@
 #include "FileSystem.h"
 #include "ModuleCamera3D.h"
 #include "ComponentCamera.h"
+#include "ComponentTransform.h"
 #include "ModuleScene.h"
 #include "ModuleCamera3D.h"
 #include "ModuleTextureImporter.h"
@@ -18,6 +19,7 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "ModuleTextureImporter.h"
+#include "libraries/imGuizmo/ImGuizmo.h"
 
 
 
@@ -33,6 +35,8 @@ ModuleScene::ModuleScene(Application* app, const char* name, bool start_enabled)
 	object_scene_camera = new Game_Object("Scene Camera");
 	ROOT_SCENE_OBJECT->Children_List.push_back(object_scene_camera);
 	object_scene_camera->Parent = ROOT_SCENE_OBJECT;
+
+	ImGuizmo::Enable(true);
 
 }
 
@@ -99,6 +103,8 @@ update_status ModuleScene::Update(float dt)
 		p.Render();
 	}
 
+	GuizmoDrawn();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -142,6 +148,98 @@ void ModuleScene::SaveScene()
 
 }
 
+//Guizmo
+void ModuleScene::GuizmoDrawn()
+{
+	if (App->editor->guizmos)
+	{
+		std::vector < Game_Object* >::iterator it = App->geometrymanager->ObjectsOnScene.begin();
+		Game_Object* object_guizmo;
+
+		for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i)
+		{
+			object_guizmo = *it;
+			object_guizmo = LookForSelectedChild(object_guizmo);
+
+			if (object_guizmo != nullptr)
+			{
+				if (object_guizmo->ToBeDrawInspector)
+				{
+					i = App->geometrymanager->ObjectsOnScene.size();
+				}
+			}
+			++it;
+		}
+
+		if (object_guizmo != nullptr)
+		{
+			Component_Transform* selected_transform = (Component_Transform*)object_guizmo->GetComponent(Component_Types::Transform);
+
+			float4x4 viewMatrix = App->camera->scene_camera->frustum.ViewMatrix();
+			viewMatrix.Transpose();
+			float4x4 projectionMatrix = App->camera->scene_camera->frustum.ProjectionMatrix();
+			projectionMatrix.Transpose();
+			float4x4 modelProjection = selected_transform->GetGlobalTransform();
+			modelProjection.Transpose();
+
+			ImGuizmo::SetRect(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			//gizmoOperation
+			float modelPtr[16];
+			memcpy(modelPtr, modelProjection.ptr(), 16 * sizeof(float));
+			ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : gizmoMode);
+
+			//Only this cares
+			ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
+
+			if (ImGuizmo::IsUsing())
+			{
+				float4x4 newMatrix;
+				newMatrix.Set(modelPtr);
+				modelProjection = newMatrix.Transposed();
+
+
+				//Set Global Transform 
+				selected_transform->UpdateGlobalTransform();
+			}
+		}
+	}
+}
+
+
+
+
+Game_Object* ModuleScene::LookForSelectedChild(Game_Object* obj)
+{
+	std::vector < Game_Object* >::iterator it = obj->Children_List.begin();
+	Game_Object* object_guizmo;
+
+	for (int i = 0;  i < obj->Children_List.size(); ++i)
+	{
+		object_guizmo = *it;
+
+		if (object_guizmo->ToBeDrawInspector)
+		{
+			i = obj->Children_List.size(); 
+			return object_guizmo;
+		}
+
+		object_guizmo = LookForSelectedChild(object_guizmo);
+		if (object_guizmo != nullptr)
+		{
+			if (object_guizmo->ToBeDrawInspector)
+			{
+				i = obj->Children_List.size();
+				return object_guizmo;
+			}
+		}
+		
+		++it;
+	}
+
+	return nullptr;
+	
+}
 
 void ModuleScene::CreateConsolelog(const char file[], int line, const char* format, ...)
 {

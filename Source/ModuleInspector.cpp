@@ -191,8 +191,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             ImGui::Text("Child Amount  %d", ChildAmount = item->Children_List.size());
 
             ImGui::Text("Currently Textured:");
-            ImGui::SameLine(0.0f, 10.0f);
-
+            ImGui::Checkbox("Guizmo", &App->editor->guizmos);
 
             if (TextureInfo != nullptr && TextureInfo->is_Textured == true) {
 
