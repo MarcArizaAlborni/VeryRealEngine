@@ -80,43 +80,56 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 	App->filemanager->CurrentlyDetectedMETA = FinalPath;  // We set the path to the meta we will be using
 
 
-	if (App->filemanager->Exists(FinalPath.c_str())) {
+	//if (App->filemanager->Exists(FinalPath.c_str())) {
+	//
+	//	if (scene != nullptr) {
+	//
+	//		std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
+	//		Game_Object* Parent = *It;
+	//
+	//		ProcessNode(file_path, scene, scene->mRootNode, App->scene->ROOT_SCENE_OBJECT);
+	//
+	//		aiReleaseImport(scene);
+	//	}
+	//}
+	//else {
+	//
+	//	//HERE SHOULD GO AND CREATE META
+	//
+	//	PHYSFS_openWrite(FinalPath.c_str()); // We create Meta File
+	//
+	//	if (scene != nullptr) {
+	//
+	//		std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
+	//		Game_Object* Parent = *It;
+	//
+	//		ProcessNode(file_path, scene, scene->mRootNode, App->scene->ROOT_SCENE_OBJECT);
+	//
+	//		aiReleaseImport(scene);
+	//	}
+	//
+	//}
+	//
+	//
+	//App->filemanager->LoadMesh_META();
+	//
+	//App->filemanager->CreateMesh_META(NULL, file_path);
+	//
+	//App->filemanager->StoreMetaIDs_List.clear();
+	//App->filemanager->CurrentlyDetectedMETA = "";
 
-		if (scene != nullptr) {
 
-			std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
-			Game_Object* Parent = *It;
-
-			ProcessNode(file_path, scene, scene->mRootNode, App->scene->ROOT_SCENE_OBJECT);
-
-			aiReleaseImport(scene);
-		}
-	}
-	else {
-
-		//HERE SHOULD GO AND CREATE META
-
-		PHYSFS_openWrite(FinalPath.c_str()); // We create Meta File
-
-		if (scene != nullptr) {
-
-			std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
-			Game_Object* Parent = *It;
-
-			ProcessNode(file_path, scene, scene->mRootNode, App->scene->ROOT_SCENE_OBJECT);
-
-			aiReleaseImport(scene);
-		}
-
-	}
-
-
-	App->filemanager->LoadMesh_META();
 	
-	App->filemanager->CreateMesh_META(NULL, file_path);
 
-	App->filemanager->StoreMetaIDs_List.clear();
-	App->filemanager->CurrentlyDetectedMETA = "";
+	if (scene != nullptr) {
+
+		std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
+		Game_Object* Parent = *It;
+
+		ProcessNode(file_path, scene, scene->mRootNode, App->scene->ROOT_SCENE_OBJECT);
+
+		aiReleaseImport(scene);
+	}
 
 }
 
