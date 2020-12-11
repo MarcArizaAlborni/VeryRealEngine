@@ -286,7 +286,7 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 			App->renderer3D->GenerateNormalBuffer(OurMesh, OurMesh->normals);
 
 			
-			App->filemanager->SaveMeshInto_WAF(OurMesh, meshLoad);  //COMMENTED FOR NOW SO WE DONT GENERATE 
+			//App->filemanager->SaveMeshInto_WAF(OurMesh, meshLoad);  //COMMENTED FOR NOW SO WE DONT GENERATE 
 
 
 
