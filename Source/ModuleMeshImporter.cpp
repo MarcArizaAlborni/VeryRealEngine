@@ -77,7 +77,7 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 	
 
-	App->filemanager->CurrentlyDetectedMETA = FinalPath;  // We set the path to the meta we will be using
+	//App->filemanager->CurrentlyDetectedMETA = FinalPath;  // We set the path to the meta we will be using
 
 
 	//if (App->filemanager->Exists(FinalPath.c_str())) {
@@ -133,10 +133,10 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 	//App->filemanager->LoadMesh_META();
 	
-	App->filemanager->CreateMesh_META(NULL, file_path);
-
-	App->filemanager->StoreMetaIDs_List.clear();
-	App->filemanager->CurrentlyDetectedMETA = "";
+	//App->filemanager->CreateMesh_META(NULL, file_path);
+	//
+	//App->filemanager->StoreMetaIDs_List.clear();
+	//App->filemanager->CurrentlyDetectedMETA = "";
 }
 
 void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,Game_Object* Parent)
