@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "ModuleInspector.h"
 #include "ComponentCamera.h"
+#include "ModuleScene.h"
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
 #include "ModuleGeometryManager.h"
@@ -258,3 +259,4 @@ void Component_Mesh::DrawOutlineMesh(Component_Transform* transform)
 	glPopMatrix();
 
 }
+

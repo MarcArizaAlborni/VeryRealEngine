@@ -7,6 +7,9 @@
 #include "libraries/Glew/include/GL/glew.h"
 #include "libraries/SDL/include/SDL_opengl.h"
 #include "Primitive.h"
+#include "ModuleScene.h"
+#include "ModuleCamera3D.h"
+#include "ComponentCamera.h"
 #include "ModuleMeshImporter.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -137,6 +140,14 @@ void ModuleGeometryManager::DrawMeshTextured(Game_Object* Object) //ESTO DIBUJA
 	Component_Texture* TextVals = Object->Textures;
 	Component_Transform* TransVals = Object->Transformations;
 
+	if (App->scene->camera_culling == true)
+	{
+		if (!ContainsAABB(Object->Mesh->global_AABB))
+		{
+			return;
+		}
+	}
+
 	if (MeshVals!=nullptr) {
 
 
@@ -213,12 +224,6 @@ void ModuleGeometryManager::DrawMeshTextured(Game_Object* Object) //ESTO DIBUJA
 		
 
 	}
-
-	
-		
-
-	
-	
 }
 
 void ModuleGeometryManager::DrawVertexNormals(Game_Object* object)
@@ -251,6 +256,38 @@ void ModuleGeometryManager::DrawVertexNormals(Game_Object* object)
 		}
 		glEnd();
 	}
+}
+
+//Cull
+bool ModuleGeometryManager::ContainsAABB(const AABB& aabb) const
+{
+	vec corners[8];
+	int corner_in = 0;
+	aabb.GetCornerPoints(corners);
+
+	Plane fru_planes[6];
+	App->camera->scene_camera->frustum.GetPlanes(fru_planes);
+
+	for (int p = 0; p < 6; ++p) {
+
+		int in_count = 8;
+		int iPtIn = 1;
+
+		for (int i = 0; i < 8; ++i) {
+
+			if (App->camera->scene_camera->frustum.GetPlane(p).IsOnPositiveSide(corners[i])) {
+
+				iPtIn = 0;
+				--in_count;
+			}
+		}
+
+		if (in_count == 0)
+			return false;
+
+	}
+
+	return true;
 }
 
 

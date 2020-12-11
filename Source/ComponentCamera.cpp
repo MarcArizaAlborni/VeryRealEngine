@@ -181,8 +181,24 @@ void Component_Camera::SetZoomValue(float zoom)
 	zoomValue = zoom;
 }
 
+
 update_status Component_Camera::Load()
 {
 
 	return UPDATE_CONTINUE;
+}
+
+void Component_Camera::FrustumUpdateTransform(const float4x4& global)
+{
+	frustum.SetFront(global.WorldZ());
+	frustum.SetUp(global.WorldY());
+
+	//Init just in case
+	float3 position = float3::zero;
+	float3 scale = float3::one;
+	Quat   rotation = Quat::identity;
+
+	global.Decompose(position, rotation, scale);
+
+	frustum.SetPos(position);
 }

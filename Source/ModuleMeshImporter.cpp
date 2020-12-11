@@ -131,6 +131,12 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 		aiReleaseImport(scene);
 	}
 
+	//App->filemanager->LoadMesh_META();
+	
+	App->filemanager->CreateMesh_META(NULL, file_path);
+
+	App->filemanager->StoreMetaIDs_List.clear();
+	App->filemanager->CurrentlyDetectedMETA = "";
 }
 
 void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,Game_Object* Parent)

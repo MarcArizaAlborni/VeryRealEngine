@@ -11,6 +11,7 @@
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
+#include "ModuleScene.h"
 #include "ModuleCamera3D.h"
 
 #include "libraries/ImGUI/imgui.h"
@@ -214,6 +215,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             else if (MeshInfo == nullptr)
             {
                ImGui::Checkbox("Activate", &CameraInfo->camera_drawn);
+               ImGui::Checkbox("Camera Culling", &App->scene->camera_culling);
             }
             
             
@@ -238,6 +240,10 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     {
                         MeshInfo->UpdateOnTransformOBB();
                     }
+                    if (MeshInfo == nullptr)
+                    {
+                        CameraInfo->FrustumUpdateTransform(TransInfo->GetGlobalTransform());
+                    }
                     
                 }
 
@@ -254,6 +260,11 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     {
                         MeshInfo->UpdateOnTransformOBB();
                     }
+
+                    if (MeshInfo == nullptr)
+                    {
+                        CameraInfo->FrustumUpdateTransform(TransInfo->GetGlobalTransform());
+                    }
                     
                 }
                 //This crashes if >0.01f
@@ -265,10 +276,13 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     {
                         MeshInfo->UpdateOnTransformOBB();
                     }
+
+                    if (MeshInfo == nullptr)
+                    {
+                        CameraInfo->FrustumUpdateTransform(TransInfo->GetGlobalTransform());
+                    }
                     
                 }
-
-
 
                 ImGui::Separator();
             }
