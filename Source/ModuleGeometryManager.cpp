@@ -120,7 +120,8 @@ void ModuleGeometryManager::Transform_Mesh_Draw(Component_Transform* Transform)
 void ModuleGeometryManager::UpdateGameObjectTransforms()
 {
 
-	
+
+
 
 }
 
@@ -130,7 +131,7 @@ void ModuleGeometryManager::DrawPlane()
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Primitives/Plane.FBX");
 }
 
-void ModuleGeometryManager::DrawMeshTextured(Game_Object* Object)
+void ModuleGeometryManager::DrawMeshTextured(Game_Object* Object) //ESTO DIBUJA
 {
 	Component_Mesh* MeshVals = Object->Mesh;
 	Component_Texture* TextVals = Object->Textures;

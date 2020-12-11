@@ -172,7 +172,7 @@ public:
 
 	///---------------CONSOLE STUFF-------------
 
-	std::list<char*> ConsoleLogs;
+	std::list<const char*> ConsoleLogs;
 	int LogsAmount;
 
 	Timer scene_timer;

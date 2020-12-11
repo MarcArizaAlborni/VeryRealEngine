@@ -1059,7 +1059,7 @@ void ModuleEditor::CreateConsoleWindow()
 	if (App->editor->show_console_window) {
 
 		ImGui::Begin("Console", &App->editor->show_console_window);
-		std::list<char*>::iterator Iterator = ConsoleLogs.begin();
+		std::list<const char*>::iterator Iterator = ConsoleLogs.begin();
 
 		for (Iterator; Iterator != ConsoleLogs.end(); Iterator++) {
 
