@@ -96,11 +96,7 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 		//HERE SHOULD GO AND CREATE META
 
-		PHYSFS_openWrite(FinalPath.c_str());
-
-
-
-
+		PHYSFS_openWrite(FinalPath.c_str()); // We create Meta File
 
 		if (scene != nullptr) {
 
@@ -114,7 +110,9 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 	}
 
+
 	App->filemanager->LoadMesh_META();
+	
 	App->filemanager->CreateMesh_META(NULL, file_path);
 
 	App->filemanager->StoreMetaIDs_List.clear();

@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 
+#define MAX_SIZE_ARRAY_META_FILE 500
 // Allows you to use pointers to memory instead of files
 struct SDL_RWops;
 int close_sdl_rwops(SDL_RWops* rwops);
@@ -58,8 +59,10 @@ public:
 	void CreateMesh_META(int id, std::string FilePath);
 	void LoadMesh_META();
 	std::string CurrentlyDetectedMETA = "";
-	std::vector<int> StoreMetaIDs_List;
-	std::vector<int> LoadMetaIDs_List;
+	std::vector<int> StoreMetaIDs_List; //List used to write in meta file
+	std::vector<int> LoadMetaIDs_List; // List used to read from meta file
+
+
 
 };
 

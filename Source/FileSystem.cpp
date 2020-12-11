@@ -518,7 +518,7 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 	//Generate Random Value
 	int NewId = App->GiveRandomNum_Undefined();
 
-	StoreMetaIDs_List.push_back(NewId);
+	StoreMetaIDs_List.push_back(NewId); // ID's To create Meta file to write
 
 
 	//Generate Path
@@ -582,9 +582,6 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 
 
 
-
-
-
 	//READING FROM THE FILE
 
 
@@ -609,6 +606,7 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 	uint NumIndex = Rranges[0];
 	uint NumVertex = Rranges[1];
 	uint NumTexCoords = Rranges[2];
+
 
 
 	//Index reading
@@ -701,23 +699,40 @@ void ModuleFileSystem::CreateMesh_META(int id, std::string FilePath)
 
 	PHYSFS_File* MetaFile = PHYSFS_openWrite(CurrentlyDetectedMETA.c_str());
 
+	uint value=StoreMetaIDs_List[0];
 
-	  /*PHYSFS_write(MetaFile, &FilePath, 1, sizeof(std::string));
+	uint size = sizeof(value) + sizeof(uint) * value;
 
-	  std::vector<int>::iterator It = StoreMetaIDs_List.begin();
-	  for (int i = 0; i < StoreMetaIDs_List.size(); ++i) {
+	char* buffer = new char[size];
 
-		  int ID = *It;
-		  PHYSFS_write(MetaFile, &ID, 1, sizeof(int));
+	char* cursor = buffer;
+
+	uint bytes = sizeof(value);
+
+	int ToPasteSize = StoreMetaIDs_List.size();
+
+	std::reverse(StoreMetaIDs_List.begin(), StoreMetaIDs_List.end());
+
+	StoreMetaIDs_List.push_back(ToPasteSize);
+
+	std::reverse(StoreMetaIDs_List.begin(), StoreMetaIDs_List.end());
+
+	std::vector<int>::iterator It = StoreMetaIDs_List.begin();
+	for (int i = 0; i < StoreMetaIDs_List.size(); ++i) {
+
+		int ID = *It;
 
 
-		  ++It;
-	  }*/
+		memcpy(cursor, &ID, bytes);
+		cursor += bytes;
 
+		++It;
 
-	PHYSFS_write(MetaFile, &FilePath, sizeof(std::string),1 );
+	}
 
+	
 
+	PHYSFS_sint64 AmountWritten = PHYSFS_write(MetaFile, (const void*)buffer, 1, size);
 
 	  PHYSFS_close(MetaFile);
 
@@ -728,27 +743,39 @@ void ModuleFileSystem::CreateMesh_META(int id, std::string FilePath)
 void ModuleFileSystem::LoadMesh_META()
 {
 
-	PHYSFS_File* MetaFile = PHYSFS_openRead(CurrentlyDetectedMETA.c_str());
+	PHYSFS_File* RFile = PHYSFS_openRead(CurrentlyDetectedMETA.c_str());
+
+	PHYSFS_sint32 Rsize = (PHYSFS_sint32)PHYSFS_fileLength(RFile);
 
 
-	//PHYSFS_write(MetaFile, &FilePath, 1, sizeof(std::string));
+	char* Rbuffer = new char[Rsize];
 
-	std::string PathLoaded;
-	PHYSFS_read(MetaFile, &PathLoaded, sizeof(std::string),1);
+	char* Rcursor = Rbuffer;
 
-	//std::vector<int>::iterator It = StoreMetaIDs_List.begin();
-	//for (int i = 0; i < StoreMetaIDs_List.size(); ++i) {
-	//
-	//	int ID = *It;
-	//	PHYSFS_read(MetaFile, &ID, 1, sizeof(int));
-	//
-	//	LoadMetaIDs_List.push_back(ID);
-	//
-	//	++It;
-	//}
+	PHYSFS_sint64 AmountRead = PHYSFS_read(RFile, Rbuffer, 1, Rsize);
+
+	uint Values[MAX_SIZE_ARRAY_META_FILE];
+
+	uint Rbytes = sizeof(Values);
+
+	memcpy(&Values, Rcursor, Rbytes);
+
+	Rcursor += Rbytes;
+
+	
+	
+	for (int o = 0; o < Values[0]+1; ++o) {
+		
+		
+
+		LoadMetaIDs_List.push_back(Values[o]);
+
+		
 
 
-	PHYSFS_close(MetaFile);
+	}
+
+	PHYSFS_close(RFile);
 
 }
 
