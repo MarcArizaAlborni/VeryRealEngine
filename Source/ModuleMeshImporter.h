@@ -17,6 +17,7 @@ struct aiScene;
 struct aiNode;
 struct StoredFile;
 struct aiMesh;
+class ImportSettings;
 
 struct MeshInfo
 {

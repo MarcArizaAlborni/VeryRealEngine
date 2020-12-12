@@ -11,13 +11,14 @@ public:
 	
 		GlobalScale = false;
 
-		Ignore_Culling = false;
+		Ignore_Cameras = false;
 
 		Axis_X = false;
 		Axis_Y = false;
 		Axis_Z = false;
-
-		
+		DesiredScaleX = 1.0f;
+		DesiredScaleY = 1.0f;
+		DesiredScaleZ = 1.0f;
 
 		FlipTexture = false;
 		Filter = false;
@@ -27,9 +28,12 @@ public:
 	~ImportSettings() {};
 	
 	//MESHES
-	bool GlobalScale;
-	
-	bool Ignore_Culling ;
+	bool GlobalScale; //d
+	float DesiredScaleX; //d
+	float DesiredScaleY;//d
+	float DesiredScaleZ;//d
+
+	bool Ignore_Cameras;
 
 	bool Axis_X ;
 	bool Axis_Y ;

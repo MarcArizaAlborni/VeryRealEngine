@@ -936,6 +936,13 @@ void ModuleEditor::CreateConfigWindow_ImportSettings()
 		ImGui::Text("MESHES");
 
 		ImGui::Checkbox("Use Global Scale", &Importer_Settings->GlobalScale);
+		if (Importer_Settings->GlobalScale) {
+			ImGui::InputFloat("X", &Importer_Settings->DesiredScaleX);
+			
+			ImGui::InputFloat("Y", &Importer_Settings->DesiredScaleY);
+		
+			ImGui::InputFloat("Z", &Importer_Settings->DesiredScaleZ);
+		}
 
 		ImGui::Text("Set Axis");
 		ImGui::SameLine();
@@ -953,7 +960,7 @@ void ModuleEditor::CreateConfigWindow_ImportSettings()
 			Importer_Settings->Axis_X = false;
 			Importer_Settings->Axis_Y = false;
 		}
-		ImGui::Checkbox("Ingore Culling", &Importer_Settings->Ignore_Culling);
+		ImGui::Checkbox("Dont Load Cam/Light", &Importer_Settings->Ignore_Cameras);
 		
 
 		
@@ -961,10 +968,16 @@ void ModuleEditor::CreateConfigWindow_ImportSettings()
 		ImGui::Separator();
 		ImGui::Text("TEXTURES");
 		ImGui::Checkbox("Flip Texture", &Importer_Settings->FlipTexture);
-		ImGui::Checkbox("Filtering", &Importer_Settings->Filter);
+		//ImGui::Checkbox("Filtering", &Importer_Settings->Filter);
 		ImGui::Checkbox("Wrapping", &Importer_Settings->Wrapping);
 
+		if (ImGui::Button("Save Config", { 90,20 })) {
+			ImGui::SameLine();
+			ImGui::Text("DONE!");
 
+
+
+		}
 
 	}
 
