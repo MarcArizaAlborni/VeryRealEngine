@@ -11,6 +11,7 @@
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
 #include "ResourceManager.h"
+#include "ModuleHierarchy.h"
 
 #include "libraries/MathGeoLib/include/Math/MathFunc.h"
 #include "libraries/MathGeoLib/include/Geometry/LineSegment.h"
@@ -223,7 +224,7 @@ update_status ModuleCamera3D::Update(float dt)
 		scene_camera->CalculateViewMatrix();
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) {
+	if ((App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) || App->hierarchy->ITEM_TO_BE_DELETED==true) {
 		std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
 		for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i) {
 
