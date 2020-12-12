@@ -22,8 +22,13 @@ public:
 
 		FlipTexture = false;
 		Filter = false;
-		Wrapping = false;
-	
+		WrappingS = false;
+		WrappingT = true;
+
+		Fill_CLAMP = false;
+		Fill_CLAMP_TO_BORDER = false;
+		Fill_REPEAT = true;
+		Fill_MIRROR_REPEAT = false;
 	};
 	~ImportSettings() {};
 	
@@ -43,10 +48,16 @@ public:
 
 	bool FlipTexture ;
 	bool Filter ;
-	bool Wrapping ;
+	bool WrappingT ;
+	bool WrappingS;
 
+	bool Fill_CLAMP;
+	bool Fill_CLAMP_TO_BORDER;
+	bool Fill_REPEAT;
+	bool Fill_MIRROR_REPEAT;
 	
-
+	
+	
 
 
 	

@@ -963,20 +963,65 @@ void ModuleEditor::CreateConfigWindow_ImportSettings()
 		ImGui::Checkbox("Dont Load Cam/Light", &Importer_Settings->Ignore_Cameras);
 		
 
-		
 	
 		ImGui::Separator();
 		ImGui::Text("TEXTURES");
 		ImGui::Checkbox("Flip Texture", &Importer_Settings->FlipTexture);
 		//ImGui::Checkbox("Filtering", &Importer_Settings->Filter);
-		ImGui::Checkbox("Wrapping", &Importer_Settings->Wrapping);
+
+		ImGui::Text("Texture Wrap");
+		if (ImGui::Checkbox("T", &Importer_Settings->WrappingS)) {
+
+			Importer_Settings->WrappingT = false;
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Checkbox("S", &Importer_Settings->WrappingT)) {
+
+			Importer_Settings->WrappingS = false;
+		}
+
+
+		ImGui::Text("Texture Fill");
+
+		if (ImGui::Checkbox("CLAMP", &Importer_Settings->Fill_CLAMP)) {
+
+			Importer_Settings->Fill_CLAMP_TO_BORDER = false;
+			Importer_Settings->Fill_MIRROR_REPEAT = false;
+			Importer_Settings->Fill_REPEAT= false;
+
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Checkbox("CLAMP_BORDER", &Importer_Settings->Fill_CLAMP_TO_BORDER)) {
+
+			Importer_Settings->Fill_CLAMP = false;
+			Importer_Settings->Fill_MIRROR_REPEAT = false;
+			Importer_Settings->Fill_REPEAT = false;
+
+		}
+		
+		if (ImGui::Checkbox("REPEAT", &Importer_Settings->Fill_REPEAT)) {
+
+			Importer_Settings->Fill_CLAMP = false;
+			Importer_Settings->Fill_CLAMP_TO_BORDER = false;
+			Importer_Settings->Fill_MIRROR_REPEAT = false;
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Checkbox("REPEAT_MIRROR", &Importer_Settings->Fill_MIRROR_REPEAT)) {
+
+			Importer_Settings->Fill_CLAMP = false;
+			Importer_Settings->Fill_CLAMP_TO_BORDER = false;
+			Importer_Settings->Fill_REPEAT = false;
+
+		}
+
+
 
 		if (ImGui::Button("Save Config", { 90,20 })) {
 			ImGui::SameLine();
 			ImGui::Text("DONE!");
-
-
-
 		}
 
 	}
