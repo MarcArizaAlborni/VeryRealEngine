@@ -7,6 +7,7 @@
 #include "ModuleCamera3D.h"
 #include "Component.h"
 #include "ComponentCamera.h"
+#include "ModuleInput.h"
 
 
 ModuleWindow::ModuleWindow(Application* app, const char* name, bool start_enabled) : Module(app,"Window", start_enabled)
@@ -90,17 +91,23 @@ bool ModuleWindow::Init()
 
 update_status ModuleWindow::Update(float dt)
 {
-	Game_Object* Camera_Item= App->geometrymanager->ObjectsOnScene[0]->Children_List[0];
-	Component_Camera* Cam_Trans = (Component_Camera*)Camera_Item->GetComponent(Component_Types::Camera);
+	//Game_Object* Camera_Item= App->geometrymanager->ObjectsOnScene[0]->Children_List[0];
+	//Component_Camera* Cam_Cmp = (Component_Camera*)Camera_Item->GetComponent(Component_Types::Camera);
+	//
+	//float3x4 View=App->camera->scene_camera->frustum.ViewMatrix();
+	//float4x4 viewMatrix = App->camera->currentCamera->frustum.ViewMatrix();
+	//
+	//App->geometrymanager->ObjectsOnScene[0]->Children_List[0];
+	//
+	//
+	//App->input->GetMouseX();
+	//App->input->GetMouseY();
+	//
+	// gluUnProject(App->input->GetMouseX(), App->input->GetMouseY(),1.0, View,)
 
-	App->geometrymanager->ObjectsOnScene[0]->Children_List[0];
 
-	int A = 0;
-	//
-    // std::vector<Game_Object*>::iterator.
-	//
-	// gluUnProject(0,0,1.0, App->camera->ViewMatrix)
-	//
+
+	
 	return UPDATE_CONTINUE;
 }
 
