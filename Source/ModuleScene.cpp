@@ -16,6 +16,7 @@
 #include "Primitive.h"
 #include "GameObject.h"
 #include "ModuleMeshImporter.h"
+#include "ModuleHierarchy.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "ModuleTextureImporter.h"
@@ -229,6 +230,7 @@ void ModuleScene::RemoveSelectedItem(Game_Object* Object)
 		Game_Object* Obj = *It;
 
 		
+
 		++It;
 		RemoveSelectedItem(Obj);
 
@@ -236,7 +238,7 @@ void ModuleScene::RemoveSelectedItem(Game_Object* Object)
 
 			Object->DeleteSpecificChildren(Obj);
 
-
+			App->hierarchy->ITEM_TO_BE_DELETED = false;
 			delete Obj;
 			Obj = nullptr;
 			ObjectToBeDeleted = nullptr;
