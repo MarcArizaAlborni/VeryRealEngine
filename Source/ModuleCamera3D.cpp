@@ -223,6 +223,18 @@ update_status ModuleCamera3D::Update(float dt)
 		scene_camera->CalculateViewMatrix();
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) {
+		std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
+		for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i) {
+
+			Game_Object* Obj = *It;
+
+			App->scene->RemoveSelectedItem(Obj);
+
+			++It;
+		}
+	}
+
 	return UPDATE_CONTINUE;
 }
 

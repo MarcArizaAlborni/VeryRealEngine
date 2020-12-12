@@ -105,6 +105,13 @@ update_status ModuleScene::Update(float dt)
 
 	GuizmoDrawn();
 
+
+
+
+	
+
+	
+
 	return UPDATE_CONTINUE;
 }
 
@@ -206,6 +213,41 @@ void ModuleScene::GuizmoDrawn()
 	}
 }
 
+
+
+
+void ModuleScene::RemoveSelectedItem(Game_Object* Object)
+{
+
+	
+	std::vector<Game_Object*>::iterator It = Object->Children_List.begin();
+
+	for (int i = 0; i < Object->Children_List.size(); ++i) {
+
+
+
+		Game_Object* Obj = *It;
+
+		
+		++It;
+		RemoveSelectedItem(Obj);
+
+		if (ObjectToBeDeleted == Obj) {
+
+			Object->DeleteSpecificChildren(Obj);
+
+
+			delete Obj;
+			Obj = nullptr;
+			ObjectToBeDeleted = nullptr;
+			i = Object->Children_List.size();
+		}
+
+		
+	}
+
+
+}
 
 
 
