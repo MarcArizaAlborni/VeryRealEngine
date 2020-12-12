@@ -159,7 +159,10 @@ update_status ModuleInput::PreUpdate(float dt)
 				//FBX IN LOWERCASE
 				if (CheckImportedFileType(".fbx", Drop_Path) != -1) {
 
-					LOG("Importing Mesh(fbx) with DropFile: Path-> %s", Drop_Path);
+					std::string FinalText = "[IMPORT]Importing Mesh(fbx) :" + Drop_Path;
+
+
+					LOG(FinalText.c_str());
 						const char* path_file = Drop_Path.c_str();
 						App->meshimporter->LoadFile_Mesh(path_file);
 						SDL_free((char*)path_file);
@@ -167,8 +170,8 @@ update_status ModuleInput::PreUpdate(float dt)
 				}
 				//FBX IN CAPS
 				else if (CheckImportedFileType(".FBX", Drop_Path) != -1) {
-
-					LOG("Importing Mesh(FBX) with DropFile: Path-> %s", Drop_Path);
+					std::string FinalText = "[IMPORT]Importing Mesh(FBX) :" + Drop_Path;
+					LOG(FinalText.c_str());
 					const char* path_file = Drop_Path.c_str();
 					App->meshimporter->LoadFile_Mesh(path_file);
 					SDL_free((char*)path_file);
@@ -180,7 +183,9 @@ update_status ModuleInput::PreUpdate(float dt)
 				else if (CheckImportedFileType(".png", Drop_Path) != -1) {
 					
 					const char* path_file = Drop_Path.c_str();
-					LOG("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
+
+					std::string FinalText = "[IMPORT]Importing Mesh(png) :" + Drop_Path;
+					LOG(FinalText.c_str());
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
 
 					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
@@ -197,8 +202,10 @@ update_status ModuleInput::PreUpdate(float dt)
 				//PNG IN CAPS
 				else if (CheckImportedFileType(".PNG", Drop_Path) != -1) {
 
+
 					const char* path_file = Drop_Path.c_str();
-					LOG("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
+					std::string FinalText = "[IMPORT]Importing Mesh(PNG) :" + Drop_Path;
+					LOG(FinalText.c_str());
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
 
 					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
@@ -215,7 +222,8 @@ update_status ModuleInput::PreUpdate(float dt)
 				//DDS IN LOWERCASE
 				else if (CheckImportedFileType(".dds", Drop_Path) != -1) {
 					const char* path_file = Drop_Path.c_str();
-					LOG("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
+					std::string FinalText = "[IMPORT]Importing Mesh(dds) :" + Drop_Path;
+					LOG(FinalText.c_str());
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
 
 					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
@@ -232,7 +240,8 @@ update_status ModuleInput::PreUpdate(float dt)
 				//DDS IN CAPS
 				else if (CheckImportedFileType(".DDS", Drop_Path) != -1) {
 					const char* path_file = Drop_Path.c_str();
-					LOG("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
+					std::string FinalText = "[IMPORT]Importing Mesh(DDS) :" + Drop_Path;
+					LOG(FinalText.c_str());
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
 
 					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
@@ -248,8 +257,9 @@ update_status ModuleInput::PreUpdate(float dt)
 			}
 
 			else {
-
-				LOG("Sorry, Could Not Load Object: Path-> %s", Drop_Path);
+			    std::string FinalText = "[ERROR]Sorry, Could Not Load Object:%s" + Drop_Path;
+			    LOG(FinalText.c_str());
+				
 
 			}
 

@@ -8,6 +8,7 @@
 #include "Component.h"
 #include "ComponentTexture.h"
 #include "ComponentMesh.h"
+#include "ModuleScene.h"
 
 
 #include "libraries/ImGUI/imgui.h"
@@ -206,13 +207,16 @@ void ModuleHierarchyGameObject::SelectItemHierarchyChildren(Game_Object* Selecte
 
             if (Object->ToBeDrawInspector == true) {
                 Object->ToBeDrawInspector = false;
+                App->scene->ObjectToBeDeleted = nullptr;
             }
             else {
                 Object->ToBeDrawInspector = true;
+                App->scene->ObjectToBeDeleted = Object;
             }
         }
         else {
             Object->ToBeDrawInspector = false;
+           // App->scene->ObjectToBeDeleted = nullptr;
         }
 
         if (Object->Children_List.size() > 0) {
@@ -226,13 +230,16 @@ void ModuleHierarchyGameObject::SelectItemHierarchyChildren(Game_Object* Selecte
 
                     if (ChildObject->ToBeDrawInspector == true) {
                         ChildObject->ToBeDrawInspector = false;
+                        App->scene->ObjectToBeDeleted = nullptr;
                     }
                     else {
                         ChildObject->ToBeDrawInspector = true;
+                        App->scene->ObjectToBeDeleted = ChildObject;
                     }
                 }
                 else {
                     ChildObject->ToBeDrawInspector = false;
+                   
                 }
 
                 ++ItC;

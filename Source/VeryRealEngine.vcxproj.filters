@@ -960,6 +960,9 @@
     <ClInclude Include="libraries\imGuizmo\ImSequencer.h">
       <Filter>Source\External Libraries\ImGuizmo</Filter>
     </ClInclude>
+    <ClInclude Include="ImportSettings.h">
+      <Filter>Source\Modules\Importers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

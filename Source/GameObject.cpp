@@ -39,7 +39,7 @@ Component* Game_Object::AddComponent(Component_Types typus)
 	switch (typus) {
 
 	case Component_Types::None:
-		LOG("[WARNING] The Emptyness of a component has been added to GameObject");
+		LOG("[WARNING] There wasn't a type of component to add to GameObject");
 		
 
 		break;
@@ -116,13 +116,16 @@ Component* Game_Object::AddExistingComponent(Component* component)
 	switch (component->type)
 	{
 	case(Component_Types::None):
-		//LOG("Component Type Error! Something broke...");
+		
+		LOG("[WARNING] There wasn't a type of component to add to GameObject");
 		break;
 	case(Component_Types::Transform):
+		LOG("[WARNING]Component Transform added to Existing GameObject");
 		Ret = new Component_Transform(this);
 		Transformations = (Component_Transform*)component;
 		break;
 	case(Component_Types::Texture):
+		LOG("[WARNING]Component Texture added to Existing GameObject");
 		if (this->GetComponent(Component_Types::Texture) != nullptr) {
 			return nullptr;
 		}
@@ -130,10 +133,12 @@ Component* Game_Object::AddExistingComponent(Component* component)
 		Textures = (Component_Texture*)component;
 		break;
 	case(Component_Types::Mesh):
+		LOG("[WARNING]Component Mesh added to Existing GameObject");
 		Mesh = (Component_Mesh*)component;
 		Ret = new Component_Mesh(this);
 		break;
 	case(Component_Types::Camera):
+		LOG("[WARNING]Component Camera added to Existing GameObject");
 		Camera = (Component_Camera*)component;
 		Ret = new Component_Camera(this);
 		break;

@@ -45,6 +45,10 @@ public:
 	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
 	ImGuizmo::MODE gizmoMode = ImGuizmo::MODE::WORLD;
 
+	Game_Object* ObjectToBeDeleted;
+
+	void RemoveSelectedItem(Game_Object* Object);
+
 private:
 	Game_Object* LookForSelectedChild(Game_Object* obj);
 

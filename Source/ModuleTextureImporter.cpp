@@ -4,6 +4,7 @@
 #include "ModuleMeshImporter.h"
 #include "ModuleEditor.h"
 #include "FileSystem.h"
+#include "ImportSettings.h"
 
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
@@ -66,7 +67,13 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 			TextureInformation->texture_path = path;
 
 			if (ImgInfo.Origin == IL_ORIGIN_UPPER_LEFT)
-				iluFlipImage();
+
+
+				iluFlipImage(); // WE USSUALY FLIP
+
+			if (App->editor->Importer_Settings->FlipTexture) {
+				iluFlipImage(); // WE DEFLIP IF THE OPTION IS ACTIVE
+			}
 
 			if (ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
 			{
@@ -185,9 +192,18 @@ uint ModuleTextureImporter::SetUpTexture(const void* texture, uint width, uint h
 	glGenTextures(1, &id_texture);
 	glBindTexture(GL_TEXTURE_2D, id_texture);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	if (App->editor->Importer_Settings->WrappingS) {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	}
+
+	if (App->editor->Importer_Settings->WrappingT) {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	}
+
+	
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, texture);

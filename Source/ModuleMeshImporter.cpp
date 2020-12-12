@@ -13,6 +13,7 @@
 #include "FileSystem.h"
 #include "ResourceManager.h"
 #include "ModuleScene.h"
+#include "ImportSettings.h"
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
 #include "libraries/Assimp/Assimp/include/postprocess.h"
@@ -129,6 +130,8 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 		ProcessNode(file_path, scene, scene->mRootNode, App->scene->ROOT_SCENE_OBJECT);
 
 		aiReleaseImport(scene);
+
+		LOG("[WARNING] Succes importing the scene & creating objects");
 	}
 
 	//App->filemanager->LoadMesh_META();
@@ -141,85 +144,131 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 
 void ModuleMeshImporter::ProcessNode(const char* file_path, const aiScene* scene, const aiNode* node,Game_Object* Parent)
 {
-	Game_Object* ObjectToAdd = new Game_Object(node->mName.C_Str());
+	bool SkipCamLight = false;
 
-	if (ObjectToAdd->name == "RootNode") {
-		ObjectToAdd->name = ObjectToAdd->name + std::to_string(App->hierarchy->RootNodeCount);
-		++App->hierarchy->RootNodeCount;
+	if (App->editor->Importer_Settings->Ignore_Cameras)
+	{
+		
+		for (int RemoveCam = 0; RemoveCam < scene->mNumCameras; ++RemoveCam) {
+
+			const char* name = scene->mCameras[RemoveCam]->mName.C_Str();
+
+			if (strstr(node->mName.C_Str(), name)) {
+				SkipCamLight = true;
+
+			}
+
+
+		}
+
+		for (int RemoveLight = 0; RemoveLight < scene->mNumLights; ++RemoveLight) {
+
+			const char* name = scene->mLights[RemoveLight]->mName.C_Str();
+
+			if (strstr(node->mName.C_Str(), name)) {
+				SkipCamLight = true;
+
+			}
+
+			
+
+
+		}
+		
+
 	}
 
-	aiVector3D  Imported_Translation;
-	aiVector3D  Imported_Scale;
-	aiQuaternion Imported_Rotation;
+	if (!SkipCamLight) {
 
-	node->mTransformation.Decompose(Imported_Scale, Imported_Rotation, Imported_Translation);
+		Game_Object* ObjectToAdd = new Game_Object(node->mName.C_Str());
 
-	float3	Translation_Calculated(Imported_Translation.x, Imported_Translation.y, Imported_Translation.z);
-	float3	Scale_Calculated(Imported_Scale.x, Imported_Scale.y, Imported_Scale.z);
-	Quat	Rotation_Calculated(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
-	Quat    RotMat;
-	
-	while (strstr(node->mName.C_Str(), "_$AssimpFbx$") != nullptr && node->mNumChildren == 1)
-	{
-		node = node->mChildren[0];
+
+
+		if (ObjectToAdd->name == "RootNode") {
+			ObjectToAdd->name = ObjectToAdd->name + std::to_string(App->hierarchy->RootNodeCount);
+			++App->hierarchy->RootNodeCount;
+		}
+
+		aiVector3D  Imported_Translation;
+		aiVector3D  Imported_Scale;
+		aiQuaternion Imported_Rotation;
 
 		node->mTransformation.Decompose(Imported_Scale, Imported_Rotation, Imported_Translation);
 
-		RotMat = Quat(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
+		float3	Translation_Calculated(Imported_Translation.x, Imported_Translation.y, Imported_Translation.z);
+		float3	Scale_Calculated(Imported_Scale.x, Imported_Scale.y, Imported_Scale.z);
+		Quat	Rotation_Calculated(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
+		Quat    RotMat;
 
-		Translation_Calculated.x += Imported_Translation.x;
-		Translation_Calculated.y += Imported_Translation.y;
-		Translation_Calculated.z += Imported_Translation.z;
+		while (strstr(node->mName.C_Str(), "_$AssimpFbx$") != nullptr && node->mNumChildren == 1)
+		{
+			node = node->mChildren[0];
 
-		Scale_Calculated.x *= Imported_Scale.x;
-		Scale_Calculated.y *= Imported_Scale.y;
-		Scale_Calculated.z *= Imported_Scale.z;
+			node->mTransformation.Decompose(Imported_Scale, Imported_Rotation, Imported_Translation);
 
-		Rotation_Calculated = Rotation_Calculated * RotMat;
+			RotMat = Quat(Imported_Rotation.x, Imported_Rotation.y, Imported_Rotation.z, Imported_Rotation.w);
 
-	}
+			Translation_Calculated.x += Imported_Translation.x;
+			Translation_Calculated.y += Imported_Translation.y;
+			Translation_Calculated.z += Imported_Translation.z;
 
-	if (node->mNumMeshes > 0) {
+			Scale_Calculated.x *= Imported_Scale.x;
+			Scale_Calculated.y *= Imported_Scale.y;
+			Scale_Calculated.z *= Imported_Scale.z;
 
-		std::vector<MeshInfo*> Mesh = LoadSceneMeshes(scene, file_path, node);
-		Component_Mesh* Comp_Mesh = new Component_Mesh(ObjectToAdd);
+			Rotation_Calculated = Rotation_Calculated * RotMat;
 
-		for (int number = 0; number < Mesh.size(); ++number) {
-
-		
-			Comp_Mesh->CreateMesh(Mesh[number]);
-			Comp_Mesh->CreatePath(file_path);
-			ObjectToAdd->AddExistingComponent(Comp_Mesh);
-			
-			aiMesh* MeshImported = scene->mMeshes[node->mMeshes[number]];
-
-			if (MeshImported->mMaterialIndex >= 0) {
-				
-				aiMaterial* texture = scene->mMaterials[MeshImported->mMaterialIndex];
-
-				CreateMaterials(texture, ObjectToAdd);
-			}
 		}
-		
-	}
 
-	Parent->GenerateChildren(ObjectToAdd);
+		if (node->mNumMeshes > 0) {
 
-	//ObjectToAdd->Parent = Parent;
+			std::vector<MeshInfo*> Mesh = LoadSceneMeshes(scene, file_path, node);
+			Component_Mesh* Comp_Mesh = new Component_Mesh(ObjectToAdd);
 
-	ObjectToAdd->Transformations->UpdateTransformationsObjects(Translation_Calculated, Scale_Calculated, Rotation_Calculated);
-	Component_Transform* MeshTrans = (Component_Transform*)ObjectToAdd->GetComponent(Component_Types::Transform);
+			for (int number = 0; number < Mesh.size(); ++number) {
 
-	if (ObjectToAdd->Mesh != nullptr && MeshTrans != nullptr)
-	{
-		ObjectToAdd->Mesh->CreateLocalAABB();
-		ObjectToAdd->Mesh->GetGlobalAABB();
-		ObjectToAdd->Mesh->GenerateBBBufers();
-	}
 
-	for (uint i = 0; i < node->mNumChildren; ++i)
-	{
-		ProcessNode(file_path, scene, node->mChildren[i], ObjectToAdd);
+				Comp_Mesh->CreateMesh(Mesh[number]);
+				Comp_Mesh->CreatePath(file_path);
+				ObjectToAdd->AddExistingComponent(Comp_Mesh);
+
+				aiMesh* MeshImported = scene->mMeshes[node->mMeshes[number]];
+
+				if (MeshImported->mMaterialIndex >= 0) {
+
+					aiMaterial* texture = scene->mMaterials[MeshImported->mMaterialIndex];
+
+					CreateMaterials(texture, ObjectToAdd);
+				}
+			}
+
+		}
+
+		Parent->GenerateChildren(ObjectToAdd);
+
+		//ObjectToAdd->Parent = Parent;
+		if (App->editor->Importer_Settings->GlobalScale) {
+
+			Scale_Calculated.x = App->editor->Importer_Settings->DesiredScaleX;
+			Scale_Calculated.y = App->editor->Importer_Settings->DesiredScaleY;
+			Scale_Calculated.z = App->editor->Importer_Settings->DesiredScaleZ;
+
+		}
+
+		ObjectToAdd->Transformations->UpdateTransformationsObjects(Translation_Calculated, Scale_Calculated, Rotation_Calculated);
+		Component_Transform* MeshTrans = (Component_Transform*)ObjectToAdd->GetComponent(Component_Types::Transform);
+
+		if (ObjectToAdd->Mesh != nullptr && MeshTrans != nullptr)
+		{
+			ObjectToAdd->Mesh->CreateLocalAABB();
+			ObjectToAdd->Mesh->GetGlobalAABB();
+			ObjectToAdd->Mesh->GenerateBBBufers();
+		}
+
+		for (uint i = 0; i < node->mNumChildren; ++i)
+		{
+			ProcessNode(file_path, scene, node->mChildren[i], ObjectToAdd);
+		}
 	}
 
 }

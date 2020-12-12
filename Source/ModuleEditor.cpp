@@ -10,7 +10,7 @@
 #include "ModuleInspector.h"
 #include "ResourceManager.h"
 #include "ModuleScene.h"
-
+#include "ImportSettings.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "GameObject.h"
@@ -131,6 +131,13 @@ bool ModuleEditor::Start()
 	if (!SceneElement->ReadJValueRoot()) {
 		SceneElement = new Scene_Manager();
 	}
+
+
+	//importer
+
+	Importer_Settings = new ImportSettings();
+
+	
 
 
 	return ret;
@@ -676,6 +683,7 @@ void ModuleEditor::CreateConfigWindow() {
 		CreateConfigWindow_FileSystem();
 		CreateConfigWindow_Input();
 		CreateConfigWindow_Hardware();
+		CreateConfigWindow_ImportSettings();
 		CreateConfigWindow_Resource();
 		ImGui::End();
 
@@ -722,11 +730,8 @@ void ModuleEditor::CreateConfigWindow_Application() {
 			}
 		}
 
-		/*char title[25];
-		sprintf_s(title, 25, "Framerate %.1f", App->fps_log[App->fps_log.size() - 1]);
-		ImGui::PlotHistogram("##framerate", &App->fps_log[0], App->fps_log.size(), 0, title, 0.0f, 140.0f, ImVec2(310, 100));
-		sprintf_s(title, 25, "Milliseconds %.1f", App->ms_log[App->ms_log.size() - 1]);
-		ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));*/
+		
+
 
 		char title[25];
 		sprintf_s(title, 25, "Framerate %.1f", App->fps_log[App->fps_log.size() - 1]);
@@ -923,6 +928,106 @@ void ModuleEditor::CreateConfigWindow_Hardware()
 
 }
 
+void ModuleEditor::CreateConfigWindow_ImportSettings()
+{
+
+	if (ImGui::CollapsingHeader("Import Settings")) {
+
+		ImGui::Text("MESHES");
+
+		ImGui::Checkbox("Use Global Scale", &Importer_Settings->GlobalScale);
+		if (Importer_Settings->GlobalScale) {
+			ImGui::InputFloat("X", &Importer_Settings->DesiredScaleX);
+			
+			ImGui::InputFloat("Y", &Importer_Settings->DesiredScaleY);
+		
+			ImGui::InputFloat("Z", &Importer_Settings->DesiredScaleZ);
+		}
+
+		ImGui::Text("Set Axis");
+		ImGui::SameLine();
+		if (ImGui::Checkbox("X", &Importer_Settings->Axis_X)) {
+			Importer_Settings->Axis_Y = false;
+			Importer_Settings->Axis_Z = false;
+		}
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Y", &Importer_Settings->Axis_Y)) {
+			Importer_Settings->Axis_X = false;
+			Importer_Settings->Axis_Z = false;
+		}
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Z", &Importer_Settings->Axis_Z)) {
+			Importer_Settings->Axis_X = false;
+			Importer_Settings->Axis_Y = false;
+		}
+		ImGui::Checkbox("Dont Load Cam/Light", &Importer_Settings->Ignore_Cameras);
+		
+
+	
+		ImGui::Separator();
+		ImGui::Text("TEXTURES");
+		ImGui::Checkbox("Flip Texture", &Importer_Settings->FlipTexture);
+		//ImGui::Checkbox("Filtering", &Importer_Settings->Filter);
+
+		ImGui::Text("Texture Wrap");
+		if (ImGui::Checkbox("T", &Importer_Settings->WrappingS)) {
+
+			Importer_Settings->WrappingT = false;
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Checkbox("S", &Importer_Settings->WrappingT)) {
+
+			Importer_Settings->WrappingS = false;
+		}
+
+
+		ImGui::Text("Texture Fill");
+
+		if (ImGui::Checkbox("CLAMP", &Importer_Settings->Fill_CLAMP)) {
+
+			Importer_Settings->Fill_CLAMP_TO_BORDER = false;
+			Importer_Settings->Fill_MIRROR_REPEAT = false;
+			Importer_Settings->Fill_REPEAT= false;
+
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Checkbox("CLAMP_BORDER", &Importer_Settings->Fill_CLAMP_TO_BORDER)) {
+
+			Importer_Settings->Fill_CLAMP = false;
+			Importer_Settings->Fill_MIRROR_REPEAT = false;
+			Importer_Settings->Fill_REPEAT = false;
+
+		}
+		
+		if (ImGui::Checkbox("REPEAT", &Importer_Settings->Fill_REPEAT)) {
+
+			Importer_Settings->Fill_CLAMP = false;
+			Importer_Settings->Fill_CLAMP_TO_BORDER = false;
+			Importer_Settings->Fill_MIRROR_REPEAT = false;
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Checkbox("REPEAT_MIRROR", &Importer_Settings->Fill_MIRROR_REPEAT)) {
+
+			Importer_Settings->Fill_CLAMP = false;
+			Importer_Settings->Fill_CLAMP_TO_BORDER = false;
+			Importer_Settings->Fill_REPEAT = false;
+
+		}
+
+
+
+		if (ImGui::Button("Save Config", { 90,20 })) {
+			ImGui::SameLine();
+			ImGui::Text("DONE!");
+		}
+
+	}
+
+}
+
 
 void ModuleEditor::GetHardwareStatus()
 {
@@ -1070,7 +1175,26 @@ void ModuleEditor::CreateConsoleWindow()
 
 			std::string Text = *It;
 
-			ImGui::Text("%s", Text.c_str());
+			if (strstr(Text.c_str(), "[WARNING]")) {
+
+				textColor = { 1.0f, 1.0f, 0.0f, 0.7f };
+
+			}
+
+			if (strstr(Text.c_str(), "[IMPORT]")) {
+
+				textColor = { 1.0f,0.2F, 1.0f, 0.7f };
+
+			}
+
+
+			if (strstr(Text.c_str(), "[ERROR]")) {
+
+				textColor = { 1.0f, 0.0f, 0.3f, 0.7f };
+
+			}
+
+			ImGui::TextColored(textColor,"%s", Text.c_str());
 
 			++It;
 		}

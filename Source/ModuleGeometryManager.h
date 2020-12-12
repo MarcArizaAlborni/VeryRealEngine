@@ -66,6 +66,7 @@ public:
 	bool ContainsAABB(const AABB& aabb) const;
 
 	std::vector<Game_Object*> ObjectsOnScene;
+	
 
 	//------------ CONSOLE STUFF
 
