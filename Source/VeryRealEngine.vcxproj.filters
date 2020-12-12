@@ -948,6 +948,9 @@
     <ClInclude Include="libraries\MathGeoLib\include\Time\Clock.h">
       <Filter>Source\External Libraries\MathGeoLib</Filter>
     </ClInclude>
+    <ClInclude Include="ImportSettings.h">
+      <Filter>Source\Modules\Importers</Filter>
+    </ClInclude>
     <ClInclude Include="libraries\imGuizmo\ImCurveEdit.h">
       <Filter>Source\External Libraries\ImGuizmo</Filter>
     </ClInclude>
@@ -960,8 +963,8 @@
     <ClInclude Include="libraries\imGuizmo\ImSequencer.h">
       <Filter>Source\External Libraries\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="ImportSettings.h">
-      <Filter>Source\Modules\Importers</Filter>
+    <ClInclude Include="libraries\imGuizmo\ImZoomSlider.h">
+      <Filter>Source\External Libraries\ImGuizmo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1032,7 +1035,7 @@
       <UniqueIdentifier>{89e90d3b-e174-4579-99ac-fcf897c9bdf9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\External Libraries\ImGuizmo">
-      <UniqueIdentifier>{1a96ca2a-69ae-429c-8f2b-af71792b1f39}</UniqueIdentifier>
+      <UniqueIdentifier>{dd72216d-50f2-4ef3-8483-6b1ed89a324a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

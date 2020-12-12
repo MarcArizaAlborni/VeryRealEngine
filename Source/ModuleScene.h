@@ -41,9 +41,10 @@ public:
 
 	//Guizmos
 	void GuizmoDrawn();
+	void ChangeOperationGuizmo(ImGuizmo::OPERATION& op);
 
-	ImGuizmo::OPERATION gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
-	ImGuizmo::MODE gizmoMode = ImGuizmo::MODE::WORLD;
+	ImGuizmo::OPERATION g_operator = ImGuizmo::OPERATION::TRANSLATE;
+	ImGuizmo::MODE mode = ImGuizmo::MODE::WORLD;
 
 	Game_Object* ObjectToBeDeleted;
 
