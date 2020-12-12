@@ -722,11 +722,8 @@ void ModuleEditor::CreateConfigWindow_Application() {
 			}
 		}
 
-		/*char title[25];
-		sprintf_s(title, 25, "Framerate %.1f", App->fps_log[App->fps_log.size() - 1]);
-		ImGui::PlotHistogram("##framerate", &App->fps_log[0], App->fps_log.size(), 0, title, 0.0f, 140.0f, ImVec2(310, 100));
-		sprintf_s(title, 25, "Milliseconds %.1f", App->ms_log[App->ms_log.size() - 1]);
-		ImGui::PlotHistogram("##milliseconds", &App->ms_log[0], App->ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));*/
+		
+
 
 		char title[25];
 		sprintf_s(title, 25, "Framerate %.1f", App->fps_log[App->fps_log.size() - 1]);
@@ -1070,7 +1067,26 @@ void ModuleEditor::CreateConsoleWindow()
 
 			std::string Text = *It;
 
-			ImGui::Text("%s", Text.c_str());
+			if (strstr(Text.c_str(), "[WARNING]")) {
+
+				textColor = { 1.0f, 1.0f, 0.0f, 0.7f };
+
+			}
+
+			if (strstr(Text.c_str(), "[IMPORT]")) {
+
+				textColor = { 1.0f,0.2F, 1.0f, 0.7f };
+
+			}
+
+
+			if (strstr(Text.c_str(), "[ERROR]")) {
+
+				textColor = { 1.0f, 0.0f, 0.3f, 0.7f };
+
+			}
+
+			ImGui::TextColored(textColor,"%s", Text.c_str());
 
 			++It;
 		}

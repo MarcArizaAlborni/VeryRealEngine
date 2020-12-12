@@ -129,6 +129,8 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 		ProcessNode(file_path, scene, scene->mRootNode, App->scene->ROOT_SCENE_OBJECT);
 
 		aiReleaseImport(scene);
+
+		LOG("[WARNING] Succes importing the scene & creating objects");
 	}
 
 	//App->filemanager->LoadMesh_META();
