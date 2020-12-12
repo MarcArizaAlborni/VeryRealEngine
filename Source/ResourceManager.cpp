@@ -590,7 +590,11 @@ void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
 				if (App->filemanager->Exists(FinalName.c_str())) {
 
 					
-					PHYSFS_delete(FinalName.c_str());
+
+					if (PHYSFS_delete(FinalName.c_str()) == 0) {
+
+						LOG("[ERROR] Error deleting folder, make sure it is empty! ");
+					}
 
 
 
