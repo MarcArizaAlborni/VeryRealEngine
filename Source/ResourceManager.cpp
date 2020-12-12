@@ -356,6 +356,9 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 	
 	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->AddFolderIcon.texture_id, { 30,30 })) {
 		
+		CreateNewFolder = true;
+
+
 	}
 
 	ImGui::SameLine();

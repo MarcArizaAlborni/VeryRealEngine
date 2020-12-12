@@ -57,7 +57,9 @@ public:
 	bool resource_rename_folder_window = false;
 
 	
-	
+	bool CreateNewFolder = false;
+
+	std::string PathFolderToBeCreated = "";
 
 
 

@@ -78,6 +78,7 @@ private:
 
 	ImVec4 clear_color;
 
+	void DrawGuizmos();
 
 public:
 

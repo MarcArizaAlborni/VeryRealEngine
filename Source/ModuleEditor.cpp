@@ -171,7 +171,7 @@ update_status ModuleEditor::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
 		//LoadScene();
 	}
-
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -246,6 +246,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 		App->resources->CreateResourcesWindow();
 		App->resources->CreateWindowDropFile();
 		CreateTextureVisualizer();
+		DrawGuizmos();
 
 
 		//Popups close
@@ -437,6 +438,18 @@ void ModuleEditor::CreateAboutWindow()
 	}
 }
 
+
+void ModuleEditor::DrawGuizmos()
+{
+	//ImGui::Begin("GUIZMOOOO");
+	//
+	//ImGui::End();
+
+
+
+
+
+}
 
 // ----------------------------MENU BAR-------------------------------------
 //Creation
