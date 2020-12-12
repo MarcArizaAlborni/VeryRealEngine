@@ -167,7 +167,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     const char* Name;
     Name = item->name.c_str();
 
-    if (MeshInfo != nullptr)
+    if (MeshInfo != nullptr && MeshInfo->is_Drawn)
     {
         glEnable(GL_STENCIL_TEST);
         glStencilFunc(GL_ALWAYS, 1, -1);
@@ -430,13 +430,6 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             if (ImGui::DragFloat("Far Plane Distance", &farPlane, 0.5f, 0.1f))
             {
                 comp_camera->SetFarPlane(farPlane);
-            }
-
-            //Should we???????????
-            float aspectRatio = comp_camera->GetAspectRatio();
-            if (ImGui::DragFloat("Aspect Ratio", &aspectRatio, 0.5f, 0.1f))
-            {
-                comp_camera->SetAspectRatio(aspectRatio);
             }
             
         }

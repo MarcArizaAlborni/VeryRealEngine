@@ -81,6 +81,7 @@ bool ModuleEditor::Start()
 
 	// States
 	show_demo_window = true;
+	
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, gl_context);
@@ -220,8 +221,8 @@ update_status ModuleEditor::PostUpdate(float dt)
 	ImGui::NewFrame();
 
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-	/*if (show_demo_window)
-		ImGui::ShowDemoWindow(&show_demo_window);*/
+	//if (show_demo_window)
+	//	ImGui::ShowDemoWindow(&show_demo_window);
 
 	if (show_ui == true)
 	{
@@ -603,7 +604,6 @@ void ModuleEditor::CreateBar_Play()
 				play_mode = false;
 				editor_mode = true;
 				//Reset Pos func
-				App->scene->LoadScene();
 				
 			}
 		}
@@ -1226,5 +1226,7 @@ void ModuleEditor::ItChildrenObjMeshCount(Game_Object* Object, MeshInfo* Mesh)
 
 	}
 }
+
+
 
 
