@@ -96,6 +96,7 @@
     <ClInclude Include="ComponentTransform.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ImportSettings.h" />
     <ClInclude Include="JScene.h" />
     <ClInclude Include="libraries\DevIL\include\config.h" />
     <ClInclude Include="libraries\DevIL\include\devil_internal_exports.h" />

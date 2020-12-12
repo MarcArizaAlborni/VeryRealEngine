@@ -10,7 +10,7 @@
 #include "ModuleInspector.h"
 #include "ResourceManager.h"
 #include "ModuleScene.h"
-
+#include "ImportSettings.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "GameObject.h"
@@ -130,6 +130,13 @@ bool ModuleEditor::Start()
 	if (!SceneElement->ReadJValueRoot()) {
 		SceneElement = new Scene_Manager();
 	}
+
+
+	//importer
+
+	Importer_Settings = new ImportSettings();
+
+	
 
 
 	return ret;
@@ -676,6 +683,7 @@ void ModuleEditor::CreateConfigWindow() {
 		CreateConfigWindow_FileSystem();
 		CreateConfigWindow_Input();
 		CreateConfigWindow_Hardware();
+		CreateConfigWindow_ImportSettings();
 		CreateConfigWindow_Resource();
 		ImGui::End();
 
@@ -916,6 +924,48 @@ void ModuleEditor::CreateConfigWindow_Hardware()
 		ImGui::Text("SSE42 Active:");
 		ImGui::SameLine();
 		ImGui::TextColored({ 255,255,0,1 }, "%d", HardwareStat.CPU.isActive_SSE42);
+	}
+
+}
+
+void ModuleEditor::CreateConfigWindow_ImportSettings()
+{
+
+	if (ImGui::CollapsingHeader("Import Settings")) {
+
+		ImGui::Text("MESHES");
+
+		ImGui::Checkbox("Use Global Scale", &Importer_Settings->GlobalScale);
+
+		ImGui::Text("Set Axis");
+		ImGui::SameLine();
+		if (ImGui::Checkbox("X", &Importer_Settings->Axis_X)) {
+			Importer_Settings->Axis_Y = false;
+			Importer_Settings->Axis_Z = false;
+		}
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Y", &Importer_Settings->Axis_Y)) {
+			Importer_Settings->Axis_X = false;
+			Importer_Settings->Axis_Z = false;
+		}
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Z", &Importer_Settings->Axis_Z)) {
+			Importer_Settings->Axis_X = false;
+			Importer_Settings->Axis_Y = false;
+		}
+		ImGui::Checkbox("Ingore Culling", &Importer_Settings->Ignore_Culling);
+		
+
+		
+	
+		ImGui::Separator();
+		ImGui::Text("TEXTURES");
+		ImGui::Checkbox("Flip Texture", &Importer_Settings->FlipTexture);
+		ImGui::Checkbox("Filtering", &Importer_Settings->Filter);
+		ImGui::Checkbox("Wrapping", &Importer_Settings->Wrapping);
+
+
+
 	}
 
 }

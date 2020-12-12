@@ -42,7 +42,7 @@ struct Hardware_Status {
 
 
 };
-
+class ImportSettings;
 class ModuleEditor : public Module
 {
 public:
@@ -144,6 +144,7 @@ public:
 	void CreateConfigWindow_FileSystem();
 	void CreateConfigWindow_Input();
 	void CreateConfigWindow_Hardware();
+	void CreateConfigWindow_ImportSettings();
 	void GetHardwareStatus();
 	void CreateConfigWindow_Resource();
 	void CreateTextureVisualizer();
@@ -160,6 +161,10 @@ public:
 
 	bool show_grid;
 	bool show_ui;
+
+	//Imports
+
+	ImportSettings* Importer_Settings;
 
 	//texture visualizer window
 	bool VisualizeTextureWindow = false;
