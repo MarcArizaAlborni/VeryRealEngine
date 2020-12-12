@@ -28,6 +28,7 @@ public:
 	virtual ~ModuleWindow();
 
 	bool Init();
+	update_status Update(float dt);
 	bool CleanUp();
 
 	void SetTitle(const char* title);
@@ -53,6 +54,8 @@ public:
 	void SetResizable(bool resizable);
 	void SetFullScreenDesktop(bool fullscreen_desktop);
 
+	int GetWindow_Height();
+	int GetWindow_Width();
 	//Window Settings
 	float window_brightness = 1.0f;
 

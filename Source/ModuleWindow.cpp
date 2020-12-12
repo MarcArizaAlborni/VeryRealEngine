@@ -4,6 +4,9 @@
 #include "ModuleScene.h"
 #include "ModuleEditor.h"
 #include "GameObject.h"
+#include "ModuleCamera3D.h"
+#include "Component.h"
+#include "ComponentCamera.h"
 
 
 ModuleWindow::ModuleWindow(Application* app, const char* name, bool start_enabled) : Module(app,"Window", start_enabled)
@@ -84,6 +87,24 @@ bool ModuleWindow::Init()
 
 	return ret;
 }
+
+update_status ModuleWindow::Update(float dt)
+{
+	Game_Object* Camera_Item= App->geometrymanager->ObjectsOnScene[0]->Children_List[0];
+	Component_Camera* Cam_Trans = (Component_Camera*)Camera_Item->GetComponent(Component_Types::Camera);
+
+	App->geometrymanager->ObjectsOnScene[0]->Children_List[0];
+
+	int A = 0;
+	//
+    // std::vector<Game_Object*>::iterator.
+	//
+	// gluUnProject(0,0,1.0, App->camera->ViewMatrix)
+	//
+	return UPDATE_CONTINUE;
+}
+
+
 
 // Called before quitting
 bool ModuleWindow::CleanUp()
@@ -186,6 +207,25 @@ void ModuleWindow::SetFullScreenDesktop(bool fullscreen_desktop)
 	}
 		
 	window_full_desktop = fullscreen_desktop;
+}
+
+int ModuleWindow::GetWindow_Height()
+{
+	
+	int Height;
+	int Width;
+	SDL_GetWindowSize(window, &Width, &Height);
+
+	return Height;
+}
+
+int ModuleWindow::GetWindow_Width()
+{
+	int Height;
+	int Width;
+	SDL_GetWindowSize(window, &Width, &Height);
+
+	return Width;
 }
 
 void ModuleWindow::CreateConsolelog(const char file[], int line, const char* format, ...)
