@@ -47,7 +47,7 @@ ModuleScene::~ModuleScene()
 // Called before render is available
 bool ModuleScene::Init()
 {
-	LOGFIX("Creating Scene context");
+	LOG("Creating Scene context");
 	bool ret = true;
 
 	return ret;
@@ -121,7 +121,7 @@ update_status ModuleScene::PostUpdate(float dt)
 // Called before quitting
 bool ModuleScene::CleanUp()
 {
-	LOGFIX("Destroying Scene");
+	LOG("Destroying Scene");
 
 
 	return true;
@@ -241,18 +241,4 @@ Game_Object* ModuleScene::LookForSelectedChild(Game_Object* obj)
 	
 }
 
-void ModuleScene::CreateConsolelog(const char file[], int line, const char* format, ...)
-{
-	static char tmp_string[4096];
-	static char tmp_string2[4096];
-	static va_list  ap;
 
-	// Construct the string from variable arguments
-	va_start(ap, format);
-	vsprintf_s(tmp_string, 4096, format, ap);
-	va_end(ap);
-	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
-	OutputDebugString(tmp_string2);
-
-	App->editor->ConsoleLogs.push_back(tmp_string2);
-}

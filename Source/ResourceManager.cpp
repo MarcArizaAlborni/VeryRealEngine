@@ -10,6 +10,8 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentTexture.h"
+#include "libraries/PhysFS/include/physfs.h"
+#pragma comment( lib, "libraries/PhysFS/libx86/physfs.lib" )
 
 namespace fs = std::filesystem;
 
@@ -585,8 +587,16 @@ void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
 				
 				std::string FinalName = PreName + FileName;
 				
+				if (App->filemanager->Exists(FinalName.c_str())) {
 
-				fs::remove(FinalName);
+					
+					PHYSFS_delete(FinalName.c_str());
+
+
+
+				}
+				
+				
 				WantDeleteFolder = false;
 			    Item->toBeDeleted = false;
 				ModificationHasBeen = true;
@@ -1203,20 +1213,6 @@ void ResourceManager::ClearResourceList(Resource* Parent)
 	
 }
 
-void ResourceManager::CreateConsolelog(const char file[], int line, const char* format, ...)
-{
-	static char tmp_string[4096];
-	static char tmp_string2[4096];
-	static va_list  ap;
 
-	// Construct the string from variable arguments
-	va_start(ap, format);
-	vsprintf_s(tmp_string, 4096, format, ap);
-	va_end(ap);
-	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
-	OutputDebugString(tmp_string2);
-
-	App->editor->ConsoleLogs.push_back(tmp_string2);
-}
 
 

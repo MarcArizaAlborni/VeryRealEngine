@@ -38,14 +38,14 @@ ModuleInput::~ModuleInput()
 // Called before render is available
 bool ModuleInput::Init()
 {
-	LOGFIX("Init SDL input event system");
+	LOG("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
 	ExitEngine = false;
 
 	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
-		LOGFIX("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
+		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 
@@ -159,7 +159,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				//FBX IN LOWERCASE
 				if (CheckImportedFileType(".fbx", Drop_Path) != -1) {
 
-						LOGFIX("Importing Mesh(fbx) with DropFile: Path-> %s", Drop_Path);
+					LOG("Importing Mesh(fbx) with DropFile: Path-> %s", Drop_Path);
 						const char* path_file = Drop_Path.c_str();
 						App->meshimporter->LoadFile_Mesh(path_file);
 						SDL_free((char*)path_file);
@@ -168,7 +168,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				//FBX IN CAPS
 				else if (CheckImportedFileType(".FBX", Drop_Path) != -1) {
 
-					LOGFIX("Importing Mesh(FBX) with DropFile: Path-> %s", Drop_Path);
+					LOG("Importing Mesh(FBX) with DropFile: Path-> %s", Drop_Path);
 					const char* path_file = Drop_Path.c_str();
 					App->meshimporter->LoadFile_Mesh(path_file);
 					SDL_free((char*)path_file);
@@ -180,7 +180,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				else if (CheckImportedFileType(".png", Drop_Path) != -1) {
 					
 					const char* path_file = Drop_Path.c_str();
-					LOGFIX("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
+					LOG("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
 
 					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
@@ -198,7 +198,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				else if (CheckImportedFileType(".PNG", Drop_Path) != -1) {
 
 					const char* path_file = Drop_Path.c_str();
-					LOGFIX("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
+					LOG("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
 
 					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
@@ -215,7 +215,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				//DDS IN LOWERCASE
 				else if (CheckImportedFileType(".dds", Drop_Path) != -1) {
 					const char* path_file = Drop_Path.c_str();
-					LOGFIX("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
+					LOG("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
 
 					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
@@ -232,7 +232,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				//DDS IN CAPS
 				else if (CheckImportedFileType(".DDS", Drop_Path) != -1) {
 					const char* path_file = Drop_Path.c_str();
-					LOGFIX("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
+					LOG("Importing Texture(png) with DropFile: Path-> %s", Drop_Path);
 					ImportedTexture = App->textureImporter->LoadTextureImage(path_file);
 
 					App->textureImporter->AvailableTextures.push_back(&ImportedTexture);
@@ -249,7 +249,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			else {
 
-				LOGFIX("Sorry, Could Not Load Object: Path-> %s", Drop_Path);
+				LOG("Sorry, Could Not Load Object: Path-> %s", Drop_Path);
 
 			}
 
@@ -281,7 +281,7 @@ update_status ModuleInput::Update(float dt)
 // Called before quitting
 bool ModuleInput::CleanUp()
 {
-	LOGFIX("Quitting SDL input event subsystem");
+	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
 }
@@ -344,19 +344,4 @@ void ModuleInput::CheckSelectedChild(Game_Object* Object,TextureInfo Texture)
 
 }
 
-void ModuleInput::CreateConsolelog(const char file[], int line, const char* format, ...)
-{
-	static char tmp_string[4096];
-	static char tmp_string2[4096];
-	static va_list  ap;
 
-	// Construct the string from variable arguments
-	va_start(ap, format);
-	vsprintf_s(tmp_string, 4096, format, ap);
-	va_end(ap);
-	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
-	OutputDebugString(tmp_string2);
-
-
-	App->editor->ConsoleLogs.push_back(tmp_string2);
-}

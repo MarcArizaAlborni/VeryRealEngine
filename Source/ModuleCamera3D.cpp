@@ -25,7 +25,7 @@ ModuleCamera3D::~ModuleCamera3D()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
 {
-	LOGFIX("Setting up the camera");
+	LOG("Setting up the camera");
 	bool ret = true;
 
 	scene_camera = new Component_Camera(App->scene->object_scene_camera);
@@ -37,7 +37,7 @@ bool ModuleCamera3D::Start()
 // -----------------------------------------------------------------
 bool ModuleCamera3D::CleanUp()
 {
-	LOGFIX("Cleaning camera");
+	LOG("Cleaning camera");
 
 	return true;
 }
@@ -157,7 +157,7 @@ update_status ModuleCamera3D::Update(float dt)
 				if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 				{
 					CenterToObject(selected_object);
-					LOGFIX("Centering Object");
+					LOG("Centering Object");
 				}
 
 				if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
@@ -195,7 +195,7 @@ update_status ModuleCamera3D::Update(float dt)
 					if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 					{
 						CenterToObject(selected_object_child);
-						LOGFIX("Centering Object");
+						LOG("Centering Object");
 					}
 
 					if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
@@ -293,19 +293,4 @@ Component_Camera* ModuleCamera3D::GetSceneCamera() const
 	return scene_camera;
 }
 
-void ModuleCamera3D::CreateConsolelog(const char file[], int line, const char* format, ...)
-{
-	static char tmp_string[4096];
-	static char tmp_string2[4096];
-	static va_list  ap;
 
-	// Construct the string from variable arguments
-	va_start(ap, format);
-	vsprintf_s(tmp_string, 4096, format, ap);
-	va_end(ap);
-	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
-	OutputDebugString(tmp_string2);
-
-
-	App->editor->ConsoleLogs.push_back(tmp_string2);
-}

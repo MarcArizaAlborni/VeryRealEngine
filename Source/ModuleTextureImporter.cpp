@@ -46,7 +46,7 @@ bool ModuleTextureImporter::Start()
 
 TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 {
-	//LOGFIX("Importing Texture %s...", path);
+	//LOG("Importing Texture %s...", path);
 	TextureInfo InfoTexture;
 	TextureInfo* TextureInformation = new TextureInfo();
 	ILuint temp_id = 0;
@@ -367,20 +367,5 @@ void ModuleTextureImporter::AddTextureToList(TextureInfo* texture,const char* na
 }
 
 
-void ModuleTextureImporter::CreateConsolelog(const char file[], int line, const char* format, ...)
-{
-	static char tmp_string[4096];
-	static char tmp_string2[4096];
-	static va_list  ap;
 
-	// Construct the string from variable arguments
-	va_start(ap, format);
-	vsprintf_s(tmp_string, 4096, format, ap);
-	va_end(ap);
-	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
-	OutputDebugString(tmp_string2);
-
-
-	App->editor->ConsoleLogs.push_back(tmp_string2);
-}
 

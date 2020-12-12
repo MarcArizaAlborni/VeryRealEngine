@@ -28,8 +28,7 @@ public:
 	int RootNodeCount=0; //We use this to modify the name of the root node so that the hierarchy works properly.
 	bool IconDrawHierarchy=true;
 	//------------ CONSOLE STUFF
-#define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
-	void CreateConsolelog(const char file[], int line, const char* format, ...);
+
 };
 
 #endif

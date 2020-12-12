@@ -42,7 +42,7 @@ ModuleEditor::~ModuleEditor()
 bool ModuleEditor::Start()
 {
 
-	LOGFIX("Loading Intro assets");
+	LOG("Loading Intro assets");
 	bool ret = true;
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
@@ -138,7 +138,7 @@ bool ModuleEditor::Start()
 // -----------------------------------------------------------------
 bool ModuleEditor::CleanUp()
 {
-	LOGFIX("Unloading Intro scene");
+	LOG("Unloading Intro scene");
 
 
 	ImGui_ImplOpenGL3_Shutdown();
@@ -531,22 +531,22 @@ void ModuleEditor::CreateInsertPrimitivesWindow()
 		{
 			if (ImGui::MenuItem("Plane"))
 			{
-				LOGFIX("Creating : Plane");
+				LOG("Creating : Plane");
 				drawplane = true;
 			}
 			if (ImGui::MenuItem("Cube"))
 			{
-				LOGFIX("Creating : Cube");
+				LOG("Creating : Cube");
 				drawcube = true;
 			}
 			if (ImGui::MenuItem("Cylinder"))
 			{
-				LOGFIX("Creating : Cylinder");
+				LOG("Creating : Cylinder");
 				drawcylinder = true;
 			}
 			if (ImGui::MenuItem("Sphere"))
 			{
-				LOGFIX("Creating : Sphere");
+				LOG("Creating : Sphere");
 				drawsphere = true;
 			}
 			ImGui::MenuItem("Import A mesh");
@@ -1044,7 +1044,7 @@ void ModuleEditor::CreateTextureVisualizer()
 		ImGui::End();
 
 		
-
+		
 
 	}
 
@@ -1060,20 +1060,26 @@ void ModuleEditor::CreateConsoleWindow()
 	if (App->editor->show_console_window) {
 
 		ImGui::Begin("Console", &App->editor->show_console_window);
-		std::list<const char*>::iterator Iterator = ConsoleLogs.begin();
-
-		for (Iterator; Iterator != ConsoleLogs.end(); Iterator++) {
 
 
-			ImGui::TextUnformatted(*Iterator);
+		std::vector<std::string>::iterator It = ConsoleLogs_List.begin();
 
+		ImVec4 textColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+		
+		for (int size = 0; size < ConsoleLogs_List.size(); ++size) {
+
+			std::string Text = *It;
+
+			ImGui::Text("%s", Text.c_str());
+
+			++It;
 		}
 
 		ImGui::End();
 
 	}
 
-	LogsAmount = ConsoleLogs.size();
+	LogsAmount = ConsoleLogs_List.size();
 
 }
 
@@ -1168,23 +1174,7 @@ void ModuleEditor::LoadGameObject(Scene_Manager Scene)
 
 }
 
-void ModuleEditor::CreateConsolelog(const char file[], int line, const char* format, ...)
-{
-	static char tmp_string[4096];
-	static char tmp_string2[4096];
-	static va_list  ap;
 
-	// Construct the string from variable arguments
-	va_start(ap, format);
-	vsprintf_s(tmp_string, 4096, format, ap);
-	va_end(ap);
-	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
-	OutputDebugString(tmp_string2);
-
-
-	ConsoleLogs.push_back(tmp_string2);
-
-}
 
 void ModuleEditor::ItChildrenObjTextCount(Game_Object* Object,TextureInfo* Text)
 {

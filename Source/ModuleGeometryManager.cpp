@@ -38,7 +38,7 @@ ModuleGeometryManager::~ModuleGeometryManager()
 // Called before render is available
 bool ModuleGeometryManager::Init()
 {
-	LOGFIX("Creating geometrymanager context");
+	LOG("Creating geometrymanager context");
 	bool ret = true;
 
 	return ret;
@@ -84,7 +84,7 @@ update_status ModuleGeometryManager::PostUpdate(float dt)
 // Called before quitting
 bool ModuleGeometryManager::CleanUp()
 {
-	LOGFIX("Destroying geometrymanager");
+	LOG("Destroying geometrymanager");
 	return true;
 }
 
@@ -291,18 +291,3 @@ bool ModuleGeometryManager::ContainsAABB(const AABB& aabb) const
 }
 
 
-void ModuleGeometryManager::CreateConsolelog(const char file[], int line, const char* format, ...)
-{
-	static char tmp_string[4096];
-	static char tmp_string2[4096];
-	static va_list  ap;
-
-	// Construct the string from variable arguments
-	va_start(ap, format);
-	vsprintf_s(tmp_string, 4096, format, ap);
-	va_end(ap);
-	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
-	OutputDebugString(tmp_string2);
-
-	App->editor->ConsoleLogs.push_back(tmp_string2);
-}

@@ -172,7 +172,8 @@ public:
 
 	///---------------CONSOLE STUFF-------------
 
-	std::list<const char*> ConsoleLogs;
+	
+	std::vector<std::string> ConsoleLogs_List;
 	int LogsAmount;
 
 	Timer scene_timer;
@@ -187,8 +188,6 @@ public:
 	void SaveGameObjectsChilds(Scene_Manager Scene, Game_Object* Object, int* iterator);
 	void LoadGameObject(Scene_Manager Scene);
 
-#define LOGFIX(format, ...) CreateConsolelog(__FILE__, __LINE__, format, __VA_ARGS__);
-	void CreateConsolelog(const char file[], int line, const char* format, ...);
 
 
 
