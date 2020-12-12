@@ -7,6 +7,7 @@
 #include "ModuleCamera3D.h"
 #include "ComponentCamera.h"
 #include "ComponentTransform.h"
+#include "ModuleInput.h"
 #include "ModuleScene.h"
 #include "ModuleCamera3D.h"
 #include "ModuleTextureImporter.h"
@@ -183,34 +184,44 @@ void ModuleScene::GuizmoDrawn()
 		{
 			Component_Transform* selected_transform = (Component_Transform*)object_guizmo->GetComponent(Component_Types::Transform);
 
-			float4x4 viewMatrix = App->camera->scene_camera->frustum.ViewMatrix();
-			viewMatrix.Transpose();
-			float4x4 projectionMatrix = App->camera->scene_camera->frustum.ProjectionMatrix();
-			projectionMatrix.Transpose();
-			float4x4 modelProjection = selected_transform->GetGlobalTransform();
-			modelProjection.Transpose();
+			// View parametres
+			float4x4 view_matrix = App->camera->scene_camera->frustum.ViewMatrix();
+			view_matrix.Transpose();
+			float4x4 proj_matrix = App->camera->scene_camera->frustum.ProjectionMatrix().Transposed();
 
-			ImGuizmo::SetRect(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
+			// Draw guizmos axis
+			ImGuiIO& io = ImGui::GetIO();
+			ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
 
-			//gizmoOperation
-			float modelPtr[16];
-			memcpy(modelPtr, modelProjection.ptr(), 16 * sizeof(float));
-			ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : gizmoMode);
+			// Change guizmos operations
+			ChangeOperationGuizmo(g_operator);
 
-			//Only this cares
-			ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
+			float4x4 matrix;
+			matrix = selected_transform->Global_Matrix.Transposed();
 
-			if (ImGuizmo::IsUsing())
+			ImGuizmo::MODE actualMode = (g_operator == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : mode);
+
+			ImGuizmo::Manipulate(view_matrix.ptr(), proj_matrix.ptr(), g_operator, actualMode, (float*)matrix.v);
+
+			if (ImGuizmo::IsUsing() == true)
 			{
-				float4x4 newMatrix;
-				newMatrix.Set(modelPtr);
-				modelProjection = newMatrix.Transposed();
-
-
-				//Set Global Transform 
-				selected_transform->UpdateGlobalTransform();
+				selected_transform->Global_Matrix = matrix.Transposed();
 			}
+		
 		}
+	}
+}
+
+void ModuleScene::ChangeOperationGuizmo(ImGuizmo::OPERATION& op)
+{
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+		op = ImGuizmo::OPERATION::TRANSLATE;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+		op = ImGuizmo::OPERATION::ROTATE;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
+		op = ImGuizmo::OPERATION::SCALE;
 	}
 }
 
