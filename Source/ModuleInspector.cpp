@@ -267,7 +267,20 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     
                 }
                 //This crashes if >0.01f
-                if (ImGui::DragFloat3("Scale", { &TransInfo->Scale.x }, 2, 0.0f)) {
+                if (ImGui::DragFloat3("Scale", { &TransInfo->Scale.x }, 2.0f, 0.0f)) {
+
+                    if (TransInfo->Scale.x < 0.1)
+                    {
+                        TransInfo->Scale.x = 0.1;
+                    }
+                    if (TransInfo->Scale.y < 0.1)
+                    {
+                        TransInfo->Scale.y = 0.1;
+                    }
+                    if (TransInfo->Scale.z < 0.1)
+                    {
+                        TransInfo->Scale.z = 0.1;
+                    }
 
                     TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
 

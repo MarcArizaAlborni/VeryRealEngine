@@ -105,14 +105,7 @@ update_status ModuleScene::Update(float dt)
 		p.Render();
 	}
 
-	GuizmoDrawn();
-
-
-
-
-	
-
-	
+	App->scene->GuizmoDrawn();
 
 	return UPDATE_CONTINUE;
 }
@@ -184,32 +177,35 @@ void ModuleScene::GuizmoDrawn()
 		{
 			Component_Transform* selected_transform = (Component_Transform*)object_guizmo->GetComponent(Component_Types::Transform);
 
-			// View parametres
-			float4x4 view_matrix = App->camera->scene_camera->frustum.ViewMatrix();
-			view_matrix.Transpose();
-			float4x4 proj_matrix = App->camera->scene_camera->frustum.ProjectionMatrix().Transposed();
+			float4x4 viewMatrix = App->camera->scene_camera->frustum.ViewMatrix();
+			viewMatrix.Transpose();
+			float4x4 projectionMatrix = App->camera->scene_camera->frustum.ProjectionMatrix();
+			projectionMatrix.Transpose();
+			float4x4 modelProjection = selected_transform->GetGlobalTransform();
+			modelProjection.Transpose();
 
-			// Draw guizmos axis
-			ImGuiIO& io = ImGui::GetIO();
-			ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+			ImGuizmo::SetRect(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-			// Change guizmos operations
-			ChangeOperationGuizmo(g_operator);
+			//gizmoOperation
+			float modelPtr[16];
+			memcpy(modelPtr, modelProjection.ptr(), 16 * sizeof(float));
+			ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : gizmoMode);
+			ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
 
-			float4x4 matrix;
-			matrix = selected_transform->Global_Matrix.Transposed();
 
-			ImGuizmo::MODE actualMode = (g_operator == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : mode);
-
-			ImGuizmo::Manipulate(view_matrix.ptr(), proj_matrix.ptr(), g_operator, actualMode, (float*)matrix.v);
-
-			if (ImGuizmo::IsUsing() == true)
+			if (ImGuizmo::IsUsing())
 			{
-				selected_transform->Global_Matrix = matrix.Transposed();
+				float4x4 newMatrix;
+				newMatrix.Set(modelPtr);
+				modelProjection = newMatrix.Transposed();
+
+
+				//Set Global Transform 
+				selected_transform->UpdateGlobalTransform();
 			}
-		
 		}
-	}
+	}	
+			
 }
 
 void ModuleScene::ChangeOperationGuizmo(ImGuizmo::OPERATION& op)

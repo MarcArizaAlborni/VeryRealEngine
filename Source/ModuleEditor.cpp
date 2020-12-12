@@ -227,6 +227,7 @@ update_status ModuleEditor::PostUpdate(float dt)
     ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
+	ImGuizmo::BeginFrame();
 
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	//if (show_demo_window)
@@ -246,8 +247,6 @@ update_status ModuleEditor::PostUpdate(float dt)
 		App->resources->CreateResourcesWindow();
 		App->resources->CreateWindowDropFile();
 		CreateTextureVisualizer();
-		DrawGuizmos();
-
 
 		//Popups close
 		if (show_popup_want_close == true)
@@ -438,18 +437,6 @@ void ModuleEditor::CreateAboutWindow()
 	}
 }
 
-
-void ModuleEditor::DrawGuizmos()
-{
-	//ImGui::Begin("GUIZMOOOO");
-	//
-	//ImGui::End();
-
-
-
-
-
-}
 
 // ----------------------------MENU BAR-------------------------------------
 //Creation
