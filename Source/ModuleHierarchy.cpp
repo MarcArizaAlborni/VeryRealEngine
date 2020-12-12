@@ -68,6 +68,7 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
                 size = App->geometrymanager->ObjectsOnScene.size();
             }
         }
+        ChildOfGeneralParented = false;
         ImGui::End();
     }
 }
@@ -92,6 +93,7 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
 
         if (ImGui::BeginDragDropSource()) {
             
+            
             ImGui::SetDragDropPayload("Dragged_Object", Item, sizeof(Game_Object));
             App->editor->DragedItem = Item;
             ImGui::EndDragDropSource();
@@ -101,7 +103,9 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
         {
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Dragged_Object"))
             {
-                
+                if (App->editor->DragedItem->Parent->name == "MainScene") {
+                    ChildOfGeneralParented = true;
+                }
                 Item->ChangeParentFromObject(App->editor->DragedItem);
                 App->editor->DragedItem = nullptr;
                 Reparented = true;
@@ -131,7 +135,15 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
             Game_Object* Child = *It;
 
             if (!DrawHierarchyChildren(Child, Reparented)) {
-                ++It;
+                if (ChildOfGeneralParented) {
+                   
+                    size = Item->Children_List.size();
+                    break;
+                }
+                else {
+                    ++It;
+                }
+               
             }
             else {
                 size = Item->Children_List.size();

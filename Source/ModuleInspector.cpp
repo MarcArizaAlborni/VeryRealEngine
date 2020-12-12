@@ -211,7 +211,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                 ImGui::Checkbox("Draw", &MeshInfo->is_Drawn);
             }
 
-            else if (MeshInfo == nullptr)
+            else if (CameraInfo != nullptr)
             {
                ImGui::Checkbox("Activate", &CameraInfo->camera_drawn);
                ImGui::Checkbox("Camera Culling", &App->scene->camera_culling);

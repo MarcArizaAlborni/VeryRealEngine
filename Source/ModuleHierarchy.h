@@ -28,6 +28,7 @@ public:
 	int RootNodeCount=0; //We use this to modify the name of the root node so that the hierarchy works properly.
 	bool IconDrawHierarchy=true;
 	bool ITEM_TO_BE_DELETED = false;
+	bool ChildOfGeneralParented = false;
 	//------------ CONSOLE STUFF
 
 };
