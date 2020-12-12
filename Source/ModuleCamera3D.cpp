@@ -92,6 +92,17 @@ update_status ModuleCamera3D::Update(float dt)
 			scene_camera->Position += newPos;
 		}
 
+		if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || reset_camera == true)
+		{
+			LookAt({ 0,0,0 });
+			scene_camera->Position.x = 0.875;
+			scene_camera->Position.y = 0.875;
+			scene_camera->Position.z = 4,375;
+
+			reset_camera = false;
+
+		}
+
 
 		//Left Click (altenative for the arrows)
 		if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)

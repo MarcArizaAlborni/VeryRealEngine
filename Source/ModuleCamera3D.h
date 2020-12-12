@@ -32,7 +32,7 @@ public:
 	Component_Camera* GetSceneCamera() const;
 	Component_Camera* scene_camera = nullptr;
 
-	
+	bool reset_camera = false;
 
 	//------------ CONSOLE STUFF
 

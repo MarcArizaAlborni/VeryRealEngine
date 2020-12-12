@@ -178,9 +178,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     
     ImGui::Text(Name);
     
-    
-
-
+   
         //GENERAL INFORMATION
         if (ImGui::CollapsingHeader("General Information", ImGuiTreeNodeFlags_DefaultOpen))
         {
@@ -215,6 +213,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             {
                ImGui::Checkbox("Activate", &CameraInfo->camera_drawn);
                ImGui::Checkbox("Camera Culling", &App->scene->camera_culling);
+               ImGui::Checkbox("Reset Camera", &App->camera->reset_camera);
             }
             
             
