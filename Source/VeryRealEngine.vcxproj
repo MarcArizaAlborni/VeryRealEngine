@@ -53,7 +53,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)$(SolutionDir)\Source\Libraries\ImGui</AdditionalIncludeDirectories>
       <StructMemberAlignment>Default</StructMemberAlignment>
       <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -73,7 +73,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Users\aitor\Desktop\AnotherSmallEngine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\aitor\Desktop\AnotherSmallEngine\Source;%(AdditionalIncludeDirectories)$(SolutionDir)\Source\Libraries\ImGui</AdditionalIncludeDirectories>
       <StructMemberAlignment>Default</StructMemberAlignment>
       <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -110,6 +110,7 @@
     <ClInclude Include="libraries\imGuizmo\ImGradient.h" />
     <ClInclude Include="libraries\imGuizmo\ImGuizmo.h" />
     <ClInclude Include="libraries\imGuizmo\ImSequencer.h" />
+    <ClInclude Include="libraries\imGuizmo\ImZoomSlider.h" />
     <ClInclude Include="libraries\MathGeoLib\include\Algorithm\GJK.h" />
     <ClInclude Include="libraries\MathGeoLib\include\Algorithm\GJK2D.h" />
     <ClInclude Include="libraries\MathGeoLib\include\Algorithm\Random\LCG.h" />
