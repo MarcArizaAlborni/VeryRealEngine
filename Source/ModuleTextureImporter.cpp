@@ -4,6 +4,7 @@
 #include "ModuleMeshImporter.h"
 #include "ModuleEditor.h"
 #include "FileSystem.h"
+#include "ImportSettings.h"
 
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
@@ -66,7 +67,13 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 			TextureInformation->texture_path = path;
 
 			if (ImgInfo.Origin == IL_ORIGIN_UPPER_LEFT)
-				iluFlipImage();
+
+
+				iluFlipImage(); // WE USSUALY FLIP
+
+			if (App->editor->Importer_Settings->FlipTexture) {
+				iluFlipImage(); // WE DEFLIP IF THE OPTION IS ACTIVE
+			}
 
 			if (ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
 			{

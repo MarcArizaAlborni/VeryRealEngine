@@ -9,6 +9,7 @@
 struct NodeMap;
 struct aiScene;
 struct aiMaterial;
+class ImportSettings;
 struct TextureInfo {
 
 	
