@@ -19,6 +19,7 @@
 #include "ComponentMesh.h"
 
 
+
 #include "libraries/ImGUI/imgui.h"
 #include "libraries/ImGUI/imgui_internal.h"
 #include "libraries/ImGUI/imgui_impl_sdl.h"
@@ -558,6 +559,35 @@ void ModuleEditor::CreateInsertPrimitivesWindow()
 				drawsphere = true;
 			}
 			ImGui::MenuItem("Import A mesh");
+			if(ImGui::MenuItem("Create Empty Parent")) {
+
+				Game_Object* EmptyParent = new Game_Object("EmptyParent");
+
+				App->geometrymanager->ObjectsOnScene[0]->Children_List.push_back(EmptyParent);
+			}
+			if (ImGui::MenuItem("Create Empty Child")) {
+				Game_Object* EmptyChildren = new Game_Object("Empty Children");
+
+				std::vector < Game_Object* >::iterator it = App->geometrymanager->ObjectsOnScene.begin();
+				Game_Object* SelectedItem;
+
+				for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i)
+				{
+					SelectedItem = *it;
+					SelectedItem = App->scene->LookForSelectedChild(SelectedItem);
+
+					if (SelectedItem != nullptr)
+					{
+						if (SelectedItem->ToBeDrawInspector)
+						{
+							SelectedItem->Children_List.push_back(EmptyChildren);
+							i = App->geometrymanager->ObjectsOnScene.size();
+						}
+					}
+					++it;
+				}
+			}
+
 			ImGui::EndMenu();
 		}
 

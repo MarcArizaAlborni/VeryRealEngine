@@ -50,11 +50,11 @@ public:
 	void RemoveSelectedItem(Game_Object* Object);
 
 private:
-	Game_Object* LookForSelectedChild(Game_Object* obj);
+	
 
 public:
 	//------------ CONSOLE STUFF
-
+	Game_Object* LookForSelectedChild(Game_Object* obj);
 };
 
 #endif // __ModuleScene_H__
