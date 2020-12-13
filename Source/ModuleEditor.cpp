@@ -1138,7 +1138,7 @@ void ModuleEditor::CreateConfigWindow_Resource()
 		ImGui::Separator();
 	
 
-		/*int AmountOfMeshes = App->meshimporter->Mesh_Resource_List.size(); 
+		int AmountOfMeshes = App->meshimporter->Mesh_Resource_List.size(); 
 		ImGui::Text("Active Meshes: %d", AmountOfMeshes);
 		std::vector<MeshInfo*>::iterator Itm = App->meshimporter->Mesh_Resource_List.begin();
 		for (int size = 0; size < App->textureImporter->Textures_Resource_List.size(); ++size) {
@@ -1172,7 +1172,7 @@ void ModuleEditor::CreateConfigWindow_Resource()
 			ImGui::TextColored({ 255,255,0,1 }, "%d", AmountOfUsesMesh);
 
 			++Itm;
-		}*/
+		}
 	}
 }
 

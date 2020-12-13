@@ -134,6 +134,8 @@ void ModuleMeshImporter::LoadFile_Mesh(const char* file_path)
 		LOG("[WARNING] Succes importing the scene & creating objects");
 	}
 
+
+
 	//App->filemanager->LoadMesh_META();
 	
 	//App->filemanager->CreateMesh_META(NULL, file_path);
@@ -278,6 +280,7 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 {
 	std::vector<MeshInfo*> ItemList;
 
+
 	for (int number = 0; number < node->mNumMeshes; number++) {
 
 		aiMesh* meshLoad = scene->mMeshes[node->mMeshes[number]];
@@ -347,8 +350,29 @@ std::vector<MeshInfo*> ModuleMeshImporter::LoadSceneMeshes(const aiScene* scene,
 
 
 			ItemList.push_back(OurMesh);
+			bool NameExists = false;
+			for (int sizeR = 0; sizeR < Mesh_Resource_List.size(); ++sizeR) {
 
-			Mesh_Resource_List.push_back(OurMesh);
+				
+				if (Mesh_Resource_List[sizeR]->Name== OurMesh->Name) {
+
+					NameExists = true;
+
+				}
+
+				if (Mesh_Resource_List[sizeR]->Name != OurMesh->Name) {
+
+					int a = 0;
+
+				}
+
+				
+			}
+
+			if (!NameExists) {
+				Mesh_Resource_List.push_back(OurMesh);
+
+			}
 		
 	}
 
