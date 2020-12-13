@@ -732,8 +732,9 @@ void ResourceManager::CreateWindowDropFile()
 		Flags = ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
 		ImGui::Begin("DropFileHere",nullptr,Flags);
 		ImVec2 SizeW=ImGui::GetWindowSize();
-		ImGui::BeginChild("DropFileHereChild", { SizeW.x,SizeW.y },false, Flags);
-		
+		//ImGui::BeginChild("DropFileHereChild", { SizeW.x,SizeW.y },false, Flags);
+		ImGui::BeginChild("DropFileHereChild", { 1071,714 }, false, Flags);
+		//1071 714
 		ImGui::EndChild();
 
 		if (ImGui::BeginDragDropTarget())
