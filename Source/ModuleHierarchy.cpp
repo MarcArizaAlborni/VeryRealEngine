@@ -8,6 +8,7 @@
 #include "Component.h"
 #include "ComponentTexture.h"
 #include "ComponentMesh.h"
+#include "ModuleInput.h"
 #include "ModuleScene.h"
 
 
@@ -93,10 +94,10 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
 
         if (ImGui::BeginDragDropSource()) {
             
-            
-            ImGui::SetDragDropPayload("Dragged_Object", Item, sizeof(Game_Object));
-            App->editor->DragedItem = Item;
-            ImGui::EndDragDropSource();
+
+ImGui::SetDragDropPayload("Dragged_Object", Item, sizeof(Game_Object));
+App->editor->DragedItem = Item;
+ImGui::EndDragDropSource();
         }
 
         if (ImGui::BeginDragDropTarget())
@@ -113,21 +114,71 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
             ImGui::EndDragDropTarget();
         }
 
-        if (ImGui::IsItemClicked())						
+        if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
         {
-            if ((Component_Camera*)Item->GetComponent(Component_Types::Camera) != nullptr) 
-            { 
-                SelectItemHierarchy(Item); 
+            if ((Component_Camera*)Item->GetComponent(Component_Types::Camera) != nullptr)
+            {
+                SelectItemHierarchy(Item);
 
             }
-            
-             if ((Component_Mesh*)Item->GetComponent(Component_Types::Mesh) != nullptr) {
 
-                 SelectItemHierarchy(Item);
+            if ((Component_Mesh*)Item->GetComponent(Component_Types::Mesh) != nullptr) {
 
-             }
-           
+                SelectItemHierarchy(Item);
+                
+
+            }
+
         }
+
+
+
+        if (ImGui::IsItemClicked(ImGuiMouseButton_Right))
+        {
+                ImGui::OpenPopup("Delete Game Object");
+
+               
+                
+                
+        }
+
+        if (ImGui::BeginPopup("Delete Game Object"))
+        {
+            if (ImGui::Selectable("Delete Game Object"))
+            {
+                Item->ToBeDrawInspector = true;
+                App->hierarchy->ITEM_TO_BE_DELETED = true;
+                App->scene->ObjectToBeDeleted = Item;
+            }
+
+            if (ImGui::Selectable("Create Child"))
+            {
+                Game_Object* EmptyChildren = new Game_Object("Empty Children");
+
+                std::vector < Game_Object* >::iterator it = App->geometrymanager->ObjectsOnScene.begin();
+                Game_Object* SelectedItem;
+
+                for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i)
+                {
+                    SelectedItem = *it;
+                    SelectedItem = App->scene->LookForSelectedChild(SelectedItem);
+
+                    if (SelectedItem != nullptr)
+                    {
+                        if (SelectedItem->ToBeDrawInspector)
+                        {
+                            SelectedItem->Children_List.push_back(EmptyChildren);
+                            i = App->geometrymanager->ObjectsOnScene.size();
+                        }
+                    }
+                    ++it;
+                }
+            }
+
+            ImGui::EndPopup();
+        }
+        
+            
 
         std::vector<Game_Object*>::iterator It = Item->Children_List.begin();
         for (int size = 0; size < Item->Children_List.size(); ++size) {
@@ -136,14 +187,14 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
 
             if (!DrawHierarchyChildren(Child, Reparented)) {
                 if (ChildOfGeneralParented) {
-                   
+
                     size = Item->Children_List.size();
                     break;
                 }
                 else {
                     ++It;
                 }
-               
+
             }
             else {
                 size = Item->Children_List.size();
@@ -162,7 +213,7 @@ void ModuleHierarchyGameObject::SelectItemHierarchy(Game_Object* SelectedItem)
     for (int size = 0; size < App->geometrymanager->ObjectsOnScene.size(); ++size) {
 
         Game_Object* Object = *It;
-        
+
         if (SelectedItem == Object) {
 
             if (Object->ToBeDrawInspector == true) {
@@ -182,7 +233,7 @@ void ModuleHierarchyGameObject::SelectItemHierarchy(Game_Object* SelectedItem)
             for (int sizeC = 0; sizeC < Object->Children_List.size(); ++sizeC) {
                 Game_Object* ChildObject = *ItC;
 
-                SelectItemHierarchyChildren(SelectedItem,ChildObject);
+                SelectItemHierarchyChildren(SelectedItem, ChildObject);
 
                 if (SelectedItem == ChildObject) {
 
@@ -190,7 +241,10 @@ void ModuleHierarchyGameObject::SelectItemHierarchy(Game_Object* SelectedItem)
                         ChildObject->ToBeDrawInspector = false;
                     }
                     else {
+
                         ChildObject->ToBeDrawInspector = true;
+
+                        
                     }
 
                 }

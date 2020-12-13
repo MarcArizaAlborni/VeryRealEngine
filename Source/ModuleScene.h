@@ -49,10 +49,7 @@ public:
 	Game_Object* ObjectToBeDeleted;
 
 	void RemoveSelectedItem(Game_Object* Object);
-
-private:
 	
-
 public:
 	//------------ CONSOLE STUFF
 	Game_Object* LookForSelectedChild(Game_Object* obj);

@@ -226,17 +226,11 @@ void ModuleScene::ChangeOperationGuizmo(ImGuizmo::OPERATION& op)
 
 void ModuleScene::RemoveSelectedItem(Game_Object* Object)
 {
-
-	
 	std::vector<Game_Object*>::iterator It = Object->Children_List.begin();
 
 	for (int i = 0; i < Object->Children_List.size(); ++i) {
 
-
-
 		Game_Object* Obj = *It;
-
-		
 
 		++It;
 		RemoveSelectedItem(Obj);
@@ -291,5 +285,3 @@ Game_Object* ModuleScene::LookForSelectedChild(Game_Object* obj)
 	return nullptr;
 	
 }
-
-
