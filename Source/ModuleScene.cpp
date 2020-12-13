@@ -176,7 +176,7 @@ void ModuleScene::GuizmoDrawn()
 		if (object_guizmo != nullptr)
 		{
 			Component_Transform* selected_transform = (Component_Transform*)object_guizmo->GetComponent(Component_Types::Transform);
-			
+
 			float4x4 viewMatrix = App->camera->scene_camera->frustum.ViewMatrix();
 			viewMatrix.Transpose();
 			float4x4 projectionMatrix = App->camera->scene_camera->frustum.ProjectionMatrix();

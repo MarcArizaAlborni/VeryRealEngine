@@ -175,16 +175,6 @@ update_status ModuleEditor::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-update_status ModuleEditor::PreUpdate(float dt)
-{
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplSDL2_NewFrame(App->window->window);
-	ImGui::NewFrame();
-	ImGuizmo::BeginFrame();
-
-	return UPDATE_CONTINUE;
-}
-
 update_status ModuleEditor::PostUpdate(float dt)
 {
 
@@ -234,7 +224,11 @@ update_status ModuleEditor::PostUpdate(float dt)
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 
-  
+    ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame(App->window->window);
+	ImGui::NewFrame();
+	ImGuizmo::BeginFrame();
+
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	//if (show_demo_window)
 	//	ImGui::ShowDemoWindow(&show_demo_window);
@@ -1248,7 +1242,7 @@ void ModuleEditor::CreateConsoleWindow()
 void ModuleEditor::SaveScene()
 {
 
-	Scene_Manager SceneToSave = SceneElement->AddJArray("ImportSettings");
+	Scene_Manager SceneToSave = SceneElement->AddJArray("GameObjects");
 
 	
 	int Sections = -1;
