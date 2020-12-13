@@ -7,6 +7,7 @@
 #include "ModuleWindow.h"
 #include "ModuleScene.h"
 #include "Globals.h"
+#include "libraries/MathGeoLib/include/Math/MathFunc.h"
 
 
 Component_Camera::Component_Camera(Game_Object* obj) : Component(obj)
@@ -201,4 +202,47 @@ void Component_Camera::FrustumUpdateTransform(const float4x4& global)
 	global.Decompose(position, rotation, scale);
 
 	frustum.SetPos(position);
+}
+
+Ray Component_Camera::FarRay(float x, float y) const
+{
+	return frustum.UnProject(x, y);
+}
+
+Ray Component_Camera::NearRay(float x, float y) const
+{
+	return frustum.UnProjectFromNearPlane(x, y);
+}
+
+
+
+bool Component_Camera::Intersect(const AABB& box) const
+{
+	return Intersect(frustum, box);
+}
+
+bool Component_Camera::Intersect(const Frustum& frustum_, const AABB& box)
+{
+	float3 corners[8];
+	box.GetCornerPoints(corners);
+
+	math::Plane p[6];
+	frustum_.GetPlanes(p);
+
+	uint inside = 0;
+
+	for (int i = 0; i < 6; ++i)
+	{
+		int count = 8;
+
+		for (int j = 0; j < 8; ++j)
+		{
+			if (p[i].IsOnPositiveSide(corners[j])) --count;
+		}
+
+		if (count == 0) return false;
+		else inside += 1;
+	}
+
+	return true;
 }

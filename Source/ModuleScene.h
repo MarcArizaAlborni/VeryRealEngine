@@ -49,6 +49,8 @@ public:
 	Game_Object* ObjectToBeDeleted;
 
 	void RemoveSelectedItem(Game_Object* Object);
+
+	Game_Object* MousePicking(const LineSegment& segment, float& distance, bool closest = true);
 	
 public:
 	//------------ CONSOLE STUFF

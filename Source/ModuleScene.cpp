@@ -5,7 +5,9 @@
 #include "ModuleRenderer3D.h"
 #include "FileSystem.h"
 #include "ModuleCamera3D.h"
+#include "Component.h"
 #include "ComponentCamera.h"
+#include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ModuleInput.h"
 #include "ModuleScene.h"
@@ -22,6 +24,8 @@
 #include <gl/GLU.h>
 #include "ModuleTextureImporter.h"
 #include "libraries/imGuizmo/ImGuizmo.h"
+
+#include "libraries/MathGeoLib/include/Geometry/LineSegment.h"
 
 
 
@@ -252,8 +256,6 @@ void ModuleScene::RemoveSelectedItem(Game_Object* Object)
 
 }
 
-
-
 Game_Object* ModuleScene::LookForSelectedChild(Game_Object* obj)
 {
 	std::vector < Game_Object* >::iterator it = obj->Children_List.begin();
@@ -284,4 +286,57 @@ Game_Object* ModuleScene::LookForSelectedChild(Game_Object* obj)
 
 	return nullptr;
 	
+}
+
+Game_Object* ModuleScene::MousePicking(const LineSegment& segment, float& distance, bool closest) 
+{
+	distance = 99999999999.f;
+
+	Game_Object* pick_GO = nullptr;
+
+	for (auto it : App->geometrymanager->ObjectsOnScene[0]->Children_List[1]->Children_List[1]->Children_List)
+	{
+		Component_Mesh* MeshBB = (Component_Mesh*)it->GetComponent(Component_Types::Mesh);
+
+		if (MeshBB->global_AABB.IsFinite())
+		{
+			if (segment.Intersects(MeshBB->local_AABB))
+			{
+				Component_Transform* transf = (Component_Transform*)it->GetComponent(Component_Types::Transform);
+				Component_Mesh* mesh = (Component_Mesh*)it->GetComponent(Component_Types::Mesh);
+
+				if (mesh != nullptr)
+				{
+					if (mesh->Mesh->vertex!= nullptr && mesh->Mesh->index != nullptr)
+					{
+						LineSegment ray(segment);
+						ray.Transform(transf->GetGlobalTransform().Inverted());
+
+						Triangle triangle;
+
+						for (uint i = 0; i < mesh->Mesh->num_index;)
+						{
+							triangle.a = mesh->Mesh->vertex[mesh->Mesh->index[i]]; ++i;
+							triangle.b = mesh->Mesh->vertex[mesh->Mesh->index[i]]; ++i;
+							triangle.c = mesh->Mesh->vertex[mesh->Mesh->index[i]]; ++i;
+
+							float length; 
+							float3 hitPos;
+
+							if (ray.Intersects(triangle, &length, &hitPos))
+							{
+								if (closest && length < distance)
+								{
+									distance = length;
+									pick_GO = (Game_Object*)it;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return pick_GO;
 }

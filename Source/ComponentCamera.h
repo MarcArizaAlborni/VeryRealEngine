@@ -47,6 +47,13 @@ public:
 
 	vec* GetFrustumPoints();
 
+	//RAYCAST PICKING
+	Ray FarRay(float x, float y) const;
+	Ray NearRay(float x, float y) const;
+
+	bool Intersect(const AABB& box) const;
+	static bool Intersect(const Frustum& frustum, const AABB& box);
+
 	Frustum frustum;
 
 	vec* frustum_corners = nullptr;

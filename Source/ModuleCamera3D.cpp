@@ -7,6 +7,7 @@
 #include "ModuleEditor.h"
 #include "ModuleScene.h"
 #include "Game_Time.h"
+#include "ModuleWindow.h"
 #include "GameObject.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
@@ -75,6 +76,7 @@ update_status ModuleCamera3D::Update(float dt)
 		scene_camera->Position += newPos;
 		scene_camera->Reference += newPos;
 
+		mouse_picking = true;
 		
 
 		// Wheel Zoom
@@ -315,6 +317,27 @@ update_status ModuleCamera3D::Load()
 Component_Camera* ModuleCamera3D::GetSceneCamera() const
 {
 	return scene_camera;
+}
+
+Game_Object* ModuleCamera3D::MousePicking()
+{
+	Game_Object* GO = nullptr;
+
+	ImVec2 mousePos = { (float)App->input->GetMouseX() / (float)App->window->GetWindow_Width() * 2.f - 1.f,
+		-((float)App->input->GetMouseY() / (float)App->window->GetWindow_Height() * 2.f - 1.f) };
+
+	LineSegment ray = NearSegment((float)mousePos.x, (float)mousePos.y);
+
+	float distance = 99999999999.f;
+
+	GO = App->scene->MousePicking(ray, distance);
+
+	return GO;
+}
+
+LineSegment ModuleCamera3D::NearSegment(float x, float y) const
+{
+	return App->camera->scene_camera->frustum.UnProjectLineSegment(x, y);
 }
 
 
