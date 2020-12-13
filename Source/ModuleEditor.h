@@ -193,6 +193,8 @@ public:
 	void SaveGameObjectsChilds(Scene_Manager Scene, Game_Object* Object, int* iterator);
 	void LoadGameObject(Scene_Manager Scene);
 
+	void GUI_Init();
+
 private:
 
 		void ItChildrenObjTextCount(Game_Object* Object,TextureInfo* Text);
