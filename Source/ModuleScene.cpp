@@ -175,34 +175,7 @@ void ModuleScene::GuizmoDrawn()
 
 		if (object_guizmo != nullptr)
 		{
-			Component_Transform* selected_transform = (Component_Transform*)object_guizmo->GetComponent(Component_Types::Transform);
-
-			float4x4 viewMatrix = App->camera->scene_camera->frustum.ViewMatrix();
-			viewMatrix.Transpose();
-			float4x4 projectionMatrix = App->camera->scene_camera->frustum.ProjectionMatrix();
-			projectionMatrix.Transpose();
-			float4x4 modelProjection = selected_transform->GetGlobalTransform();
-			modelProjection.Transpose();
-
-			ImGuizmo::SetRect(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-			//gizmoOperation
-			float modelPtr[16];
-			memcpy(modelPtr, modelProjection.ptr(), 16 * sizeof(float));
-			ImGuizmo::MODE finalMode = (gizmoOperation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : gizmoMode);
-			ImGuizmo::Manipulate(viewMatrix.ptr(), projectionMatrix.ptr(), gizmoOperation, finalMode, modelPtr);
-
-
-			if (ImGuizmo::IsUsing())
-			{
-				float4x4 newMatrix;
-				newMatrix.Set(modelPtr);
-				modelProjection = newMatrix.Transposed();
-
-
-				//Set Global Transform 
-				selected_transform->UpdateGlobalTransform();
-			}
+			//REMAINING OF AN AMAZING WASTE OF 10 HOURS DOING GUIZMOS :)
 		}
 	}	
 			
