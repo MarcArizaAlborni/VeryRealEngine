@@ -52,6 +52,7 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
+	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
@@ -183,7 +184,7 @@ public:
 
 	Timer scene_timer;
 
-	bool guizmos = false;
+	bool guizmos = true;
 
 	//SCENE STUFF
 
