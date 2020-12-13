@@ -183,7 +183,7 @@ public:
 
 	Timer scene_timer;
 
-	bool guizmos = false;
+	bool guizmos = true;
 
 	//SCENE STUFF
 
