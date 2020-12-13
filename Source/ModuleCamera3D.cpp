@@ -319,25 +319,4 @@ Component_Camera* ModuleCamera3D::GetSceneCamera() const
 	return scene_camera;
 }
 
-Game_Object* ModuleCamera3D::MousePicking()
-{
-	Game_Object* GO = nullptr;
-
-	ImVec2 mousePos = { (float)App->input->GetMouseX() / (float)App->window->GetWindow_Width() * 2.f - 1.f,
-		-((float)App->input->GetMouseY() / (float)App->window->GetWindow_Height() * 2.f - 1.f) };
-
-	LineSegment ray = NearSegment((float)mousePos.x, (float)mousePos.y);
-
-	float distance = 99999999999.f;
-
-	GO = App->scene->MousePicking(ray, distance);
-
-	return GO;
-}
-
-LineSegment ModuleCamera3D::NearSegment(float x, float y) const
-{
-	return App->camera->scene_camera->frustum.UnProjectLineSegment(x, y);
-}
-
 

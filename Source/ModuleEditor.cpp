@@ -347,19 +347,6 @@ update_status ModuleEditor::PostUpdate(float dt)
 
 	OnInit = false;
 
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && App->camera->mouse_picking)
-	{
-		Game_Object* pick_GO;
-
-		pick_GO = App->camera->MousePicking();
-
-		if (pick_GO != nullptr)
-		{
-			pick_GO->ToBeDrawInspector = true;
-		}
-			
-	}
-
 	return UPDATE_CONTINUE;
 }
 
