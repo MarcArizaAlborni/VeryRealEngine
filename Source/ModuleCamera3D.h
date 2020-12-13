@@ -32,11 +32,6 @@ public:
 	Component_Camera* GetSceneCamera() const;
 	Component_Camera* scene_camera = nullptr;
 
-	//Picking
-	Game_Object* MousePicking();
-	LineSegment NearSegment(float x, float y) const;
-
-
 	bool reset_camera = false;
 	bool mouse_picking = false;
 
