@@ -87,7 +87,7 @@ void ResourceManager::CreateResourcesWindow()
 			
 			StoreCurrentOpenFolderUpdate(""); //This case is the general folder so no name
 			
-		       ImGui::Begin("Resouces", &App->editor->show_resources_window);
+		       ImGui::Begin("Assets", &App->editor->show_resources_window);
 		       
 		       ImGui::Checkbox("Show Textures", &resource_display_textures);
 		       ImGui::SameLine();
