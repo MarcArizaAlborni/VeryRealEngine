@@ -44,15 +44,11 @@ public:
 	std::string GetFileAndExtension(const char* path);
 
 ////////////////////////////////////////////////////////////////////
-	// Mine
 
 	void SaveMeshInto_WAF(MeshInfo* Mesh,aiMesh* RawMesh);
 	
 	MeshInfo* LoadMeshFrom_WAF(int FileID);
 	uint GenerateSafeBuffer_Mesh(MeshInfo* Mesh);
-
-
-
 
 	//META FILES
 

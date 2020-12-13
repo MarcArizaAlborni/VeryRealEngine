@@ -1,12 +1,7 @@
 # VeryRealEngine
 
 
-
-
  ## Welcome to Very Real Engine!
-
-
-
 
 
 ## DELIVERY 2:
@@ -123,7 +118,6 @@ Camera Movement:
 
 
 
-
 ### Play/Stop:
 
 - Using the Play/Pause buttons enables the game timer.
@@ -131,7 +125,6 @@ Camera Movement:
 - The next frame button goes forward one frame in the engine/ play time.
 
 - Game/Real timers are functional.
-
 
 
 
@@ -155,7 +148,6 @@ Camera Movement:
 
 
 
-
 ### Import Settings:
 
 
@@ -170,7 +162,6 @@ Camera Movement:
           	
            
 
-
 ### Innovation:
 
 -  Texture Visualizer when a texture is dragged without a mesh being selected.
@@ -181,9 +172,6 @@ Camera Movement:
 ### Comments: 
 
 - Our main trouble has been to load models properly from the custom file format using meta files, which has made it impossible to have serialization & library loading working properly.
-
-
-
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -240,9 +228,6 @@ Information:
 - No information will be displayed in the inspector if the selected item is an empty parent object, to see the information of its childs open child window (arrow) in the hierarchy for the parent object.
 
 - Mesh transformation is available (position,rotation,scale) in the inspector and can be modified.
-
-
-
 
 
 

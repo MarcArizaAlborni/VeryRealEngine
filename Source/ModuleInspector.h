@@ -35,11 +35,6 @@ public:
 	//bool ShowInspectorWindow;
 	float testoa;
 
-	// For bounding boxes
-	
-
-
-	//------------ CONSOLE STUFF
 
 };
 

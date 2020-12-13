@@ -9,9 +9,11 @@
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
 #include "ModuleGeometryManager.h"
+
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
 #include "libraries/Assimp/Assimp/include/postprocess.h"
+
 #pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
 
 
@@ -44,14 +46,6 @@ Component_Mesh::~Component_Mesh()
 	glDeleteBuffers(1, &id_vertexOBB);
 }
 
-void Component_Mesh::Enable()
-{
-}
-
-void Component_Mesh::Disable()
-{
-}
-
 void Component_Mesh::Update()
 {
 	Component_Mesh* MeshDraw = (Component_Mesh*)owner->GetComponent(Component_Types::Mesh);
@@ -60,7 +54,6 @@ void Component_Mesh::Update()
 
 		DrawBB();
 	}
-
 }
 
 void Component_Mesh::CleanUp()
@@ -149,7 +142,7 @@ AABB Component_Mesh::GetGlobalAABB()
 	{
 		vertices_AABB.push_back(aux_vertices[i]);
 	}
-	index_BB = { 0,1, 0,4, 4,5, 5,1,	//Front index
+	index_BB = { 0,1, 0,4, 4,5, 5,1,
 	3,2, 2,0, 0,1, 1,3,
 	7,6, 6,2, 2,3, 3,7,
 	6,4, 2,0,
@@ -158,7 +151,6 @@ AABB Component_Mesh::GetGlobalAABB()
 	return global_AABB;
 }
 
-//Draws the OBB (called on mesh importer)
 void Component_Mesh::DrawBB()
 {
 	glColor3f(125, 125, 0);
@@ -166,7 +158,6 @@ void Component_Mesh::DrawBB()
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	//Draw Global AABB
 	if (show_aabb) 
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, id_vertexAABB);
@@ -175,8 +166,6 @@ void Component_Mesh::DrawBB()
 		glDrawElements(GL_LINES, index_BB.size(), GL_UNSIGNED_INT, NULL);
 	}
 
-
-	//Draw OBB
 	glColor3f(0, 200, 150);
 	if (show_obb)
 	{

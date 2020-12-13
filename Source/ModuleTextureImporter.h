@@ -47,9 +47,6 @@ public:
 
 	std::vector<TextureInfo*> AvailableTextures;
 
-	//------------ CONSOLE STUFF
-
-
 public:
 	//Textures
 	TextureInfo TextureCheckers;
@@ -98,8 +95,6 @@ public:
 	//Texture dimensions
 	GLuint mTextureWidth=0;
 	GLuint mTextureHeight=0;
-
-
 
 	std::vector<TextureInfo*> Textures_Resource_List;
 

@@ -31,7 +31,6 @@ public:
 
 	bool ResetScene();
 	void SaveScene();
-	/*bool SaveGameObject(JScene go_scene, GameObject* obj, int* i);*/
 	bool LoadScene();
 
 	bool camera_culling = false;
@@ -51,7 +50,6 @@ public:
 	void RemoveSelectedItem(Game_Object* Object);
 	
 public:
-	//------------ CONSOLE STUFF
 	Game_Object* LookForSelectedChild(Game_Object* obj);
 };
 

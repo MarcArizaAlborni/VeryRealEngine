@@ -34,6 +34,7 @@ Component_Camera::Component_Camera(Game_Object* obj) : Component(obj)
 	frustum_corners = new vec[8];
 }
 
+// Frustum
 void Component_Camera::DrawFrustum(const float3* corners, Color color)
 {
 	if (camera_drawn)
@@ -47,37 +48,31 @@ void Component_Camera::DrawFrustum(const float3* corners, Color color)
 
 		glBegin(GL_LINES);
 
-		//Between-planes right
 		glVertex3fv((GLfloat*)&corners[1]);
 		glVertex3fv((GLfloat*)&corners[5]);
 		glVertex3fv((GLfloat*)&corners[7]);
 		glVertex3fv((GLfloat*)&corners[3]);
 
-		//Between-planes left
 		glVertex3fv((GLfloat*)&corners[4]);
 		glVertex3fv((GLfloat*)&corners[0]);
 		glVertex3fv((GLfloat*)&corners[2]);
 		glVertex3fv((GLfloat*)&corners[6]);
 
-		//Far plane horizontal
 		glVertex3fv((GLfloat*)&corners[5]);
 		glVertex3fv((GLfloat*)&corners[4]);
 		glVertex3fv((GLfloat*)&corners[6]);
 		glVertex3fv((GLfloat*)&corners[7]);
 
-		//Near plane horizontal
 		glVertex3fv((GLfloat*)&corners[0]);
 		glVertex3fv((GLfloat*)&corners[1]);
 		glVertex3fv((GLfloat*)&corners[3]);
 		glVertex3fv((GLfloat*)&corners[2]);
 
-		//Near plane vertical
 		glVertex3fv((GLfloat*)&corners[1]);
 		glVertex3fv((GLfloat*)&corners[3]);
 		glVertex3fv((GLfloat*)&corners[0]);
 		glVertex3fv((GLfloat*)&corners[2]);
 
-		//Far plane vertical
 		glVertex3fv((GLfloat*)&corners[5]);
 		glVertex3fv((GLfloat*)&corners[7]);
 		glVertex3fv((GLfloat*)&corners[4]);
@@ -91,6 +86,20 @@ void Component_Camera::DrawFrustum(const float3* corners, Color color)
 	}
 }
 
+void Component_Camera::FrustumUpdateTransform(const float4x4& global)
+{
+	frustum.SetFront(global.WorldZ());
+	frustum.SetUp(global.WorldY());
+
+	float3 position = float3::zero;
+	float3 scale = float3::one;
+	Quat   rotation = Quat::identity;
+
+	global.Decompose(position, rotation, scale);
+
+	frustum.SetPos(position);
+}
+
 // Frustum settings
 float Component_Camera::GetFOV()
 {
@@ -101,7 +110,6 @@ float Component_Camera::GetAspectRatio()
 {
 	return frustum.AspectRatio();
 }
-
 
 void Component_Camera::SetFOV(float fov)
 {
@@ -140,6 +148,7 @@ vec* Component_Camera::GetFrustumPoints()
 	return frustum_corners;
 }
 
+//Camera Settings
 float* Component_Camera::GetViewMatrix()
 {
 	return &ViewMatrix;
@@ -187,19 +196,4 @@ update_status Component_Camera::Load()
 {
 
 	return UPDATE_CONTINUE;
-}
-
-void Component_Camera::FrustumUpdateTransform(const float4x4& global)
-{
-	frustum.SetFront(global.WorldZ());
-	frustum.SetUp(global.WorldY());
-
-	//Init just in case
-	float3 position = float3::zero;
-	float3 scale = float3::one;
-	Quat   rotation = Quat::identity;
-
-	global.Decompose(position, rotation, scale);
-
-	frustum.SetPos(position);
 }

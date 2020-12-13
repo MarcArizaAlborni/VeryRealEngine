@@ -1,5 +1,4 @@
 #include "GameObject.h"
-
 #include <vector>
 #include "Application.h"
 #include "ComponentCamera.h"
@@ -12,7 +11,6 @@ Game_Object::Game_Object(std::string name) : name(name), Enabled(true)
 {
 	AddExistingComponent(new Component_Transform(this));
 	this->Parent = nullptr;	
-
 	
 	is_Wireframed = false;
 	is_Checkered = false;
@@ -145,9 +143,7 @@ Component* Game_Object::AddExistingComponent(Component* component)
 
 	}
 
-	//components.push_back(ret);
 	Component_List.push_back(component);
-
 
 	return Ret;
 }
@@ -205,12 +201,6 @@ void Game_Object::ChangeParentFromObject(Game_Object* ObjectToAdd)
 	}
 	this->Children_List.push_back(ObjectToAdd);
 	
-
-
-	//ObjectToAdd->Parent = this;
-	
-
-	
 }
 
 void Game_Object::DeleteSpecificChildren(Game_Object* ObjectToDelete)
@@ -222,7 +212,6 @@ void Game_Object::DeleteSpecificChildren(Game_Object* ObjectToDelete)
 		{
 			if (Children_List[i] == ObjectToDelete)
 			{
-				
 				Children_List.erase(Children_List.begin() + i);
 			}
 		}
@@ -231,12 +220,9 @@ void Game_Object::DeleteSpecificChildren(Game_Object* ObjectToDelete)
 
 void Game_Object::DeleteAllChildren()
 {
-	
 	if (Children_List.size() > 0) {
 
 		for (int i = 0; i < Children_List.size(); ++i) {
-
-			//Children_List[i]->CleanUp();
 
 			delete Children_List[i];
 
@@ -248,17 +234,10 @@ void Game_Object::DeleteAllChildren()
 
 void Game_Object::GiveNewParent(Game_Object*  NewParent)
 {
-
-	
 	if (this != nullptr && NewParent != nullptr)
 	{
 		this->Parent = NewParent;
-		
 	}
-	
-
-
-
 }
 
 void Game_Object::Enable()
@@ -281,7 +260,6 @@ void Game_Object::Update()
 
 		Item->Update();
 
-		
 		std::vector<Component*>::iterator It2 = Item->Component_List.begin();
 		bool ret = true;
 
@@ -291,13 +269,10 @@ void Game_Object::Update()
 
 				((Component_Mesh*)(*It2))->Update();
 			}
-
-
 		}
 		
 		++It;
 	}
-
 }
 
 Component_Camera* Game_Object::GetComponentCamera()

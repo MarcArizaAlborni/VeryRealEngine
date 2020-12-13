@@ -9,7 +9,6 @@ Component_Transform::Component_Transform(Game_Object* owner) : Component(owner),
 	Local_Matrix = float4x4::FromTRS(Translation, Rotation, Scale);
 	Global_Matrix = Quat::identity;
 	type = Component_Types::Transform;
-	//UpdateEulerAngles();
 };
 
 Component_Transform::Component_Transform(Game_Object* owner, float3 position, float3 scale, Quat rotation) : Component(owner), Scale(scale), Rotation(rotation), Translation(position)
@@ -17,7 +16,6 @@ Component_Transform::Component_Transform(Game_Object* owner, float3 position, fl
 	Local_Matrix = float4x4::FromTRS(position, rotation, scale);
 	Global_Matrix = Quat::identity;
 	type = Component_Types::Transform;
-	//UpdateEulerAngles();
 };
 
 
@@ -46,7 +44,6 @@ void Component_Transform::UpdateTransformationsObjects(float3 translations, floa
 	Local_Matrix = float4x4::FromTRS(translations, rotations, scales);
 
 	UpdateGlobalTransform();
-
 }
 
 void Component_Transform::SetEulerRotation(float3 Angle)
@@ -93,24 +90,4 @@ void Component_Transform::UpdateEulerAngles()
 	EulerRot = Rotation.ToEulerXYZ();
 	EulerRot *= RADTODEG;
 }
-
-//float4x4 Component_Transform::GetGlobalTransformMatrix()
-//{
-//	Rotation = Quat::FromEulerXYZ(EulerRot.x * DEGTORAD, EulerRot.y * DEGTORAD, EulerRot.z * DEGTORAD);
-//	Local_Matrix = float4x4::FromTRS(Translation, Rotation, Scale);
-//
-//	if (owner->GetParent())
-//	{
-//		Global_Matrix = my_go->GetParent()->GetComponentTransform()->GetGlobalTransformMatrix() * local_matrix;
-//	}
-//		
-//	else
-//	{
-//		Global_Matrix = Local_Matrix;
-//	}
-//		
-//	Global_Matrix.Decompose(position, rotation, scale);
-//
-//	return global_matrix;
-//}
 

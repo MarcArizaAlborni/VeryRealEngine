@@ -9,17 +9,15 @@
 #include "ModuleMeshImporter.h"
 #include "ModuleTextureImporter.h"
 #include "GameObject.h"
+
 #include "libraries/PhysFS/include/physfs.h"
 #include "libraries/Assimp/Assimp/include/cfileio.h"
 #include "libraries/Assimp/Assimp/include/types.h"
-
-
-
 #include "libraries/Assimp/Assimp/include/cimport.h"
 #include "libraries/Assimp/Assimp/include/scene.h"
 #include "libraries/Assimp/Assimp/include/postprocess.h"
-#pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
 
+#pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
 #pragma comment( lib, "libraries/PhysFS/libx86/physfs.lib" )
 
 ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool start_enabled) : Module(app, "FileSystem", start_enabled)
@@ -42,25 +40,8 @@ ModuleFileSystem::ModuleFileSystem(Application* app, const char* name, bool star
 	{
 		LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
 	}
-		
-	//// Check if standard paths exist
-	//const char* paths[] = {
-	//	LIBRARY_FOLDER, LIBRARY_TEXTURES_FOLDER, LIBRARY_MESH_FOLDER, LIBRARY_MODELS_FOLDER,LIBRARY_SCENE_FOLDER
-	//};
-
-	//for (uint i = 0; i < sizeof(paths) / sizeof(const char*); ++i)
-	//{
-	//	// Adds to the existing dirs your path
-	//	if (PHYSFS_exists(paths[i]) == 0)
-	//	{
-	//		PHYSFS_mkdir(paths[i]);
-	//	}
-	//		
-	//}
-
 
 	CreateLibraryDirectories();
-
 }
 
 // Destructor
@@ -100,6 +81,7 @@ bool ModuleFileSystem::Exists(const char* file) const
 {
 	return PHYSFS_exists(file) != 0;
 }
+
 bool ModuleFileSystem::CreateDir(const char* dir)
 {
 	if (IsDirectory(dir) == false)
@@ -109,16 +91,19 @@ bool ModuleFileSystem::CreateDir(const char* dir)
 	}
 	return false;
 }
+
 // Checks if a file is inside a directory
 bool ModuleFileSystem::IsDirectory(const char* file) const
 {
 	return PHYSFS_isDirectory(file) != 0;
 }
+
 // Adds a directory
 void ModuleFileSystem::CreateDirectory(const char* directory)
 {
 	PHYSFS_mkdir(directory);
 }
+
 //Gets a file listing of a search path's directory.
 void ModuleFileSystem::DiscoverFiles(const char* directory, std::vector<std::string>& file_list, std::vector<std::string>& direction_list) const
 {
@@ -140,6 +125,7 @@ void ModuleFileSystem::DiscoverFiles(const char* directory, std::vector<std::str
 
 	PHYSFS_freeList(rc);
 }
+
 bool ModuleFileSystem::CopyFromOutsideFS(const char* full_path, const char* destination)
 {
 	// Only place we acces non virtual filesystem (defined functions)
@@ -172,6 +158,7 @@ bool ModuleFileSystem::CopyFromOutsideFS(const char* full_path, const char* dest
 
 	return ret;
 }
+
 bool ModuleFileSystem::Copy(const char* source, const char* destination)
 {
 	bool ret = false;
@@ -203,6 +190,7 @@ bool ModuleFileSystem::Copy(const char* source, const char* destination)
 		
 	return ret;
 }
+
 // Force to always use lowercase and / as folder separator
 char normalize_char(char c)
 {
@@ -213,6 +201,7 @@ char normalize_char(char c)
 
 	return tolower(c);
 }
+
 std::string ModuleFileSystem::NormalizeNodePath(const char* full_path)
 {
 	std::string normalized_path(full_path);
@@ -227,6 +216,7 @@ std::string ModuleFileSystem::NormalizeNodePath(const char* full_path)
 
 	return normalized_path;
 }
+
 void ModuleFileSystem::NormalizePath(std::string& full_path) const
 {
 	for (std::string::iterator it = full_path.begin(); it != full_path.end(); ++it)
@@ -242,6 +232,7 @@ void ModuleFileSystem::NormalizePath(std::string& full_path) const
 		}	
 	}
 }
+
 void ModuleFileSystem::SplitFilePath(const char* full_path, std::string* path, std::string* file, std::string* extension) const
 {
 	if (full_path != nullptr)
@@ -280,6 +271,7 @@ void ModuleFileSystem::SplitFilePath(const char* full_path, std::string* path, s
 		}
 	}
 }
+
 bool ModuleFileSystem::IsInDirectory(const char* directory, const char* p)
 {
 	bool ret = true;
@@ -299,6 +291,7 @@ bool ModuleFileSystem::IsInDirectory(const char* directory, const char* p)
 
 	return ret;
 }
+
 void ModuleFileSystem::CreateLibraryDirectories()
 {
 	
@@ -309,6 +302,7 @@ void ModuleFileSystem::CreateLibraryDirectories()
 	CreateDir(LIBRARY_SCENE_FOLDER);
 	
 }
+
 bool ModuleFileSystem::RemovePath(std::string* directory, const char* p)
 {
 	bool ret = true;
@@ -327,12 +321,14 @@ bool ModuleFileSystem::RemovePath(std::string* directory, const char* p)
 		
 	return ret;
 }
+
 unsigned int ModuleFileSystem::Load(const char* path, const char* file, char** buffer) const
 {
 	std::string full_path(path);
 	full_path += file;
 	return Load(full_path.c_str(), buffer);
 }
+
 // Read a file and writes it on a buffer
 uint ModuleFileSystem::Load(const char* file, char** buffer) const
 {
@@ -370,6 +366,7 @@ uint ModuleFileSystem::Load(const char* file, char** buffer) const
 		
 	return ret;
 }
+
 SDL_RWops* ModuleFileSystem::Load(const char* file) const
 {
 	char* buffer;
@@ -391,12 +388,14 @@ SDL_RWops* ModuleFileSystem::Load(const char* file) const
 	}
 		
 }
+
 int close_sdl_rwops(SDL_RWops* rw)
 {
 	RELEASE_ARRAY(rw->hidden.mem.base);
 	SDL_FreeRW(rw);
 	return 0;
 }
+
 // Saves all buffers to disk
 uint ModuleFileSystem::Save(const char* file, const void* buffer, unsigned int size, bool append) const
 {
@@ -439,6 +438,7 @@ uint ModuleFileSystem::Save(const char* file, const void* buffer, unsigned int s
 		
 	return ret;
 }
+
 bool ModuleFileSystem::Remove(const char* file)
 {
 	bool ret = false;
@@ -456,9 +456,6 @@ bool ModuleFileSystem::Remove(const char* file)
 
 	return ret;
 }
-
-
-
 
 std::string ModuleFileSystem::GetFileAndExtension(const char* path)
 {
@@ -511,15 +508,10 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 	Mesh->Name;
 	Mesh->TextureName;
 	
-	
-	
-
-
 	//Generate Random Value
 	int NewId = App->GiveRandomNum_Undefined();
 
 	StoreMetaIDs_List.push_back(NewId); // ID's To create Meta file to write
-
 
 	//Generate Path
 	std::string NewId_C = std::to_string(NewId);
@@ -527,9 +519,6 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 	std::string GeneralPath = "Library/Meshes/";
 
 	std::string FinalPath = GeneralPath + NewId_C + Extension;
-
-	
-
 
 	//num index, num vertex
 	uint ranges[3] = { Mesh->num_index,Mesh->num_vertex, Mesh->num_texcoords };
@@ -567,10 +556,6 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 	
 	cursor += bytes;
 
-	
-
-
-
 	// WRITING THE INFO INTO THE FILE
 
 	PHYSFS_File* WFile = PHYSFS_openWrite(FinalPath.c_str());
@@ -579,11 +564,7 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 
 	PHYSFS_close(WFile);
 	///////////////////
-
-
-
 	//READING FROM THE FILE
-
 
 	PHYSFS_File* RFile = PHYSFS_openRead(FinalPath.c_str());
 
@@ -607,8 +588,6 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 	uint NumVertex = Rranges[1];
 	uint NumTexCoords = Rranges[2];
 
-
-
 	//Index reading
 	Rbytes = sizeof(uint) * Mesh->num_index;
 
@@ -617,7 +596,6 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 	memcpy(Indexes, Rcursor, Rbytes);
 
 	Rcursor += Rbytes;
-
 
 	//Vertex
 	Rbytes = sizeof(float) * Mesh->num_vertex*3;
@@ -628,7 +606,6 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 
 	Rcursor += Rbytes;
 
-
 	//Texcoords
 	Rbytes = sizeof(float) * Mesh->num_texcoords*2;
 
@@ -637,11 +614,7 @@ void ModuleFileSystem::SaveMeshInto_WAF(MeshInfo* Mesh, aiMesh* RawMesh)
 	memcpy(Texcoordses, Rcursor, Rbytes);
 
 	Rcursor += Rbytes;
-	
-
-
 }
-
 
 
 MeshInfo* ModuleFileSystem::LoadMeshFrom_WAF(int FileId)
@@ -730,14 +703,11 @@ void ModuleFileSystem::CreateMesh_META(int id, std::string FilePath)
 
 	}
 
-	
-
 	PHYSFS_sint64 AmountWritten = PHYSFS_write(MetaFile, (const void*)buffer, 1, size);
 
 	  PHYSFS_close(MetaFile);
 
 	  LoadMesh_META();
-
 }
 
 void ModuleFileSystem::LoadMesh_META()
@@ -762,63 +732,10 @@ void ModuleFileSystem::LoadMesh_META()
 
 	Rcursor += Rbytes;
 
-	
-	
 	for (int o = 0; o < Values[0]+1; ++o) {
-		
-		
-
+	
 		LoadMetaIDs_List.push_back(Values[o]);
-
-		
-
-
 	}
 
 	PHYSFS_close(RFile);
-
 }
-
-
-///PHYSFS_File* MetaFile = PHYSFS_openWrite(CurrentlyDetectedMETA.c_str());
-//
-//uint size = sizeof(FilePath) * sizeof(std::string) + sizeof(StoreMetaIDs_List) * sizeof(int);
-//
-//
-//// path
-//char* buffer = new char[size];
-//
-//char* cursor = buffer;
-//
-//uint bytes = sizeof(FilePath);
-//
-//memcpy(cursor, &FilePath, bytes);
-//
-//cursor += bytes;
-//
-////ID'S
-//
-//std::vector<int>::iterator It = StoreMetaIDs_List.begin();
-//for (int i = 0; i < StoreMetaIDs_List.size(); ++i) {
-//
-//	int ID = *It;
-//
-//
-//	bytes = sizeof(int) * ID;
-//
-//	memcpy(cursor, &ID, bytes);
-//
-//	cursor += bytes;
-//
-//
-//	++It;
-//
-//}
-//
-//
-//
-//PHYSFS_sint64 AmountWritten = PHYSFS_write(MetaFile, (const void*)buffer, 1, size);
-//
-//PHYSFS_close(MetaFile);
-//
-//LoadMesh_META();

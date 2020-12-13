@@ -47,7 +47,7 @@ bool ModuleTextureImporter::Start()
 
 TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 {
-	//LOG("Importing Texture %s...", path);
+
 	TextureInfo InfoTexture;
 	TextureInfo* TextureInformation = new TextureInfo();
 	ILuint temp_id = 0;
@@ -108,7 +108,6 @@ TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 				App->meshimporter->LoadedTexturesList.push_back(TextureInformation);
 			}
 
-			/////////////////////////
 		}
 	}
 	
@@ -141,10 +140,6 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 	aiColor4D colorMat = { 0,0,0,0 };
 
 
-	
-
-
-
 	aiString tex_path;
 
 	if (Node.MaterialPath != "") {
@@ -163,8 +158,6 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 			Texture.texture_name = texName;
 			
 
-			
-			
 		}
 	}
 	
@@ -177,7 +170,6 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 
 	}
 	
-
 	return Texture;
 }
 
@@ -201,7 +193,6 @@ uint ModuleTextureImporter::SetUpTexture(const void* texture, uint width, uint h
 	}
 
 	
-
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);

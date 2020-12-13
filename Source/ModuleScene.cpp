@@ -64,28 +64,8 @@ bool ModuleScene::Start()
 	object_scene_camera->AddExistingComponent(App->camera->scene_camera);
 
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Models/Checkers/checkers.png");
-
-	// BAKER HOUSE FOR DRAW W/TEXTURES ON START
-
-	//App->textureImporter->TextureHouse = App->textureImporter->LoadTextureImage("Assets/Models/House/Baker_house.png");
-
-	
-
-
-	//This
-	//App->meshimporter->LoadFile_Mesh("Assets/Models/House/BakerHouse.fbx");
-	//this
 	
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
-	//App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
-	
-
-
-	//App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
-	//App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment.FBX");
-
-	
-	
 
 
 	return true;

@@ -44,10 +44,6 @@ public:
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
 
-
-
-
-
 private:
 
 	void LoadIconsTextures();

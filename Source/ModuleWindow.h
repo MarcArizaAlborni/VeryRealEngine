@@ -14,8 +14,6 @@ struct WindowInfo {
 	int height;
 	bool Fullscreen;
 
-
-
 };
 
 class ModuleWindow : public Module

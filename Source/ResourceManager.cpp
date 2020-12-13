@@ -11,14 +11,13 @@
 #include "Component.h"
 #include "ComponentTexture.h"
 #include "libraries/PhysFS/include/physfs.h"
+
 #pragma comment( lib, "libraries/PhysFS/libx86/physfs.lib" )
 
 namespace fs = std::filesystem;
 
 ResourceManager::ResourceManager(Application* app, const char* name, bool start_enabled) : Module(app, "ResourceManager", start_enabled)
 {
-
-	
 }
 
 ResourceManager::~ResourceManager()
@@ -36,16 +35,10 @@ bool ResourceManager::Start()
 
 update_status ResourceManager::Update(float dt)
 {
-
-	
-
-
-
 	if (ResourceTimer.ReadSec() > Time + 120) {
 
 		Time = ResourceTimer.ReadSec();
 		ReadMainResourcesFolder();
-
 	}
 
 	if (ModificationHasBeen) {
@@ -79,8 +72,6 @@ void ResourceManager::CreateResourcesWindow()
 			
 			++ResIt;
 		}
-
-		
 
 		if (DrawInitialParents == true) {
 
@@ -353,7 +344,6 @@ void ResourceManager::DrawFolderOptionIcons(std::string FolderName)
 	ImGui::Dummy(ImVec2(60.0f, 0.0f));
 	ImGui::SameLine();
 
-	
 	if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->AddFolderIcon.texture_id, { 30,30 })) {
 		
 		CreateNewFolder = true;
@@ -393,9 +383,6 @@ void ResourceManager::SetOpenFolder()
 
 		++It;
 	}
-
-
-
 }
 
 void ResourceManager::SetOpenFolderChildren(Resource* Item)
@@ -411,7 +398,6 @@ void ResourceManager::SetOpenFolderChildren(Resource* Item)
 			ItemC->ChildsToBeDrawnResources = true;
 
 		}
-
 
 		SetOpenFolderChildren(ItemC);
 
@@ -448,22 +434,10 @@ void ResourceManager::DrawFolderOptionsButtons(Resource* Item)
 		}
 		ImGui::PopStyleColor();
 
-		/*ImGui::SameLine();
-
-		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.9f, 1.0f, 1.0f, 0.5f));
-		if (ImGui::Button("BACK"))
-		{
-			Item->SelectedFolderHoverClick = false;
-			ImGui::CloseCurrentPopup();
-
-		}
-		ImGui::PopStyleColor();*/
 	}
-
 
 	CreateWindowRenameFolder(Item);
 	CreateWindowDeleteFolder(Item);
-	
 }
 
 void ResourceManager::GetSplittedFile(const char* full_path, std::string* path, std::string* file, std::string* NameF) const
@@ -480,7 +454,6 @@ void ResourceManager::GetSplittedFile(const char* full_path, std::string* path, 
 
 		if (file != nullptr)
 		{
-
 			if (pos_separator < full.length()) {
 
 				*file = full.substr(0, pos_separator);
@@ -514,7 +487,6 @@ void ResourceManager::NormalizedFolderPath(std::string& full_path) const
 
 		else
 		{
-			//*it = tolower(*it);
 		}
 	}
 }
@@ -550,22 +522,14 @@ void ResourceManager::CreateWindowRenameFolder(Resource* Item)
 
 					WantRenameFolder = false;
 					Item->toBeRenamed = false;
-					//ReadMainResourcesFolder();
 					ModificationHasBeen = true;
 				    Item->Name = FinalCopy;
 				}
 			}
 
-
-
-
 			ImGui::End();
 		}
-
 	}
-
-	
-
 }
 
 void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
@@ -575,7 +539,6 @@ void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
 		if (Item->toBeDeleted) {
 			ImGui::Begin("DeleteFolder", &WantDeleteFolder, ImGuiWindowFlags_NoDocking |
 				ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
-
 
 			std::string PreName;
 			std::string FileName;
@@ -587,27 +550,20 @@ void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 1.0f, 0.0f, 0.25f));
 			if (ImGui::Button("YES"))
 			{
-				
 				std::string FinalName = PreName + FileName;
 				
 				if (App->filemanager->Exists(FinalName.c_str())) {
-
-					
 
 					if (PHYSFS_delete(FinalName.c_str()) == 0) {
 
 						LOG("[ERROR] Error deleting folder, make sure it is empty! ");
 					}
 
-
-
 				}
-				
-				
+	
 				WantDeleteFolder = false;
 			    Item->toBeDeleted = false;
 				ModificationHasBeen = true;
-				
 			}
 
 			ImGui::PopStyleColor();
@@ -627,7 +583,6 @@ void ResourceManager::CreateWindowDeleteFolder(Resource* Item)
 
 			ImGui::End();
 		}
-
 	}
 }
 
@@ -643,12 +598,12 @@ void ResourceManager::SelectTypeOfFile(std::string Name)
 	std::string FullPath = StarterName + LastName;
 
 	if (Extension == "fbx" || Extension == "FBX") {
+
 		App->meshimporter->LoadFile_Mesh(FullPath.c_str());
 	}
+
 	else if (Extension == "PNG" || Extension == "png" || Extension == "tga" || Extension == "TGA" || Extension == "DDS" || Extension == "dds") {
 		
-		
-
 		std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
 		for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i) {
 
@@ -664,7 +619,6 @@ void ResourceManager::SelectTypeOfFile(std::string Name)
 			++It;
 		}
 
-
 		if (ModelSelected == true) {
 
 			App->editor->ToVisualizeTexture = App->textureImporter->LoadTextureImage(FullPath.c_str());
@@ -673,7 +627,6 @@ void ResourceManager::SelectTypeOfFile(std::string Name)
 
 			MeshComp->Texture = &App->editor->ToVisualizeTexture;
 
-			
 			ObjectToGiveTexture = nullptr;
 
 			ModelSelected = false;
@@ -685,14 +638,8 @@ void ResourceManager::SelectTypeOfFile(std::string Name)
 
 			App->editor->VisualizeTextureWindow = true;
 
-
 		}
-
-
-
 	}
-
-	
 }
 
 void ResourceManager::DragDropSetAsSource(Resource* ItemToDrag)
@@ -717,7 +664,6 @@ void ResourceManager::CheckSelectedObjectsChild(Game_Object* ItemToCheck)
 			ObjectToGiveTexture = Object;
 		}
 
-
 		CheckSelectedObjectsChild(Object);
 
 		++It;
@@ -732,9 +678,7 @@ void ResourceManager::CreateWindowDropFile()
 		Flags = ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
 		ImGui::Begin("DropFileHere",nullptr,Flags);
 		ImVec2 SizeW=ImGui::GetWindowSize();
-		//ImGui::BeginChild("DropFileHereChild", { SizeW.x,SizeW.y },false, Flags);
 		ImGui::BeginChild("DropFileHereChild", { 1071,714 }, false, Flags);
-		//1071 714
 		ImGui::EndChild();
 
 		if (ImGui::BeginDragDropTarget())
@@ -754,7 +698,6 @@ void ResourceManager::CreateWindowDropFile()
 	}
 }
 
-
 void ResourceManager::ReadMainResourcesFolder()
 {
 	std::vector<Resource*>::iterator It = ResourceEntryList.begin();
@@ -769,7 +712,6 @@ void ResourceManager::ReadMainResourcesFolder()
 	}
 
 	ResourceEntryList.clear();
-
 
 	std::string path = "Assets";
 	for (const auto& entry : fs::directory_iterator(path)) {
@@ -810,7 +752,6 @@ void ResourceManager::ReadMainResourcesFolder()
 		ResourceAddChildren(ResItem);
 		++IteratorRes;
 	}
-
 
 	SetOpenFolder();
 }
@@ -882,23 +823,15 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 
 				const char* PathName_R = ItemRC->Name.c_str();
 
-				
-				
 				if (App->input->CheckImportedFileType(".fbx", ItemRC->Name) != -1) {
 					if (resource_display_mesh) {
-						/*if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 })) {
-							ItemRC->ChildsToBeDrawnResources = true;
-						}*/
+						
 						ImGui::Image((void*)(intptr_t)App->textureImporter->MeshIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 
-						
 						if (ImGui::Button(PathName_R, { 150,20 })) {}
 
-						
 						DragDropSetAsSource(ItemRC);
-
-						
 
 						if (ImGui::IsItemHovered()) {
 
@@ -958,7 +891,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				}
 				else if (App->input->CheckImportedFileType(".PNG", ItemRC->Name) != -1) {
 					if (resource_display_textures) {
-						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
@@ -966,8 +899,6 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
-
-
 
 								ItemRC->SelectedFolderHoverClick = true;
 
@@ -989,8 +920,6 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
-
-
 
 								ItemRC->SelectedFolderHoverClick = true;
 
@@ -1014,7 +943,6 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
 
 
-
 								ItemRC->SelectedFolderHoverClick = true;
 
 							}
@@ -1027,7 +955,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				}
 				else if (App->input->CheckImportedFileType(".waf", ItemRC->Name) != -1) {
 					if (resource_display_textures) {
-						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
@@ -1035,8 +963,6 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 						if (ImGui::IsItemHovered()) {
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
-
-
 
 								ItemRC->SelectedFolderHoverClick = true;
 
@@ -1050,7 +976,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				}
 				else if (App->input->CheckImportedFileType(".meta", ItemRC->Name) != -1) {
 					if (resource_display_textures) {
-						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
@@ -1073,7 +999,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				}
 				else if (App->input->CheckImportedFileType(".TGA", ItemRC->Name) != -1) {
 					if (resource_display_textures) {
-						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
@@ -1082,10 +1008,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 
 							if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
 
-
-
 								ItemRC->SelectedFolderHoverClick = true;
-
 							}
 
 						}
@@ -1096,7 +1019,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				}
 				else if (App->input->CheckImportedFileType(".tga", ItemRC->Name) != -1) {
 					if (resource_display_textures) {
-						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+
 						ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						ImGui::Button(PathName_R, { 150,20 });
@@ -1119,7 +1042,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				}
 				else if (App->input->CheckImportedFileType(".jpg", ItemRC->Name) != -1) {
 				   if (resource_display_textures) {
-				   	//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+
 				   	ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 				   	ImGui::SameLine();
 				   	ImGui::Button(PathName_R, { 150,20 });
@@ -1142,7 +1065,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				}
 				else if (App->input->CheckImportedFileType(".JPG", ItemRC->Name) != -1) {
 				  if (resource_display_textures) {
-				  	//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
+
 				  	ImGui::Image((void*)(intptr_t)App->textureImporter->TextureIcon.texture_id, { 50,50 });
 				  	ImGui::SameLine();
 				  	ImGui::Button(PathName_R, { 150,20 });
@@ -1150,8 +1073,6 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 					if (ImGui::IsItemHovered()) {
 
 						if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
-
-
 
 							ItemRC->SelectedFolderHoverClick = true;
 
@@ -1165,7 +1086,7 @@ void ResourceManager::DrawResourcesItems(Resource* Parent)
 				}
 				else {
 					if (resource_display_folder) {
-						//ImGui::ImageButton((void*)(intptr_t)App->textureImporter->FolderIcon.texture_id, { 50,50 });
+
 						ImGui::Image((void*)(intptr_t)App->textureImporter->FolderIcon.texture_id, { 50,50 });
 						ImGui::SameLine();
 						if (ImGui::Button(PathName_R, { 150,20 })) {

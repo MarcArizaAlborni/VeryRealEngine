@@ -2,30 +2,25 @@
 #ifndef __ComponentTransform_H__
 #define __ComponentTransform_H__
 
-
 #include "Component.h"
 #include "ModuleGeometryManager.h"
-#include "libraries/MathGeoLib/include/MathGeoLib.h"
 
+#include "libraries/MathGeoLib/include/MathGeoLib.h"
 
 
 class Component_Transform : public Component
 {
 public:
 
-
 	float3 Translation = float3(0.f, 0.f, 0.f);
 	float3 Scale = float3(0.f, 0.f, 0.f);
 	Quat   Rotation = Quat::identity;
 
-	
 	float4x4 Local_Matrix;
 	float4x4 Global_Matrix;
 
-
 	float3 EulerRot = float3(0.f, 0.f, 0.f);
 	float3 EulerRotTemp = float3(0.f, 0.f, 0.f);
-
 
 	bool UpdateTransformations = false;
 
@@ -36,7 +31,6 @@ public:
 
 	void UpdateTransformationsObjects(float3 translations, float3 scales, Quat rotations);
 
-	
 	void SetPosition(float3 position) { this->Translation = position; UpdateLocalTransform(); };
 	void SetRotation(float3 position) { this->Rotation = Rotation; UpdateLocalTransform(); };
 	void SetEulerRotation(float3 eulerAngle);
@@ -47,9 +41,6 @@ public:
 	float3  GetScale() const { return this->Scale; };
 	float4x4  GetLocalTransform() const { return this->Local_Matrix; };
 	float4x4  GetGlobalTransform() const { return this->Global_Matrix; };
-
-
-	float4x4 GetGlobalTransformMatrix();
 
 	void UpdateLocalTransform();
 	void UpdateGlobalTransform();

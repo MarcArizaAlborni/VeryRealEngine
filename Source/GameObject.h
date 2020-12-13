@@ -21,8 +21,6 @@ public:
 	std::string name;
 	int item_id=0;
 	
-	
-
 	Component_Transform* Transformations = nullptr;
 	Component_Texture* Textures = nullptr;
 	Component_Mesh* Mesh = nullptr;
@@ -41,7 +39,6 @@ public:
 	Component* AddExistingComponent(Component* component);
 	Component* GetComponent(Component_Types type);
 
-
 	void GenerateChildren(Game_Object* ObjectToAdd);
 	void ChangeParentFromObject(Game_Object* ObjectToAdd);
 	void DeleteSpecificChildren(Game_Object* ObjectToDelete);
@@ -51,10 +48,7 @@ public:
 	void Enable();
 	void Disable();
 
-
-
 	//BOOLS
-
 	bool Enabled;
 	bool is_Wireframed;
 	bool is_Checkered;
@@ -62,15 +56,10 @@ public:
 	bool is_Selected;
 	bool ToBeDrawInspector;
 
-	
-
-
 public:
 
 	void Update();
 	void CleanUp();
-
-
 };
 
 

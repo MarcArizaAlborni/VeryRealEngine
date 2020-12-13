@@ -91,27 +91,8 @@ bool ModuleWindow::Init()
 
 update_status ModuleWindow::Update(float dt)
 {
-	//Game_Object* Camera_Item= App->geometrymanager->ObjectsOnScene[0]->Children_List[0];
-	//Component_Camera* Cam_Cmp = (Component_Camera*)Camera_Item->GetComponent(Component_Types::Camera);
-	//
-	//float3x4 View=App->camera->scene_camera->frustum.ViewMatrix();
-	//float4x4 viewMatrix = App->camera->currentCamera->frustum.ViewMatrix();
-	//
-	//App->geometrymanager->ObjectsOnScene[0]->Children_List[0];
-	//
-	//
-	//App->input->GetMouseX();
-	//App->input->GetMouseY();
-	//
-	// gluUnProject(App->input->GetMouseX(), App->input->GetMouseY(),1.0, View,)
-
-
-
-	
 	return UPDATE_CONTINUE;
 }
-
-
 
 // Called before quitting
 bool ModuleWindow::CleanUp()
@@ -234,7 +215,6 @@ int ModuleWindow::GetWindow_Width()
 
 	return Width;
 }
-
 
 
 void ModuleWindow::SetBorderless(bool borderless)

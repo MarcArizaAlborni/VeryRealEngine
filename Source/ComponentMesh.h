@@ -5,8 +5,8 @@
 #include "Component.h"
 #include "ModuleGeometryManager.h"
 #include <string>
-#include "libraries/MathGeoLib/include/MathGeoLib.h"
 
+#include "libraries/MathGeoLib/include/MathGeoLib.h"
 
 struct MeshInfo;
 
@@ -19,8 +19,6 @@ public:
 	MeshInfo* Mesh;
 	std::string File_Path;
 
-	void Enable() override;
-	void Disable() override;
 	void Update() override;
 	void CleanUp() override;
 	
@@ -61,9 +59,6 @@ public:
 
 	//Stencil properties
 	void DrawOutlineMesh(Component_Transform* transform);
-
-	//Cull
-	bool CullCheck();
 
 	vec4 outline_color;
 	int outline_width;

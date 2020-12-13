@@ -109,8 +109,6 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_COLOR_MATERIAL);
 	}
 	
-	//App->console->CreateConsolelog();
-	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	return ret;
@@ -196,7 +194,6 @@ update_status ModuleRenderer3D::Update(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	//glEnable(GL_DEPTH_TEST);
 
 	
 	SDL_GL_SwapWindow(App->window->window);
