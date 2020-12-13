@@ -1389,7 +1389,7 @@ void ModuleEditor::GUI_Init()
 	ImGuiStyle& style = ImGui::GetStyle();
 
 	ImVec4 col_text = ImColor(255, 255, 255);
-	ImVec4 col_main = ImColor(235, 66, 66);
+	ImVec4 col_main = ImColor(156, 33, 33);
 	ImVec4 col_back = ImColor(33, 36, 43);
 	ImVec4 col_area = ImColor(51, 56, 69);
 
