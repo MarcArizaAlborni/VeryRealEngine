@@ -220,6 +220,24 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             ImGui::SameLine(0.0f, 10.0f);
             ImGui::Text("%d", item->item_id);
 
+            int CmpCount = 0;
+
+            if (MeshInfo != nullptr) {
+                ++CmpCount;
+            }
+            if (TextureInfo != nullptr) {
+                ++CmpCount;
+            }
+            if (CameraInfo != nullptr) {
+                ++CmpCount;
+            }
+            if (TransInfo != nullptr) {
+                ++CmpCount;
+            }
+
+            ImGui::Text("Amount of Components: %d", CmpCount);
+
+
             ImGui::Separator();
         }
 
@@ -320,10 +338,10 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                 ImGui::SameLine(0.0f, 10.0f);
                 ImGui::Text("%d", MeshInfo->Mesh->id_vertex);
 
-                ImGui::Separator();
-                ImGui::Text("Mesh Path:");
-                ImGui::SameLine();
-                ImGui::TextColored({ 255,255,0,1 }, "%s", &MeshInfo->File_Path);
+                //ImGui::Separator();
+                //ImGui::Text("Mesh Path:");
+                //ImGui::SameLine();
+                //ImGui::TextColored({ 255,255,0,1 }, "%s", &MeshInfo->File_Path);
 
                 if (ImGui::TreeNodeEx("Vertex Normals:", ImGuiTreeNodeFlags_DefaultOpen)) {
 
@@ -444,6 +462,87 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             }
             
         }
+    }
+
+
+    if (ImGui::CollapsingHeader("Components", ImGuiTreeNodeFlags_DefaultOpen)) {
+
+
+       
+        const char* items[] = { "Mesh", "Texture", "Camera", "Transform" };
+        static const char* current_item = NULL;
+
+        if (ImGui::BeginCombo("##combo", current_item)) // The second parameter is the label previewed before opening the combo.
+        {
+            for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+            {
+                bool is_selected = (current_item == items[n]); // You can store your selection however you want, outside or inside your objects
+                if (ImGui::Selectable(items[n], is_selected)) {
+                    current_item = items[n];
+                }
+                if (is_selected) {
+                   ImGui::SetItemDefaultFocus();
+                } 
+
+              
+
+            }
+            ImGui::EndCombo();
+
+           
+
+           
+        }
+
+        ImGui::SameLine();
+
+        if (ImGui::Button("AddComponent")) {
+
+            if (current_item == items[0]) { //MESH
+
+                if (MeshInfo == nullptr) {
+                    item->AddComponent(Component_Types::Mesh);
+                    LOG("[WARNING] Component Added manually!");
+                }
+                else {
+                    LOG("[ERROR] The game object already has a mesh component!");
+                }
+            }
+            else if (current_item == items[1]) { //TEXTURE
+
+                if (TextureInfo == nullptr) {
+                    item->AddComponent(Component_Types::Texture);
+                    LOG("[WARNING] Component Added manually!");
+                }
+                else {
+                    LOG("[ERROR] The game object already has a texture component!");
+                }
+            }
+            else if (current_item == items[2]) { //CAMERA
+
+                if (CameraInfo == nullptr) {
+                    item->AddComponent(Component_Types::Camera);
+                    LOG("[WARNING] Component Added manually!");
+                }
+                else {
+                    LOG("[ERROR] The game object already has a Camera component!");
+                }
+
+            }
+            else  if (current_item == items[3]) { //TRANSFORM
+
+                if (TransInfo == nullptr) {
+                    item->AddComponent(Component_Types::Transform);
+                    LOG("[WARNING] Component Added manually!");
+                }
+                else {
+                    LOG("[ERROR] The game object already has a transform component!");
+                }
+            }
+
+        }
+
+       
     }
 
 }
