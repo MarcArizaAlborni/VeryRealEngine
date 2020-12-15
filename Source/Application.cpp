@@ -21,6 +21,7 @@
 #include "ModuleInspector.h"
 #include "ResourceManager.h"
 #include "FileSystem.h"
+#include "ModuleAudio.h"
 
 #include "Game_Time.h"
 
@@ -37,6 +38,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	
 	inspector = new ModuleInspectorGameObject(this);
 
+	audio = new ModuleAudio(this);
 	textureImporter = new ModuleTextureImporter(this);
 	meshimporter = new ModuleMeshImporter(this);
 	resources = new ResourceManager(this);
@@ -69,6 +71,7 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	AddModule(inspector);
 	AddModule(resources);
 
+	AddModule(audio);
 	AddModule(renderer3D);
 	AddModule(geometrymanager);
 	AddModule(scene);

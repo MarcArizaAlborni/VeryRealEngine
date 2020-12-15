@@ -190,6 +190,7 @@
     <ClInclude Include="libraries\mmgr\nommgr.h" />
     <ClInclude Include="libraries\Parson\parson.h" />
     <ClInclude Include="libraries\PhysFS\include\physfs.h" />
+    <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleGeometryManager.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
@@ -384,6 +385,7 @@
     <ClCompile Include="libraries\MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="libraries\mmgr\mmgr.cpp" />
     <ClCompile Include="libraries\Parson\parson.c" />
+    <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleGeometryManager.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="libraries\ImGui\imgui.cpp" />

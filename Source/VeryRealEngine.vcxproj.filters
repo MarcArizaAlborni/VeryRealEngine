@@ -247,6 +247,9 @@
     <ClCompile Include="libraries\imGuizmo\ImSequencer.cpp">
       <Filter>Source\External Libraries\ImGuizmo</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleAudio.cpp">
+      <Filter>Source\Modules\AUDIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -966,6 +969,9 @@
     <ClInclude Include="libraries\imGuizmo\ImZoomSlider.h">
       <Filter>Source\External Libraries\ImGuizmo</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleAudio.h">
+      <Filter>Source\Modules\AUDIO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -1036,6 +1042,9 @@
     </Filter>
     <Filter Include="Source\External Libraries\ImGuizmo">
       <UniqueIdentifier>{dd72216d-50f2-4ef3-8483-6b1ed89a324a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Modules\AUDIO">
+      <UniqueIdentifier>{237abf33-273b-4c28-b2a2-f553de57aaa7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

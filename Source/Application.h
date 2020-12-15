@@ -32,6 +32,7 @@ class ModuleHierarchyGameObject;
 class ModuleInspectorGameObject;
 class ResourceManager;
 class ModuleFileSystem;
+class ModuleAudio;
 
 class ModuleScene;
 
@@ -52,6 +53,7 @@ public:
 	
 	ModuleGeometryManager* geometrymanager;
 	ModuleFileSystem* filemanager;
+	ModuleAudio* audio;
 
 	//Windows & Menus
 
