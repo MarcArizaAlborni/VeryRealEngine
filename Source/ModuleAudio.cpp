@@ -1,4 +1,8 @@
 #include "ModuleAudio.h"
+#include "Application.h"
+
+#include "wwise.h"
+#include "libraries/Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
 
 ModuleAudio::ModuleAudio(Application* app, const char* name, bool start_enabled) : Module(app, "Audio", start_enabled)
 {

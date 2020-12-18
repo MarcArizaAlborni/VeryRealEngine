@@ -250,6 +250,27 @@
     <ClCompile Include="ModuleAudio.cpp">
       <Filter>Source\Modules\AUDIO</Filter>
     </ClCompile>
+    <ClCompile Include="libraries\Wwise\SDK\include\AkDefaultIOHookDeferred.cpp">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\Wwise\SDK\include\stdafx.cpp">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="wwise.cpp">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\Wwise\SDK\include\AkDefaultIOHookBlocking.cpp">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\Wwise\IO\Common\AkFileLocationBase.cpp">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\Wwise\IO\Common\AkFilePackage.cpp">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="libraries\Wwise\IO\Common\AkFilePackageLUT.cpp">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -972,6 +993,36 @@
     <ClInclude Include="ModuleAudio.h">
       <Filter>Source\Modules\AUDIO</Filter>
     </ClInclude>
+    <ClInclude Include="libraries\Wwise\SDK\include\AkDefaultIOHookDeferred.h">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\Wwise\SDK\include\akfilehelpers.h">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\Wwise\SDK\include\AkFilePackageLowLevelIOBlocking.h">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\Wwise\SDK\include\AkFilePackageLowLevelIODeferred.h">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\Wwise\SDK\include\stdafx.h">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="wwise.h">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\Wwise\SDK\include\AkDefaultIOHookBlocking.h">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\Wwise\IO\Common\AkFileLocationBase.h">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\Wwise\IO\Common\AkFilePackage.h">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\Wwise\IO\Common\AkFilePackageLUT.h">
+      <Filter>Source\External Libraries\Wwise</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -1045,6 +1096,9 @@
     </Filter>
     <Filter Include="Source\Modules\AUDIO">
       <UniqueIdentifier>{237abf33-273b-4c28-b2a2-f553de57aaa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\External Libraries\Wwise">
+      <UniqueIdentifier>{8ce8675d-6577-4d10-b1bd-78c4b6f9d15d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
