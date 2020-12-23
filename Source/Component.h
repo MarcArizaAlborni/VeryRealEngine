@@ -12,7 +12,9 @@ enum class Component_Types {
 	Transform,
 	Mesh,
 	Texture,
-	Camera
+	Camera,
+	Source,
+	Listener
 
 };
 

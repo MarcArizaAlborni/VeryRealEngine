@@ -8,6 +8,7 @@
 #include "Component.h"
 #include "ComponentCamera.h"
 #include "ComponentMesh.h"
+#include "Component_AudioSource.h"
 #include "ComponentTransform.h"
 #include "ModuleInput.h"
 #include "ModuleScene.h"
@@ -67,6 +68,18 @@ bool ModuleScene::Start()
 	
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
 
+	
+
+	Music_Source = new Game_Object("Music Origin");
+	ROOT_SCENE_OBJECT->Children_List.push_back(Music_Source);
+	Music_Source->Parent = ROOT_SCENE_OBJECT;
+
+	Component_AudioSource* Source = new Component_AudioSource(Music_Source);
+	
+	
+	Source->SetSoundID(AK::EVENTS::PLAY_MY_SONG);
+	
+	Music_Source->AddExistingComponent(Source);
 
 	return true;
 }

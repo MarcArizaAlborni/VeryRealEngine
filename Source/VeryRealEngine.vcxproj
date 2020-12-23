@@ -167,6 +167,7 @@
     <ClInclude Include="ComponentMesh.h" />
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ComponentTransform.h" />
+    <ClInclude Include="Component_AudioSource.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ImportSettings.h" />
@@ -412,6 +413,7 @@
     <ClInclude Include="ModuleScene.h" />
     <ClInclude Include="Game_Time.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Wise_Objects.h" />
     <ClInclude Include="wwise.h" />
   </ItemGroup>
   <ItemGroup>
@@ -421,6 +423,7 @@
     <ClCompile Include="ComponentMesh.cpp" />
     <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
+    <ClCompile Include="Component_AudioSource.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="JScene.cpp" />
     <ClCompile Include="JsonFiles.cpp" />
@@ -505,6 +508,7 @@
     <ClCompile Include="ModuleScene.cpp" />
     <ClCompile Include="Game_Time.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Wise_Objects.cpp" />
     <ClCompile Include="wwise.cpp" />
   </ItemGroup>
   <ItemGroup>

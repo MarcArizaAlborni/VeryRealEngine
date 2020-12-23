@@ -14,6 +14,7 @@ class Game_Object;
 class Component;
 class Component_Transform;
 class Component_Camera;
+class Component_Source;
 
 class ModuleScene : public Module
 {
@@ -37,6 +38,10 @@ public:
 	
 	Game_Object* ROOT_SCENE_OBJECT = nullptr;
 	Game_Object* object_scene_camera = nullptr;
+
+	//Audios
+
+	Game_Object* Music_Source = nullptr;
 
 	//Guizmos
 	void GuizmoDrawn();

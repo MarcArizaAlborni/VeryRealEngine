@@ -248,7 +248,7 @@
       <Filter>Source\External Libraries\ImGuizmo</Filter>
     </ClCompile>
     <ClCompile Include="ModuleAudio.cpp">
-      <Filter>Source\Modules\AUDIO</Filter>
+      <Filter>Source\Modules\Audio</Filter>
     </ClCompile>
     <ClCompile Include="libraries\Wwise\SDK\include\AkDefaultIOHookDeferred.cpp">
       <Filter>Source\External Libraries\Wwise</Filter>
@@ -273,6 +273,12 @@
     </ClCompile>
     <ClCompile Include="JsonFiles.cpp">
       <Filter>Source\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Component_AudioSource.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Wise_Objects.cpp">
+      <Filter>Source\Modules\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -994,7 +1000,7 @@
       <Filter>Source\External Libraries\ImGuizmo</Filter>
     </ClInclude>
     <ClInclude Include="ModuleAudio.h">
-      <Filter>Source\Modules\AUDIO</Filter>
+      <Filter>Source\Modules\Audio</Filter>
     </ClInclude>
     <ClInclude Include="libraries\Wwise\SDK\include\AkDefaultIOHookDeferred.h">
       <Filter>Source\External Libraries\Wwise</Filter>
@@ -1034,6 +1040,12 @@
     </ClInclude>
     <ClInclude Include="JsonFiles.h">
       <Filter>Source\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Component_AudioSource.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Wise_Objects.h">
+      <Filter>Source\Modules\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1106,11 +1118,11 @@
     <Filter Include="Source\External Libraries\ImGuizmo">
       <UniqueIdentifier>{dd72216d-50f2-4ef3-8483-6b1ed89a324a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Modules\AUDIO">
-      <UniqueIdentifier>{237abf33-273b-4c28-b2a2-f553de57aaa7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\External Libraries\Wwise">
       <UniqueIdentifier>{8ce8675d-6577-4d10-b1bd-78c4b6f9d15d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Modules\Audio">
+      <UniqueIdentifier>{237abf33-273b-4c28-b2a2-f553de57aaa7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
