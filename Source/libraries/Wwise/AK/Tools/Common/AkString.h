@@ -26,8 +26,8 @@ Copyright (c) 2006-2019 Audiokinetic Inc.
 *******************************************************************************/
 #pragma once
 
-#include <AK/Tools/Common/AkFNVHash.h>
-#include <AK/Tools/Common/AkHashList.h>
+#include "libraries/Wwise/AK/Tools/Common/AkFNVHash.h"
+#include "libraries/Wwise/AK/Tools/Common/AkHashList.h"
 
 template<typename TAlloc, typename T_CHAR>
 class AkStringData : public TAlloc

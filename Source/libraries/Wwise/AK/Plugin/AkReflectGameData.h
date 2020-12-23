@@ -28,7 +28,7 @@ Copyright (c) 2006-2019 Audiokinetic Inc.
 #ifndef _AK_REFLECT_GAMEDATA_H_
 #define _AK_REFLECT_GAMEDATA_H_
 
-#include <AK/SoundEngine/Common/AkTypes.h>
+#include "libraries/Wwise/AK/SoundEngine/Common/AkTypes.h"
 
 #define AK_MAX_NUM_TEXTURE 4
 

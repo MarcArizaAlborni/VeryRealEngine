@@ -8,6 +8,7 @@
 #include "libraries/Wwise/AK/SoundEngine/Common/AkStreamMgrModule.h"
 #include "libraries/Wwise/AK/SoundEngine/Common/IAkStreamMgr.h"
 #include "libraries/Wwise/AK/Tools/Common/AkPlatformFuncs.h"
+//#include "libraries/Wwise/AK/SpatialAudio/Common/AkSpatialAudio.h"
 
 // Input libraries
 #ifndef _WIN64

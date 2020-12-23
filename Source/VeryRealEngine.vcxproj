@@ -263,6 +263,8 @@
     <ClInclude Include="libraries\mmgr\nommgr.h" />
     <ClInclude Include="libraries\Parson\parson.h" />
     <ClInclude Include="libraries\PhysFS\include\physfs.h" />
+    <ClInclude Include="libraries\Wwise\AK\SpatialAudio\Common\AkSpatialAudio.h" />
+    <ClInclude Include="libraries\Wwise\AK\SpatialAudio\Common\AkSpatialAudioTypes.h" />
     <ClInclude Include="libraries\Wwise\IO\Common\AkFileLocationBase.h" />
     <ClInclude Include="libraries\Wwise\IO\Common\AkFilePackage.h" />
     <ClInclude Include="libraries\Wwise\IO\Common\AkFilePackageLUT.h" />

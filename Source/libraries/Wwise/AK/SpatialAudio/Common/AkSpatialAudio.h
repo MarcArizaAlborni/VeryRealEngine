@@ -30,9 +30,9 @@ Copyright (c) 2006-2019 Audiokinetic Inc.
 
 #pragma once
 
-#include <AK/SpatialAudio/Common/AkSpatialAudioTypes.h>
-#include <AK/Plugin/AkReflectGameData.h>
-#include <AK/SoundEngine/Common/AkSoundEngine.h>
+#include "libraries/Wwise/AK/SpatialAudio/Common/AkSpatialAudioTypes.h"
+#include "libraries/Wwise/AK/Plugin/AkReflectGameData.h"
+#include "libraries/Wwise/AK/SoundEngine/Common/AkSoundEngine.h"
 
 /// AkDiffractionFlags determine if diffraction values for sound passing through portals will be calculated, and how to apply those calculations to Wwise parameters.
 enum AkDiffractionFlags
