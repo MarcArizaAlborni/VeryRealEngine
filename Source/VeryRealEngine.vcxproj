@@ -171,6 +171,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ImportSettings.h" />
     <ClInclude Include="JScene.h" />
+    <ClInclude Include="JsonFiles.h" />
     <ClInclude Include="libraries\DevIL\include\config.h" />
     <ClInclude Include="libraries\DevIL\include\devil_internal_exports.h" />
     <ClInclude Include="libraries\DevIL\include\il.h" />
@@ -422,6 +423,7 @@
     <ClCompile Include="ComponentTransform.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="JScene.cpp" />
+    <ClCompile Include="JsonFiles.cpp" />
     <ClCompile Include="libraries\imGuizmo\ImCurveEdit.cpp" />
     <ClCompile Include="libraries\imGuizmo\ImGradient.cpp" />
     <ClCompile Include="libraries\imGuizmo\ImGuizmo.cpp" />

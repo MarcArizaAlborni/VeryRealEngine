@@ -4,6 +4,7 @@
 #include "Module.h"
 #include <vector>
 #include <string>
+#include <map>
 #include "libraries/Wwise/AK/SoundEngine/Common/AkTypes.h"
 
 #define BANKS_PATH "Assets/Audio/"
@@ -24,6 +25,9 @@ public:
 	void LoadBank(const char* path);
 
 	void LoadEventsFromJson();
+
+
+	std::map<std::string, int> Audio_EventList;
 	
 private:
 

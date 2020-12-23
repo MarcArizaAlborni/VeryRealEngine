@@ -271,6 +271,9 @@
     <ClCompile Include="libraries\Wwise\IO\Common\AkFilePackageLUT.cpp">
       <Filter>Source\External Libraries\Wwise</Filter>
     </ClCompile>
+    <ClCompile Include="JsonFiles.cpp">
+      <Filter>Source\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -1028,6 +1031,9 @@
     </ClInclude>
     <ClInclude Include="libraries\Wwise\AK\SpatialAudio\Common\AkSpatialAudioTypes.h">
       <Filter>Source\External Libraries\Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonFiles.h">
+      <Filter>Source\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

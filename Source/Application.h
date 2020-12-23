@@ -18,6 +18,8 @@
 #include <vector>
 #include "libraries/json/json.hpp"
 
+#include "JsonFiles.h"
+
 
 class ModuleWindow;
 class ModuleInput;
@@ -122,6 +124,14 @@ public:
 	int GenerateRandomID();
 
 	int value;
+
+
+
+// json
+
+	JSONFiles* LoaderJson();
+	JSONFiles Loader_Json;
+	json TempJson;
 private:
 
 	std::string SaveFileName;

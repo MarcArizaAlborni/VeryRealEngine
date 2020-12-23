@@ -292,6 +292,9 @@ float Application::GetDT()
 	return dt;
 }
 
+JSONFiles* Application::LoaderJson() {
+	return &Loader_Json;
+}
 
 Application* App = nullptr;;
 

@@ -7,6 +7,8 @@
 #include "libraries/Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
 #pragma comment( lib, "libraries/PhysFS/libx86/physfs.lib" )
 #include "libraries/PhysFS/include/physfs.h"
+#include <fstream>
+#include <string>
 
 // We're using the default Low-Level I/O implementation that's part
 // of the SDK's sample code, with the file package extension
@@ -141,8 +143,11 @@ bool ModuleAudio::Start()
    
 
     LoadEventsFromJson();
+    Audio_EventList.begin();
 
-
+   
+       
+    
 	return true;
 }
 
@@ -246,11 +251,12 @@ void ModuleAudio::LoadEventsFromJson()
 
         uint Id = 0;
         //std::string name;
-        json File = App->GetJLoader()->Load(path.c_str());
+      
+        json File = App->LoaderJson()->Load(path.c_str());
+       
         
-
         json Events = File["SoundBanksInfo"]["SoundBanks"][0]["IncludedEvents"];
-        EventMap.begin();
+        Audio_EventList.begin();
 
         for (uint i = 0; i < Events.size(); ++i)
         {
@@ -260,9 +266,11 @@ void ModuleAudio::LoadEventsFromJson()
             std::string namestring = node["Name"];
             Id = std::stoul(idstring);
 
-            EventMap.insert(std::pair<std::string, uint>(namestring, Id));
+            Audio_EventList.insert(std::pair<std::string, uint>(namestring, Id));
         }
 
         uint i = 0;
+
+        
     }
 }
