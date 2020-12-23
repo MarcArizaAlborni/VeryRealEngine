@@ -1,6 +1,0 @@
-Event	ID	Name			Wwise Object Path	Notes
-	2721694499	On_Init			\Default Work Unit\On_Init	
-
-In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	57102070	Rip & Tear	C:\Users\grome\Downloads\TestBank\.cache\Windows\SFX\Rip & Tear_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Rip & Tear		49485132
-

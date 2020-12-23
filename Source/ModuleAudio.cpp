@@ -1,12 +1,19 @@
 #include "ModuleAudio.h"
 #include "Application.h"
 #include "Globals.h"
-
+#include "FileSystem.h"
+#include "..\Game\Assets\Audio\Wwise_IDs.h"
 #include "wwise.h"
 #include "libraries/Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
+#pragma comment( lib, "libraries/PhysFS/libx86/physfs.lib" )
+#include "libraries/PhysFS/include/physfs.h"
 
 // We're using the default Low-Level I/O implementation that's part
 // of the SDK's sample code, with the file package extension
+
+
+
+
 CAkDefaultIOHookBlocking g_lowLevelIO;
 
 ModuleAudio::ModuleAudio(Application* app, const char* name, bool start_enabled) : Module(app, "Audio", start_enabled)
@@ -109,11 +116,33 @@ bool ModuleAudio::Init()
 
 #endif // AK_OPTIMIZED
 
+
+    AkBankID bankID;
+    AKRESULT retValue;
+    retValue = AK::SoundEngine::LoadBank(BANKS_INIT_PATH, AK_DEFAULT_POOL_ID, bankID);
+
+
+
+    std::vector<std::string> banks;
+    ReadFileBanks(&banks);
+
+
+    for (std::vector<std::string>::iterator it = banks.begin(); it != banks.end(); ++it)
+    {
+        LoadBank((*it).c_str());
+    }
+
 	return true;
 }
 
 bool ModuleAudio::Start()
 {
+
+   
+
+    LoadEventsFromJson();
+
+
 	return true;
 }
 
@@ -145,4 +174,95 @@ bool ModuleAudio::CleanUp()
     AK::MemoryMgr::Term();
 
 	return true;
+}
+
+void ModuleAudio::ReadFileBanks(std::vector<std::string>* soundbanks)
+{
+    std::vector<std::string> files;
+    DetectAudioBanks(BANKS_PATH, files);
+
+    
+    std::string extension = "bnk";
+    std::string file_extension;
+    std::string file_name;
+    for (std::vector<std::string>::iterator it = files.begin(); it != files.end(); ++it)
+    {
+        App->filemanager->SplitFilePath((*it).c_str(), nullptr, &file_name, &file_extension);
+        if (!file_extension.compare(extension)) 
+        {
+            App->filemanager->DeleteExtension(file_name);
+            if (!file_name.compare("Init")) {  
+                continue;
+            }
+
+            soundbanks->push_back(file_name);
+        }
+    }
+}
+
+void ModuleAudio::DetectAudioBanks(const char* directory, std::vector<std::string>& file_list)
+{
+
+    char** rc = PHYSFS_enumerateFiles(directory);
+    char** i;
+
+    std::string dir(directory);
+
+    for (i = rc; *i != nullptr; i++) {
+        if (!PHYSFS_isDirectory((dir + *i).c_str())) {
+            file_list.push_back(*i);
+        }
+    }
+
+    PHYSFS_freeList(rc);
+}
+
+void ModuleAudio::LoadBank(const char* path)
+{
+    std::string fullPath = "Assets/Audio/";
+    fullPath += path;
+    fullPath += ".bnk";
+
+    AkBankID bankID;
+
+  
+    if (App->filemanager->Exists(fullPath.c_str())) {
+      AKRESULT Res=  AK::SoundEngine::LoadBank(fullPath.c_str(), AK_DEFAULT_POOL_ID, bankID);
+      if (Res == AK_Success) {
+          LOG("Bank %s Loaded Correctly", fullPath.c_str());
+        }
+    }
+}
+
+void ModuleAudio::LoadEventsFromJson()
+{
+    std::vector<std::string> jsonlist;
+    ReadFileBanks(&jsonlist);
+
+    for (std::vector<std::string>::iterator it = jsonlist.begin(); it != jsonlist.end(); ++it)
+    {
+
+        std::string path = "Assets/Audio/" + (*it) + ".json";
+
+        uint Id = 0;
+        //std::string name;
+        json File = App->GetJLoader()->Load(path.c_str());
+        
+
+        json Events = File["SoundBanksInfo"]["SoundBanks"][0]["IncludedEvents"];
+        EventMap.begin();
+
+        for (uint i = 0; i < Events.size(); ++i)
+        {
+            json node = Events[i];
+
+            std::string idstring = node["Id"];
+            std::string namestring = node["Name"];
+            Id = std::stoul(idstring);
+
+            EventMap.insert(std::pair<std::string, uint>(namestring, Id));
+        }
+
+        uint i = 0;
+    }
 }

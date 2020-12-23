@@ -33,6 +33,7 @@ public:
 	bool IsInDirectory(const char* directory, const char* p);
 	void CreateLibraryDirectories();
 	bool RemovePath(std::string* directory, const char* p);
+	void DeleteExtension(std::string& Path);
 
 	// Read/Write
 	unsigned int Load(const char* path, const char* file, char** buffer) const;

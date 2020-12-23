@@ -1,0 +1,49 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "11",
+  "SoundbankVersion": "134",
+  "RootPaths": {
+   "ProjectRoot": "E:\\SPELL\\TestingBanks\\",
+   "SourceFilesRoot": "E:\\SPELL\\TestingBanks\\.cache\\Windows\\",
+   "SoundBanksRoot": "C:\\Users\\PCCom\\Documents\\GitHub\\VeryRealEngine\\Game\\Assets\\Audio\\",
+   "ExternalSourcesInputFile": "",
+   "ExternalSourcesOutputRoot": "E:\\SPELL\\TestingBanks\\GeneratedSoundBanks\\Windows"
+  },
+  "DialogueEvents": [],
+  "StreamedFiles": [],
+  "MediaFilesNotInAnyBank": [],
+  "SoundBanks": [
+   {
+    "Id": "1355168291",
+    "Language": "SFX",
+    "ObjectPath": "Init",
+    "ShortName": "Init",
+    "Path": "Init.bnk"
+   },
+   {
+    "Id": "3291379323",
+    "Language": "SFX",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\TestBank",
+    "ShortName": "TestBank",
+    "Path": "TestBank.bnk",
+    "IncludedEvents": [
+     {
+      "Id": "2721694499",
+      "Name": "On_Init",
+      "ObjectPath": "\\Events\\Default Work Unit\\On_Init"
+     }
+    ],
+    "IncludedMemoryFiles": [
+     {
+      "Id": "475015236",
+      "Language": "SFX",
+      "ShortName": "Rip-And-Tear-_DOOM-2016-ost-re-upload-Mick-Gordon_.wav",
+      "Path": "SFX\\Rip-And-Tear-_DOOM-2016-ost-re-upload-Mick-Gordon__10C4C929.wem"
+     }
+    ]
+   }
+  ]
+ }
+}

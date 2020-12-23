@@ -6,7 +6,8 @@
 #include <string>
 #include "libraries/Wwise/AK/SoundEngine/Common/AkTypes.h"
 
-
+#define BANKS_PATH "Assets/Audio/"
+#define BANKS_INIT_PATH "Assets/Audio/Init.bnk"
 class ModuleAudio : public Module
 {
 public:
@@ -19,8 +20,15 @@ public:
 	bool CleanUp();
 
 
-	
+	void ModuleAudio::ReadFileBanks(std::vector<std::string>* soundbanks);
+	void LoadBank(const char* path);
 
+	void LoadEventsFromJson();
+	
+private:
+
+	void DetectAudioBanks(const char* directory, std::vector<std::string>& file_list);
+	
 
 
 };

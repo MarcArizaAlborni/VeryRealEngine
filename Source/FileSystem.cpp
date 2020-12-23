@@ -228,7 +228,7 @@ void ModuleFileSystem::NormalizePath(std::string& full_path) const
 			
 		else
 		{
-			*it = tolower(*it);
+			//*it = tolower(*it);
 		}	
 	}
 }
@@ -320,6 +320,12 @@ bool ModuleFileSystem::RemovePath(std::string* directory, const char* p)
 	}
 		
 	return ret;
+}
+
+void ModuleFileSystem::DeleteExtension(std::string& Path)
+{
+	std::size_t pos = Path.find(".");
+	Path = Path.substr(0, pos);
 }
 
 unsigned int ModuleFileSystem::Load(const char* path, const char* file, char** buffer) const
