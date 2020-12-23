@@ -35,15 +35,7 @@
 
 ModuleScene::ModuleScene(Application* app, const char* name, bool start_enabled) : Module(app, "Scene", start_enabled)
 {
-	ROOT_SCENE_OBJECT = new Game_Object("MainScene");
-	App->geometrymanager->ObjectsOnScene.push_back(ROOT_SCENE_OBJECT);
-	ROOT_SCENE_OBJECT->Parent = nullptr;
-
-	object_scene_camera = new Game_Object("Scene Camera");
-	ROOT_SCENE_OBJECT->Children_List.push_back(object_scene_camera);
-	object_scene_camera->Parent = ROOT_SCENE_OBJECT;
-
-	ImGuizmo::Enable(true);
+	
 
 }
 
@@ -54,9 +46,19 @@ ModuleScene::~ModuleScene()
 // Called before render is available
 bool ModuleScene::Init()
 {
+
+
 	LOG("Creating Scene context");
 	bool ret = true;
+	ROOT_SCENE_OBJECT = new Game_Object("MainScene");
+	App->geometrymanager->ObjectsOnScene.push_back(ROOT_SCENE_OBJECT);
+	ROOT_SCENE_OBJECT->Parent = nullptr;
 
+	object_scene_camera = new Game_Object("Scene Camera");
+	ROOT_SCENE_OBJECT->Children_List.push_back(object_scene_camera);
+	object_scene_camera->Parent = ROOT_SCENE_OBJECT;
+
+	ImGuizmo::Enable(true);
 	return ret;
 }
 
@@ -76,10 +78,11 @@ bool ModuleScene::Start()
 
 	Component_AudioSource* Source = new Component_AudioSource(Music_Source);
 	
-	
-	Source->SetSoundID(AK::EVENTS::PLAY_MY_SONG);
-	
 	Music_Source->AddExistingComponent(Source);
+	Source->SetSoundID(AK::EVENTS::PLAY_MY_SONG);
+	Source->sound_go->PlayEvent(AK::EVENTS::PLAY_MY_SONG);
+	
+	
 
 	return true;
 }

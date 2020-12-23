@@ -8,6 +8,9 @@ Component_AudioSource::Component_AudioSource(Game_Object* ComponentOwner) :Compo
 	owner = ComponentOwner;
 	type = Component_Types::Source;
 
+	
+	sound_go = Wwise::CreateSoundObj(owner->item_id, owner->name.c_str(), 0,0,0);
+
    //
 }
 

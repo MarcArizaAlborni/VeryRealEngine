@@ -53,6 +53,9 @@ public:
 	Game_Object* ObjectToBeDeleted;
 
 	void RemoveSelectedItem(Game_Object* Object);
+
+
+	int Game_Objects_IdGen = 0;
 	
 public:
 	Game_Object* LookForSelectedChild(Game_Object* obj);

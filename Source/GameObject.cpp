@@ -6,6 +6,8 @@
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
 #include "Component.h"
+#include "ModuleScene.h"
+#include "Application.h"
 
 Game_Object::Game_Object(std::string name) : name(name), Enabled(true)
 {
@@ -17,6 +19,11 @@ Game_Object::Game_Object(std::string name) : name(name), Enabled(true)
 	showVertexNormals = false;
 	is_Selected = false;
 	ToBeDrawInspector = false;
+
+
+	item_id = App->scene->Game_Objects_IdGen + 1 ;
+
+	++App->scene->Game_Objects_IdGen;
 
 }
 

@@ -178,6 +178,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     
     ImGui::Text(Name);
     
+    ImGui::Text("%d", item->item_id);
    
         //GENERAL INFORMATION
         if (ImGui::CollapsingHeader("General Information", ImGuiTreeNodeFlags_DefaultOpen))
