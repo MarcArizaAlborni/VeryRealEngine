@@ -8,7 +8,7 @@
 #include "Component.h"
 #include "ComponentCamera.h"
 #include "ComponentMesh.h"
-#include "Component_AudioSource.h"
+
 #include "ComponentTransform.h"
 #include "ModuleInput.h"
 #include "ModuleScene.h"
@@ -77,16 +77,6 @@ bool ModuleScene::Start()
 
 
 
-	//Source Music
-	Music_Source = new Game_Object("Music Origin");
-	ROOT_SCENE_OBJECT->Children_List.push_back(Music_Source);
-	Music_Source->Parent = ROOT_SCENE_OBJECT;
-
-	Component_AudioSource* Source = new Component_AudioSource(Music_Source);
-	
-	Music_Source->AddExistingComponent(Source);
-	Source->SetSoundID(AK::EVENTS::PLAY_MY_SONG);
-	Source->sound_go->PlayEvent(AK::EVENTS::PLAY_MY_SONG);
 	
 	
 

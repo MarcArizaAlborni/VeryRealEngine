@@ -274,12 +274,6 @@
     <ClCompile Include="JsonFiles.cpp">
       <Filter>Source\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="Component_AudioSource.cpp">
-      <Filter>Source\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Wise_Objects.cpp">
-      <Filter>Source\Modules\Audio</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -1040,12 +1034,6 @@
     </ClInclude>
     <ClInclude Include="JsonFiles.h">
       <Filter>Source\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Component_AudioSource.h">
-      <Filter>Source\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Wise_Objects.h">
-      <Filter>Source\Modules\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
