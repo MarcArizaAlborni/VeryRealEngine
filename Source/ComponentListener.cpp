@@ -8,7 +8,7 @@
 
 Component_Listener::Component_Listener(Game_Object* ComponentOwner) :Component(ComponentOwner)
 {
-
+	type = Component_Types::Listener;
 	owner = ComponentOwner;
 	float3 Position;
 	//For Positions

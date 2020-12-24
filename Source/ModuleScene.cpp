@@ -73,7 +73,11 @@ bool ModuleScene::Start()
 	background_music = new Game_Object("Music Source");
 	ROOT_SCENE_OBJECT->Children_List.push_back(background_music);
 	background_music->Parent = ROOT_SCENE_OBJECT;
+
+
 	background_music->AddComponent(Component_Types::Source);
+
+
 	Component_Source* musicSource = (Component_Source*)background_music->GetComponent(Component_Types::Source);
 	musicSource->SetID(AK::EVENTS::PLAY_MY_SONG);
 	musicSource->WiseItem->PlayEvent(AK::EVENTS::PLAY_MY_SONG);

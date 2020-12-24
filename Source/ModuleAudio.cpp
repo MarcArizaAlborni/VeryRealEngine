@@ -313,7 +313,8 @@ void WwiseObjects::SetPosition(float posX, float posY, float posZ, float frontX,
 
 void WwiseObjects::PlayEvent(uint id)
 {
-    AK::SoundEngine::PostEvent(id, this->id);
+    AkPlayingID CurrentlyPlaying;
+    CurrentlyPlaying = AK::SoundEngine::PostEvent(id, this->id);
 }
 
 void WwiseObjects::PauseEvent(uint id)

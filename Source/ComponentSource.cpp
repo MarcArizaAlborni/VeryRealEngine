@@ -13,6 +13,8 @@ Component_Source::Component_Source(Game_Object* ComponentOwner) :Component(Compo
 
 	owner->name = "AudioSource";
 
+	type = Component_Types::Source;
+
 	float3 Position;
 	//For Positions
 
