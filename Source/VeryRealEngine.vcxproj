@@ -164,7 +164,9 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentCamera.h" />
+    <ClInclude Include="ComponentListener.h" />
     <ClInclude Include="ComponentMesh.h" />
+    <ClInclude Include="ComponentSource.h" />
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ComponentTransform.h" />
     <ClInclude Include="Definitions.h" />
@@ -418,7 +420,9 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
+    <ClCompile Include="ComponentListener.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
+    <ClCompile Include="ComponentSource.cpp" />
     <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
     <ClCompile Include="GameObject.cpp" />

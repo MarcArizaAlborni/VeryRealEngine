@@ -142,8 +142,8 @@ bool ModuleAudio::Start()
 
    
 
-    LoadEventsFromJson();
-    Audio_EventList.begin();
+    //LoadEventsFromJson();
+   
 
    
        
@@ -256,7 +256,7 @@ void ModuleAudio::LoadEventsFromJson()
        
         
         json Events = File["SoundBanksInfo"]["SoundBanks"][0]["IncludedEvents"];
-        Audio_EventList.begin();
+       
 
         for (uint i = 0; i < Events.size(); ++i)
         {
@@ -266,11 +266,101 @@ void ModuleAudio::LoadEventsFromJson()
             std::string namestring = node["Name"];
             Id = std::stoul(idstring);
 
-            Audio_EventList.insert(std::pair<std::string, uint>(namestring, Id));
+           
         }
 
         uint i = 0;
 
         
     }
+}
+
+
+//WWISE OBJECTS
+
+
+WwiseObjects::WwiseObjects(unsigned __int64 id, const char* name)
+{
+    this->id = id;
+    this->name = name;
+
+    AK::SoundEngine::RegisterGameObj(this->id, this->name);
+}
+
+WwiseObjects::~WwiseObjects()
+{
+    AK::SoundEngine::UnregisterGameObj(id);
+}
+
+void WwiseObjects::SetPosition(float posX, float posY, float posZ, float frontX, float frontY, float frontZ, float topX, float topY, float topZ)
+{
+    position.X = -posX;
+    position.Y = posY;
+    position.Z = -posZ;
+
+    orientationFront.X = frontX;
+    orientationFront.Y = frontY;
+    orientationFront.Z = frontZ;
+
+    orientationTop.X = topX;
+    orientationTop.Y = topY;
+    orientationTop.Z = topZ;
+
+    AkSoundPosition soundPosition;
+    soundPosition.Set(position, orientationFront, orientationTop);
+    AK::SoundEngine::SetPosition(id, soundPosition);
+}
+
+void WwiseObjects::PlayEvent(uint id)
+{
+    AK::SoundEngine::PostEvent(id, this->id);
+}
+
+void WwiseObjects::PauseEvent(uint id)
+{
+    AK::SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Pause, this->id);
+}
+
+void WwiseObjects::ResumeEvent(uint id)
+{
+    AK::SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Resume, this->id);
+}
+
+void WwiseObjects::StopEvent(uint id)
+{
+   AK::SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Stop, this->id);
+}
+
+
+
+WwiseObjects* WwiseObjects::CreateAudioSource(uint id, const char* name, float3 position)
+{
+    WwiseObjects* Object = new WwiseObjects(id, name);
+    Object->SetPosition(position.x, position.y, position.z);
+
+    return Object;
+}
+
+WwiseObjects* WwiseObjects::CreateAudioListener(uint id, const char* name, float3 position)
+{
+    WwiseObjects* Object = new WwiseObjects(id, name);
+
+    AkGameObjectID ListenerID = Object->GetID();
+
+    int ListenerAmount = 1;
+
+    AK::SoundEngine::SetDefaultListeners(&ListenerID, ListenerAmount);
+
+    Object->SetPosition(position.x, position.y, position.z);
+
+    App->audio->CurrentListenerID = ListenerID;
+
+    return Object;
+}
+
+
+
+uint WwiseObjects::GetID()
+{
+    return id;
 }

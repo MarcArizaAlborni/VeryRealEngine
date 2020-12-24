@@ -274,6 +274,12 @@
     <ClCompile Include="JsonFiles.cpp">
       <Filter>Source\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentSource.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentListener.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -1034,6 +1040,12 @@
     </ClInclude>
     <ClInclude Include="JsonFiles.h">
       <Filter>Source\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentSource.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentListener.h">
+      <Filter>Source\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
