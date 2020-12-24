@@ -359,7 +359,6 @@ WwiseObjects* WwiseObjects::CreateAudioListener(uint id, const char* name, float
 }
 
 
-
 uint WwiseObjects::GetID()
 {
     return id;

@@ -15,6 +15,7 @@ class Component;
 class Component_Transform;
 class Component_Camera;
 class Component_Source;
+class Component_Listener;
 
 class ModuleScene : public Module
 {
@@ -39,10 +40,6 @@ public:
 	Game_Object* ROOT_SCENE_OBJECT = nullptr;
 	Game_Object* object_scene_camera = nullptr;
 
-	//Audios
-
-	Game_Object* Music_Source = nullptr;
-
 	//Guizmos
 	void GuizmoDrawn();
 	void ChangeOperationGuizmo(ImGuizmo::OPERATION& op);
@@ -54,12 +51,14 @@ public:
 
 	void RemoveSelectedItem(Game_Object* Object);
 
-	
-
 	int Game_Objects_IdGen = 0;
 	
 public:
 	Game_Object* LookForSelectedChild(Game_Object* obj);
+
+public:
+	//Audios
+	Game_Object* background_music = nullptr;
 };
 
 #endif // __ModuleScene_H__

@@ -34,4 +34,5 @@ void Component_Source::Update()
 
 void Component_Source::SetID(AkGameObjectID id)
 {
+	this->id = id;
 }

@@ -4,6 +4,8 @@
 #include "ComponentCamera.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
+#include "ComponentListener.h"
+#include "ComponentSource.h"
 #include "ComponentTransform.h"
 #include "Component.h"
 #include "ModuleScene.h"
@@ -81,6 +83,22 @@ Component* Game_Object::AddComponent(Component_Types typus)
 
 		break;
 
+	case Component_Types::Listener:
+		LOG("[WARNING]Component Listener added to GameObject");
+
+		Ret = new Component_Listener(this);
+		UniqueComponent = true;
+
+		break;
+
+	case Component_Types::Source:
+		LOG("[WARNING]Component Soource added to GameObject");
+
+		Ret = new Component_Source(this);
+		UniqueComponent = true;
+
+		break;
+
 	default:
 		LOG("[WARNING]Error when adding Component");
 		break;
@@ -146,6 +164,16 @@ Component* Game_Object::AddExistingComponent(Component* component)
 		LOG("[WARNING]Component Camera added to Existing GameObject");
 		Camera = (Component_Camera*)component;
 		Ret = new Component_Camera(this);
+		break;
+	case(Component_Types::Listener):
+		LOG("[WARNING]Component Listener added to Existing GameObject");
+		Listener = (Component_Listener*)component;
+		Ret = new Component_Listener(this);
+		break;
+	case(Component_Types::Source):
+		LOG("[WARNING]Component Source added to Existing GameObject");
+		Source = (Component_Source*)component;
+		Ret = new Component_Source(this);
 		break;
 
 	}
