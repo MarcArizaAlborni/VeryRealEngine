@@ -28,6 +28,11 @@ bool ResourceManager::Start()
 {
 	ResourceTimer.Start();
 	Time = 0;
+
+
+    
+
+
 	ReadMainResourcesFolder();
 
 	return true;
@@ -40,6 +45,61 @@ update_status ResourceManager::Update(float dt)
 		Time = ResourceTimer.ReadSec();
 		ReadMainResourcesFolder();
 	}
+
+
+	
+
+	//if (MusicTimer1.ReadSec() > Time1 + 5  && Time1B==true) {
+	//
+	//	
+	//
+	//	Time1 = MusicTimer1.ReadSec();
+	//
+	//	LOG("1111111");
+	//
+	//	if (MusicTimer1.ReadSec() < Time1 ) {
+	//		Time2B = true;
+	//		Time1B = false;
+	//		Time1 = 0;
+	//		MusicTimer1.Stop();
+	//		MusicTimer1.Start();
+	//	}
+	//
+	//}
+	//else {
+	//	Time2 = MusicTimer2.ReadSec();
+	//
+	//	LOG("2222222");
+	//
+	//	if (MusicTimer2.ReadSec() < Time2 + 5) {
+	//		Time1B = true;
+	//		Time2B = false;
+	//		Time2 = 0;
+	//		MusicTimer2.Stop();
+	//		MusicTimer2.Start();
+	//	}
+	//}
+
+
+	
+	
+
+
+	/*if (MusicTimer2.ReadSec() > Time2 + 30 && Time1B == false && Time2B == true) {
+
+
+
+		Time2 = MusicTimer2.ReadSec();
+
+		LOG("222222222");
+		
+
+	}
+	else {
+		Time1B = true;
+		Time2B = false;
+	}*/
+
 
 	if (ModificationHasBeen) {
 		ModificationHasBeen = false;

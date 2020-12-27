@@ -26,7 +26,7 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "ModuleTextureImporter.h"
-
+#include "libraries/Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
 #include "libraries/imGuizmo/ImGuizmo.h"
 #include "libraries/MathGeoLib/include/Geometry/LineSegment.h"
 #include "..\Game\Assets\Audio\Wwise_IDs.h"
@@ -97,9 +97,12 @@ bool ModuleScene::Start()
 	
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
 
-	music_timer.Start();
-	m_time = 0;
-	m_time_2 = 0;
+	MusicTimer1.Start();
+	Time1 = 0;
+
+	Time2 = 0;
+	TimeCheck = 0;
+	MusicTimerCheckPlaying.Start();
 	
 
 	return true;
@@ -170,13 +173,97 @@ update_status ModuleScene::Update(float dt)
 	}*/
 
 	//Timers
-	if (music_timer.ReadSec() > m_time + 10) 
-	{
-		Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+	//if (music_timer.ReadSec() > m_time + 10) 
+	//{
+	//	Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+	//
+	//	temp->isPlaying = false;
+	//	temp->isPaused = true;
+	//	temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
+	//
+	//}
 
-		temp->isPlaying = false;
-		temp->isPaused = true;
-		temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
+
+
+	if (Time1B == true || Time2B == false) {
+
+
+
+		if (MusicTimer1.ReadSec() > Time1 + 5) {
+
+			
+			Time1B = false;
+
+			Time1 = MusicTimer1.ReadSec();
+
+			Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+			
+			temp->isPlaying = false;
+			temp->isPaused = true;
+			temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
+
+
+
+			Component_Source* temp2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
+
+			temp2->isPlaying = false;
+			temp2->isPaused = true;
+
+			if (TimeCheck == 0){
+				temp2->WiseItem->PlayEvent(AK::EVENTS::SECOND30); 
+				TimeCheck = MusicTimerCheckPlaying.ReadSec();
+			}
+			else {
+				temp->WiseItem->ResumeEvent(AK::EVENTS::SECOND30);
+				TimeCheck = MusicTimerCheckPlaying.ReadSec();
+			}
+
+
+
+			Time2B = true;
+			MusicTimer1.Stop();
+			MusicTimer2.Start();
+
+			Time1 = 0;
+			Time2 = 0;
+		}
+
+
+
+	}
+	else {
+
+
+		if (MusicTimer2.ReadSec() > TimeCheck + Time1 + 5) {
+
+			LOG("TIME2");
+			MusicTimer2.Stop();
+			MusicTimer1.Start();
+
+			TimeCheck= TimeCheck = MusicTimerCheckPlaying.ReadSec();
+			Component_Source* temp2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
+
+			temp2->isPlaying = false;
+			temp2->isPaused = true;
+			
+			temp2->WiseItem->PauseEvent(AK::EVENTS::SECOND30);
+
+
+			Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+
+			temp->isPlaying = false;
+			temp->isPaused = true;
+			temp->WiseItem->ResumeEvent(AK::EVENTS::FIRST30);
+
+
+			Time2B = false;
+			Time2 = MusicTimer2.ReadSec();
+			Time1B = true;
+
+			Time1 = 0;
+			Time2 = 0;
+		}
+
 
 	}
 	

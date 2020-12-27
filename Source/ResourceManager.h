@@ -78,6 +78,8 @@ private:
 	Timer ResourceTimer;
 	int Time;
 
+	
+
 	void DrawFolderOptionIcons(std::string FolderName);
 	void StoreCurrentOpenFolderUpdate(std::string FolderName);
 	void SetOpenFolder();

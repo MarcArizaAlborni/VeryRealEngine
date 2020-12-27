@@ -61,9 +61,21 @@ public:
 	Game_Object* background_music = nullptr;
 	Game_Object* background_music_2 = nullptr;
 
-	Timer music_timer;
-	int m_time;
-	int m_time_2;
+	//Timer music_timer;
+	//int m_time;
+	//int m_time_2;
+
+
+
+	Timer MusicTimer1;
+	int Time1;
+	Timer MusicTimer2;
+	int Time2;
+	Timer MusicTimerCheckPlaying;
+	int TimeCheck;
+
+	bool Time1B = true;
+	bool Time2B = false;
 };
 
 #endif // __ModuleScene_H__
