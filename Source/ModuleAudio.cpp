@@ -28,111 +28,10 @@ ModuleAudio::~ModuleAudio()
 
 bool ModuleAudio::Init()
 {
-    //Memory
-    AkMemSettings memSettings;
-    memSettings.uMaxNumPools = 20;
 
-    if (AK::MemoryMgr::Init(&memSettings) != AK_Success)
-    {
-        LOG("Could not create the memory manager.");
+    SetUpWwise();
 
-        return false;
-    }
-
-    // Create and initialize an instance of the default streaming manager
-    AkStreamMgrSettings stmSettings;
-    AK::StreamMgr::GetDefaultSettings(stmSettings);
-
-    if (!AK::StreamMgr::Create(stmSettings))
-    {
-        LOG("Could not create the Streaming Manager");
-
-        return false;
-    }
-
-    // Create a streaming device with blocking low-level I/O handshaking.
-    AkDeviceSettings deviceSettings;
-
-    AK::StreamMgr::GetDefaultDeviceSettings(deviceSettings);
-
-    if (g_lowLevelIO.Init(deviceSettings) != AK_Success)
-    {
-
-        LOG("Could not create the streaming device and Low-Level I/O system");
-
-        return false;
-    }
-
-    // Create the Sound Engine using default initialization parameters
-    AkInitSettings initSettings;
-
-    AkPlatformInitSettings platformInitSettings;
-
-    AK::SoundEngine::GetDefaultInitSettings(initSettings);
-
-    AK::SoundEngine::GetDefaultPlatformInitSettings(platformInitSettings);
-
-
-    if (AK::SoundEngine::Init(&initSettings, &platformInitSettings) != AK_Success)
-    {
-        LOG("Could not initialize the Sound Engine.");
-
-        return false;
-    }
-    
-    // Initialize the music engine using default initialization parameters
-    AkMusicSettings musicInit;
-
-    AK::MusicEngine::GetDefaultInitSettings(musicInit);
-
-    if (AK::MusicEngine::Init(&musicInit) != AK_Success)
-    {
-        LOG("Could not initialize the Music Engine.");
-
-        return false;
-    }
-
-    // Initialize Spatial Audio using default initialization parameters
-    //AkSpatialAudioInitSettings settings; // The constructor fills AkSpatialAudioInitSettings with the recommended default settings. 
-
-    //if (AK::SpatialAudio::Init(settings) != AK_Success)
-    //{
-    //    LOG("Could not initialize the Spatial Audio.");
-
-    //    return false;
-    //}
-
-#ifndef AK_OPTIMIZED
-
-    // Initialize communications (not in release build!)
-
-    AkCommSettings commSettings;
-    AK::Comm::GetDefaultInitSettings(commSettings);
-
-    if (AK::Comm::Init(commSettings) != AK_Success)
-    {
-        LOG("Could not initialize communication.");
-
-        return false;
-    }
-
-#endif // AK_OPTIMIZED
-
-
-    AkBankID bankID;
-    AKRESULT retValue;
-    retValue = AK::SoundEngine::LoadBank(BANKS_INIT_PATH, AK_DEFAULT_POOL_ID, bankID);
-
-
-
-    std::vector<std::string> banks;
-    ReadFileBanks(&banks);
-
-
-    for (std::vector<std::string>::iterator it = banks.begin(); it != banks.end(); ++it)
-    {
-        LoadBank((*it).c_str());
-    }
+    LoadSoundBank("MyMusicBank");
 
 	return true;
 }
@@ -153,6 +52,8 @@ bool ModuleAudio::Start()
 
 update_status ModuleAudio::Update(float dt)
 {
+
+   
 	int a = 0;
 	return UPDATE_CONTINUE;
 }
@@ -222,6 +123,111 @@ void ModuleAudio::DetectAudioBanks(const char* directory, std::vector<std::strin
     PHYSFS_freeList(rc);
 }
 
+void ModuleAudio::SetUpWwise()
+{
+    //Memory
+    AkMemSettings memSettings;
+    memSettings.uMaxNumPools = 20;
+
+    if (AK::MemoryMgr::Init(&memSettings) != AK_Success)
+    {
+        LOG("Could not create the memory manager.");
+
+        //return false;
+    }
+
+    // Create and initialize an instance of the default streaming manager
+    AkStreamMgrSettings stmSettings;
+    AK::StreamMgr::GetDefaultSettings(stmSettings);
+
+    if (!AK::StreamMgr::Create(stmSettings))
+    {
+        LOG("Could not create the Streaming Manager");
+
+        //return false;
+    }
+
+    // Create a streaming device with blocking low-level I/O handshaking.
+    AkDeviceSettings deviceSettings;
+
+    AK::StreamMgr::GetDefaultDeviceSettings(deviceSettings);
+
+    if (g_lowLevelIO.Init(deviceSettings) != AK_Success)
+    {
+
+        LOG("Could not create the streaming device and Low-Level I/O system");
+
+        //return false;
+    }
+
+    // Create the Sound Engine using default initialization parameters
+    AkInitSettings initSettings;
+
+    AkPlatformInitSettings platformInitSettings;
+
+    AK::SoundEngine::GetDefaultInitSettings(initSettings);
+
+    AK::SoundEngine::GetDefaultPlatformInitSettings(platformInitSettings);
+
+
+    if (AK::SoundEngine::Init(&initSettings, &platformInitSettings) != AK_Success)
+    {
+        LOG("Could not initialize the Sound Engine.");
+
+        //return false;
+    }
+
+    // Initialize the music engine using default initialization parameters
+    AkMusicSettings musicInit;
+
+    AK::MusicEngine::GetDefaultInitSettings(musicInit);
+
+    if (AK::MusicEngine::Init(&musicInit) != AK_Success)
+    {
+        LOG("Could not initialize the Music Engine.");
+
+        //return false;
+    }
+
+    // Initialize Spatial Audio using default initialization parameters
+    //AkSpatialAudioInitSettings settings; // The constructor fills AkSpatialAudioInitSettings with the recommended default settings. 
+
+    //if (AK::SpatialAudio::Init(settings) != AK_Success)
+    //{
+    //    LOG("Could not initialize the Spatial Audio.");
+
+    //    return false;
+    //}
+
+#ifndef AK_OPTIMIZED
+
+    // Initialize communications (not in release build!)
+
+    AkCommSettings commSettings;
+    AK::Comm::GetDefaultInitSettings(commSettings);
+
+    if (AK::Comm::Init(commSettings) != AK_Success)
+    {
+        LOG("Could not initialize communication.");
+
+        //return false;
+    }
+
+#endif // AK_OPTIMIZED
+
+
+
+
+    AkBankID bankID;
+    AKRESULT retValue;
+    retValue = AK::SoundEngine::LoadBank(BANKS_INIT_PATH, AK_DEFAULT_POOL_ID, bankID);
+    assert(retValue == AK_Success);
+
+
+
+
+}
+
 void ModuleAudio::LoadBank(const char* path)
 {
     std::string fullPath = "Assets/Audio/";
@@ -271,8 +277,20 @@ void ModuleAudio::LoadEventsFromJson()
 
         uint i = 0;
 
-        
     }
+}
+
+void ModuleAudio::LoadSoundBank(const char* path)
+{
+
+    std::string fullPath = "Assets/Audio/";
+    fullPath += path;
+    fullPath += ".bnk";
+
+    AkBankID bankID;
+  AKRESULT ResultVal=  AK::SoundEngine::LoadBank(fullPath.c_str(), AK_DEFAULT_POOL_ID, bankID);
+
+
 }
 
 
@@ -357,6 +375,8 @@ WwiseObjects* WwiseObjects::CreateAudioListener(uint id, const char* name, float
 
     return Object;
 }
+
+
 
 
 uint WwiseObjects::GetID()

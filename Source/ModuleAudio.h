@@ -29,11 +29,13 @@ public:
 
 	AkGameObjectID CurrentListenerID;
 
+	void LoadSoundBank(const char* path);
+
 private:
 
 	void DetectAudioBanks(const char* directory, std::vector<std::string>& file_list);
 	
-
+	void SetUpWwise();
 
 };
 
@@ -54,6 +56,8 @@ public:
 	
 	WwiseObjects* CreateAudioSource(uint id, const char* name, float3 position);
 	WwiseObjects* CreateAudioListener(uint id, const char* name, float3 position);
+
+
 	
 
 public:
