@@ -69,19 +69,24 @@ bool ModuleScene::Start()
 {
 	object_scene_camera->AddComponent(Component_Types::Listener);
 
-	background_music = new Game_Object("Music Source");
+	background_music = new Game_Object("THE DOOM SLEYAR");
 	ROOT_SCENE_OBJECT->Children_List.push_back(background_music);
 	background_music->Parent = ROOT_SCENE_OBJECT;
 
-	
+	background_music_2 = new Game_Object("TOMÁS");
+	ROOT_SCENE_OBJECT->Children_List.push_back(background_music_2);
+	background_music_2->Parent = ROOT_SCENE_OBJECT;
 
+	
 	background_music->AddComponent(Component_Types::Source);
+
+	background_music_2->AddComponent(Component_Types::Source);
 
 
 	Component_Source* musicSource = (Component_Source*)background_music->GetComponent(Component_Types::Source);
 
-	musicSource->SetID(AK::EVENTS::PLAY_MY_SONG);
-	musicSource->WiseItem->PlayEvent(AK::EVENTS::PLAY_MY_SONG);
+	musicSource->SetID(AK::EVENTS::FIRST30);
+	musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
 	musicSource->isPlaying = true;
 
 	
@@ -91,6 +96,10 @@ bool ModuleScene::Start()
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Models/Checkers/checkers.png");
 	
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
+
+	music_timer.Start();
+	m_time = 0;
+	m_time_2 = 0;
 	
 
 	return true;
@@ -118,13 +127,13 @@ update_status ModuleScene::Update(float dt)
 
 	//Audio ------------------------------------------
 
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	/*if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 	{
 		Component_Source* temp = (Component_Source*) background_music->GetComponent(Component_Types::Source);
 
 		temp->isPlaying = false;
 		temp->isPaused = false;
-		temp->WiseItem->StopEvent(AK::EVENTS::PLAY_MY_SONG);
+		temp->WiseItem->StopEvent(AK::EVENTS::FIRST30);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
@@ -136,7 +145,7 @@ update_status ModuleScene::Update(float dt)
 		{
 			temp->isPlaying = true;
 			temp->isPaused = false;
-			temp->WiseItem->PlayEvent(AK::EVENTS::PLAY_MY_SONG);
+			temp->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
 		}
 
 	}
@@ -150,14 +159,25 @@ update_status ModuleScene::Update(float dt)
 		{
 			temp->isPlaying = false;
 			temp->isPaused = true;
-			temp->WiseItem->PauseEvent(AK::EVENTS::PLAY_MY_SONG);
+			temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
 		}
 		else if (temp->isPaused)
 		{
 			temp->isPlaying = true;
 			temp->isPaused = false;
-			temp->WiseItem->ResumeEvent(AK::EVENTS::PLAY_MY_SONG);
+			temp->WiseItem->ResumeEvent(AK::EVENTS::FIRST30);
 		}
+	}*/
+
+	//Timers
+	if (music_timer.ReadSec() > m_time + 10) 
+	{
+		Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+
+		temp->isPlaying = false;
+		temp->isPaused = true;
+		temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
+
 	}
 	
 

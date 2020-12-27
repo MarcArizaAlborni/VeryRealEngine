@@ -59,6 +59,11 @@ public:
 public:
 	//Audios
 	Game_Object* background_music = nullptr;
+	Game_Object* background_music_2 = nullptr;
+
+	Timer music_timer;
+	int m_time;
+	int m_time_2;
 };
 
 #endif // __ModuleScene_H__

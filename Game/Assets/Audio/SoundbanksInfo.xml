@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="11" SoundbankVersion="134">
 	<RootPaths>
-		<ProjectRoot>E:\SPELL\Cansionsita\</ProjectRoot>
-		<SourceFilesRoot>E:\SPELL\Cansionsita\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\PCCom\Documents\GitHub\VeryRealEngine\Game\Assets\Audio\</SoundBanksRoot>
+		<ProjectRoot>D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\</ProjectRoot>
+		<SourceFilesRoot>D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>D:\grome\Documents\GitHub\VeryRealEngine\Game\Assets\Audio\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>E:\SPELL\Cansionsita\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>
@@ -21,12 +21,17 @@
 			<ShortName>MyMusicBank</ShortName>
 			<Path>MyMusicBank.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1144894572" Name="PLay_My_Song" ObjectPath="\Events\Default Work Unit\PLay_My_Song"/>
+				<Event Id="3072587112" Name="First30" ObjectPath="\Events\Default Work Unit\First30"/>
+				<Event Id="1541101740" Name="Second30" ObjectPath="\Events\Default Work Unit\Second30"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
-				<File Id="822537203" Language="SFX">
-					<ShortName>Rip-And-Tear-_DOOM-2016-ost-re-upload-Mick-Gordon_.wav</ShortName>
-					<Path>SFX\Rip-And-Tear-_DOOM-2016-ost-re-upload-Mick-Gordon__10C4C929.wem</Path>
+				<File Id="8072839" Language="SFX">
+					<ShortName>Thomas_Song.wav</ShortName>
+					<Path>SFX\Thomas_Song_10C4C929.wem</Path>
+				</File>
+				<File Id="301909818" Language="SFX">
+					<ShortName>Doom_Music.wav</ShortName>
+					<Path>SFX\Doom_Music_10C4C929.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
