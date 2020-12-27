@@ -31,6 +31,9 @@ public:
 
 	void LoadSoundBank(const char* path);
 
+
+	AkBankID Currently_Loaded_BankID = 0;
+
 private:
 
 	void DetectAudioBanks(const char* directory, std::vector<std::string>& file_list);

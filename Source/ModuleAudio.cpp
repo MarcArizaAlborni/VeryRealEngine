@@ -287,8 +287,8 @@ void ModuleAudio::LoadSoundBank(const char* path)
     fullPath += path;
     fullPath += ".bnk";
 
-    AkBankID bankID;
-  AKRESULT ResultVal=  AK::SoundEngine::LoadBank(fullPath.c_str(), AK_DEFAULT_POOL_ID, bankID);
+  
+    AKRESULT ResultVal=  AK::SoundEngine::LoadBank(fullPath.c_str(), AK_DEFAULT_POOL_ID, Currently_Loaded_BankID);
 
 
 }
