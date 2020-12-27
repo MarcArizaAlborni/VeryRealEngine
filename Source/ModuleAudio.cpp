@@ -82,29 +82,7 @@ bool ModuleAudio::CleanUp()
 	return true;
 }
 
-void ModuleAudio::ReadFileBanks(std::vector<std::string>* soundbanks)
-{
-    std::vector<std::string> files;
-    DetectAudioBanks(BANKS_PATH, files);
 
-    
-    std::string extension = "bnk";
-    std::string file_extension;
-    std::string file_name;
-    for (std::vector<std::string>::iterator it = files.begin(); it != files.end(); ++it)
-    {
-        App->filemanager->SplitFilePath((*it).c_str(), nullptr, &file_name, &file_extension);
-        if (!file_extension.compare(extension)) 
-        {
-            App->filemanager->DeleteExtension(file_name);
-            if (!file_name.compare("Init")) {  
-                continue;
-            }
-
-            soundbanks->push_back(file_name);
-        }
-    }
-}
 
 void ModuleAudio::DetectAudioBanks(const char* directory, std::vector<std::string>& file_list)
 {
@@ -216,69 +194,16 @@ void ModuleAudio::SetUpWwise()
 #endif // AK_OPTIMIZED
 
 
-
-
     AkBankID bankID;
     AKRESULT retValue;
     retValue = AK::SoundEngine::LoadBank(BANKS_INIT_PATH, AK_DEFAULT_POOL_ID, bankID);
     assert(retValue == AK_Success);
 
-
-
-
 }
 
-void ModuleAudio::LoadBank(const char* path)
-{
-    std::string fullPath = "Assets/Audio/";
-    fullPath += path;
-    fullPath += ".bnk";
 
-    AkBankID bankID;
 
-  
-    if (App->filemanager->Exists(fullPath.c_str())) {
-      AKRESULT Res=  AK::SoundEngine::LoadBank(fullPath.c_str(), AK_DEFAULT_POOL_ID, bankID);
-      if (Res == AK_Success) {
-          LOG("Bank %s Loaded Correctly", fullPath.c_str());
-        }
-    }
-}
 
-void ModuleAudio::LoadEventsFromJson()
-{
-    std::vector<std::string> jsonlist;
-    ReadFileBanks(&jsonlist);
-
-    for (std::vector<std::string>::iterator it = jsonlist.begin(); it != jsonlist.end(); ++it)
-    {
-
-        std::string path = "Assets/Audio/" + (*it) + ".json";
-
-        uint Id = 0;
-        //std::string name;
-      
-        json File = App->LoaderJson()->Load(path.c_str());
-       
-        
-        json Events = File["SoundBanksInfo"]["SoundBanks"][0]["IncludedEvents"];
-       
-
-        for (uint i = 0; i < Events.size(); ++i)
-        {
-            json node = Events[i];
-
-            std::string idstring = node["Id"];
-            std::string namestring = node["Name"];
-            Id = std::stoul(idstring);
-
-           
-        }
-
-        uint i = 0;
-
-    }
-}
 
 void ModuleAudio::LoadSoundBank(const char* path)
 {
@@ -290,6 +215,10 @@ void ModuleAudio::LoadSoundBank(const char* path)
   
     AKRESULT ResultVal=  AK::SoundEngine::LoadBank(fullPath.c_str(), AK_DEFAULT_POOL_ID, Currently_Loaded_BankID);
 
+
+    if (ResultVal == AK_Success) {
+        LOG("Bank %s Loaded Correctly", fullPath.c_str());
+    }
 
 }
 

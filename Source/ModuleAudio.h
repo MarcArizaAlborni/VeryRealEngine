@@ -22,8 +22,8 @@ public:
 	bool CleanUp();
 
 
-	void ModuleAudio::ReadFileBanks(std::vector<std::string>* soundbanks);
-	void LoadBank(const char* path);
+	
+	
 
 	void LoadEventsFromJson();
 
