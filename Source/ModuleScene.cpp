@@ -67,9 +67,6 @@ bool ModuleScene::Init()
 
 bool ModuleScene::Start()
 {
-
-
-
 	object_scene_camera->AddComponent(Component_Types::Listener);
 
 	background_music = new Game_Object("Music Source");
@@ -87,6 +84,7 @@ bool ModuleScene::Start()
 	musicSource->WiseItem->PlayEvent(AK::EVENTS::PLAY_MY_SONG);
 	musicSource->isPlaying = true;
 
+	
 
 	object_scene_camera->AddExistingComponent(App->camera->scene_camera);
 
@@ -117,6 +115,52 @@ update_status ModuleScene::Update(float dt)
 	}
 
 	App->scene->GuizmoDrawn();
+
+	//Audio ------------------------------------------
+
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	{
+		Component_Source* temp = (Component_Source*) background_music->GetComponent(Component_Types::Source);
+
+		temp->isPlaying = false;
+		temp->isPaused = false;
+		temp->WiseItem->StopEvent(AK::EVENTS::PLAY_MY_SONG);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+	{
+
+		Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+
+		if (temp->isPaused)
+		{
+			temp->isPlaying = true;
+			temp->isPaused = false;
+			temp->WiseItem->PlayEvent(AK::EVENTS::PLAY_MY_SONG);
+		}
+
+	}
+
+	
+	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
+	{
+		Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+
+		if (temp->isPlaying)
+		{
+			temp->isPlaying = false;
+			temp->isPaused = true;
+			temp->WiseItem->PauseEvent(AK::EVENTS::PLAY_MY_SONG);
+		}
+		else if (temp->isPaused)
+		{
+			temp->isPlaying = true;
+			temp->isPaused = false;
+			temp->WiseItem->ResumeEvent(AK::EVENTS::PLAY_MY_SONG);
+		}
+	}
+	
+
 
 	return UPDATE_CONTINUE;
 }
