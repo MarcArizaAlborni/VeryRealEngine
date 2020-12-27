@@ -68,17 +68,21 @@ bool ModuleScene::Init()
 bool ModuleScene::Start()
 {
 
+
+
 	object_scene_camera->AddComponent(Component_Types::Listener);
 
 	background_music = new Game_Object("Music Source");
 	ROOT_SCENE_OBJECT->Children_List.push_back(background_music);
 	background_music->Parent = ROOT_SCENE_OBJECT;
 
+	
 
 	background_music->AddComponent(Component_Types::Source);
 
 
 	Component_Source* musicSource = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+
 	musicSource->SetID(AK::EVENTS::PLAY_MY_SONG);
 	musicSource->WiseItem->PlayEvent(AK::EVENTS::PLAY_MY_SONG);
 	musicSource->isPlaying = true;
@@ -121,6 +125,7 @@ update_status ModuleScene::Update(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleScene::PostUpdate(float dt)
 {
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glClearStencil(0);
 

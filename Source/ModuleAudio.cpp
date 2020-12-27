@@ -58,6 +58,12 @@ update_status ModuleAudio::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+update_status ModuleAudio::PostUpdate(float dt)
+{
+    AK::SoundEngine::RenderAudio();
+    return UPDATE_CONTINUE;
+}
+
 bool ModuleAudio::CleanUp()
 {
 #ifndef AK_OPTIMIZED
