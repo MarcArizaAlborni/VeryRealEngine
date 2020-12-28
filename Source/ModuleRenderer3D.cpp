@@ -247,4 +247,8 @@ void ModuleRenderer3D::LoadIconsTextures()
 	App->textureImporter->DrawStopIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/stop_icon.png");
 	App->textureImporter->DrawResumeIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/Resume_Icon.png");
 	App->textureImporter->DrawReloadIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/Reload.png");
+
+	App->textureImporter->DrawListenerIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/Listener Icon.png");
+	App->textureImporter->DrawMuteIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/volume off.png");
+	App->textureImporter->DrawFullVoIcon = App->textureImporter->LoadTextureImage("Assets/Textures/Icons/Volume on.png");
 }

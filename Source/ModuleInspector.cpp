@@ -11,6 +11,8 @@
 #include "ComponentTexture.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
+#include "ComponentListener.h"
+#include "ComponentSource.h"
 #include "ModuleScene.h"
 #include "ModuleCamera3D.h"
 
@@ -29,9 +31,6 @@
 
 ModuleInspectorGameObject::ModuleInspectorGameObject(Application* app, const char* name, bool start_enabled) : Module(app, name, start_enabled)
 {
-
-
-
 }
 
 ModuleInspectorGameObject::~ModuleInspectorGameObject()
@@ -40,30 +39,20 @@ ModuleInspectorGameObject::~ModuleInspectorGameObject()
 
 bool ModuleInspectorGameObject::Start()
 {
-
-
+    is_Stopped = true;
 
 	return true;
 }
 
 update_status ModuleInspectorGameObject::Update(float dt)
 {
-	
 	return UPDATE_CONTINUE;
 }
 
 bool ModuleInspectorGameObject::CleanUp()
 {
-
-
 	return true;
 }
-
-
-
-
-
-
 
 void ModuleInspectorGameObject::DrawInspectorWindowInfo()
 {
@@ -74,22 +63,23 @@ void ModuleInspectorGameObject::DrawInspectorWindowInfo()
 		bool SomethingDrawn = false; // if there isnt an object in the list or if none of them
 
 		//has ToBeDrawInspector==true we print a message saying theres nothing to draw
+
 		Game_Object* ItemToDraw;
 		for (std::vector<Game_Object*>::iterator IteratorLoaded = App->geometrymanager->ObjectsOnScene.begin(); IteratorLoaded != App->geometrymanager->ObjectsOnScene.end(); ++IteratorLoaded) {
 
-
 			ItemToDraw = *IteratorLoaded;
 
-	
 			if (ItemToDraw->ToBeDrawInspector == true) {
 
 				Component_Mesh* MeshComp = (Component_Mesh*)ItemToDraw->GetComponent(Component_Types::Mesh);
 				Component_Texture* TexComp = (Component_Texture*)ItemToDraw->GetComponent(Component_Types::Texture);
 				Component_Transform* TransComp = (Component_Transform*)ItemToDraw->GetComponent(Component_Types::Transform);
                 Component_Camera* CamComp = (Component_Camera*)ItemToDraw->GetComponent(Component_Types::Camera);
+                Component_Listener* ListComp = (Component_Listener*)ItemToDraw->GetComponent(Component_Types::Listener);
+                Component_Source* SourceComp = (Component_Source*)ItemToDraw->GetComponent(Component_Types::Source);
 
 				SomethingDrawn = true;
-				DrawObjectInfo(ItemToDraw, MeshComp, TexComp, TransComp, CamComp);
+				DrawObjectInfo(ItemToDraw, MeshComp, TexComp, TransComp, CamComp, ListComp, SourceComp);
 			}
 			else if (ItemToDraw->Children_List.size() > 0) {
 
@@ -124,9 +114,11 @@ bool ModuleInspectorGameObject::LookForChildrenToBeDrawn(Game_Object* item)
             Component_Texture* TexComp = (Component_Texture*)item->GetComponent(Component_Types::Texture);
             Component_Transform* TransComp = (Component_Transform*)item->GetComponent(Component_Types::Transform);
             Component_Camera* CamComp = (Component_Camera*)item->GetComponent(Component_Types::Camera);
+            Component_Listener* ListComp = (Component_Listener*)item->GetComponent(Component_Types::Listener);
+            Component_Source* SourceComp = (Component_Source*)item->GetComponent(Component_Types::Source);
 
             SomethingDrawn = true;
-            DrawObjectInfo(item, MeshComp, TexComp, TransComp, CamComp);
+            DrawObjectInfo(item, MeshComp, TexComp, TransComp, CamComp, ListComp, SourceComp);
         }
         else if (item->Children_List.size() > 0) {
 
@@ -142,10 +134,12 @@ bool ModuleInspectorGameObject::LookForChildrenToBeDrawn(Game_Object* item)
                     Component_Texture* TexComp2 = (Component_Texture*)ChildFoundDraw->GetComponent(Component_Types::Texture);
                     Component_Transform* TransComp2 = (Component_Transform*)ChildFoundDraw->GetComponent(Component_Types::Transform);
                     Component_Camera* CamComp2 = (Component_Camera*)item->GetComponent(Component_Types::Camera);
+                    Component_Listener* ListComp2 = (Component_Listener*)item->GetComponent(Component_Types::Listener);
+                    Component_Source* SourceComp2 = (Component_Source*)item->GetComponent(Component_Types::Source);
 
                     SomethingDrawn = true;
 
-                    DrawObjectInfo(ChildFoundDraw, MeshComp2, TexComp2, TransComp2, CamComp2);
+                    DrawObjectInfo(ChildFoundDraw, MeshComp2, TexComp2, TransComp2, CamComp2, ListComp2, SourceComp2);
 
                     itB = item->Children_List.size();
                 }
@@ -162,7 +156,7 @@ bool ModuleInspectorGameObject::LookForChildrenToBeDrawn(Game_Object* item)
         return SomethingDrawn;
 }
 
-void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh* MeshInfo, Component_Texture* TextureInfo, Component_Transform* TransInfo, Component_Camera* CameraInfo)
+void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh* MeshInfo, Component_Texture* TextureInfo, Component_Transform* TransInfo, Component_Camera* CameraInfo, Component_Listener* ListInfo, Component_Source* SourceInfo)
 {
     const char* Name;
     Name = item->name.c_str();
@@ -186,6 +180,11 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             int ChildAmount;
 
             ImGui::InputText(" ", (char*)item->name.c_str(), 100, ImGuiInputTextFlags_EnterReturnsTrue);
+
+            if (SourceInfo != nullptr)
+            {
+                ImGui::Text("SI SOBRA TIEMPO PONER EL AUDIO DIRECTORY");
+            }
 
             ImGui::Text("Child Amount  %d", ChildAmount = item->Children_List.size());
 
@@ -215,7 +214,6 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                ImGui::Checkbox("Camera Culling", &App->scene->camera_culling);
                ImGui::Checkbox("Reset Camera", &App->camera->reset_camera);
             }
-            
             
             ImGui::Text("Item Id:");
             ImGui::SameLine(0.0f, 10.0f);
@@ -420,6 +418,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     if (CameraInfo != nullptr)
     {
         Component_Camera* comp_camera = (Component_Camera*)App->camera->GetSceneCamera();
+
         if (ImGui::CollapsingHeader("Camera Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
 
             float camSpeed = comp_camera->GetCameraSpeed();
@@ -465,12 +464,70 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
         }
     }
 
+    if (ListInfo != nullptr)
+    {
+        if (ImGui::CollapsingHeader("Listener Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
+
+            ImGui::Image((void*)(intptr_t)App->textureImporter->DrawListenerIcon.texture_id, { 25,25 });
+            ImGui::SameLine();
+            ImGui::Text("Audio Listener");
+            
+        }
+    }
+
+    if (SourceInfo != nullptr)
+    {
+        if (ImGui::CollapsingHeader("Audio Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
+
+            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }) && is_Stopped == true)
+            {
+                
+                SourceInfo->WiseItem->PlayEvent(SourceInfo->id);
+                is_Stopped = false;
+
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawResumeIcon.texture_id, { 25,25 }) && is_Stopped == false)
+            {
+                SourceInfo->WiseItem->ResumeEvent(SourceInfo->id);
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPauseIcon.texture_id, { 25,25 }))
+            {
+                SourceInfo->WiseItem->PauseEvent(SourceInfo->id);
+
+                SourceInfo->isPaused = true;
+
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawStopIcon.texture_id, { 25,25 }))
+            {
+                SourceInfo->WiseItem->StopEvent(SourceInfo->id);
+                is_Stopped = true;
+            }
+
+            ImGui::Image((void*)(intptr_t)App->textureImporter->DrawMuteIcon.texture_id, { 20,20 });
+            ImGui::SameLine();
+            if (ImGui::SliderFloat("Volume", &SourceInfo->WiseItem->volume, 0, 2))
+            {
+                SourceInfo->WiseItem->SetVolume(SourceInfo->id, SourceInfo->WiseItem->volume);
+            }
+            ImGui::SameLine();
+            ImGui::Image((void*)(intptr_t)App->textureImporter->DrawFullVoIcon.texture_id, { 20,20 });
+        }
+    }
 
     if (ImGui::CollapsingHeader("Components", ImGuiTreeNodeFlags_DefaultOpen)) {
 
 
        
-        const char* items[] = { "Mesh", "Texture", "Camera", "Transform" };
+        const char* items[] = { "Mesh", "Texture", "Camera", "Transform", "Audio Listener", "Audio Source" };
         static const char* current_item = NULL;
 
         if (ImGui::BeginCombo("##combo", current_item)) // The second parameter is the label previewed before opening the combo.
@@ -484,14 +541,8 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                 if (is_selected) {
                    ImGui::SetItemDefaultFocus();
                 } 
-
-              
-
             }
             ImGui::EndCombo();
-
-           
-
            
         }
 

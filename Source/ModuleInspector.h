@@ -12,6 +12,8 @@ class Component_Mesh;
 class Component_Texture;
 class Component_Transform;
 class Component_Camera;
+class Component_Listener;
+class Component_Source;
 class ModuleInspectorGameObject : public Module
 {
 public:
@@ -24,16 +26,15 @@ public:
 
 	//Inspector Window Functions
 
-
-	
-	
 	void DrawInspectorWindowInfo();
-	void DrawObjectInfo(Game_Object* item, Component_Mesh* MeshInfo, Component_Texture* TextureInfo, Component_Transform* TransInfo, Component_Camera* CameraInfo);
+	void DrawObjectInfo(Game_Object* item, Component_Mesh* MeshInfo, Component_Texture* TextureInfo, Component_Transform* TransInfo, Component_Camera* CameraInfo, Component_Listener* ListenerInfo, Component_Source* SourceInfo);
 	bool LookForChildrenToBeDrawn(Game_Object* item);
 	//Inspector Window Bools
 
 	//bool ShowInspectorWindow;
 	float testoa;
+
+	bool is_Stopped = false;
 
 
 };

@@ -62,7 +62,7 @@ public:
 	WwiseObjects* CreateAudioSource(uint id, const char* name, float3 position);
 	WwiseObjects* CreateAudioListener(uint id, const char* name, float3 position);
 
-
+	void SetVolume(uint id, float volume);
 	
 
 public:

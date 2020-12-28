@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "Definitions.h"
+#include "ModuleInspector.h"
 #include "ModuleRenderer3D.h"
 #include "FileSystem.h"
 #include "ModuleCamera3D.h"
@@ -84,12 +85,13 @@ bool ModuleScene::Start()
 
 
 	Component_Source* musicSource = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+	Component_Source* musicSource2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
 
 	musicSource->SetID(AK::EVENTS::FIRST30);
-	musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
-	musicSource->isPlaying = true;
+	musicSource2->SetID(AK::EVENTS::SECOND30);
+	//musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
+	//musicSource->isPlaying = true;
 
-	
 
 	object_scene_camera->AddExistingComponent(App->camera->scene_camera);
 
@@ -126,8 +128,8 @@ update_status ModuleScene::Update(float dt)
 
 	App->scene->GuizmoDrawn();
 
-	//Audio ------------------------------------------
 
+	//Audio ------------------------------------------
 	/*if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 	{
 		Component_Source* temp = (Component_Source*) background_music->GetComponent(Component_Types::Source);
@@ -181,13 +183,8 @@ update_status ModuleScene::Update(float dt)
 	//
 	//}
 
-
-
-
 	
-	RotateMusics();
-
-
+	/*RotateMusics();*/
 
 
 	return UPDATE_CONTINUE;

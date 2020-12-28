@@ -39,14 +39,8 @@ bool ModuleAudio::Init()
 bool ModuleAudio::Start()
 {
 
-   
-
     //LoadEventsFromJson();
    
-
-   
-       
-    
 	return true;
 }
 
@@ -311,7 +305,11 @@ WwiseObjects* WwiseObjects::CreateAudioListener(uint id, const char* name, float
     return Object;
 }
 
-
+void WwiseObjects::SetVolume(uint id, float volume)
+{
+   AK::SoundEngine::SetGameObjectOutputBusVolume(this->id, AK_INVALID_GAME_OBJECT, volume);
+    this->volume = volume;
+}
 
 
 uint WwiseObjects::GetID()

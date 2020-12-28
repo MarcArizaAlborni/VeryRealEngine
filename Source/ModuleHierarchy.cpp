@@ -93,11 +93,10 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
     if (ImGui::TreeNodeEx(Item->name.c_str(), FlagsNodes)) {
 
         if (ImGui::BeginDragDropSource()) {
-            
 
-ImGui::SetDragDropPayload("Dragged_Object", Item, sizeof(Game_Object));
-App->editor->DragedItem = Item;
-ImGui::EndDragDropSource();
+            ImGui::SetDragDropPayload("Dragged_Object", Item, sizeof(Game_Object));
+            App->editor->DragedItem = Item;
+            ImGui::EndDragDropSource();
         }
 
         if (ImGui::BeginDragDropTarget())
@@ -126,6 +125,20 @@ ImGui::EndDragDropSource();
 
                 SelectItemHierarchy(Item);
                 
+
+            }
+
+            if ((Component_Source*)Item->GetComponent(Component_Types::Source) != nullptr) {
+
+                SelectItemHierarchy(Item);
+
+
+            }
+
+            if ((Component_Listener*)Item->GetComponent(Component_Types::Listener) != nullptr) {
+
+                SelectItemHierarchy(Item);
+
 
             }
 

@@ -77,6 +77,10 @@ public:
 	TextureInfo DrawResumeIcon;
 	TextureInfo DrawReloadIcon;
 
+	TextureInfo DrawListenerIcon;
+	TextureInfo DrawMuteIcon;
+	TextureInfo DrawFullVoIcon;
+
 	
 	//Resources
 	TextureInfo MeshIcon;
