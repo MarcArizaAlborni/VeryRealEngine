@@ -61,21 +61,22 @@ public:
 	Game_Object* background_music = nullptr;
 	Game_Object* background_music_2 = nullptr;
 
-	//Timer music_timer;
-	//int m_time;
-	//int m_time_2;
 
 
 
-	Timer MusicTimer1;
-	int Time1;
-	Timer MusicTimer2;
-	int Time2;
-	Timer MusicTimerCheckPlaying;
-	int TimeCheck;
 
-	bool Time1B = true;
-	bool Time2B = false;
+private: //Timer Rotation Music
+
+	bool StartMusic2 = true;
+	Timer MusicPlaylistTimer;
+	int MusicPlaylistTime;
+
+	bool PlayingMus1 = false;
+	bool PlayingMus2 = false;
+	bool SwapMusic = false;
+
+	void RotateMusics();
+
 };
 
 #endif // __ModuleScene_H__

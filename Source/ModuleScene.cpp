@@ -97,12 +97,10 @@ bool ModuleScene::Start()
 	
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
 
-	MusicTimer1.Start();
-	Time1 = 0;
 
-	Time2 = 0;
-	TimeCheck = 0;
-	MusicTimerCheckPlaying.Start();
+	MusicPlaylistTimer.Start();
+	MusicPlaylistTime = 0;
+	PlayingMus1 = true;
 	
 
 	return true;
@@ -185,88 +183,11 @@ update_status ModuleScene::Update(float dt)
 
 
 
-	if (Time1B == true || Time2B == false) {
 
-
-
-		if (MusicTimer1.ReadSec() > Time1 + 5) {
-
-			
-			Time1B = false;
-
-			Time1 = MusicTimer1.ReadSec();
-
-			Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
-			
-			temp->isPlaying = false;
-			temp->isPaused = true;
-			temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
-
-
-
-			Component_Source* temp2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
-
-			temp2->isPlaying = false;
-			temp2->isPaused = true;
-
-			if (TimeCheck == 0){
-				temp2->WiseItem->PlayEvent(AK::EVENTS::SECOND30); 
-				TimeCheck = MusicTimerCheckPlaying.ReadSec();
-			}
-			else {
-				temp->WiseItem->ResumeEvent(AK::EVENTS::SECOND30);
-				TimeCheck = MusicTimerCheckPlaying.ReadSec();
-			}
-
-
-
-			Time2B = true;
-			MusicTimer1.Stop();
-			MusicTimer2.Start();
-
-			Time1 = 0;
-			Time2 = 0;
-		}
-
-
-
-	}
-	else {
-
-
-		if (MusicTimer2.ReadSec() > TimeCheck + Time1 + 5) {
-
-			LOG("TIME2");
-			MusicTimer2.Stop();
-			MusicTimer1.Start();
-
-			TimeCheck= TimeCheck = MusicTimerCheckPlaying.ReadSec();
-			Component_Source* temp2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
-
-			temp2->isPlaying = false;
-			temp2->isPaused = true;
-			
-			temp2->WiseItem->PauseEvent(AK::EVENTS::SECOND30);
-
-
-			Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
-
-			temp->isPlaying = false;
-			temp->isPaused = true;
-			temp->WiseItem->ResumeEvent(AK::EVENTS::FIRST30);
-
-
-			Time2B = false;
-			Time2 = MusicTimer2.ReadSec();
-			Time1B = true;
-
-			Time1 = 0;
-			Time2 = 0;
-		}
-
-
-	}
 	
+	RotateMusics();
+
+
 
 
 	return UPDATE_CONTINUE;
@@ -439,6 +360,59 @@ Game_Object* ModuleScene::LookForSelectedChild(Game_Object* obj)
 
 	return nullptr;
 	
+}
+
+void ModuleScene::RotateMusics()
+{
+	Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+	Component_Source* temp2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
+
+
+	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 5) {
+		SwapMusic = true;
+	}
+
+
+	if (SwapMusic == true) {
+
+		MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
+
+		if (PlayingMus1) {
+
+			temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
+
+			PlayingMus1 = false;
+			PlayingMus2 = true;
+
+			if (StartMusic2) {
+				StartMusic2 = false;
+				temp2->WiseItem->PlayEvent(AK::EVENTS::SECOND30);
+				MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
+			}
+			else {
+				temp2->WiseItem->ResumeEvent(AK::EVENTS::SECOND30);
+				MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
+			}
+
+
+
+		}
+		else if (PlayingMus2) {
+
+			temp2->WiseItem->PauseEvent(AK::EVENTS::SECOND30);
+			PlayingMus1 = true;
+			PlayingMus2 = false;
+
+			temp->WiseItem->ResumeEvent(AK::EVENTS::FIRST30);
+
+			MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
+
+		}
+
+		SwapMusic = false;
+
+
+	}
 }
 
 
