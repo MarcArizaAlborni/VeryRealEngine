@@ -32,6 +32,7 @@
 #include "libraries/imGuizmo/ImGuizmo.h"
 #include "libraries/MathGeoLib/include/Geometry/LineSegment.h"
 #include "..\Game\Assets\Audio\Wwise_IDs.h"
+#include "ImportSettings.h"
 
 
 
@@ -294,6 +295,8 @@ Game_Object* ModuleScene::LookForSelectedChild(Game_Object* obj)
 
 void ModuleScene::LoadStaticSoundSource()
 {
+	App->editor->Importer_Settings->GlobalScale = true;
+
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Penguin/Penguin.fbx");
 	const char* path_file = "Assets/Textures/Penguin Diffuse Color.png";
 	TextureInfo PengTex;
@@ -326,11 +329,33 @@ void ModuleScene::LoadStaticSoundSource()
 
 	StaticSource->WiseItem->PlayEvent(AK::EVENTS::PENGUIN_STATIC);
 
-
+	App->editor->Importer_Settings->GlobalScale = false;
 }
 
 void ModuleScene::LoadDynamicSoundSource()
 {
+	App->editor->Importer_Settings->GlobalScale = true;
+	App->editor->Importer_Settings->GlobalScale = true;
+	App->editor->Importer_Settings->DesiredScaleZ = 2;
+
+	App->meshimporter->LoadFile_Mesh("Assets/Models/Fish/fish.fbx");
+
+	const char* path_file = "Assets/Textures/fish.png";
+	TextureInfo PengTex;
+
+	PengTex = App->textureImporter->LoadTextureImage(path_file);
+
+	App->textureImporter->AvailableTextures.push_back(&PengTex);
+
+
+	Game_Object* Item = ROOT_SCENE_OBJECT->Children_List[ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0];
+
+	Item->ToBeDrawInspector = true;
+	App->input->CheckSelectedChild(Item, PengTex);
+	Item->ToBeDrawInspector = false;
+
+	App->editor->Importer_Settings->DesiredScaleZ = 1;
+	App->editor->Importer_Settings->GlobalScale = false;
 }
 
 void ModuleScene::LoadMusicSource()
@@ -460,6 +485,7 @@ void ModuleScene::AudioControlls()
 			temp->WiseItem->ResumeEvent(AK::EVENTS::FIRST30);
 		}
 	}
+
 
 	
 }

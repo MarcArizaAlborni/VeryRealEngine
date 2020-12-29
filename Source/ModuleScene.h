@@ -16,6 +16,7 @@ class Component_Transform;
 class Component_Camera;
 class Component_Source;
 class Component_Listener;
+class ImportSettings;
 
 class ModuleScene : public Module
 {
