@@ -5,6 +5,7 @@
 			<PropertyList>
 				<Property Name="AudioFilesImporter\Path" Type="string" Value="D:\grome\Documents\GitHub\VeryRealEngine\Game\Assets\Audio\Files"/>
 				<Property Name="Event Action List\{4D83284B-E6EE-4B77-BADD-A8964AEBE4F3}\x64_Expand States" Type="string" Value=""/>
+				<Property Name="Event Action List\{61434076-7717-480C-9994-97B9BDCF7DC8}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{CE19546D-BFF7-467F-84BA-145233F18DA3}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="EventView\FilterMode1" Type="int32" Value="2"/>
 				<Property Name="ExternalSourcesInputPath" Type="string">

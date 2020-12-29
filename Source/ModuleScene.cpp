@@ -80,15 +80,17 @@ bool ModuleScene::Start()
 
 	
 	background_music->AddComponent(Component_Types::Source);
-
 	background_music_2->AddComponent(Component_Types::Source);
 
 
 	Component_Source* musicSource = (Component_Source*)background_music->GetComponent(Component_Types::Source);
 	Component_Source* musicSource2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
 
+
+
 	musicSource->SetID(AK::EVENTS::FIRST30);
 	musicSource2->SetID(AK::EVENTS::SECOND30);
+
 	musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
 	musicSource->isPlaying = true;
 
@@ -98,13 +100,17 @@ bool ModuleScene::Start()
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Models/Checkers/checkers.png");
 	
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
-
+	App->meshimporter->LoadFile_Mesh("Assets/Models/Penguin/Penguin.fbx");
 
 	MusicPlaylistTimer.Start();
 	MusicPlaylistTime = 0;
 	PlayingMus1 = true;
-	
 
+	//Penguin pos & size
+	Component_Transform* penguin_trans = (Component_Transform*)ROOT_SCENE_OBJECT->Children_List[ROOT_SCENE_OBJECT->Children_List.size()-1]->GetComponent(Component_Types::Transform);
+
+	penguin_trans->UpdateTransformationsObjects({ 1,0,1 }, {2,2,2}, penguin_trans->Rotation);
+	
 	return true;
 }
 

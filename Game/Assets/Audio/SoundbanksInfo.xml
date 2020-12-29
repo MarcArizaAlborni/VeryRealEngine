@@ -22,12 +22,17 @@
 			<Path>MyMusicBank.bnk</Path>
 			<IncludedEvents>
 				<Event Id="3072587112" Name="First30" ObjectPath="\Events\Default Work Unit\First30"/>
+				<Event Id="136683592" Name="Penguin_Static" ObjectPath="\Events\Default Work Unit\Penguin_Static"/>
 				<Event Id="1541101740" Name="Second30" ObjectPath="\Events\Default Work Unit\Second30"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
 				<File Id="8072839" Language="SFX">
 					<ShortName>Thomas_Song.wav</ShortName>
 					<Path>SFX\Thomas_Song_10C4C929.wem</Path>
+				</File>
+				<File Id="196623566" Language="SFX">
+					<ShortName>Penguin.wav</ShortName>
+					<Path>SFX\Penguin_10C4C929.wem</Path>
 				</File>
 				<File Id="301909818" Language="SFX">
 					<ShortName>Doom_Music.wav</ShortName>

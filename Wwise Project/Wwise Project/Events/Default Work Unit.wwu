@@ -25,6 +25,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Penguin_Static" ID="{61434076-7717-480C-9994-97B9BDCF7DC8}">
+					<ChildrenList>
+						<Action Name="" ID="{233A16EC-7196-4024-AD83-E7729B2459C0}" ShortID="118562693">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Penguin" ID="{8C50961B-7E76-4FFE-9B36-194143B18F6E}" WorkUnitID="{552AFFBB-6AB6-41F9-958D-D9681943028C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

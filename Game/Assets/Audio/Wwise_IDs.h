@@ -7,13 +7,14 @@
 #ifndef __WWISE_IDS_H__
 #define __WWISE_IDS_H__
 
-#include "..\..\libraries\Wwise\AK\SoundEngine\Common\AkTypes.h"
+#include "..\Wwise\AK\SoundEngine\Common\AkTypes.h"
 
 namespace AK
 {
     namespace EVENTS
     {
         static const AkUniqueID FIRST30 = 3072587112U;
+        static const AkUniqueID PENGUIN_STATIC = 136683592U;
         static const AkUniqueID SECOND30 = 1541101740U;
     } // namespace EVENTS
 

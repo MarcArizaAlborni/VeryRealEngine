@@ -41,6 +41,25 @@
 						<ActiveSource Name="Thomas_Song" ID="{D0BE841D-F266-4146-BBDC-6BD1654CA12B}" Platform="Linked"/>
 					</ActiveSourceList>
 				</Sound>
+				<Sound Name="Penguin" ID="{8C50961B-7E76-4FFE-9B36-194143B18F6E}" ShortID="723607862">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{C093B2A5-EDEE-4D17-8F16-06831D6D71BF}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{42FBB9F4-CC04-4CC0-959D-27BEE7109A2E}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="Penguin" ID="{D4559001-22A3-4613-9056-AEBD11538480}" ShortID="196623566">
+							<Language>SFX</Language>
+							<AudioFile>Penguin.wav</AudioFile>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="Penguin" ID="{D4559001-22A3-4613-9056-AEBD11538480}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
 			</ChildrenList>
 		</WorkUnit>
 	</AudioObjects>

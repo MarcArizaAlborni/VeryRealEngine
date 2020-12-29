@@ -1,8 +1,10 @@
 Event	ID	Name			Wwise Object Path	Notes
+	136683592	Penguin_Static			\Default Work Unit\Penguin_Static	
 	1541101740	Second30			\Default Work Unit\Second30	
 	3072587112	First30			\Default Work Unit\First30	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	8072839	Thomas_Song	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Thomas_Song_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Thomas_Song		28856384
+	196623566	Penguin	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Penguin_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Penguin		12787776
 	301909818	Doom_Music	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Doom_Music_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Doom_Music		67133504
 
