@@ -133,9 +133,9 @@ bool ModuleInspectorGameObject::LookForChildrenToBeDrawn(Game_Object* item)
                     Component_Mesh* MeshComp2 = (Component_Mesh*)ChildFoundDraw->GetComponent(Component_Types::Mesh);
                     Component_Texture* TexComp2 = (Component_Texture*)ChildFoundDraw->GetComponent(Component_Types::Texture);
                     Component_Transform* TransComp2 = (Component_Transform*)ChildFoundDraw->GetComponent(Component_Types::Transform);
-                    Component_Camera* CamComp2 = (Component_Camera*)item->GetComponent(Component_Types::Camera);
-                    Component_Listener* ListComp2 = (Component_Listener*)item->GetComponent(Component_Types::Listener);
-                    Component_Source* SourceComp2 = (Component_Source*)item->GetComponent(Component_Types::Source);
+                    Component_Camera* CamComp2 = (Component_Camera*)ChildFoundDraw->GetComponent(Component_Types::Camera);
+                    Component_Listener* ListComp2 = (Component_Listener*)ChildFoundDraw->GetComponent(Component_Types::Listener);
+                    Component_Source* SourceComp2 = (Component_Source*)ChildFoundDraw->GetComponent(Component_Types::Source);
 
                     SomethingDrawn = true;
 

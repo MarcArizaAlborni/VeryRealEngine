@@ -11,7 +11,7 @@ Component_Source::Component_Source(Game_Object* ComponentOwner) :Component(Compo
 
 	owner = ComponentOwner;
 
-	owner->name = "AudioSource";
+	//owner->name = "AudioSource";
 
 	type = Component_Types::Source;
 

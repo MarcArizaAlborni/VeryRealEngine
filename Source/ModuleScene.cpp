@@ -370,8 +370,8 @@ void ModuleScene::LoadStaticSoundSource()
 
 	Component_Source* StaticSource = (Component_Source*)Item->GetComponent(Component_Types::Source);
 	
-
-
+	
+	
 
 	StaticSource->SetID(AK::EVENTS::PENGUIN_STATIC);
 	
