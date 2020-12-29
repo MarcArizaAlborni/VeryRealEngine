@@ -15,10 +15,10 @@
 #	pragma comment( lib, "libraries/Wwise/libx86/dxguid.lib") // Microsoft DirectX
 #	ifndef _DEBUG  
 #		define AK_OPTIMIZED
-#		pragma comment( lib, "Wwise/Release(StaticCRT)/libx86/AkSoundEngine.lib")
-#		pragma comment( lib, "Wwise/Release(StaticCRT)/libx86/AkMusicEngine.lib")
-#		pragma comment( lib, "Wwise/Release(StaticCRT)/libx86/AkMemoryMgr.lib")
-#		pragma comment( lib, "Wwise/Release(StaticCRT)/libx86/AkStreamMgr.lib")
+#		pragma comment( lib, "libraries/Wwise/Release(StaticCRT)/libx86/AkSoundEngine.lib")
+#		pragma comment( lib, "libraries/Wwise/Release(StaticCRT)/libx86/AkMusicEngine.lib")
+#		pragma comment( lib, "libraries/Wwise/Release(StaticCRT)/libx86/AkMemoryMgr.lib")
+#		pragma comment( lib, "libraries/Wwise/Release(StaticCRT)/libx86/AkStreamMgr.lib")
 #	else
 #		include "libraries/Wwise/AK/Comm/AkCommunication.h"
 #		pragma comment( lib, "libraries/Wwise/Debug(StaticCRT)/libx86/CommunicationCentral.lib")

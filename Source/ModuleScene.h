@@ -62,7 +62,11 @@ public:
 	Game_Object* background_music_2 = nullptr;
 
 
+private:
 
+	void LoadStaticSoundSource();
+	void LoadDynamicSoundSource();
+	void LoadMusicSource();
 
 
 private: //Timer Rotation Music

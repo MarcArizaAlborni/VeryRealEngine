@@ -13,6 +13,7 @@
 #include "ComponentSource.h"
 #include "ModuleAudio.h"
 #include "ComponentTransform.h"
+#include "ComponentTexture.h"
 #include "ModuleInput.h"
 #include "ModuleScene.h"
 #include "ModuleCamera3D.h"
@@ -70,29 +71,8 @@ bool ModuleScene::Start()
 {
 	object_scene_camera->AddComponent(Component_Types::Listener);
 
-	background_music = new Game_Object("THE DOOM SLEYAR");
-	ROOT_SCENE_OBJECT->Children_List.push_back(background_music);
-	background_music->Parent = ROOT_SCENE_OBJECT;
-
-	background_music_2 = new Game_Object("TOMÁS");
-	ROOT_SCENE_OBJECT->Children_List.push_back(background_music_2);
-	background_music_2->Parent = ROOT_SCENE_OBJECT;
-
 	
-	background_music->AddComponent(Component_Types::Source);
-	background_music_2->AddComponent(Component_Types::Source);
-
-
-	Component_Source* musicSource = (Component_Source*)background_music->GetComponent(Component_Types::Source);
-	Component_Source* musicSource2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
-
-
-
-	musicSource->SetID(AK::EVENTS::FIRST30);
-	musicSource2->SetID(AK::EVENTS::SECOND30);
-
-	musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
-	musicSource->isPlaying = true;
+	LoadMusicSource();
 
 
 	object_scene_camera->AddExistingComponent(App->camera->scene_camera);
@@ -100,16 +80,15 @@ bool ModuleScene::Start()
 	App->textureImporter->TextureCheckers = App->textureImporter->LoadTextureImage("Assets/Models/Checkers/checkers.png");
 	
 	App->meshimporter->LoadFile_Mesh("Assets/Models/Street/Street_environment_V01.FBX");
-	App->meshimporter->LoadFile_Mesh("Assets/Models/Penguin/Penguin.fbx");
 
 	MusicPlaylistTimer.Start();
 	MusicPlaylistTime = 0;
 	PlayingMus1 = true;
 
-	//Penguin pos & size
-	Component_Transform* penguin_trans = (Component_Transform*)ROOT_SCENE_OBJECT->Children_List[ROOT_SCENE_OBJECT->Children_List.size()-1]->GetComponent(Component_Types::Transform);
+	LoadDynamicSoundSource();
 
-	penguin_trans->UpdateTransformationsObjects({ 1,0,1 }, {2,2,2}, penguin_trans->Rotation);
+				
+	LoadStaticSoundSource(); //THIS MUST BE LAST OBJECT IN SCENE AT THE TIME OF THE START
 	
 	return true;
 }
@@ -363,6 +342,74 @@ Game_Object* ModuleScene::LookForSelectedChild(Game_Object* obj)
 
 	return nullptr;
 	
+}
+
+void ModuleScene::LoadStaticSoundSource()
+{
+	App->meshimporter->LoadFile_Mesh("Assets/Models/Penguin/Penguin.fbx");
+	const char* path_file = "Assets/Textures/Penguin Diffuse Color.png";
+	TextureInfo PengTex;
+
+	PengTex = App->textureImporter->LoadTextureImage(path_file);
+
+	App->textureImporter->AvailableTextures.push_back(&PengTex);
+
+
+	Game_Object* Item = ROOT_SCENE_OBJECT->Children_List[ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0];
+
+	Item->ToBeDrawInspector = true;
+	App->input->CheckSelectedChild(Item, PengTex);
+	Item->ToBeDrawInspector = false;
+
+
+
+
+	Item->AddComponent(Component_Types::Source);
+	
+
+
+	Component_Source* StaticSource = (Component_Source*)Item->GetComponent(Component_Types::Source);
+	
+
+
+
+	StaticSource->SetID(AK::EVENTS::PENGUIN_STATIC);
+	
+
+	StaticSource->WiseItem->PlayEvent(AK::EVENTS::PENGUIN_STATIC);
+
+
+}
+
+void ModuleScene::LoadDynamicSoundSource()
+{
+}
+
+void ModuleScene::LoadMusicSource()
+{
+	background_music = new Game_Object("THE DOOM SLEYAR");
+	ROOT_SCENE_OBJECT->Children_List.push_back(background_music);
+	background_music->Parent = ROOT_SCENE_OBJECT;
+
+	background_music_2 = new Game_Object("TOMÁS");
+	ROOT_SCENE_OBJECT->Children_List.push_back(background_music_2);
+	background_music_2->Parent = ROOT_SCENE_OBJECT;
+
+
+	background_music->AddComponent(Component_Types::Source);
+	background_music_2->AddComponent(Component_Types::Source);
+
+
+	Component_Source* musicSource = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+	Component_Source* musicSource2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
+
+
+
+	musicSource->SetID(AK::EVENTS::FIRST30);
+	musicSource2->SetID(AK::EVENTS::SECOND30);
+
+	musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
+	musicSource->isPlaying = true;
 }
 
 void ModuleScene::RotateMusics()

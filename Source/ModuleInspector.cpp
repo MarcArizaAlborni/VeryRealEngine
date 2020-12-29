@@ -598,6 +598,26 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     LOG("[ERROR] The game object already has a transform component!");
                 }
             }
+            else  if (current_item == items[5]) { //SOURCE
+
+                if (SourceInfo == nullptr) {
+                    item->AddComponent(Component_Types::Source);
+                    LOG("[WARNING] Component Added manually!");
+                }
+                else {
+                    LOG("[ERROR] The game object already has a Source component!");
+                }
+            }
+            else  if (current_item == items[4]) { //listener
+
+                if (ListInfo == nullptr) {
+                    item->AddComponent(Component_Types::Listener);
+                    LOG("[WARNING] Component Added manually!");
+                }
+                else {
+                    LOG("[ERROR] The game object already has a Listener component!");
+                }
+            }
 
         }
 

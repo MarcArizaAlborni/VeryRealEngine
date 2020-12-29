@@ -77,9 +77,10 @@ public:
 
 
 	int CheckImportedFileType(std::string string1, std::string string2);
+	void CheckSelectedChild(Game_Object* Object, TextureInfo Texture);
 
 private:
-	void CheckSelectedChild(Game_Object* Object,TextureInfo Texture);
+	
 
 
 public:
