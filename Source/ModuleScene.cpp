@@ -114,62 +114,10 @@ update_status ModuleScene::Update(float dt)
 	App->scene->GuizmoDrawn();
 
 
-	//Audio ------------------------------------------
-	/*if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
-	{
-		Component_Source* temp = (Component_Source*) background_music->GetComponent(Component_Types::Source);
-
-		temp->isPlaying = false;
-		temp->isPaused = false;
-		temp->WiseItem->StopEvent(AK::EVENTS::FIRST30);
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
-	{
-
-		Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
-
-		if (temp->isPaused)
-		{
-			temp->isPlaying = true;
-			temp->isPaused = false;
-			temp->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
-		}
-
-	}
-
 	
-	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
-	{
-		Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
-
-		if (temp->isPlaying)
-		{
-			temp->isPlaying = false;
-			temp->isPaused = true;
-			temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
-		}
-		else if (temp->isPaused)
-		{
-			temp->isPlaying = true;
-			temp->isPaused = false;
-			temp->WiseItem->ResumeEvent(AK::EVENTS::FIRST30);
-		}
-	}*/
-
-	//Timers
-	//if (music_timer.ReadSec() > m_time + 10) 
-	//{
-	//	Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
-	//
-	//	temp->isPlaying = false;
-	//	temp->isPaused = true;
-	//	temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
-	//
-	//}
-
+	//AudioControlls();
 	
-	RotateMusics();
+	//RotateMusics();
 
 
 	return UPDATE_CONTINUE;
@@ -408,8 +356,11 @@ void ModuleScene::LoadMusicSource()
 	musicSource->SetID(AK::EVENTS::FIRST30);
 	musicSource2->SetID(AK::EVENTS::SECOND30);
 
-	musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
+	//musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
 	musicSource->isPlaying = true;
+
+
+
 }
 
 void ModuleScene::RotateMusics()
@@ -418,7 +369,7 @@ void ModuleScene::RotateMusics()
 	Component_Source* temp2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
 
 
-	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 5) {
+	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 30) {
 		SwapMusic = true;
 	}
 
@@ -463,6 +414,54 @@ void ModuleScene::RotateMusics()
 
 
 	}
+}
+
+void ModuleScene::AudioControlls()
+{
+	//Audio ------------------------------------------
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	{
+		Component_Source* temp = (Component_Source*) background_music->GetComponent(Component_Types::Source);
+
+		temp->isPlaying = false;
+		temp->isPaused = false;
+		temp->WiseItem->StopEvent(AK::EVENTS::FIRST30);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+	{
+
+		Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+
+		if (temp->isPaused)
+		{
+			temp->isPlaying = true;
+			temp->isPaused = false;
+			temp->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
+		}
+
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
+	{
+		Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
+
+		if (temp->isPlaying)
+		{
+			temp->isPlaying = false;
+			temp->isPaused = true;
+			temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
+		}
+		else if (temp->isPaused)
+		{
+			temp->isPlaying = true;
+			temp->isPaused = false;
+			temp->WiseItem->ResumeEvent(AK::EVENTS::FIRST30);
+		}
+	}
+
+	
 }
 
 

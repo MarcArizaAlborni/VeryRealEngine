@@ -81,6 +81,8 @@ private: //Timer Rotation Music
 
 	void RotateMusics();
 
+	void AudioControlls();
+
 };
 
 #endif // __ModuleScene_H__
