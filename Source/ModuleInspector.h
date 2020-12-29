@@ -34,7 +34,7 @@ public:
 	//bool ShowInspectorWindow;
 	float testoa;
 
-	bool is_Stopped = false;
+	//bool is_Stopped = false;
 
 
 };

@@ -89,8 +89,8 @@ bool ModuleScene::Start()
 
 	musicSource->SetID(AK::EVENTS::FIRST30);
 	musicSource2->SetID(AK::EVENTS::SECOND30);
-	//musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
-	//musicSource->isPlaying = true;
+	musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
+	musicSource->isPlaying = true;
 
 
 	object_scene_camera->AddExistingComponent(App->camera->scene_camera);
@@ -184,7 +184,7 @@ update_status ModuleScene::Update(float dt)
 	//}
 
 	
-	/*RotateMusics();*/
+	RotateMusics();
 
 
 	return UPDATE_CONTINUE;

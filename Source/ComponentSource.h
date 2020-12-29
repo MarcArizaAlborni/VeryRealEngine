@@ -25,6 +25,8 @@ public:
 	AkGameObjectID id = 0;
 	bool isPaused = false;
 	bool isPlaying = false;
+	bool isStopped = false;
+	bool isModified = false;
 };
 
 #endif __C_AudioSource__H__
