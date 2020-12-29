@@ -102,6 +102,8 @@ public:
 
 	bool show_resources_window;
 
+	bool show_audio_window;
+
 	bool show_hierarchy_window;
 
 	bool show_inspector_window;

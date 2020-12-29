@@ -24,6 +24,8 @@ public:
 	bool CleanUp();
 
 
+	void CreateAudioWindow();
+	
 	
 	
 

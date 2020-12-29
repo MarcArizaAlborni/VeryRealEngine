@@ -1,6 +1,7 @@
 #include "ModuleAudio.h"
 #include "Application.h"
 #include "Globals.h"
+#include "ModuleEditor.h"
 #include "FileSystem.h"
 #include "..\Game\Assets\Audio\Wwise_IDs.h"
 #include "wwise.h"
@@ -80,6 +81,23 @@ bool ModuleAudio::CleanUp()
     AK::MemoryMgr::Term();
 
 	return true;
+}
+
+void ModuleAudio::CreateAudioWindow()
+{
+    if (App->editor->show_audio_window) {
+
+        ImGui::Begin("AudioManager");
+        ImGui::Text("Audio Manager HERE");
+
+        ImGui::End();
+
+
+
+
+    }
+
+
 }
 
 

@@ -17,6 +17,7 @@
 #include "ComponentTexture.h"
 #include "Component.h"
 #include "ComponentMesh.h"
+#include "ModuleAudio.h"
 
 
 
@@ -115,6 +116,7 @@ bool ModuleEditor::Start()
 	show_config_window = true;
 	show_popup_want_close = false;
 	show_popup_want_close2 = false;
+	show_audio_window = true;
 	show_resources_window = true;
 	show_play_window = true;
 	show_grid = true;
@@ -245,6 +247,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 		App->hierarchy->CreateHierarchyWindow();
 		App->inspector->DrawInspectorWindowInfo();
 		App->resources->CreateResourcesWindow();
+		App->audio->CreateAudioWindow();
 		App->resources->CreateWindowDropFile();
 		CreateTextureVisualizer();
 		GUI_Init();
@@ -498,6 +501,7 @@ void ModuleEditor::CreateMainMenuBar_View() {
 		ImGui::MenuItem("Show GameObject Hierarchy", "3", &show_hierarchy_window);
 		ImGui::MenuItem("Show GameObject Inspector", "4", &show_inspector_window);
 		ImGui::MenuItem("Show Resources window", "5", &show_resources_window);
+		ImGui::MenuItem("Show Audio Window", "6", &show_audio_window);
 		if (App->input->keyboard[SDL_SCANCODE_4]) {
 
 			// Condition to enable/disable when clicking 4
