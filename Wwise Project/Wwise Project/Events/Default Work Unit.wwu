@@ -47,12 +47,12 @@
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="Distort_Persona" ID="{763AB867-FCCC-446F-ABDA-7E32A3A2E1B3}">
+				<Event Name="Persona_Reverb" ID="{B902F12B-437C-48A6-B218-8009776CCE98}">
 					<ChildrenList>
-						<Action Name="" ID="{C0A6D101-2E73-4ED5-A902-5B6C462AA902}" ShortID="1066232923">
+						<Action Name="" ID="{A79F96A6-FC6B-4D39-9365-8102C56B610C}" ShortID="796547946">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="Persona 5 - Life Will Change (中英歌詞)" ID="{8D30152A-8F5A-4137-BB2F-E047515553BA}" WorkUnitID="{552AFFBB-6AB6-41F9-958D-D9681943028C}"/>
+									<ObjectRef Name="Persona 5" ID="{1A7C3B5D-E283-4675-92CF-BA08783E70D7}" WorkUnitID="{552AFFBB-6AB6-41F9-958D-D9681943028C}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

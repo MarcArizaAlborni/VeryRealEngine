@@ -60,25 +60,6 @@
 						<ActiveSource Name="Penguin" ID="{D4559001-22A3-4613-9056-AEBD11538480}" Platform="Linked"/>
 					</ActiveSourceList>
 				</Sound>
-				<Sound Name="Persona 5 - Life Will Change (中英歌詞)" ID="{8D30152A-8F5A-4137-BB2F-E047515553BA}" ShortID="383860600">
-					<ReferenceList>
-						<Reference Name="Conversion">
-							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{C093B2A5-EDEE-4D17-8F16-06831D6D71BF}"/>
-						</Reference>
-						<Reference Name="OutputBus">
-							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{42FBB9F4-CC04-4CC0-959D-27BEE7109A2E}"/>
-						</Reference>
-					</ReferenceList>
-					<ChildrenList>
-						<AudioFileSource Name="Persona 5 - Life Will Change (中英歌詞)" ID="{B28C2753-30A9-48B0-961C-83C38920EF94}" ShortID="120928561">
-							<Language>SFX</Language>
-							<AudioFile>Persona 5 - Life Will Change (中英歌詞).wav</AudioFile>
-						</AudioFileSource>
-					</ChildrenList>
-					<ActiveSourceList>
-						<ActiveSource Name="Persona 5 - Life Will Change (中英歌詞)" ID="{B28C2753-30A9-48B0-961C-83C38920EF94}" Platform="Linked"/>
-					</ActiveSourceList>
-				</Sound>
 				<Sound Name="Tiburon tema de sonido" ID="{0DD9ECE9-8E10-40C8-9654-60732AFF6F6B}" ShortID="755641314">
 					<ReferenceList>
 						<Reference Name="Conversion">
@@ -96,6 +77,25 @@
 					</ChildrenList>
 					<ActiveSourceList>
 						<ActiveSource Name="Tiburon tema de sonido" ID="{58444716-20F9-4E3C-A6CC-A2DFC8EC19EA}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="Persona 5" ID="{1A7C3B5D-E283-4675-92CF-BA08783E70D7}" ShortID="849565061">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{C093B2A5-EDEE-4D17-8F16-06831D6D71BF}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{42FBB9F4-CC04-4CC0-959D-27BEE7109A2E}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="Persona 5" ID="{48BFF18D-25D1-47B6-A905-BDF72A67C3CC}" ShortID="811359318">
+							<Language>SFX</Language>
+							<AudioFile>Persona 5 .wav</AudioFile>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="Persona 5" ID="{48BFF18D-25D1-47B6-A905-BDF72A67C3CC}" Platform="Linked"/>
 					</ActiveSourceList>
 				</Sound>
 			</ChildrenList>
