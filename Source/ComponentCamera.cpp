@@ -20,7 +20,7 @@ Component_Camera::Component_Camera(Game_Object* obj) : Component(obj)
 	Y = vec3(0.0f, 1.0f, 0.0f);
 	Z = vec3(0.0f, 0.0f, 1.0f);
 
-	Position = vec3(0.0f, 0.0f, 5.0f);
+	Position = vec3(40.0f, 20.0f, 5.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
 
 	frustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
