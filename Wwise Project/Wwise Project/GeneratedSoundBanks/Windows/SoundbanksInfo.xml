@@ -3,7 +3,7 @@
 	<RootPaths>
 		<ProjectRoot>C:\Users\PCCom\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\</ProjectRoot>
 		<SourceFilesRoot>C:\Users\PCCom\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\PCCom\Documents\GitHub\VeryRealEngine\Game\Assets\Audio\</SoundBanksRoot>
+		<SoundBanksRoot>C:\Users\PCCom\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
 		<ExternalSourcesOutputRoot>C:\Users\PCCom\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
