@@ -8,7 +8,7 @@
 #include "libraries/Wwise/AK/SoundEngine/Common/AkStreamMgrModule.h"
 #include "libraries/Wwise/AK/SoundEngine/Common/IAkStreamMgr.h"
 #include "libraries/Wwise/AK/Tools/Common/AkPlatformFuncs.h"
-//#include "libraries/Wwise/AK/SpatialAudio/Common/AkSpatialAudio.h"
+#include "libraries/Wwise/AK/SpatialAudio/Common/AkSpatialAudio.h"
 
 // Input libraries
 #ifndef _WIN64
@@ -32,19 +32,19 @@
 #	pragma comment( lib, "libraries/Wwise/libx64/dxguid.lib") // Microsoft DirectX
 #	ifndef _DEBUG  
 #		define AK_OPTIMIZED
-#		pragma comment( lib, "Wwise/Release(StaticCRT)/libx64/AkSoundEngine.lib")
-#		pragma comment( lib, "Wwise/Release(StaticCRT)/libx64/AkMusicEngine.lib")
-#		pragma comment( lib, "Wwise/Release(StaticCRT)/libx64/AkMemoryMgr.lib")
-#		pragma comment( lib, "Wwise/Release(StaticCRT)/libx64/AkStreamMgr.lib")
+#		pragma comment( lib, "libraries/Wwise/Release(StaticCRT)/libx64/AkSoundEngine.lib")
+#		pragma comment( lib, "libraries/Wwise/Release(StaticCRT)/libx64/AkMusicEngine.lib")
+#		pragma comment( lib, "libraries/Wwise/Release(StaticCRT)/libx64/AkMemoryMgr.lib")
+#		pragma comment( lib, "libraries/Wwise/Release(StaticCRT)/libx64/AkStreamMgr.lib")
 #	else
 #		include "Wwise/AK/Comm/AkCommunication.h"
 
-#		pragma comment( lib, "Wwise/Debug(StaticCRT)/libx64/CommunicationCentral.lib")
-#		pragma comment( lib, "Wwise/libx64/ws2_32.lib")
-#		pragma comment( lib, "Wwise/Debug(StaticCRT)/libx64/AkSoundEngine.lib")
-#		pragma comment( lib, "Wwise/Debug(StaticCRT)/libx64/AkMusicEngine.lib")
-#		pragma comment( lib, "Wwise/Debug(StaticCRT)/libx64/AkMemoryMgr.lib")
-#		pragma comment( lib, "Wwise/Debug(StaticCRT)/libx64/AkStreamMgr.lib")
+#		pragma comment( lib, "libraries/Wwise/Debug(StaticCRT)/libx64/CommunicationCentral.lib")
+#		pragma comment( lib, "libraries/Wwise/libx64/ws2_32.lib")
+#		pragma comment( lib, "libraries/Wwise/Debug(StaticCRT)/libx64/AkSoundEngine.lib")
+#		pragma comment( lib, "libraries/Wwise/Debug(StaticCRT)/libx64/AkMusicEngine.lib")
+#		pragma comment( lib, "libraries/Wwise/Debug(StaticCRT)/libx64/AkMemoryMgr.lib")
+#		pragma comment( lib, "libraries/Wwise/Debug(StaticCRT)/libx64/AkStreamMgr.lib")
 #	endif
 #endif
 
