@@ -89,7 +89,7 @@ bool ModuleScene::Start()
 	LoadDynamicSoundSource();
 
 				
-	LoadStaticSoundSource(); //THIS MUST BE LAST OBJECT IN SCENE AT THE TIME OF THE START
+	LoadStaticSoundSource(); 
 	
 	return true;
 }
@@ -128,6 +128,9 @@ update_status ModuleScene::Update(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleScene::PostUpdate(float dt)
 {
+
+	DynamicSourceMovement();
+
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glClearStencil(0);
@@ -306,20 +309,20 @@ void ModuleScene::LoadStaticSoundSource()
 	App->textureImporter->AvailableTextures.push_back(&PengTex);
 
 
-	Game_Object* Item = ROOT_SCENE_OBJECT->Children_List[ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0];
+	Static_Source = ROOT_SCENE_OBJECT->Children_List[ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0];
 
-	Item->ToBeDrawInspector = true;
-	App->input->CheckSelectedChild(Item, PengTex);
-	Item->ToBeDrawInspector = false;
-
-
+	Static_Source->ToBeDrawInspector = true;
+	App->input->CheckSelectedChild(Static_Source, PengTex);
+	Static_Source->ToBeDrawInspector = false;
 
 
-	Item->AddComponent(Component_Types::Source);
+
+
+	Static_Source->AddComponent(Component_Types::Source);
 	
 
 
-	Component_Source* StaticSource = (Component_Source*)Item->GetComponent(Component_Types::Source);
+	Component_Source* StaticSource = (Component_Source*)Static_Source->GetComponent(Component_Types::Source);
 	
 	
 	
@@ -348,14 +351,20 @@ void ModuleScene::LoadDynamicSoundSource()
 	App->textureImporter->AvailableTextures.push_back(&PengTex);
 
 
-	Game_Object* Item = ROOT_SCENE_OBJECT->Children_List[ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0];
+	Dynamic_Source = ROOT_SCENE_OBJECT->Children_List[ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0];
 
-	Item->ToBeDrawInspector = true;
-	App->input->CheckSelectedChild(Item, PengTex);
-	Item->ToBeDrawInspector = false;
+	Dynamic_Source->ToBeDrawInspector = true;
+	App->input->CheckSelectedChild(Dynamic_Source, PengTex);
+	Dynamic_Source->ToBeDrawInspector = false;
 
 	App->editor->Importer_Settings->DesiredScaleZ = 1;
 	App->editor->Importer_Settings->GlobalScale = false;
+
+	Component_Transform* TransformStatic = (Component_Transform*)Dynamic_Source->GetComponent(Component_Types::Transform);
+
+	TransformStatic->Scale = { 6,6,6 };
+	TransformStatic->UpdateTransformationsObjects(TransformStatic->Translation, TransformStatic->Scale, TransformStatic->Rotation);
+
 }
 
 void ModuleScene::LoadMusicSource()
@@ -488,6 +497,104 @@ void ModuleScene::AudioControlls()
 
 
 	
+}
+
+void ModuleScene::DynamicSourceMovement()
+{
+
+	Component_Transform* TransformStatic=(Component_Transform*)Dynamic_Source->GetComponent(Component_Types::Transform);
+
+	
+	
+
+	if (In_Pos1 == false) {
+		TransformStatic->Translation=MoveDynamicSourceTo(PositionSq1, TransformStatic->Translation);
+		
+		TransformStatic->EulerRot = { -90, 90, 0 };
+		Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
+		TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
+
+		//WORKING
+
+	}
+	else if (In_Pos2 == false) {
+
+		TransformStatic->Translation= MoveDynamicSourceTo(PositionSq2, TransformStatic->Translation);
+
+		//TransformStatic->EulerRot = { 0,0,0 };
+		Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
+		TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
+
+
+	}
+	else if (In_Pos3 == false) {
+		TransformStatic->Translation= MoveDynamicSourceTo(PositionSq3, TransformStatic->Translation);
+
+
+		TransformStatic->EulerRot = { 90, -90, 0 };
+		Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
+		TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
+
+		//WORKING
+	}
+	else if (In_Pos4 == false) {
+		TransformStatic->Translation= MoveDynamicSourceTo(PositionSq4, TransformStatic->Translation);
+
+		//TransformStatic->EulerRot = { 0,0,0 };
+		Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
+		TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
+
+	}
+
+	TransformStatic->UpdateTransformationsObjects(TransformStatic->Translation, TransformStatic->Scale, TransformStatic->Rotation);
+
+}
+
+float3 ModuleScene::MoveDynamicSourceTo(float3 GoTo, float3 TranslationVec)
+{
+
+	if (GoTo.x < TranslationVec.x) {
+
+		TranslationVec.x = TranslationVec.x - 0.5;
+	}
+	else if (GoTo.x > TranslationVec.x) {
+		TranslationVec.x = TranslationVec.x + 0.5;
+	}
+
+	if (GoTo.z < TranslationVec.z) {
+
+		TranslationVec.z = TranslationVec.z - 0.5;
+	}
+	else if (GoTo.z > TranslationVec.z) {
+		TranslationVec.z = TranslationVec.z + 0.5;
+	}
+	
+
+	if (GoTo.x == TranslationVec.x && GoTo.z == TranslationVec.z) {
+
+		if (In_Pos1 == false) {
+			In_Pos1 = true;
+			In_Pos2 = false;
+
+		}
+		else if (In_Pos2 == false) {
+			In_Pos2 = true;
+			In_Pos3 = false;
+		}
+		else if (In_Pos3 == false) {
+			In_Pos3 = true;
+			In_Pos4 = false;
+		}
+		else if (In_Pos4 == false) {
+			In_Pos4 = true;
+			In_Pos1 = false;
+		}
+
+
+	}
+
+	return TranslationVec;
+
 }
 
 

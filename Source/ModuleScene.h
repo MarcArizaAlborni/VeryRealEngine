@@ -62,6 +62,9 @@ public:
 	Game_Object* background_music = nullptr;
 	Game_Object* background_music_2 = nullptr;
 
+	Game_Object* Dynamic_Source = nullptr;
+	Game_Object* Static_Source = nullptr;
+
 
 private:
 
@@ -83,6 +86,21 @@ private: //Timer Rotation Music
 	void RotateMusics();
 
 	void AudioControlls();
+
+	void DynamicSourceMovement();
+
+
+	float3 PositionSq1 = { 70,0,40 };
+	float3 PositionSq2 = { -70,0,40 };
+	float3 PositionSq3 = { -70,0,-40 };
+	float3 PositionSq4 = { 70,0,-40 };
+
+	bool In_Pos1 = false;
+	bool In_Pos2 = false;
+	bool In_Pos3 = false;
+	bool In_Pos4 = false;
+
+	float3 MoveDynamicSourceTo(float3 GoTo,float3 TranslationVec);
 
 };
 
