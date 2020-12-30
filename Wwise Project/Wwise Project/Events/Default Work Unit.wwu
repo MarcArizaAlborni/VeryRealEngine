@@ -36,6 +36,28 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Fish_Dynamic" ID="{C755B386-D3B7-4744-BAF9-7D9679CDFC93}">
+					<ChildrenList>
+						<Action Name="" ID="{21E95243-4EB8-4FA3-A246-A12DC14AA235}" ShortID="427481488">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Tiburon tema de sonido" ID="{0DD9ECE9-8E10-40C8-9654-60732AFF6F6B}" WorkUnitID="{552AFFBB-6AB6-41F9-958D-D9681943028C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Distort_Persona" ID="{763AB867-FCCC-446F-ABDA-7E32A3A2E1B3}">
+					<ChildrenList>
+						<Action Name="" ID="{C0A6D101-2E73-4ED5-A902-5B6C462AA902}" ShortID="1066232923">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Persona 5 - Life Will Change (中英歌詞)" ID="{8D30152A-8F5A-4137-BB2F-E047515553BA}" WorkUnitID="{552AFFBB-6AB6-41F9-958D-D9681943028C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
