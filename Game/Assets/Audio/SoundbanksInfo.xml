@@ -21,7 +21,9 @@
 			<ShortName>MyMusicBank</ShortName>
 			<Path>MyMusicBank.bnk</Path>
 			<IncludedEvents>
+				<Event Id="1027286215" Name="Distort_Persona" ObjectPath="\Events\Default Work Unit\Distort_Persona"/>
 				<Event Id="3072587112" Name="First30" ObjectPath="\Events\Default Work Unit\First30"/>
+				<Event Id="4288538553" Name="Fish_Dynamic" ObjectPath="\Events\Default Work Unit\Fish_Dynamic"/>
 				<Event Id="136683592" Name="Penguin_Static" ObjectPath="\Events\Default Work Unit\Penguin_Static"/>
 				<Event Id="1541101740" Name="Second30" ObjectPath="\Events\Default Work Unit\Second30"/>
 			</IncludedEvents>
@@ -29,6 +31,14 @@
 				<File Id="8072839" Language="SFX">
 					<ShortName>Thomas_Song.wav</ShortName>
 					<Path>SFX\Thomas_Song_10C4C929.wem</Path>
+				</File>
+				<File Id="72865198" Language="SFX">
+					<ShortName>Tiburon tema de sonido.wav</ShortName>
+					<Path>SFX\Tiburon tema de sonido_10C4C929.wem</Path>
+				</File>
+				<File Id="120928561" Language="SFX">
+					<ShortName>Persona 5 - Life Will Change (中英歌詞).wav</ShortName>
+					<Path>SFX\Persona 5 - Life Will Change (中英歌詞)_10C4C929.wem</Path>
 				</File>
 				<File Id="196623566" Language="SFX">
 					<ShortName>Penguin.wav</ShortName>
