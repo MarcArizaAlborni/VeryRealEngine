@@ -60,6 +60,9 @@ public:
 	bool is_Selected;
 	bool ToBeDrawInspector;
 
+
+	bool is_spatial_Origin = false; //spatial audio source
+
 public:
 
 	void Update();

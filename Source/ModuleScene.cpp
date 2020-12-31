@@ -317,7 +317,7 @@ void ModuleScene::LoadStaticSoundSource()
 
 
 
-
+	//Static_Source->is_spatial_Origin = true;
 	Static_Source->AddComponent(Component_Types::Source);
 	
 
@@ -364,6 +364,9 @@ void ModuleScene::LoadDynamicSoundSource()
 
 	TransformStatic->Scale = { 6,6,6 };
 	TransformStatic->UpdateTransformationsObjects(TransformStatic->Translation, TransformStatic->Scale, TransformStatic->Rotation);
+
+
+	//Remember to create the SPATIAL AUDIO==TRUE
 
 }
 

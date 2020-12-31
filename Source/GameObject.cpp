@@ -94,8 +94,14 @@ Component* Game_Object::AddComponent(Component_Types typus)
 	case Component_Types::Source:
 		LOG("[WARNING]Component Soource added to GameObject");
 
-		Ret = new Component_Source(this);
-		UniqueComponent = true;
+		if (this->is_spatial_Origin == false) {
+			Ret = new Component_Source(this);
+			UniqueComponent = true;
+		}
+		else {
+			Ret = new Component_Source(this,true); //for spatial audios
+			UniqueComponent = true;
+		}
 
 		break;
 

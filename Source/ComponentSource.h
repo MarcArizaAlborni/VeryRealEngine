@@ -10,6 +10,7 @@ class Component_Source : public Component
 {
 public:
 	Component_Source(Game_Object* ComponentOwner);
+	Component_Source(Game_Object* ComponentOwner,bool is_Spatial);
 	~Component_Source();
 
 	
