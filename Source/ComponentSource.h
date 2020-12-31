@@ -28,6 +28,8 @@ public:
 	bool isPlaying = false;
 	bool isStopped = false;
 	bool isModified = false;
+
+	bool isSpatialDependant = false;
 };
 
 #endif __C_AudioSource__H__

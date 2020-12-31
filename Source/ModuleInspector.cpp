@@ -527,6 +527,19 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             }
             ImGui::SameLine();
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawFullVoIcon.texture_id, { 20,20 });
+
+            if (SourceInfo->isSpatialDependant) {
+                ImGui::Separator();
+                ImGui::PushItemWidth(100);
+                float volume = 0;
+                ImGui::InputFloat("Volume Expanse", &volume);
+
+                float volumeMAX = 0;
+                ImGui::InputFloat("MAX Volume Expanse", &volumeMAX);
+
+                ImGui::PopItemWidth();
+            }
+
         }
     }
 

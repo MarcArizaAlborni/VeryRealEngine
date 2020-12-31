@@ -317,7 +317,7 @@ void ModuleScene::LoadStaticSoundSource()
 
 
 
-	//Static_Source->is_spatial_Origin = true;
+	Static_Source->is_spatial_Origin = true;
 	Static_Source->AddComponent(Component_Types::Source);
 	
 
@@ -376,7 +376,7 @@ void ModuleScene::LoadMusicSource()
 	ROOT_SCENE_OBJECT->Children_List.push_back(background_music);
 	background_music->Parent = ROOT_SCENE_OBJECT;
 
-	background_music_2 = new Game_Object("TOMÁS");
+	background_music_2 = new Game_Object("THOMAS THE TRAIN");
 	ROOT_SCENE_OBJECT->Children_List.push_back(background_music_2);
 	background_music_2->Parent = ROOT_SCENE_OBJECT;
 

@@ -43,6 +43,8 @@ void Component_Transform::UpdateTransformationsObjects(float3 translations, floa
 {
 	Local_Matrix = float4x4::FromTRS(translations, rotations, scales);
 
+
+
 	UpdateGlobalTransform();
 }
 
