@@ -649,14 +649,33 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
         if (ImGui::CollapsingHeader("Spatial Audio Config", ImGuiTreeNodeFlags_DefaultOpen)) {
 
-
-
-            ImGui::Checkbox("Show Obb Spatial", &ComponentMeshesChild->show_obb);
             
+            if (ImGui::DragFloat3("Rad", { &ComponentTransformChild->Scale.x }, 2.0f, 0.0f)) {
 
-           
+                if (ComponentTransformChild->Scale.x < 0.1)
+                {
+                    ComponentTransformChild->Scale.x = 0.1;
+                }
+                if (ComponentTransformChild->Scale.y < 0.1)
+                {
+                    ComponentTransformChild->Scale.y = 0.1;
+                }
+                if (ComponentTransformChild->Scale.z < 0.1)
+                {
+                    ComponentTransformChild->Scale.z = 0.1;
+                }
+
+                ComponentTransformChild->UpdateTransformationsObjects(ComponentTransformChild->Translation, ComponentTransformChild->Scale, ComponentTransformChild->Rotation);
 
 
+
+
+                ImGui::Checkbox("Show Obb Spatial", &ComponentMeshesChild->show_obb);
+
+
+
+
+            }
 
         }
             ++It;
