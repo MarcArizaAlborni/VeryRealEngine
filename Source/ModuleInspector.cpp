@@ -543,98 +543,162 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
         }
     }
 
-    if (ImGui::CollapsingHeader("Components", ImGuiTreeNodeFlags_DefaultOpen)) {
+   //if (ImGui::CollapsingHeader("Components", ImGuiTreeNodeFlags_DefaultOpen)) {
+   //
+   //
+   //   
+   //    const char* items[] = { "Mesh", "Texture", "Camera", "Transform", "Audio Listener", "Audio Source" };
+   //    static const char* current_item = NULL;
+   //
+   //    if (ImGui::BeginCombo("##combo", current_item)) // The second parameter is the label previewed before opening the combo.
+   //    {
+   //        for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+   //        {
+   //            bool is_selected = (current_item == items[n]); // You can store your selection however you want, outside or inside your objects
+   //            if (ImGui::Selectable(items[n], is_selected)) {
+   //                current_item = items[n];
+   //            }
+   //            if (is_selected) {
+   //               ImGui::SetItemDefaultFocus();
+   //            } 
+   //        }
+   //        ImGui::EndCombo();
+   //       
+   //    }
+   //
+   //    ImGui::SameLine();
+   //
+   //    if (ImGui::Button("AddComponent")) {
+   //
+   //        if (current_item == items[0]) { //MESH
+   //
+   //            if (MeshInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Mesh);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a mesh component!");
+   //            }
+   //        }
+   //        else if (current_item == items[1]) { //TEXTURE
+   //
+   //            if (TextureInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Texture);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a texture component!");
+   //            }
+   //        }
+   //        else if (current_item == items[2]) { //CAMERA
+   //
+   //            if (CameraInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Camera);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a Camera component!");
+   //            }
+   //
+   //        }
+   //        else  if (current_item == items[3]) { //TRANSFORM
+   //
+   //            if (TransInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Transform);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a transform component!");
+   //            }
+   //        }
+   //        else  if (current_item == items[5]) { //SOURCE
+   //
+   //            if (SourceInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Source);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a Source component!");
+   //            }
+   //        }
+   //        else  if (current_item == items[4]) { //listener
+   //
+   //            if (ListInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Listener);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a Listener component!");
+   //            }
+   //        }
+   //
+   //    }
+   //
+   //   
+   //}
+
+    std::vector<Game_Object*>::iterator It = item->Children_List.begin();
+
+    for (int ChildSpatial = 0; ChildSpatial < item->Children_List.size(); ++ChildSpatial) {
+
+        Game_Object* ItVal = *It;
 
 
+        if (ItVal->isAudioDistanceObject == true) {
+
+            Component_Mesh* ComponentMeshesChild = (Component_Mesh*)ItVal->GetComponent(Component_Types::Mesh);
+
+            Component_Transform* ComponentTransformChild = (Component_Transform*)ItVal->GetComponent(Component_Types::Transform);
+
+            ComponentMeshesChild->show_obb = true; //we are missing UPDATE OBB THATS WHY IT DOESNT WORK
+
+            ComponentMeshesChild->UpdateOnTransformOBB();
+
+            vec CameraPosition = { App->camera->scene_camera->Position.x, App->camera->scene_camera->Position.y,App->camera->scene_camera->Position.z };
+
+            if (ImGui::CollapsingHeader("Spatial Audio", ImGuiTreeNodeFlags_DefaultOpen)) {
+
+
+                ImGui::Text("abc");
+
+             
+                float Radius = ComponentTransformChild->Scale.x;
+                if (ImGui::DragFloat("Spatial Radius", { &Radius }, 2,0.0f)) {
+
+                    if (Radius < 0.1)
+                    {
+                        Radius = 0.1;
+                    }
+                   // if (ComponentTransformChild->Scale.y < 0.1)
+                   // {
+                   //     ComponentTransformChild->Scale.y = 0.1;
+                   // }
+                   // if (ComponentTransformChild->Scale.z < 0.1)
+                   // {
+                   //     ComponentTransformChild->Scale.z = 0.1;
+                   // }
+                    ComponentTransformChild->Scale = { Radius ,Radius ,Radius };
+
+                    ComponentTransformChild->UpdateTransformationsObjects(TransInfo->Translation, ComponentTransformChild->Scale, ComponentTransformChild->Rotation);
+
+                    if (ComponentMeshesChild != nullptr)
+                    {
+                        ComponentMeshesChild->UpdateOnTransformOBB();
+                    }
+
+                }
        
-        const char* items[] = { "Mesh", "Texture", "Camera", "Transform", "Audio Listener", "Audio Source" };
-        static const char* current_item = NULL;
-
-        if (ImGui::BeginCombo("##combo", current_item)) // The second parameter is the label previewed before opening the combo.
-        {
-            for (int n = 0; n < IM_ARRAYSIZE(items); n++)
-            {
-                bool is_selected = (current_item == items[n]); // You can store your selection however you want, outside or inside your objects
-                if (ImGui::Selectable(items[n], is_selected)) {
-                    current_item = items[n];
-                }
-                if (is_selected) {
-                   ImGui::SetItemDefaultFocus();
-                } 
+              if (ComponentMeshesChild->global_OBB.Contains(CameraPosition)) {
+                  ImGui::Text("It is");
+              }
+              else {
+                  ImGui::Text("It is NOT");
+              }
+             
             }
-            ImGui::EndCombo();
-           
+
+            ++It;
         }
-
-        ImGui::SameLine();
-
-        if (ImGui::Button("AddComponent")) {
-
-            if (current_item == items[0]) { //MESH
-
-                if (MeshInfo == nullptr) {
-                    item->AddComponent(Component_Types::Mesh);
-                    LOG("[WARNING] Component Added manually!");
-                }
-                else {
-                    LOG("[ERROR] The game object already has a mesh component!");
-                }
-            }
-            else if (current_item == items[1]) { //TEXTURE
-
-                if (TextureInfo == nullptr) {
-                    item->AddComponent(Component_Types::Texture);
-                    LOG("[WARNING] Component Added manually!");
-                }
-                else {
-                    LOG("[ERROR] The game object already has a texture component!");
-                }
-            }
-            else if (current_item == items[2]) { //CAMERA
-
-                if (CameraInfo == nullptr) {
-                    item->AddComponent(Component_Types::Camera);
-                    LOG("[WARNING] Component Added manually!");
-                }
-                else {
-                    LOG("[ERROR] The game object already has a Camera component!");
-                }
-
-            }
-            else  if (current_item == items[3]) { //TRANSFORM
-
-                if (TransInfo == nullptr) {
-                    item->AddComponent(Component_Types::Transform);
-                    LOG("[WARNING] Component Added manually!");
-                }
-                else {
-                    LOG("[ERROR] The game object already has a transform component!");
-                }
-            }
-            else  if (current_item == items[5]) { //SOURCE
-
-                if (SourceInfo == nullptr) {
-                    item->AddComponent(Component_Types::Source);
-                    LOG("[WARNING] Component Added manually!");
-                }
-                else {
-                    LOG("[ERROR] The game object already has a Source component!");
-                }
-            }
-            else  if (current_item == items[4]) { //listener
-
-                if (ListInfo == nullptr) {
-                    item->AddComponent(Component_Types::Listener);
-                    LOG("[WARNING] Component Added manually!");
-                }
-                else {
-                    LOG("[ERROR] The game object already has a Listener component!");
-                }
-            }
-
-        }
-
-       
     }
 
 }

@@ -6,6 +6,7 @@
 #include <string>
 
 #include "libraries/Wwise/AK/SoundEngine/Common/AkTypes.h"
+#include "ModuleGeometryManager.h"
 
 #define BANKS_PATH "Assets/Audio/"
 #define BANKS_INIT_PATH "Assets/Audio/Init.bnk"
@@ -28,7 +29,6 @@ public:
 	
 	void Reverb_Audio();
 	
-
 	void LoadEventsFromJson();
 
 	AkGameObjectID CurrentListenerID;
@@ -43,6 +43,10 @@ private:
 	void DetectAudioBanks(const char* directory, std::vector<std::string>& file_list);
 	
 	void SetUpWwise();
+
+	void UpdateSpatialObjectsInfo();
+
+	void UpdateSpatialObjectsInfoChilds(Game_Object* Parent);
 
 };
 
@@ -83,9 +87,5 @@ private:
 	AkVector orientationFront = { 0,0,0 };
 	AkVector orientationTop = { 0,0,0 };
 };
-
-
-
-
 
 #endif  

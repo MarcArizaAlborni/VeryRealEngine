@@ -21,6 +21,7 @@ Game_Object::Game_Object(std::string name) : name(name), Enabled(true)
 	showVertexNormals = false;
 	is_Selected = false;
 	ToBeDrawInspector = false;
+	isAudioDistanceObject = false;
 
 
 	item_id = App->scene->Game_Objects_IdGen + 1 ;
