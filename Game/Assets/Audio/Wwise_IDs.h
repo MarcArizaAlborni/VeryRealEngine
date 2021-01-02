@@ -7,7 +7,7 @@
 #ifndef __WWISE_IDS_H__
 #define __WWISE_IDS_H__
 
-#include "..\Wwise\AK\SoundEngine\Common\AkTypes.h"
+#include "..\Wwise/AK/SoundEngine/Common/AkTypes.h"
 
 namespace AK
 {
@@ -30,6 +30,11 @@ namespace AK
     {
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
     } // namespace BUSSES
+
+    namespace AUX_BUSSES
+    {
+        static const AkUniqueID REVERB = 348963605U;
+    } // namespace AUX_BUSSES
 
     namespace AUDIO_DEVICES
     {

@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "ModuleEditor.h"
 #include "ModuleScene.h"
+#include "ModuleInput.h"
 #include "GameObject.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
@@ -59,6 +60,11 @@ update_status ModuleAudio::Update(float dt)
 
     Reverb_Audio();
     UpdateSpatialObjectsInfo();
+
+    if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+    {
+
+    }
 
 	int a = 0;
 	return UPDATE_CONTINUE;
@@ -371,9 +377,8 @@ void ModuleAudio::Reverb_Audio()
    
     Component_Mesh* tunnel = (Component_Mesh*)App->scene->Reverb_Source->GetComponent(Component_Types::Mesh);
 
-    /*vec point = { fish_trans->Translation.x,fish_trans->Translation.y,fish_trans->Translation.z };*/
+    vec point = { fish_trans->Translation.x,fish_trans->Translation.y,fish_trans->Translation.z };
     /*vec point = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };*/
-    vec point = { 11.5,0,-40 };
 
     if (tunnel->global_OBB.Contains(point))
     {

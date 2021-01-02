@@ -366,9 +366,14 @@ void ModuleScene::LoadDynamicSoundSource()
 	TransformStatic->Scale = { 6,6,6 };
 	TransformStatic->UpdateTransformationsObjects(TransformStatic->Translation, TransformStatic->Scale, TransformStatic->Rotation);
 
-	Component_Mesh* MeshDynamic = (Component_Mesh*)Dynamic_Source->GetComponent(Component_Types::Mesh);
+	Dynamic_Source->is_spatial_Origin = true;
+	Dynamic_Source->AddComponent(Component_Types::Source);
 
-	MeshDynamic->UpdateOnTransformOBB();
+	Component_Source* DynamicSource = (Component_Source*)Dynamic_Source->GetComponent(Component_Types::Source);
+
+	DynamicSource->SetID(AK::EVENTS::FISH_DYNAMIC);
+
+	DynamicSource->WiseItem->PlayEvent(AK::EVENTS::FISH_DYNAMIC);
 
 	//Remember to create the SPATIAL AUDIO==TRUE
 
