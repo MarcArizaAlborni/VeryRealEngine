@@ -324,7 +324,11 @@ void ModuleScene::LoadStaticSoundSource()
 
 
 	Component_Source* StaticSource = (Component_Source*)Static_Source->GetComponent(Component_Types::Source);
+	Component_Mesh* MeshStatic= (Component_Mesh*)Static_Source->Children_List[0]->GetComponent(Component_Types::Mesh);
 	
+
+	//Static_Source->Children_List[0];
+	MeshStatic->UpdateOnTransformOBB();
 	
 	
 
@@ -361,11 +365,14 @@ void ModuleScene::LoadDynamicSoundSource()
 	App->editor->Importer_Settings->DesiredScaleZ = 1;
 	App->editor->Importer_Settings->GlobalScale = false;
 
-	Component_Transform* TransformStatic = (Component_Transform*)Dynamic_Source->GetComponent(Component_Types::Transform);
+	Component_Transform* TransformDynamic = (Component_Transform*)Dynamic_Source->GetComponent(Component_Types::Transform);
+	Component_Mesh* MeshDynamic = (Component_Mesh*)Dynamic_Source->GetComponent(Component_Types::Mesh);
 
-	TransformStatic->Scale = { 6,6,6 };
-	TransformStatic->UpdateTransformationsObjects(TransformStatic->Translation, TransformStatic->Scale, TransformStatic->Rotation);
+	
 
+	TransformDynamic->Scale = { 6,6,6 };
+	TransformDynamic->UpdateTransformationsObjects(TransformDynamic->Translation, TransformDynamic->Scale, TransformDynamic->Rotation);
+	MeshDynamic->UpdateOnTransformOBB();
 	Dynamic_Source->is_spatial_Origin = true;
 	Dynamic_Source->AddComponent(Component_Types::Source);
 
@@ -376,6 +383,8 @@ void ModuleScene::LoadDynamicSoundSource()
 	DynamicSource->WiseItem->PlayEvent(AK::EVENTS::FISH_DYNAMIC);
 
 	//Remember to create the SPATIAL AUDIO==TRUE
+
+
 
 }
 
@@ -391,6 +400,8 @@ void ModuleScene::LoadReverbSoundSource()
 
 	Reverb_Source = ROOT_SCENE_OBJECT->Children_List[ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0];
 	Component_Transform* TransformReverb = (Component_Transform*)Reverb_Source->GetComponent(Component_Types::Transform);
+
+	Reverb_Source->name = "Reverb Tunnel";
 		
 
 	App->editor->Importer_Settings->DesiredScaleX = 1;

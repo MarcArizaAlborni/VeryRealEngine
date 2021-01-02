@@ -43,18 +43,10 @@ void Component_Transform::CleanUp()
 
 void Component_Transform::UpdateTransformationsObjects(float3 translations, float3 scales, Quat rotations)
 {
-	if (owner->isAudioDistanceObject == true) {
-
-		Component_Transform* TransformComp=(Component_Transform*)owner->Parent->GetComponent(Component_Types::Transform);
 	
-		Local_Matrix = float4x4::FromTRS(TransformComp->Translation, rotations, scales);
-	}
 
-	if (owner->isAudioDistanceObject == false) {
-
-		Local_Matrix = float4x4::FromTRS(translations, rotations, scales);
-		UpdateGlobalTransform();
-	}
+	Local_Matrix = float4x4::FromTRS(translations, rotations, scales);
+	UpdateGlobalTransform();
 	
 }
 

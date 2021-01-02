@@ -59,6 +59,8 @@ update_status ModuleAudio::Update(float dt)
 {
 
     Reverb_Audio();
+
+
     UpdateSpatialObjectsInfo();
 
     if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
@@ -332,7 +334,6 @@ void ModuleAudio::SetUpWwise()
 
 #endif // AK_OPTIMIZED
 
-
     AkBankID bankID;
     AKRESULT retValue;
     retValue = AK::SoundEngine::LoadBank(BANKS_INIT_PATH, AK_DEFAULT_POOL_ID, bankID);
@@ -342,8 +343,48 @@ void ModuleAudio::SetUpWwise()
 
 void ModuleAudio::UpdateSpatialObjectsInfo()
 {
+    std::vector<Game_Object*>::iterator It = App->scene->ROOT_SCENE_OBJECT->Children_List.begin();
+    for (int i = 0; i<App->scene->ROOT_SCENE_OBJECT->Children_List.size(); ++i) {
 
-    
+        Game_Object* Object = *It;
+
+        UpdateSpatialObjectsInfoChilds(Object);
+
+            ++It;
+    }
+
+}
+
+void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
+{
+
+
+    std::vector<Game_Object*>::iterator It = Parent->Children_List.begin();
+    for (int i = 0; i < Parent->Children_List.size(); ++i) {
+
+        Game_Object* Object = *It;
+
+
+
+
+      
+       Component_Mesh* ComponentMeshesChild = (Component_Mesh*)Object->GetComponent(Component_Types::Mesh);
+     
+       if (ComponentMeshesChild != nullptr) {
+           ComponentMeshesChild->UpdateOnTransformOBB();
+       }    
+
+
+      
+
+
+
+        UpdateSpatialObjectsInfoChilds(Object);
+
+        ++It;
+    }
+
+
 
 
 }

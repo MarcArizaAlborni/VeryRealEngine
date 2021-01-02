@@ -95,7 +95,7 @@ Component* Game_Object::AddComponent(Component_Types typus)
 	case Component_Types::Source:
 		LOG("[WARNING]Component Soource added to GameObject");
 
-		if (this->is_spatial_Origin == false) {
+		if (this->is_spatial_Origin == false) { //If its parent of spatial audio mesh
 			Ret = new Component_Source(this);
 			UniqueComponent = true;
 		}
