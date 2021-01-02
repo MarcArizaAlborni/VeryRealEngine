@@ -88,8 +88,9 @@ bool ModuleScene::Start()
 
 	LoadDynamicSoundSource();
 
-				
 	LoadStaticSoundSource(); 
+
+	LoadReverbSoundSource();
 	
 	return true;
 }
@@ -365,9 +366,39 @@ void ModuleScene::LoadDynamicSoundSource()
 	TransformStatic->Scale = { 6,6,6 };
 	TransformStatic->UpdateTransformationsObjects(TransformStatic->Translation, TransformStatic->Scale, TransformStatic->Rotation);
 
+	Component_Mesh* MeshDynamic = (Component_Mesh*)Dynamic_Source->GetComponent(Component_Types::Mesh);
+
+	MeshDynamic->UpdateOnTransformOBB();
 
 	//Remember to create the SPATIAL AUDIO==TRUE
 
+}
+
+void ModuleScene::LoadReverbSoundSource()
+{
+	App->editor->Importer_Settings->GlobalScale = true;
+	App->editor->Importer_Settings->DesiredScaleX = 0.6;
+	App->editor->Importer_Settings->DesiredScaleY = 0.6;
+	App->editor->Importer_Settings->DesiredScaleZ = 0.6;
+
+
+	App->meshimporter->LoadFile_Mesh("Assets/Models/Tunnel/Tunnel.fbx");
+
+	Reverb_Source = ROOT_SCENE_OBJECT->Children_List[ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0];
+	Component_Transform* TransformReverb = (Component_Transform*)Reverb_Source->GetComponent(Component_Types::Transform);
+		
+
+	App->editor->Importer_Settings->DesiredScaleX = 1;
+	App->editor->Importer_Settings->DesiredScaleY = 1;
+	App->editor->Importer_Settings->DesiredScaleZ = 1;
+	App->editor->Importer_Settings->GlobalScale = false;
+
+	TransformReverb->Translation = { -68,0,-156 };
+	TransformReverb->UpdateTransformationsObjects(TransformReverb->Translation, TransformReverb->Scale, TransformReverb->Rotation);
+
+	Component_Mesh* MeshReverb = (Component_Mesh*)Reverb_Source->GetComponent(Component_Types::Mesh);
+
+	MeshReverb->UpdateOnTransformOBB();
 }
 
 void ModuleScene::LoadMusicSource()
@@ -550,6 +581,10 @@ void ModuleScene::DynamicSourceMovement()
 	}
 
 	TransformStatic->UpdateTransformationsObjects(TransformStatic->Translation, TransformStatic->Scale, TransformStatic->Rotation);
+
+	Component_Mesh* MeshDynamic = (Component_Mesh*)Dynamic_Source->GetComponent(Component_Types::Mesh);
+
+	MeshDynamic->UpdateOnTransformOBB();
 
 }
 

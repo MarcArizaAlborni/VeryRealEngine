@@ -26,7 +26,7 @@ public:
 
 	void CreateAudioWindow();
 	
-	
+	void Reverb_Audio();
 	
 
 	void LoadEventsFromJson();
@@ -63,6 +63,8 @@ public:
 	
 	WwiseObjects* CreateAudioSource(uint id, const char* name, float3 position);
 	WwiseObjects* CreateAudioListener(uint id, const char* name, float3 position);
+
+	void SetAuxiliarySends(AkReal32 value, const char* target_bus, AkGameObjectID listener_id);
 
 	void SetVolume(uint id, float volume);
 	

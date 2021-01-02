@@ -64,12 +64,14 @@ public:
 
 	Game_Object* Dynamic_Source = nullptr;
 	Game_Object* Static_Source = nullptr;
+	Game_Object* Reverb_Source = nullptr;
 
 
 private:
 
 	void LoadStaticSoundSource();
 	void LoadDynamicSoundSource();
+	void LoadReverbSoundSource();
 	void LoadMusicSource();
 
 

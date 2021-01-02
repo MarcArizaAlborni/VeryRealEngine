@@ -2,9 +2,16 @@
 #include "Application.h"
 #include "Globals.h"
 #include "ModuleEditor.h"
+#include "ModuleScene.h"
+#include "GameObject.h"
+#include "ComponentTransform.h"
+#include "ComponentCamera.h"
+#include "Component.h"
+#include "ModuleCamera3D.h"
 #include "FileSystem.h"
 #include "..\Game\Assets\Audio\Wwise_IDs.h"
 #include "wwise.h"
+#include "ComponentMesh.h"
 #include "libraries/Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
 #pragma comment( lib, "libraries/PhysFS/libx86/physfs.lib" )
 #include "libraries/PhysFS/include/physfs.h"
@@ -48,7 +55,7 @@ bool ModuleAudio::Start()
 
 update_status ModuleAudio::Update(float dt)
 {
-
+    Reverb_Audio();
    
 	int a = 0;
 	return UPDATE_CONTINUE;
@@ -345,6 +352,37 @@ void ModuleAudio::LoadSoundBank(const char* path)
 
 }
 
+void ModuleAudio::Reverb_Audio()
+{
+    Component_Mesh* fish = (Component_Mesh*)App->scene->Dynamic_Source->GetComponent(Component_Types::Mesh);
+
+    Component_Transform* fish_trans = (Component_Transform*)App->scene->Dynamic_Source->GetComponent(Component_Types::Transform);
+   
+    Component_Mesh* tunnel = (Component_Mesh*)App->scene->Reverb_Source->GetComponent(Component_Types::Mesh);
+
+    /*vec point = { fish_trans->Translation.x,fish_trans->Translation.y,fish_trans->Translation.z };*/
+    /*vec point = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };*/
+    vec point = { 11.5,0,-40 };
+
+    if (tunnel->global_OBB.Contains(point))
+    {
+        LOG("rwefwre");
+        /*if (!reverb)
+        {
+            App->scene->train->GetComponent(Component::AUDIOSOURCE)->AsAudioSource()->sound_go->SetAuxiliarySends(1.0f, "env_tunnel", App->scene->audiolistenerdefault->GetComponent(Component::AUDIOLISTENER)->AsAudioListener()->sound_go->GetID());
+            reverb = true;
+        }*/
+    }
+    else
+    {
+        /*if (reverb)
+        {
+            App->scene->train->GetComponent(Component::AUDIOSOURCE)->AsAudioSource()->sound_go->SetAuxiliarySends(1.0f, "env_normal", App->scene->audiolistenerdefault->GetComponent(Component::AUDIOLISTENER)->AsAudioListener()->sound_go->GetID());
+            reverb = false;
+        }*/
+    }
+
+}
 
 //WWISE OBJECTS
 
@@ -434,8 +472,19 @@ void WwiseObjects::SetVolume(uint id, float volume)
     this->volume = volume;
 }
 
+void WwiseObjects::SetAuxiliarySends(AkReal32 value, const char* target_bus, AkGameObjectID listener_id)
+{
+    AkAuxSendValue reverb;
+    reverb.listenerID = listener_id;
+    reverb.auxBusID = AK::SoundEngine::GetIDFromString(target_bus);
+    reverb.fControlValue = value;
+
+    AKRESULT res = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb, 2);
+}
 
 uint WwiseObjects::GetID()
 {
     return id;
 }
+
+

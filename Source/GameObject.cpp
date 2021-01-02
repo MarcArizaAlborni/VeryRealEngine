@@ -181,7 +181,6 @@ Component* Game_Object::AddExistingComponent(Component* component)
 		Source = (Component_Source*)component;
 		Ret = new Component_Source(this);
 		break;
-
 	}
 
 	Component_List.push_back(component);

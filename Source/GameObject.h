@@ -12,6 +12,7 @@ class Component_Camera;
 class Component_Transform;
 class Component_Listener;
 class Component_Source;
+
 enum class Component_Types;
 
 class Game_Object {
