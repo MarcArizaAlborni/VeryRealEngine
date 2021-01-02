@@ -646,30 +646,56 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
         if (ItVal->isAudioDistanceObject == true) {
 
+            Component_Mesh* ComponentMeshesChild = (Component_Mesh*)ItVal->GetComponent(Component_Types::Mesh);
+
+            Component_Transform* ComponentTransformChild = (Component_Transform*)ItVal->GetComponent(Component_Types::Transform);
+
+            ComponentMeshesChild->show_obb = true; //we are missing UPDATE OBB THATS WHY IT DOESNT WORK
+
+            ComponentMeshesChild->UpdateOnTransformOBB();
+
+            vec CameraPosition = { App->camera->scene_camera->Position.x, App->camera->scene_camera->Position.y,App->camera->scene_camera->Position.z };
+
             if (ImGui::CollapsingHeader("Spatial Audio", ImGuiTreeNodeFlags_DefaultOpen)) {
 
 
                 ImGui::Text("abc");
 
-              Component_Mesh* ComponentMeshesChild = (Component_Mesh*) ItVal->GetComponent(Component_Types::Mesh);
+             
+                float Radius = ComponentTransformChild->Scale.x;
+                if (ImGui::DragFloat("Spatial Radius", { &Radius }, 2,0.0f)) {
 
-              ComponentMeshesChild->show_obb = true; //we are missing UPDATE OBB THATS WHY IT DOESNT WORK
+                    if (Radius < 0.1)
+                    {
+                        Radius = 0.1;
+                    }
+                   // if (ComponentTransformChild->Scale.y < 0.1)
+                   // {
+                   //     ComponentTransformChild->Scale.y = 0.1;
+                   // }
+                   // if (ComponentTransformChild->Scale.z < 0.1)
+                   // {
+                   //     ComponentTransformChild->Scale.z = 0.1;
+                   // }
+                    ComponentTransformChild->Scale = { Radius ,Radius ,Radius };
 
-              vec Point = { TransInfo->Translation.x, TransInfo->Translation.y, TransInfo->Translation.z };
+                    ComponentTransformChild->UpdateTransformationsObjects(TransInfo->Translation, ComponentTransformChild->Scale, ComponentTransformChild->Rotation);
 
-              if (ComponentMeshesChild->global_OBB.Contains(Point)) {
+                    if (ComponentMeshesChild != nullptr)
+                    {
+                        ComponentMeshesChild->UpdateOnTransformOBB();
+                    }
+
+                }
+       
+              if (ComponentMeshesChild->global_OBB.Contains(CameraPosition)) {
                   ImGui::Text("It is");
               }
               else {
                   ImGui::Text("It is NOT");
               }
              
-
-
             }
-
-
-
 
             ++It;
         }

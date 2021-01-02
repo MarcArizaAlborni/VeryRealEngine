@@ -6,6 +6,7 @@
 #include "ComponentTransform.h"
 #include "Application.h"
 #include "ModuleMeshImporter.h"
+#include "ComponentMesh.h"
 #include "ModuleScene.h"
 
 
@@ -55,12 +56,17 @@ Component_Source::Component_Source(Game_Object* ComponentOwner, bool is_Spatial)
 		Component_Transform* Spatial_Sphere = (Component_Transform*)App->scene->ROOT_SCENE_OBJECT->Children_List[
 			App->scene->ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0]->GetComponent(Component_Types::Transform);
 
+			Component_Mesh* Spatial_SphereMESH = (Component_Mesh*)App->scene->ROOT_SCENE_OBJECT->Children_List[
+				App->scene->ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0]->GetComponent(Component_Types::Mesh);
+
 		Component_Transform* Trans_Cmp = (Component_Transform*)owner->GetComponent(Component_Types::Transform);
 
 		//We set the translation to be equal to the one of the owner of the component source
 		
 
 		Spatial_Sphere->UpdateTransformationsObjects(Trans_Cmp->Translation, Spatial_Sphere->Scale, Spatial_Sphere->Rotation);
+		Spatial_SphereMESH->UpdateOnTransformOBB();
+		
 
 		//Here we add the game object as a child to the owner of the component source, instead of having one for itself
 		App->scene->ROOT_SCENE_OBJECT->Children_List[App->scene->ROOT_SCENE_OBJECT->Children_List.size() - 2]->Children_List[0]->ChangeParentFromObject(App->scene->ROOT_SCENE_OBJECT->Children_List[App->scene->ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0]);

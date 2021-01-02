@@ -1,7 +1,9 @@
 #include "Application.h"
 #include "Component.h"
 #include "GameObject.h"
+
 #include "ComponentTransform.h"
+
 #include "libraries/MathGeoLib/include/MathGeoLib.h"
 
 Component_Transform::Component_Transform(Game_Object* owner) : Component(owner), Translation(float3(0.0f, 0.0f, 0.0f)), Rotation(Quat::identity), Scale(float3(1.0f, 1.0f, 1.0f))
@@ -41,11 +43,19 @@ void Component_Transform::CleanUp()
 
 void Component_Transform::UpdateTransformationsObjects(float3 translations, float3 scales, Quat rotations)
 {
-	Local_Matrix = float4x4::FromTRS(translations, rotations, scales);
+	if (owner->isAudioDistanceObject == true) {
 
+		Component_Transform* TransformComp=(Component_Transform*)owner->Parent->GetComponent(Component_Types::Transform);
+	
+		Local_Matrix = float4x4::FromTRS(TransformComp->Translation, rotations, scales);
+	}
 
+	if (owner->isAudioDistanceObject == false) {
 
-	UpdateGlobalTransform();
+		Local_Matrix = float4x4::FromTRS(translations, rotations, scales);
+		UpdateGlobalTransform();
+	}
+	
 }
 
 void Component_Transform::SetEulerRotation(float3 Angle)

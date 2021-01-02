@@ -5,6 +5,7 @@
 #include "FileSystem.h"
 #include "..\Game\Assets\Audio\Wwise_IDs.h"
 #include "wwise.h"
+#include "ModuleScene.h"
 #include "libraries/Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
 #pragma comment( lib, "libraries/PhysFS/libx86/physfs.lib" )
 #include "libraries/PhysFS/include/physfs.h"
@@ -48,7 +49,7 @@ bool ModuleAudio::Start()
 
 update_status ModuleAudio::Update(float dt)
 {
-
+    UpdateSpatialObjectsInfo();
    
 	int a = 0;
 	return UPDATE_CONTINUE;
@@ -321,6 +322,14 @@ void ModuleAudio::SetUpWwise()
     AKRESULT retValue;
     retValue = AK::SoundEngine::LoadBank(BANKS_INIT_PATH, AK_DEFAULT_POOL_ID, bankID);
     assert(retValue == AK_Success);
+
+}
+
+void ModuleAudio::UpdateSpatialObjectsInfo()
+{
+
+    
+
 
 }
 
