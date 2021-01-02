@@ -76,145 +76,149 @@ void ModuleHierarchyGameObject::CreateHierarchyWindow()
 
 bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Reparented)
 {
-    ImGuiTreeNodeFlags FlagsNodes =   ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth| ImGuiTreeNodeFlags_OpenOnArrow;
+    if (Item->isAudioDistanceObject == false ) {
 
-    if (Item->Children_List.size() == 0) {
-        FlagsNodes |= ImGuiTreeNodeFlags_Leaf;
-    }
+        ImGuiTreeNodeFlags FlagsNodes = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_OpenOnArrow;
 
-    if (Item->ToBeDrawInspector) {
-        FlagsNodes |= ImGuiTreeNodeFlags_Selected | ImGuiTreeNodeFlags_Framed;
-    }
-
-    ImGui::AlignTextToFramePadding();
-
-   
-
-    if (ImGui::TreeNodeEx(Item->name.c_str(), FlagsNodes)) {
-
-        if (ImGui::BeginDragDropSource()) {
-
-            ImGui::SetDragDropPayload("Dragged_Object", Item, sizeof(Game_Object));
-            App->editor->DragedItem = Item;
-            ImGui::EndDragDropSource();
+        if (Item->Children_List.size() == 0) {
+            FlagsNodes |= ImGuiTreeNodeFlags_Leaf;
         }
 
-        if (ImGui::BeginDragDropTarget())
-        {
-            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Dragged_Object"))
+        if (Item->ToBeDrawInspector) {
+            FlagsNodes |= ImGuiTreeNodeFlags_Selected | ImGuiTreeNodeFlags_Framed;
+        }
+
+        ImGui::AlignTextToFramePadding();
+
+
+
+        if (ImGui::TreeNodeEx(Item->name.c_str(), FlagsNodes)) {
+
+            if (ImGui::BeginDragDropSource()) {
+
+                ImGui::SetDragDropPayload("Dragged_Object", Item, sizeof(Game_Object));
+                App->editor->DragedItem = Item;
+                ImGui::EndDragDropSource();
+            }
+
+            if (ImGui::BeginDragDropTarget())
             {
-                if (App->editor->DragedItem->Parent->name == "MainScene") {
-                    ChildOfGeneralParented = true;
+                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Dragged_Object"))
+                {
+                    if (App->editor->DragedItem->Parent->name == "MainScene") {
+                        ChildOfGeneralParented = true;
+                    }
+                    Item->ChangeParentFromObject(App->editor->DragedItem);
+                    App->editor->DragedItem = nullptr;
+                    Reparented = true;
                 }
-                Item->ChangeParentFromObject(App->editor->DragedItem);
-                App->editor->DragedItem = nullptr;
-                Reparented = true;
+                ImGui::EndDragDropTarget();
             }
-            ImGui::EndDragDropTarget();
-        }
 
-        if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
-        {
-            if ((Component_Camera*)Item->GetComponent(Component_Types::Camera) != nullptr)
+            if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
             {
-                SelectItemHierarchy(Item);
+                if ((Component_Camera*)Item->GetComponent(Component_Types::Camera) != nullptr)
+                {
+                    SelectItemHierarchy(Item);
+
+                }
+
+                else if ((Component_Mesh*)Item->GetComponent(Component_Types::Mesh) != nullptr) {
+
+                    SelectItemHierarchy(Item);
+
+
+                }
+
+                else if ((Component_Source*)Item->GetComponent(Component_Types::Source) != nullptr) {
+
+                    SelectItemHierarchy(Item);
+
+
+                }
+
+                else if ((Component_Listener*)Item->GetComponent(Component_Types::Listener) != nullptr) {
+
+                    SelectItemHierarchy(Item);
+
+
+                }
 
             }
 
-            else if ((Component_Mesh*)Item->GetComponent(Component_Types::Mesh) != nullptr) {
-
-                SelectItemHierarchy(Item);
-                
-
-            }
-
-            else if ((Component_Source*)Item->GetComponent(Component_Types::Source) != nullptr) {
-
-                SelectItemHierarchy(Item);
 
 
-            }
-
-            else if ((Component_Listener*)Item->GetComponent(Component_Types::Listener) != nullptr) {
-
-                SelectItemHierarchy(Item);
-
-
-            }
-
-        }
-
-
-
-        if (ImGui::IsItemClicked(ImGuiMouseButton_Right))
-        {
+            if (ImGui::IsItemClicked(ImGuiMouseButton_Right))
+            {
                 ImGui::OpenPopup("Delete Game Object");
 
-               
-                
-                
-        }
 
-        if (ImGui::BeginPopup("Delete Game Object"))
-        {
-            if (ImGui::Selectable("Delete Game Object"))
-            {
-                Item->ToBeDrawInspector = true;
-                App->hierarchy->ITEM_TO_BE_DELETED = true;
-                App->scene->ObjectToBeDeleted = Item;
+
+
             }
 
-            if (ImGui::Selectable("Create Child"))
+            if (ImGui::BeginPopup("Delete Game Object"))
             {
-                Game_Object* EmptyChildren = new Game_Object("Empty Children");
-
-                std::vector < Game_Object* >::iterator it = App->geometrymanager->ObjectsOnScene.begin();
-                Game_Object* SelectedItem;
-
-                for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i)
+                if (ImGui::Selectable("Delete Game Object"))
                 {
-                    SelectedItem = *it;
-                    SelectedItem = App->scene->LookForSelectedChild(SelectedItem);
-
-                    if (SelectedItem != nullptr)
-                    {
-                        if (SelectedItem->ToBeDrawInspector)
-                        {
-                            SelectedItem->Children_List.push_back(EmptyChildren);
-                            i = App->geometrymanager->ObjectsOnScene.size();
-                        }
-                    }
-                    ++it;
+                    Item->ToBeDrawInspector = true;
+                    App->hierarchy->ITEM_TO_BE_DELETED = true;
+                    App->scene->ObjectToBeDeleted = Item;
                 }
+
+                if (ImGui::Selectable("Create Child"))
+                {
+                    Game_Object* EmptyChildren = new Game_Object("Empty Children");
+
+                    std::vector < Game_Object* >::iterator it = App->geometrymanager->ObjectsOnScene.begin();
+                    Game_Object* SelectedItem;
+
+                    for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i)
+                    {
+                        SelectedItem = *it;
+                        SelectedItem = App->scene->LookForSelectedChild(SelectedItem);
+
+                        if (SelectedItem != nullptr)
+                        {
+                            if (SelectedItem->ToBeDrawInspector)
+                            {
+                                SelectedItem->Children_List.push_back(EmptyChildren);
+                                i = App->geometrymanager->ObjectsOnScene.size();
+                            }
+                        }
+                        ++it;
+                    }
+                }
+
+                ImGui::EndPopup();
             }
 
-            ImGui::EndPopup();
-        }
-        
-            
 
-        std::vector<Game_Object*>::iterator It = Item->Children_List.begin();
-        for (int size = 0; size < Item->Children_List.size(); ++size) {
 
-            Game_Object* Child = *It;
+            std::vector<Game_Object*>::iterator It = Item->Children_List.begin();
+            for (int size = 0; size < Item->Children_List.size(); ++size) {
 
-            if (!DrawHierarchyChildren(Child, Reparented)) {
-                if (ChildOfGeneralParented) {
+                Game_Object* Child = *It;
 
-                    size = Item->Children_List.size();
-                    break;
+                if (!DrawHierarchyChildren(Child, Reparented)) {
+                    if (ChildOfGeneralParented) {
+
+                        size = Item->Children_List.size();
+                        break;
+                    }
+                    else {
+                        ++It;
+                    }
+
                 }
                 else {
-                    ++It;
+                    size = Item->Children_List.size();
                 }
 
             }
-            else {
-                size = Item->Children_List.size();
-            }
-
+            ImGui::TreePop();
         }
-        ImGui::TreePop();
+
     }
     return Reparented;
 }

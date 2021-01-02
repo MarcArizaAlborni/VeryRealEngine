@@ -59,9 +59,14 @@ public:
 	bool showVertexNormals;
 	bool is_Selected;
 	bool ToBeDrawInspector;
-
+	
 
 	bool is_spatial_Origin = false; //spatial audio source
+	bool isAudioDistanceObject=false; // if it appears in the hierarchy (for audio source distance objects) and if its the game object related to the mesh that sets the max distance 
+	//of the audio source
+
+
+	
 
 public:
 

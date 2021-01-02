@@ -30,6 +30,11 @@ public:
 	bool isModified = false;
 
 	bool isSpatialDependant = false;
+
+	bool isDistanceDependant = true;
+
+
+
 };
 
 #endif __C_AudioSource__H__
