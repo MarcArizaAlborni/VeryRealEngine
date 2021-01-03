@@ -30,23 +30,23 @@
 			<IncludedMemoryFiles>
 				<File Id="8072839" Language="SFX">
 					<ShortName>Thomas_Song.wav</ShortName>
-					<Path>SFX\Thomas_Song_10C4C929.wem</Path>
+					<Path>SFX\Thomas_Song_D79FB2B7.wem</Path>
 				</File>
 				<File Id="72865198" Language="SFX">
 					<ShortName>Tiburon tema de sonido.wav</ShortName>
-					<Path>SFX\Tiburon tema de sonido_10C4C929.wem</Path>
+					<Path>SFX\Tiburon tema de sonido_D79FB2B7.wem</Path>
 				</File>
 				<File Id="196623566" Language="SFX">
 					<ShortName>Penguin.wav</ShortName>
-					<Path>SFX\Penguin_10C4C929.wem</Path>
+					<Path>SFX\Penguin_D79FB2B7.wem</Path>
 				</File>
 				<File Id="301909818" Language="SFX">
 					<ShortName>Doom_Music.wav</ShortName>
-					<Path>SFX\Doom_Music_10C4C929.wem</Path>
+					<Path>SFX\Doom_Music_D79FB2B7.wem</Path>
 				</File>
 				<File Id="811359318" Language="SFX">
 					<ShortName>Persona 5 .wav</ShortName>
-					<Path>SFX\Persona 5 _10C4C929.wem</Path>
+					<Path>SFX\Persona 5 _D79FB2B7.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
