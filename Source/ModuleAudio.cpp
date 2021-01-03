@@ -370,9 +370,13 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
       
        Component_Mesh* ComponentMeshesChild = (Component_Mesh*)Object->GetComponent(Component_Types::Mesh);
      
+       
+
        if (ComponentMeshesChild != nullptr) {
-           ComponentMeshesChild->UpdateOnTransformOBB();
-       }    
+           if (Object->isAudioDistanceObject) {
+               ComponentMeshesChild->UpdateOnTransformOBB(); //memory leak here
+           }
+       }
 
 
       
@@ -423,7 +427,7 @@ void ModuleAudio::Reverb_Audio()
 
     if (tunnel->global_OBB.Contains(point))
     {
-        LOG("rwefwre");
+       
         /*if (!reverb)
         {
             App->scene->train->GetComponent(Component::AUDIOSOURCE)->AsAudioSource()->sound_go->SetAuxiliarySends(1.0f, "env_tunnel", App->scene->audiolistenerdefault->GetComponent(Component::AUDIOLISTENER)->AsAudioListener()->sound_go->GetID());
