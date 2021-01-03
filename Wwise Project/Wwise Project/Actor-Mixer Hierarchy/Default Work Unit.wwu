@@ -4,6 +4,9 @@
 		<WorkUnit Name="Default Work Unit" ID="{552AFFBB-6AB6-41F9-958D-D9681943028C}" PersistMode="Standalone">
 			<ChildrenList>
 				<Sound Name="Doom_Music" ID="{15832CFC-F38A-4739-9984-05E9B6668B04}" ShortID="722182946">
+					<PropertyList>
+						<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{C093B2A5-EDEE-4D17-8F16-06831D6D71BF}"/>
@@ -23,6 +26,9 @@
 					</ActiveSourceList>
 				</Sound>
 				<Sound Name="Thomas_Song" ID="{B5BFBFB3-492B-44DD-B454-869668CA7963}" ShortID="345365067">
+					<PropertyList>
+						<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{C093B2A5-EDEE-4D17-8F16-06831D6D71BF}"/>
@@ -42,6 +48,9 @@
 					</ActiveSourceList>
 				</Sound>
 				<Sound Name="Penguin" ID="{8C50961B-7E76-4FFE-9B36-194143B18F6E}" ShortID="723607862">
+					<PropertyList>
+						<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{C093B2A5-EDEE-4D17-8F16-06831D6D71BF}"/>
@@ -62,11 +71,8 @@
 				</Sound>
 				<Sound Name="Tiburon tema de sonido" ID="{0DD9ECE9-8E10-40C8-9654-60732AFF6F6B}" ShortID="755641314">
 					<PropertyList>
-						<Property Name="UserAuxSendVolume0" Type="Real64">
-							<ValueList>
-								<Value>5</Value>
-							</ValueList>
-						</Property>
+						<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+						<Property Name="UseGameAuxSends" Type="bool" Value="True"/>
 					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
@@ -74,9 +80,6 @@
 						</Reference>
 						<Reference Name="OutputBus">
 							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{42FBB9F4-CC04-4CC0-959D-27BEE7109A2E}"/>
-						</Reference>
-						<Reference Name="UserAuxSend0">
-							<ObjectRef Name="Reverb" ID="{77DA5C0B-6C95-4E4D-B562-A4ECD1D64673}" WorkUnitID="{42FBB9F4-CC04-4CC0-959D-27BEE7109A2E}"/>
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
@@ -91,6 +94,7 @@
 				</Sound>
 				<Sound Name="Persona 5" ID="{1A7C3B5D-E283-4675-92CF-BA08783E70D7}" ShortID="849565061">
 					<PropertyList>
+						<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 						<Property Name="Volume" Type="Real64">
 							<ValueList>
 								<Value>-3</Value>
