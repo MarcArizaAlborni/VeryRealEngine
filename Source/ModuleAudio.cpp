@@ -22,8 +22,6 @@
 #include <fstream>
 #include <string>
 
-//#include "..\Wwise/AK/SoundEngine/Common/AkTypes.h"
-
 
 // We're using the default Low-Level I/O implementation that's part
 // of the SDK's sample code, with the file package extension
@@ -62,17 +60,17 @@ bool ModuleAudio::Start()
 update_status ModuleAudio::Update(float dt)
 {
 
-    /*Reverb_Audio();*/
+    Reverb_Audio();
 
 
     UpdateSpatialObjectsInfo();
 
-    
+    if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+    {
 
-    
+    }
 
 	int a = 0;
-
 	return UPDATE_CONTINUE;
 }
 
@@ -566,7 +564,7 @@ void WwiseObjects::SetAuxiliarySends(AkReal32 value, const char* target_bus, AkG
     reverb.auxBusID = AK::SoundEngine::GetIDFromString(target_bus);
     reverb.fControlValue = value;
 
-    AKRESULT res = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb, 0);
+    AKRESULT res = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb, 2);
 }
 
 uint WwiseObjects::GetID()

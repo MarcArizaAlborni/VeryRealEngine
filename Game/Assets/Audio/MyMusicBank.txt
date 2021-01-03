@@ -6,9 +6,9 @@ Event	ID	Name			Wwise Object Path	Notes
 	4288538553	Fish_Dynamic			\Default Work Unit\Fish_Dynamic	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	8072839	Thomas_Song	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Thomas_Song_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Thomas_Song		28856384
-	72865198	Tiburon tema de sonido	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Tiburon tema de sonido_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Tiburon tema de sonido		18824948
-	196623566	Penguin	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Penguin_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Penguin		12787776
-	301909818	Doom_Music	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Doom_Music_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Doom_Music		67133504
-	811359318	Persona 5	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Persona 5 _D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Persona 5		50322352
+	8072839	Thomas_Song	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Thomas_Song_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Thomas_Song		28856384
+	72865198	Tiburon tema de sonido	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Tiburon tema de sonido_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Tiburon tema de sonido		18824948
+	196623566	Penguin	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Penguin_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Penguin		12787776
+	301909818	Doom_Music	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Doom_Music_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Doom_Music		67133504
+	811359318	Persona 5	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\.cache\Windows\SFX\Persona 5 _10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Persona 5		50322352
 
