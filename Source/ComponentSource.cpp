@@ -42,7 +42,9 @@ Component_Source::Component_Source(Game_Object* ComponentOwner, bool is_Spatial)
 
 		owner = ComponentOwner;
 
+		//App->meshimporter->LoadFile_Mesh("Assets/Models/Primitives/LowPoly_Cube.FBX");
 		App->meshimporter->LoadFile_Mesh("Assets/Models/Primitives/LowPoly_Sphere.FBX");
+		//App->meshimporter->LoadFile_Mesh("Assets/Models/Primitives/LowPoly_Cone.FBX");
 
 		// We set the name and the wireframe to the sphere
 		App->scene->ROOT_SCENE_OBJECT->Children_List[App->scene->ROOT_SCENE_OBJECT->Children_List.size() - 1]->Children_List[0]->name;
