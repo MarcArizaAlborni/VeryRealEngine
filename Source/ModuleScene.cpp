@@ -402,8 +402,7 @@ void ModuleScene::LoadReverbSoundSource()
 	Component_Transform* TransformReverb = (Component_Transform*)Reverb_Source->GetComponent(Component_Types::Transform);
 
 	Reverb_Source->name = "Reverb Tunnel";
-	
-	Reverb_Source->AddComponent(Component_Types::Reverb);
+		
 
 	App->editor->Importer_Settings->DesiredScaleX = 1;
 	App->editor->Importer_Settings->DesiredScaleY = 1;

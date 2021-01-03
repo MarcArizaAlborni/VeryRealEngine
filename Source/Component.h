@@ -14,8 +14,7 @@ enum class Component_Types {
 	Texture,
 	Camera,
 	Source,
-	Listener,
-	Reverb
+	Listener
 
 };
 

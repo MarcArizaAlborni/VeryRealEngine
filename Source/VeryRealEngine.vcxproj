@@ -166,7 +166,6 @@
     <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="ComponentListener.h" />
     <ClInclude Include="ComponentMesh.h" />
-    <ClInclude Include="ComponentReverb.h" />
     <ClInclude Include="ComponentSource.h" />
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="ComponentTransform.h" />
@@ -423,7 +422,6 @@
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentListener.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
-    <ClCompile Include="ComponentReverb.cpp" />
     <ClCompile Include="ComponentSource.cpp" />
     <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />

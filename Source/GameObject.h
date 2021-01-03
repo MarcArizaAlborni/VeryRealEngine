@@ -12,7 +12,6 @@ class Component_Camera;
 class Component_Transform;
 class Component_Listener;
 class Component_Source;
-class Component_Reverb;
 
 enum class Component_Types;
 
@@ -31,7 +30,6 @@ public:
 	Component_Camera* Camera = nullptr;
 	Component_Listener* Listener = nullptr;
 	Component_Source* Source = nullptr;
-	Component_Reverb* Reverb = nullptr;
 	
 	Component_Camera* GetComponentCamera();
 
