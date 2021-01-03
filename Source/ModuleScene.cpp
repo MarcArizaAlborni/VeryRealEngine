@@ -73,7 +73,7 @@ bool ModuleScene::Start()
 	object_scene_camera->AddComponent(Component_Types::Listener);
 
 	
-	LoadMusicSource();
+	//LoadMusicSource();
 
 
 	object_scene_camera->AddExistingComponent(App->camera->scene_camera);
@@ -440,7 +440,7 @@ void ModuleScene::LoadMusicSource()
 	musicSource->SetID(AK::EVENTS::FIRST30);
 	musicSource2->SetID(AK::EVENTS::SECOND30);
 
-	//musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
+	musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
 	musicSource->isPlaying = true;
 
 

@@ -68,7 +68,7 @@ update_status ModuleAudio::Update(float dt)
     UpdateSpatialObjectsInfo();
 
     
-    
+    //REVERB
         Component_Source* DynamicSource = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
         Component_Listener* Listener = (Component_Listener*)App->scene->object_scene_camera->GetComponent(Component_Types::Listener);
         DynamicSource->WiseItem->SetAuxiliarySends(1.0f, "Reverb", Listener->WiseItem->GetID());
