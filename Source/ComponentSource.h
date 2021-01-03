@@ -35,6 +35,9 @@ public:
 	bool isDistanceDependant = true;
 
 
+	
+
+
 
 };
 

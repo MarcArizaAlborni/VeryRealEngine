@@ -524,6 +524,8 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             if (ImGui::SliderFloat("Volume", &SourceInfo->WiseItem->volume, 0, 2))
             {
                 SourceInfo->WiseItem->SetVolume(SourceInfo->id, SourceInfo->WiseItem->volume);
+
+                SourceInfo->WiseItem->StoredVolume = SourceInfo->WiseItem->volume;
             }
             ImGui::SameLine();
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawFullVoIcon.texture_id, { 20,20 });

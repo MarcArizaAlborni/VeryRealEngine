@@ -370,6 +370,7 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
 
         Game_Object* Object = *It;
 
+       
 
        Component_Mesh* ComponentMeshesChild = (Component_Mesh*)Object->GetComponent(Component_Types::Mesh);
      
@@ -380,16 +381,27 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
            if (SourceCmp->isSpatialDependant) {
 
                vec CameraPos = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };
+               
+               Game_Object* SpatialObject = Object->Children_List[0];
 
-               if (!ComponentMeshesChild->global_OBB.Contains(CameraPos)) {
+               Component_Mesh* ComponentMeshesSpatialObj = (Component_Mesh*)SpatialObject->GetComponent(Component_Types::Mesh);
 
-                   SourceCmp->WiseItem->SetVolume(SourceCmp->id, 0);
-                  // SourceCmp->WiseItem->PauseEvent(SourceCmp->id);
+
+               if (ComponentMeshesSpatialObj->global_OBB.Contains(CameraPos)) {
+
+                   SourceCmp->WiseItem->isOutofRange = false;
+
+                   //SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, SourceCmp->WiseItem->StoredVolume);
+                 
                }
                else {
-                   SourceCmp->WiseItem->SetVolume(SourceCmp->id, 0);
-                   //SourceCmp->WiseItem->ResumeEvent(SourceCmp->id);
+                  
+                   SourceCmp->WiseItem->isOutofRange = true;
+                   //SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, 0);
+                  
                }
+
+               SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, 0);
 
                int val = SourceCmp->id;
            }
@@ -456,19 +468,11 @@ void ModuleAudio::Reverb_Audio()
     if (tunnel->global_OBB.Contains(point))
     {
        
-        /*if (!reverb)
-        {
-            App->scene->train->GetComponent(Component::AUDIOSOURCE)->AsAudioSource()->sound_go->SetAuxiliarySends(1.0f, "env_tunnel", App->scene->audiolistenerdefault->GetComponent(Component::AUDIOLISTENER)->AsAudioListener()->sound_go->GetID());
-            reverb = true;
-        }*/
+       
     }
     else
     {
-        /*if (reverb)
-        {
-            App->scene->train->GetComponent(Component::AUDIOSOURCE)->AsAudioSource()->sound_go->SetAuxiliarySends(1.0f, "env_normal", App->scene->audiolistenerdefault->GetComponent(Component::AUDIOLISTENER)->AsAudioListener()->sound_go->GetID());
-            reverb = false;
-        }*/
+       
     }
 
 }
@@ -559,6 +563,25 @@ void WwiseObjects::SetVolume(uint id, float volume)
 {
    AK::SoundEngine::SetGameObjectOutputBusVolume(this->id, AK_INVALID_GAME_OBJECT, volume);
     this->volume = volume;
+}
+
+void WwiseObjects::SetSpatialVolume(uint id, float Newvolume)
+{
+    float FinalVolume;
+
+    if (this->isOutofRange) {
+
+        FinalVolume = 0;
+        
+    }
+    else {
+
+        FinalVolume = this->StoredVolume;
+
+    }
+
+    AK::SoundEngine::SetGameObjectOutputBusVolume(this->id, AK_INVALID_GAME_OBJECT, FinalVolume);
+
 }
 
 void WwiseObjects::SetAuxiliarySends(AkReal32 value, const char* target_bus, AkGameObjectID listener_id)

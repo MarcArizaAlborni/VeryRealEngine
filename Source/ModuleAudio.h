@@ -71,6 +71,8 @@ public:
 	void SetAuxiliarySends(AkReal32 value, const char* target_bus, AkGameObjectID listener_id);
 
 	void SetVolume(uint id, float volume);
+
+	void SetSpatialVolume(uint id, float Newvolume);
 	
 
 public:
@@ -78,6 +80,8 @@ public:
 
 public:
 	float volume = 1.0f;
+	float StoredVolume = volume;
+	bool isOutofRange = false;
 
 private:
 	const char* name = nullptr;
