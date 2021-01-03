@@ -73,7 +73,7 @@ bool ModuleScene::Start()
 	object_scene_camera->AddComponent(Component_Types::Listener);
 
 	
-	LoadMusicSource();
+	//LoadMusicSource();
 
 
 	object_scene_camera->AddExistingComponent(App->camera->scene_camera);

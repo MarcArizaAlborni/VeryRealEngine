@@ -72,7 +72,6 @@
 				<Sound Name="Tiburon tema de sonido" ID="{0DD9ECE9-8E10-40C8-9654-60732AFF6F6B}" ShortID="755641314">
 					<PropertyList>
 						<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-						<Property Name="UseGameAuxSends" Type="bool" Value="True"/>
 					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
