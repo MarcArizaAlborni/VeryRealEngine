@@ -49,56 +49,7 @@ update_status ResourceManager::Update(float dt)
 
 	
 
-	//if (MusicTimer1.ReadSec() > Time1 + 5  && Time1B==true) {
-	//
-	//	
-	//
-	//	Time1 = MusicTimer1.ReadSec();
-	//
-	//	LOG("1111111");
-	//
-	//	if (MusicTimer1.ReadSec() < Time1 ) {
-	//		Time2B = true;
-	//		Time1B = false;
-	//		Time1 = 0;
-	//		MusicTimer1.Stop();
-	//		MusicTimer1.Start();
-	//	}
-	//
-	//}
-	//else {
-	//	Time2 = MusicTimer2.ReadSec();
-	//
-	//	LOG("2222222");
-	//
-	//	if (MusicTimer2.ReadSec() < Time2 + 5) {
-	//		Time1B = true;
-	//		Time2B = false;
-	//		Time2 = 0;
-	//		MusicTimer2.Stop();
-	//		MusicTimer2.Start();
-	//	}
-	//}
 
-
-	
-	
-
-
-	/*if (MusicTimer2.ReadSec() > Time2 + 30 && Time1B == false && Time2B == true) {
-
-
-
-		Time2 = MusicTimer2.ReadSec();
-
-		LOG("222222222");
-		
-
-	}
-	else {
-		Time1B = true;
-		Time2B = false;
-	}*/
 
 
 	if (ModificationHasBeen) {
@@ -735,7 +686,8 @@ void ResourceManager::CreateWindowDropFile()
 	if (CopyItemFileResource != nullptr) {
 
 		ImGuiWindowFlags Flags=NULL;
-		Flags = ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
+		
+		//Flags = ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
 		ImGui::Begin("DropFileHere",nullptr,Flags);
 		ImVec2 SizeW=ImGui::GetWindowSize();
 		ImGui::BeginChild("DropFileHereChild", { 1071,714 }, false, Flags);
