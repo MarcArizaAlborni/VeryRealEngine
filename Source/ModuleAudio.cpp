@@ -22,8 +22,6 @@
 #include <fstream>
 #include <string>
 
-//#include "..\Wwise/AK/SoundEngine/Common/AkTypes.h"
-
 
 // We're using the default Low-Level I/O implementation that's part
 // of the SDK's sample code, with the file package extension
@@ -67,12 +65,10 @@ update_status ModuleAudio::Update(float dt)
 
     UpdateSpatialObjectsInfo();
 
-    
-    
-        Component_Source* DynamicSource = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
-        Component_Listener* Listener = (Component_Listener*)App->scene->object_scene_camera->GetComponent(Component_Types::Listener);
-        DynamicSource->WiseItem->SetAuxiliarySends(1.0f, "Reverb", Listener->WiseItem->GetID());
-    
+    if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+    {
+
+    }
 
 	int a = 0;
 	return UPDATE_CONTINUE;
