@@ -479,6 +479,16 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     {
         if (ImGui::CollapsingHeader("Audio Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
 
+           // if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }) && SourceInfo->isStopped == true)
+           // {
+           //     //Play button
+           //     SourceInfo->WiseItem->PlayEvent(SourceInfo->id);
+           //     SourceInfo->isStopped = false;
+           //     SourceInfo->isModified = true;
+           //
+           // }
+           //
+           // ImGui::SameLine();
 
             if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawResumeIcon.texture_id, { 25,25 }) && SourceInfo->isStopped == false)
             {
@@ -499,7 +509,15 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
             }
 
-         
+           // ImGui::SameLine();
+           //
+           // if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawStopIcon.texture_id, { 25,25 }))
+           // {
+           //     //Stop Button 
+           //     SourceInfo->WiseItem->StopEvent(SourceInfo->id);
+           //     SourceInfo->isStopped = true;
+           //     SourceInfo->isModified = true;
+           // }
 
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawMuteIcon.texture_id, { 20,20 });
             ImGui::SameLine();
@@ -511,10 +529,114 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawFullVoIcon.texture_id, { 20,20 });
 
 
+           /* if (SourceInfo->isSpatialDependant) {
+                ImGui::Separator();
+                ImGui::PushItemWidth(100);
+                float volume = 0;
+                ImGui::InputFloat("Volume Expanse", &volume);
+
+                float volumeMAX = 0;
+                ImGui::InputFloat("MAX Volume Expanse", &volumeMAX);
+
+                ImGui::PopItemWidth();
+            }*/
+
         }
     }
 
-
+   //if (ImGui::CollapsingHeader("Components", ImGuiTreeNodeFlags_DefaultOpen)) {
+   //
+   //
+   //   
+   //    const char* items[] = { "Mesh", "Texture", "Camera", "Transform", "Audio Listener", "Audio Source" };
+   //    static const char* current_item = NULL;
+   //
+   //    if (ImGui::BeginCombo("##combo", current_item)) // The second parameter is the label previewed before opening the combo.
+   //    {
+   //        for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+   //        {
+   //            bool is_selected = (current_item == items[n]); // You can store your selection however you want, outside or inside your objects
+   //            if (ImGui::Selectable(items[n], is_selected)) {
+   //                current_item = items[n];
+   //            }
+   //            if (is_selected) {
+   //               ImGui::SetItemDefaultFocus();
+   //            } 
+   //        }
+   //        ImGui::EndCombo();
+   //       
+   //    }
+   //
+   //    ImGui::SameLine();
+   //
+   //    if (ImGui::Button("AddComponent")) {
+   //
+   //        if (current_item == items[0]) { //MESH
+   //
+   //            if (MeshInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Mesh);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a mesh component!");
+   //            }
+   //        }
+   //        else if (current_item == items[1]) { //TEXTURE
+   //
+   //            if (TextureInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Texture);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a texture component!");
+   //            }
+   //        }
+   //        else if (current_item == items[2]) { //CAMERA
+   //
+   //            if (CameraInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Camera);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a Camera component!");
+   //            }
+   //
+   //        }
+   //        else  if (current_item == items[3]) { //TRANSFORM
+   //
+   //            if (TransInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Transform);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a transform component!");
+   //            }
+   //        }
+   //        else  if (current_item == items[5]) { //SOURCE
+   //
+   //            if (SourceInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Source);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a Source component!");
+   //            }
+   //        }
+   //        else  if (current_item == items[4]) { //listener
+   //
+   //            if (ListInfo == nullptr) {
+   //                item->AddComponent(Component_Types::Listener);
+   //                LOG("[WARNING] Component Added manually!");
+   //            }
+   //            else {
+   //                LOG("[ERROR] The game object already has a Listener component!");
+   //            }
+   //        }
+   //
+   //    }
+   //
+   //   
+   //}
 
     std::vector<Game_Object*>::iterator It = item->Children_List.begin();
 

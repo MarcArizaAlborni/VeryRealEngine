@@ -440,7 +440,7 @@ void ModuleScene::LoadMusicSource()
 	musicSource->SetID(AK::EVENTS::FIRST30);
 	musicSource2->SetID(AK::EVENTS::SECOND30);
 
-	musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
+	//musicSource->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
 	musicSource->isPlaying = true;
 
 
