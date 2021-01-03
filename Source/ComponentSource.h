@@ -28,6 +28,7 @@ public:
 	bool isPlaying = false;
 	bool isStopped = false;
 	bool isModified = false;
+	
 
 	bool isSpatialDependant = false;
 

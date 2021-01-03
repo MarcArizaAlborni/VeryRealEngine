@@ -12,6 +12,8 @@
 #include "FileSystem.h"
 #include "..\Game\Assets\Audio\Wwise_IDs.h"
 #include "wwise.h"
+#include "ComponentSource.h"
+#include "ComponentListener.h"
 #include "ComponentMesh.h"
 #include "ModuleScene.h"
 #include "libraries/Wwise/IO/Win32/AkFilePackageLowLevelIOBlocking.h"
@@ -365,16 +367,38 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
         Game_Object* Object = *It;
 
 
-
-
-      
        Component_Mesh* ComponentMeshesChild = (Component_Mesh*)Object->GetComponent(Component_Types::Mesh);
      
+       Component_Source* SourceCmp = (Component_Source*)Object->GetComponent(Component_Types::Source);
        
+       if (SourceCmp != nullptr) {
+
+           if (SourceCmp->isSpatialDependant) {
+
+               vec CameraPos = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };
+
+               if (!ComponentMeshesChild->global_OBB.Contains(CameraPos)) {
+
+                   SourceCmp->WiseItem->SetVolume(SourceCmp->id, 0);
+                  // SourceCmp->WiseItem->PauseEvent(SourceCmp->id);
+               }
+               else {
+                   SourceCmp->WiseItem->SetVolume(SourceCmp->id, 0);
+                   //SourceCmp->WiseItem->ResumeEvent(SourceCmp->id);
+               }
+
+               int val = SourceCmp->id;
+           }
+           
+       }
 
        if (ComponentMeshesChild != nullptr) {
            if (Object->isAudioDistanceObject) {
                ComponentMeshesChild->UpdateOnTransformOBB(); //memory leak here
+
+
+             
+
            }
        }
 
