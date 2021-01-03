@@ -366,7 +366,6 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
 
         Game_Object* Object = *It;
 
-
        Component_Mesh* ComponentMeshesChild = (Component_Mesh*)Object->GetComponent(Component_Types::Mesh);
      
        Component_Source* SourceCmp = (Component_Source*)Object->GetComponent(Component_Types::Source);
@@ -377,43 +376,45 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
 
                vec CameraPos = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };
 
-               if (!ComponentMeshesChild->global_OBB.Contains(CameraPos)) {
+               if (ComponentMeshesChild != nullptr) {
 
-                   SourceCmp->WiseItem->SetVolume(SourceCmp->id, 0);
-                  // SourceCmp->WiseItem->PauseEvent(SourceCmp->id);
-               }
-               else {
-                   SourceCmp->WiseItem->SetVolume(SourceCmp->id, 0);
-                   //SourceCmp->WiseItem->ResumeEvent(SourceCmp->id);
-               }
+                   if (ComponentMeshesChild->global_OBB.Contains(CameraPos)) {
 
-               int val = SourceCmp->id;
+                       
+                       SourceCmp->WiseItem->isOutofRange = true;
+
+
+                       
+                       SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, SourceCmp->WiseItem->StoredVolumeOutRanged, SourceCmp->WiseItem->StoredVolumeOutRanged);
+                     
+                   }
+                   else {
+
+
+
+
+                       SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, 0, SourceCmp->WiseItem->StoredVolumeOutRanged);
+                      
+
+                      
+                   
+                   }
+
+                   int val = SourceCmp->id;
+               }
            }
-           
        }
 
        if (ComponentMeshesChild != nullptr) {
            if (Object->isAudioDistanceObject) {
                ComponentMeshesChild->UpdateOnTransformOBB(); //memory leak here
-
-
-             
-
            }
        }
-
-
-      
-
-
 
         UpdateSpatialObjectsInfoChilds(Object);
 
         ++It;
     }
-
-
-
 
 }
 
@@ -553,8 +554,38 @@ WwiseObjects* WwiseObjects::CreateAudioListener(uint id, const char* name, float
 
 void WwiseObjects::SetVolume(uint id, float volume)
 {
+
+
+
+    //AK::SoundEngine::SetRTPCValue("Volume",volume,)
+
+
    AK::SoundEngine::SetGameObjectOutputBusVolume(this->id, AK_INVALID_GAME_OBJECT, volume);
-    this->volume = volume;
+  // AK::SoundEngine::ResetListenersToDefault();
+   this->volume = volume;
+}
+
+void WwiseObjects::SetSpatialVolume(uint id, float NewVolume, float PrevVolume)
+{
+
+    if (this->isOutofRange) {
+        this->StoredVolumeOutRanged = PrevVolume;
+    }
+    
+   
+    if (!this->isOutofRange) {
+        this->volume = this->StoredVolumeOutRanged;
+    }
+    else {
+        this->volume = NewVolume;
+    }
+
+    
+
+    AK::SoundEngine::SetGameObjectOutputBusVolume(this->id, AK_INVALID_GAME_OBJECT, volume);
+
+
+
 }
 
 void WwiseObjects::SetAuxiliarySends(AkReal32 value, const char* target_bus, AkGameObjectID listener_id)
