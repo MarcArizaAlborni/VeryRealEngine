@@ -4,6 +4,7 @@
 #include "ComponentCamera.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
+#include "ComponentReverb.h"
 #include "ComponentListener.h"
 #include "ComponentSource.h"
 #include "ComponentTransform.h"
@@ -106,6 +107,14 @@ Component* Game_Object::AddComponent(Component_Types typus)
 
 		break;
 
+	case Component_Types::Reverb:
+		LOG("[WARNING]Component Reverb added to GameObject");
+
+		Ret = new Component_Reverb(this);
+		UniqueComponent = true;
+
+		break;
+
 	default:
 		LOG("[WARNING]Error when adding Component");
 		break;
@@ -181,6 +190,11 @@ Component* Game_Object::AddExistingComponent(Component* component)
 		LOG("[WARNING]Component Source added to Existing GameObject");
 		Source = (Component_Source*)component;
 		Ret = new Component_Source(this);
+		break;
+	case(Component_Types::Reverb):
+		LOG("[WARNING]Component Reverb added to Existing GameObject");
+		Reverb = (Component_Reverb*)component;
+		Ret = new Component_Reverb(this);
 		break;
 	}
 
@@ -309,6 +323,10 @@ void Game_Object::Update()
 			if ((*It2)->type == Component_Types::Mesh) {
 
 				((Component_Mesh*)(*It2))->Update();
+			}
+			if ((*It2)->type == Component_Types::Reverb) {
+
+				((Component_Reverb*)(*It2))->Update();
 			}
 		}
 		

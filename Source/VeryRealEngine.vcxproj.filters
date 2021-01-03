@@ -280,6 +280,9 @@
     <ClCompile Include="ComponentListener.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentReverb.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -1045,6 +1048,9 @@
       <Filter>Source\Components</Filter>
     </ClInclude>
     <ClInclude Include="ComponentListener.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentReverb.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
   </ItemGroup>

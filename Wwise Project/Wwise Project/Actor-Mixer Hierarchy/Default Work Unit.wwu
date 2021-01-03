@@ -71,8 +71,18 @@
 				</Sound>
 				<Sound Name="Tiburon tema de sonido" ID="{0DD9ECE9-8E10-40C8-9654-60732AFF6F6B}" ShortID="755641314">
 					<PropertyList>
+						<Property Name="GameAuxSendVolume" Type="Real64">
+							<ValueList>
+								<Value>1</Value>
+							</ValueList>
+						</Property>
 						<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 						<Property Name="UseGameAuxSends" Type="bool" Value="True"/>
+						<Property Name="UserAuxSendVolume0" Type="Real64">
+							<ValueList>
+								<Value>4</Value>
+							</ValueList>
+						</Property>
 					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
@@ -80,6 +90,9 @@
 						</Reference>
 						<Reference Name="OutputBus">
 							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{42FBB9F4-CC04-4CC0-959D-27BEE7109A2E}"/>
+						</Reference>
+						<Reference Name="UserAuxSend0">
+							<ObjectRef Name="Reverb" ID="{177C481C-3323-4F51-8D1B-C46AD27EB483}" WorkUnitID="{42FBB9F4-CC04-4CC0-959D-27BEE7109A2E}"/>
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>

@@ -62,19 +62,17 @@ bool ModuleAudio::Start()
 update_status ModuleAudio::Update(float dt)
 {
 
-    Reverb_Audio();
+    /*Reverb_Audio();*/
 
 
     UpdateSpatialObjectsInfo();
 
     
-    
-        Component_Source* DynamicSource = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
-        Component_Listener* Listener = (Component_Listener*)App->scene->object_scene_camera->GetComponent(Component_Types::Listener);
-        DynamicSource->WiseItem->SetAuxiliarySends(1.0f, "Reverb", Listener->WiseItem->GetID());
+
     
 
 	int a = 0;
+
 	return UPDATE_CONTINUE;
 }
 
@@ -568,7 +566,7 @@ void WwiseObjects::SetAuxiliarySends(AkReal32 value, const char* target_bus, AkG
     reverb.auxBusID = AK::SoundEngine::GetIDFromString(target_bus);
     reverb.fControlValue = value;
 
-    AKRESULT res = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb, 2);
+    AKRESULT res = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb, 0);
 }
 
 uint WwiseObjects::GetID()
