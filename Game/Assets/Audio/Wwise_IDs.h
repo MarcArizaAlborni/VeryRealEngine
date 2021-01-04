@@ -16,7 +16,6 @@ namespace AK
         static const AkUniqueID FIRST30 = 3072587112U;
         static const AkUniqueID FISH_DYNAMIC = 4288538553U;
         static const AkUniqueID PENGUIN_STATIC = 136683592U;
-        static const AkUniqueID PERSONA_REVERB = 1360140010U;
         static const AkUniqueID SECOND30 = 1541101740U;
     } // namespace EVENTS
 
