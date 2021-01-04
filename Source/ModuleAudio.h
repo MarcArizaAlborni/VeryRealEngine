@@ -13,6 +13,18 @@
 
 #define MAX_VOLUME_AUDIO 2
 
+
+enum class AudioFiles{
+
+	SHARK,
+	PENGUIN,
+	DOOM,
+	THOMAS
+
+
+};
+
+
 class ModuleAudio : public Module
 {
 public:
@@ -39,6 +51,12 @@ public:
 
 
 	AkBankID Currently_Loaded_BankID = 0;
+
+	AudioFiles AudioFileType;
+
+
+	void AddSourceComponent(Game_Object* ParentGameObject, bool isSpatial);
+
 
 private:
 

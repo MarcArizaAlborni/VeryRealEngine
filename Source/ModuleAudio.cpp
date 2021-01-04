@@ -210,6 +210,10 @@ void ModuleAudio::CreateAudioWindow()
 
 
 
+void ModuleAudio::AddSourceComponent(Game_Object* ParentGameObject, bool isSpatial)
+{
+}
+
 void ModuleAudio::DetectAudioBanks(const char* directory, std::vector<std::string>& file_list)
 {
 
