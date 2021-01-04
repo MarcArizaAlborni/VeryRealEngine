@@ -479,18 +479,18 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     {
         if (ImGui::CollapsingHeader("Audio Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
 
-           // if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }) && SourceInfo->isStopped == true)
-           // {
-           //     //Play button
-           //     SourceInfo->WiseItem->PlayEvent(SourceInfo->id);
-           //     SourceInfo->isStopped = false;
-           //     SourceInfo->isModified = true;
-           //
-           // }
-           //
-           // ImGui::SameLine();
+            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }) /*&& SourceInfo->isStopped == true*/)
+            {
+                //Play button
+                SourceInfo->WiseItem->PlayEvent(SourceInfo->id);
+                SourceInfo->isStopped = false;
+                SourceInfo->isModified = true;
+           
+            }
+           
+            ImGui::SameLine();
 
-            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawResumeIcon.texture_id, { 25,25 }) && SourceInfo->isStopped == false)
+            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawResumeIcon.texture_id, { 25,25 }) /*&& SourceInfo->isStopped == false*/)
             {
                 //Resume Button
                 SourceInfo->WiseItem->ResumeEvent(SourceInfo->id);
@@ -509,15 +509,15 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
             }
 
-           // ImGui::SameLine();
-           //
-           // if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawStopIcon.texture_id, { 25,25 }))
-           // {
-           //     //Stop Button 
-           //     SourceInfo->WiseItem->StopEvent(SourceInfo->id);
-           //     SourceInfo->isStopped = true;
-           //     SourceInfo->isModified = true;
-           // }
+            ImGui::SameLine();
+           
+            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawStopIcon.texture_id, { 25,25 }))
+            {
+                //Stop Button 
+                SourceInfo->WiseItem->StopEvent(SourceInfo->id);
+                SourceInfo->isStopped = true;
+                SourceInfo->isModified = true;
+            }
 
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawMuteIcon.texture_id, { 20,20 });
             ImGui::SameLine();
