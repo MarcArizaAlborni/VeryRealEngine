@@ -11,6 +11,8 @@
 #define BANKS_PATH "Assets/Audio/"
 #define BANKS_INIT_PATH "Assets/Audio/Init.bnk"
 
+#define MAX_VOLUME_AUDIO 2
+
 class ModuleAudio : public Module
 {
 public:
@@ -26,9 +28,9 @@ public:
 
 
 	void CreateAudioWindow();
-	
+
 	void Reverb_Audio();
-	
+
 	void LoadEventsFromJson();
 
 	AkGameObjectID CurrentListenerID;
@@ -41,12 +43,14 @@ public:
 private:
 
 	void DetectAudioBanks(const char* directory, std::vector<std::string>& file_list);
-	
+
 	void SetUpWwise();
 
 	void UpdateSpatialObjectsInfo();
 
 	void UpdateSpatialObjectsInfoChilds(Game_Object* Parent);
+
+	float CalculateVolumeDistance(vec camPos, vec centPos);
 
 };
 
@@ -64,7 +68,7 @@ public:
 	void PauseEvent(uint id);
 	void ResumeEvent(uint id);
 	void StopEvent(uint id);
-	
+
 	WwiseObjects* CreateAudioSource(uint id, const char* name, float3 position);
 	WwiseObjects* CreateAudioListener(uint id, const char* name, float3 position);
 
@@ -73,7 +77,7 @@ public:
 	void SetVolume(uint id, float volume);
 
 	void SetSpatialVolume(uint id, float Newvolume);
-	
+
 
 public:
 	uint GetID();
@@ -82,6 +86,7 @@ public:
 	float volume = 1.0f;
 	float StoredVolume = volume;
 	bool isOutofRange = false;
+	vec CenterPosition;
 
 private:
 	const char* name = nullptr;

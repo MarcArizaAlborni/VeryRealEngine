@@ -48,15 +48,15 @@ bool ModuleAudio::Init()
 
     LoadSoundBank("MyMusicBank");
 
-	return true;
+    return true;
 }
 
 bool ModuleAudio::Start()
 {
 
     //LoadEventsFromJson();
-   
-	return true;
+
+    return true;
 }
 
 update_status ModuleAudio::Update(float dt)
@@ -67,15 +67,15 @@ update_status ModuleAudio::Update(float dt)
 
     UpdateSpatialObjectsInfo();
 
-    
+
     //REVERB
      /*   Component_Source* DynamicSource = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
         Component_Listener* Listener = (Component_Listener*)App->scene->object_scene_camera->GetComponent(Component_Types::Listener);
         DynamicSource->WiseItem->SetAuxiliarySends(1.0f, "Reverb", Listener->WiseItem->GetID());*/
-    
 
-	int a = 0;
-	return UPDATE_CONTINUE;
+
+    int a = 0;
+    return UPDATE_CONTINUE;
 }
 
 update_status ModuleAudio::PostUpdate(float dt)
@@ -105,7 +105,7 @@ bool ModuleAudio::CleanUp()
     // Terminate Memory Manager
     AK::MemoryMgr::Term();
 
-	return true;
+    return true;
 }
 
 void ModuleAudio::CreateAudioWindow()
@@ -113,9 +113,6 @@ void ModuleAudio::CreateAudioWindow()
     if (App->editor->show_audio_window) {
 
         ImGui::Begin("AudioManager");
-
-
-
 
         ImGui::Columns(3);
 
@@ -136,7 +133,6 @@ void ModuleAudio::CreateAudioWindow()
 
         //Column1
 
-      
         ImGui::Spacing();
         ImGui::SameLine();
         ImGui::Spacing();
@@ -157,9 +153,9 @@ void ModuleAudio::CreateAudioWindow()
 
         if (ImGui::Button("Mute All", { 75,20 })) {
 
-            
-         
-           // AK::SoundEngine::Query::GetPlayingIDsFromGameObject
+
+
+            // AK::SoundEngine::Query::GetPlayingIDsFromGameObject
 
         }
 
@@ -169,30 +165,18 @@ void ModuleAudio::CreateAudioWindow()
 
         if (ImGui::Button("Un-Mute All", { 80,20 })) {
 
-
-
         }
-       
+
         ImGui::NextColumn();
         //Column2
         ImGui::Text("Column2");
         ImGui::NextColumn();
         //Column3
         ImGui::Text("Column3");
-       
-
-       
 
         ImGui::NextColumn();
 
-       
-
-        
-
-      
-
-
-       // AK::SoundEngine::StopAll();
+        // AK::SoundEngine::StopAll();
 
 
         ImGui::Text("Audio Manager HERE");
@@ -205,7 +189,7 @@ void ModuleAudio::CreateAudioWindow()
         ImGui::Text("Audio Manager HERE");
         ImGui::Text("Audio Manager HERE");
         ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE"); 
+        ImGui::Text("Audio Manager HERE");
         ImGui::Text("Audio Manager HERE");
         ImGui::Text("Audio Manager HERE");
         ImGui::Text("Audio Manager HERE");
@@ -221,12 +205,7 @@ void ModuleAudio::CreateAudioWindow()
 
         ImGui::End();
 
-
-
-
     }
-
-
 }
 
 
@@ -350,13 +329,13 @@ void ModuleAudio::SetUpWwise()
 void ModuleAudio::UpdateSpatialObjectsInfo()
 {
     std::vector<Game_Object*>::iterator It = App->scene->ROOT_SCENE_OBJECT->Children_List.begin();
-    for (int i = 0; i<App->scene->ROOT_SCENE_OBJECT->Children_List.size(); ++i) {
+    for (int i = 0; i < App->scene->ROOT_SCENE_OBJECT->Children_List.size(); ++i) {
 
         Game_Object* Object = *It;
 
         UpdateSpatialObjectsInfoChilds(Object);
 
-            ++It;
+        ++It;
     }
 
 }
@@ -370,56 +349,68 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
 
         Game_Object* Object = *It;
 
-       
-
-       Component_Mesh* ComponentMeshesChild = (Component_Mesh*)Object->GetComponent(Component_Types::Mesh);
-     
-       Component_Source* SourceCmp = (Component_Source*)Object->GetComponent(Component_Types::Source);
-       
-       if (SourceCmp != nullptr) {
-
-           if (SourceCmp->isSpatialDependant) {
-
-               vec CameraPos = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };
-               
-               Game_Object* SpatialObject = Object->Children_List[0];
-
-               Component_Mesh* ComponentMeshesSpatialObj = (Component_Mesh*)SpatialObject->GetComponent(Component_Types::Mesh);
 
 
-               if (ComponentMeshesSpatialObj->global_OBB.Contains(CameraPos)) {
+        Component_Mesh* ComponentMeshesChild = (Component_Mesh*)Object->GetComponent(Component_Types::Mesh);
 
-                   SourceCmp->WiseItem->isOutofRange = false;
+        Component_Source* SourceCmp = (Component_Source*)Object->GetComponent(Component_Types::Source);
 
-                   //SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, SourceCmp->WiseItem->StoredVolume);
-                 
-               }
-               else {
-                  
-                   SourceCmp->WiseItem->isOutofRange = true;
-                   //SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, 0);
-                  
-               }
+        if (SourceCmp != nullptr) {
 
-               SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, 0);
+            if (SourceCmp->isSpatialDependant) {
 
-               int val = SourceCmp->id;
-           }
-           
-       }
+                vec CameraPos = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };
 
-       if (ComponentMeshesChild != nullptr) {
-           if (Object->isAudioDistanceObject) {
-               ComponentMeshesChild->UpdateOnTransformOBB(); //memory leak here
+                Game_Object* SpatialObject = Object->Children_List[0];
+
+                Component_Mesh* ComponentMeshesSpatialObj = (Component_Mesh*)SpatialObject->GetComponent(Component_Types::Mesh);
+
+                Component_Transform* ComponentTransSpatialObj = (Component_Transform*)SpatialObject->GetComponent(Component_Types::Transform);
+
+                SourceCmp->WiseItem->CenterPosition = ComponentMeshesSpatialObj->global_OBB.CenterPoint();
+
+                float Finalvolume;
+
+                if (ComponentMeshesSpatialObj->global_OBB.Contains(CameraPos)) {
+
+                    SourceCmp->WiseItem->isOutofRange = false;
+
+                     Finalvolume =  CalculateVolumeDistance(CameraPos, SourceCmp->WiseItem->CenterPosition);
+                    
+                     Finalvolume= (ComponentTransSpatialObj->Scale.x / Finalvolume);
+                    
+                     SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, Finalvolume);
+
+                }
+                else {
+
+                    SourceCmp->WiseItem->isOutofRange = true;
+
+                    SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, 0);
+
+                }
 
 
-             
-
-           }
-       }
+                //SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, 0);
 
 
-      
+                int val = SourceCmp->id;
+            }
+
+        }
+
+        if (ComponentMeshesChild != nullptr) {
+            if (Object->isAudioDistanceObject) {
+                ComponentMeshesChild->UpdateOnTransformOBB(); //memory leak here
+
+
+
+
+            }
+        }
+
+
+
 
 
 
@@ -433,9 +424,50 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
 
 }
 
+float ModuleAudio::CalculateVolumeDistance(vec camPos, vec centPos)
+{
+
+    float Value;
+    vec Position;
+
+    Position.x = abs(camPos.x - centPos.x);
+    Position.y = abs(camPos.y - centPos.y);
+    Position.z = abs(camPos.z - centPos.z);
+
+    if (Position.x < Position.y) {
+
+        if (Position.y < Position.z) {
 
 
+            return Position.z;
+        }
+        else if (Position.y > Position.z) {
 
+            return Position.y;
+
+        }
+        else {
+            return Position.z;
+        }
+
+    }
+    else {
+        if (Position.x < Position.z) {
+
+
+            return Position.x;
+        }
+        else if (Position.x > Position.z) {
+
+            return Position.z;
+
+        }
+        else {
+            return Position.x;
+        }
+    }
+
+}
 
 void ModuleAudio::LoadSoundBank(const char* path)
 {
@@ -444,8 +476,8 @@ void ModuleAudio::LoadSoundBank(const char* path)
     fullPath += path;
     fullPath += ".bnk";
 
-  
-    AKRESULT ResultVal=  AK::SoundEngine::LoadBank(fullPath.c_str(), AK_DEFAULT_POOL_ID, Currently_Loaded_BankID);
+
+    AKRESULT ResultVal = AK::SoundEngine::LoadBank(fullPath.c_str(), AK_DEFAULT_POOL_ID, Currently_Loaded_BankID);
 
 
     if (ResultVal == AK_Success) {
@@ -459,7 +491,7 @@ void ModuleAudio::Reverb_Audio()
     Component_Mesh* fish = (Component_Mesh*)App->scene->Dynamic_Source->GetComponent(Component_Types::Mesh);
 
     Component_Transform* fish_trans = (Component_Transform*)App->scene->Dynamic_Source->GetComponent(Component_Types::Transform);
-   
+
     Component_Mesh* tunnel = (Component_Mesh*)App->scene->Reverb_Source->GetComponent(Component_Types::Mesh);
 
     vec point = { fish_trans->Translation.x,fish_trans->Translation.y,fish_trans->Translation.z };
@@ -467,12 +499,12 @@ void ModuleAudio::Reverb_Audio()
 
     if (tunnel->global_OBB.Contains(point))
     {
-       
-       
+
+
     }
     else
     {
-       
+
     }
 
 }
@@ -514,7 +546,7 @@ void WwiseObjects::SetPosition(float posX, float posY, float posZ, float frontX,
 
 void WwiseObjects::PlayEvent(uint id)
 {
-   AK::SoundEngine::PostEvent(id, this->id);
+    AK::SoundEngine::PostEvent(id, this->id);
 }
 
 void WwiseObjects::PauseEvent(uint id)
@@ -529,7 +561,7 @@ void WwiseObjects::ResumeEvent(uint id)
 
 void WwiseObjects::StopEvent(uint id)
 {
-   AK::SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Stop, this->id);
+    AK::SoundEngine::ExecuteActionOnEvent(id, AK::SoundEngine::AkActionOnEventType::AkActionOnEventType_Stop, this->id);
 }
 
 
@@ -561,7 +593,7 @@ WwiseObjects* WwiseObjects::CreateAudioListener(uint id, const char* name, float
 
 void WwiseObjects::SetVolume(uint id, float volume)
 {
-   AK::SoundEngine::SetGameObjectOutputBusVolume(this->id, AK_INVALID_GAME_OBJECT, volume);
+    AK::SoundEngine::SetGameObjectOutputBusVolume(this->id, AK_INVALID_GAME_OBJECT, volume);
     this->volume = volume;
 }
 
@@ -572,11 +604,11 @@ void WwiseObjects::SetSpatialVolume(uint id, float Newvolume)
     if (this->isOutofRange) {
 
         FinalVolume = 0;
-        
+
     }
     else {
 
-        FinalVolume = this->StoredVolume;
+        FinalVolume = this->StoredVolume = Newvolume;
 
     }
 
