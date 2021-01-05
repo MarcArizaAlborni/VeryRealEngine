@@ -13,10 +13,8 @@ public:
 	Component_Source(Game_Object* ComponentOwner,bool is_Spatial);
 	~Component_Source();
 
-	
 	void Update();
 
-	
 
 	void SetID(AkGameObjectID id);
 
@@ -29,14 +27,9 @@ public:
 	bool isStopped = false;
 	bool isModified = false;
 	
-
 	bool isSpatialDependant = false;
 
 	bool isDistanceDependant = true;
-
-
-	
-
 
 
 };
