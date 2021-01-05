@@ -15,14 +15,10 @@ Component_Listener::Component_Listener(Game_Object* ComponentOwner) :Component(C
 
 	Component_Transform* Trans_Cmp = (Component_Transform*)owner->GetComponent(Component_Types::Transform);
 
-
 	Position = Trans_Cmp->GetPosition();
-
-
 
 	WiseItem = WiseItem->CreateAudioListener(owner->item_id, owner->name.c_str(), Position);
 	
-
 }
 
 Component_Listener::~Component_Listener()

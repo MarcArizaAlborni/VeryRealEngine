@@ -92,8 +92,6 @@ Component_Source::Component_Source(Game_Object* ComponentOwner, bool is_Spatial)
 
 		owner = ComponentOwner;
 
-	
-
 		type = Component_Types::Source;
 
 		float3 Position;

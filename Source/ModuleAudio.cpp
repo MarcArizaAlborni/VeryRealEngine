@@ -69,9 +69,9 @@ update_status ModuleAudio::Update(float dt)
 
 
     //REVERB
-     /*   Component_Source* DynamicSource = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
+       Component_Source* DynamicSource = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
         Component_Listener* Listener = (Component_Listener*)App->scene->object_scene_camera->GetComponent(Component_Types::Listener);
-        DynamicSource->WiseItem->SetAuxiliarySends(1.0f, "Reverb", Listener->WiseItem->GetID());*/
+        DynamicSource->WiseItem->SetAuxiliaryBus(1.0f, "Reverb", Listener->WiseItem->GetID());
 
 
     int a = 0;
@@ -620,14 +620,14 @@ void WwiseObjects::SetSpatialVolume(uint id, float Newvolume)
 
 }
 
-void WwiseObjects::SetAuxiliarySends(AkReal32 value, const char* target_bus, AkGameObjectID listener_id)
+void WwiseObjects::SetAuxiliaryBus(AkReal32 value, const char* aux_bus, AkGameObjectID listener_id)
 {
-    AkAuxSendValue reverb;
-    reverb.listenerID = listener_id;
-    reverb.auxBusID = AK::SoundEngine::GetIDFromString(target_bus);
-    reverb.fControlValue = value;
+    AkAuxSendValue reverb_eff;
+    reverb_eff.listenerID = listener_id;
+    reverb_eff.auxBusID = AK::SoundEngine::GetIDFromString(aux_bus);
+    reverb_eff.fControlValue = value;
 
-    AKRESULT res = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb, 2);
+    AKRESULT result = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb_eff, 2);
 }
 
 uint WwiseObjects::GetID()
