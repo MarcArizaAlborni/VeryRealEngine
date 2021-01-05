@@ -306,13 +306,13 @@ void ModuleAudio::SetUpWwise()
     
 
     // Initialize Spatial Audio using default initialization parameters
-    //AkSpatialAudioInitSettings settings; // The constructor fills AkSpatialAudioInitSettings with the recommended default settings. 
+    AkSpatialAudioInitSettings settings; // The constructor fills AkSpatialAudioInitSettings with the recommended default settings. 
 
     //if (AK::SpatialAudio::Init(settings) != AK_Success)
     //{
     //    LOG("Could not initialize the Spatial Audio.");
-
-    //    return false;
+    //
+    //    
     //}
 
 #ifndef AK_OPTIMIZED
