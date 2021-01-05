@@ -36,7 +36,12 @@ public:
 
 	//bool is_Stopped = false;
 
+private:
 
+	//Combo Stuff
+	const char* SelectedComboItem="none";
+
+	bool isSpatial = false;
 };
 
 #endif

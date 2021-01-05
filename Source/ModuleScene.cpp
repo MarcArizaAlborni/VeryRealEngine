@@ -257,7 +257,9 @@ void ModuleScene::RemoveSelectedItem(Game_Object* Object)
 			Object->DeleteSpecificChildren(Obj);
 
 			App->hierarchy->ITEM_TO_BE_DELETED = false;
+			Obj->Children_List.clear();
 			delete Obj;
+
 			Obj = nullptr;
 			ObjectToBeDeleted = nullptr;
 			i = Object->Children_List.size();

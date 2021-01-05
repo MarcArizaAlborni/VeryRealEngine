@@ -43,6 +43,12 @@ ModuleAudio::~ModuleAudio()
 
 bool ModuleAudio::Init()
 {
+    DOOM_FILE_ID = AK::EVENTS::FIRST30;
+    THOMAS_FILE_ID = AK::EVENTS::SECOND30;
+    SHARK_FILE_ID = AK::EVENTS::FISH_DYNAMIC;
+    PENGUIN_FILE_ID = AK::EVENTS::PENGUIN_STATIC;
+
+
 
     SetUpWwise();
 
@@ -296,6 +302,8 @@ void ModuleAudio::SetUpWwise()
 
         //return false;
     }
+
+    
 
     // Initialize Spatial Audio using default initialization parameters
     //AkSpatialAudioInitSettings settings; // The constructor fills AkSpatialAudioInitSettings with the recommended default settings. 

@@ -117,32 +117,33 @@ bool ModuleHierarchyGameObject::DrawHierarchyChildren(Game_Object* Item, bool Re
 
             if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
             {
-                if ((Component_Camera*)Item->GetComponent(Component_Types::Camera) != nullptr)
-                {
-                    SelectItemHierarchy(Item);
-
-                }
-
-                else if ((Component_Mesh*)Item->GetComponent(Component_Types::Mesh) != nullptr) {
-
-                    SelectItemHierarchy(Item);
-
-
-                }
-
-                else if ((Component_Source*)Item->GetComponent(Component_Types::Source) != nullptr) {
-
-                    SelectItemHierarchy(Item);
-
-
-                }
-
-                else if ((Component_Listener*)Item->GetComponent(Component_Types::Listener) != nullptr) {
-
-                    SelectItemHierarchy(Item);
-
-
-                }
+                SelectItemHierarchy(Item);
+               //if ((Component_Camera*)Item->GetComponent(Component_Types::Camera) != nullptr)
+               //{
+               //    SelectItemHierarchy(Item);
+               //
+               //}
+               //
+               //else if ((Component_Mesh*)Item->GetComponent(Component_Types::Mesh) != nullptr) {
+               //
+               //    SelectItemHierarchy(Item);
+               //
+               //
+               //}
+               //
+               //else if ((Component_Source*)Item->GetComponent(Component_Types::Source) != nullptr) {
+               //
+               //    SelectItemHierarchy(Item);
+               //
+               //
+               //}
+               //
+               //else if ((Component_Listener*)Item->GetComponent(Component_Types::Listener) != nullptr) {
+               //
+               //    SelectItemHierarchy(Item);
+               //
+               //
+               //}
 
             }
 

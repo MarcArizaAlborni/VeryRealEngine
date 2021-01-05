@@ -175,6 +175,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     ImGui::Text("%d", item->item_id);
    
         //GENERAL INFORMATION
+    
         if (ImGui::CollapsingHeader("General Information", ImGuiTreeNodeFlags_DefaultOpen))
         {
             int ChildAmount;
@@ -183,7 +184,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
             if (SourceInfo != nullptr)
             {
-                ImGui::Text("SI SOBRA TIEMPO PONER EL AUDIO DIRECTORY");
+                //ImGui::Text("SI SOBRA TIEMPO PONER EL AUDIO DIRECTORY");
             }
 
             ImGui::Text("Child Amount  %d", ChildAmount = item->Children_List.size());
@@ -240,7 +241,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             ImGui::Separator();
         }
 
-        if (TransInfo != nullptr)
+        if (TransInfo != nullptr && MeshInfo!=nullptr)
         {
 
             ///TRANSFORMATIONS
@@ -575,26 +576,32 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
         Component_Transform* ComponentTransformChild = (Component_Transform*)ItVal->GetComponent(Component_Types::Transform);
 
-        if (ImGui::CollapsingHeader("Spatial Audio Config", ImGuiTreeNodeFlags_DefaultOpen)) {
+        Component_Source* ComponentSourceChild = (Component_Source*)ItVal->GetComponent(Component_Types::Source);
 
-            ImGui::Checkbox("Show Obb Spatial", &ComponentMeshesChild->show_obb);
-            
-            if (ImGui::DragFloat3("Rad", { &ComponentTransformChild->Scale.x }, 2.0f, 0.0f)) {
+        
+        if(ItVal->isAudioDistanceObject){
 
-                if (ComponentTransformChild->Scale.x < 0.1)
-                {
-                    ComponentTransformChild->Scale.x = 0.1;
-                }
-                if (ComponentTransformChild->Scale.y < 0.1)
-                {
-                    ComponentTransformChild->Scale.y = 0.1;
-                }
-                if (ComponentTransformChild->Scale.z < 0.1)
-                {
-                    ComponentTransformChild->Scale.z = 0.1;
-                }
+            if (ImGui::CollapsingHeader("Spatial Audio Config", ImGuiTreeNodeFlags_DefaultOpen)) {
 
-                ComponentTransformChild->UpdateTransformationsObjects(ComponentTransformChild->Translation, ComponentTransformChild->Scale, ComponentTransformChild->Rotation);
+                ImGui::Checkbox("Show Obb Spatial", &ComponentMeshesChild->show_obb);
+
+                if (ImGui::DragFloat3("Rad", { &ComponentTransformChild->Scale.x }, 2.0f, 0.0f)) {
+
+                    if (ComponentTransformChild->Scale.x < 0.1)
+                    {
+                        ComponentTransformChild->Scale.x = 0.1;
+                    }
+                    if (ComponentTransformChild->Scale.y < 0.1)
+                    {
+                        ComponentTransformChild->Scale.y = 0.1;
+                    }
+                    if (ComponentTransformChild->Scale.z < 0.1)
+                    {
+                        ComponentTransformChild->Scale.z = 0.1;
+                    }
+
+                    ComponentTransformChild->UpdateTransformationsObjects(ComponentTransformChild->Translation, ComponentTransformChild->Scale, ComponentTransformChild->Rotation);
+                }
             }
 
         }
@@ -605,31 +612,31 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
     if (ImGui::CollapsingHeader("Add Source Component", ImGuiTreeNodeFlags_DefaultOpen)) {
   
-        bool isSpatial = false;
         const char* items[] = { "Shark", "Penguin", "Doom", "Thomas"};
-        const char* current_item = items[0];
-        if (ImGui::BeginCombo("Type of Audio File", current_item)) {
+        
+        if (ImGui::BeginCombo("Type of Audio File", SelectedComboItem)) {
 
             for (int n = 0; n < IM_ARRAYSIZE(items); n++) {
 
-                bool is_selected = (current_item == items[n]); // You can store your selection however you want, outside or inside your objects
+                bool is_selected = (SelectedComboItem == items[n]); // You can store your selection however you want, outside or inside your objects
 
                 if (ImGui::Selectable(items[n], is_selected)) {
-                        current_item = items[n];
+                    SelectedComboItem = items[n];
                 }
 
                 if (is_selected) {
 
                     ImGui::SetItemDefaultFocus();
                 } 
-
             }
+
+            ImGui::EndCombo();
            
         }
 
         ImGui::Checkbox("Is spatial Object?", &isSpatial);
 
-
+        ImGui::Button("Add Source Component");
      
     }
 

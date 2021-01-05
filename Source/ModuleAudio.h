@@ -14,6 +14,9 @@
 #define MAX_VOLUME_AUDIO 2
 
 
+
+
+
 enum class AudioFiles{
 
 	SHARK,
@@ -56,6 +59,12 @@ public:
 
 
 	void AddSourceComponent(Game_Object* ParentGameObject, bool isSpatial);
+
+
+	uint DOOM_FILE_ID;
+	uint THOMAS_FILE_ID;
+	uint SHARK_FILE_ID;
+	uint PENGUIN_FILE_ID;
 
 
 private:

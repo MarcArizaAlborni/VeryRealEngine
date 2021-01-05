@@ -72,7 +72,12 @@ void Component_Transform::UpdateGlobalTransform()
 
 	if (ObjectOwner != nullptr) //THIS IS THE ERROR??? IT DOESNT HAVE A PARENT
 	{
+
 		Global_Matrix = ObjectOwner->Transformations->Global_Matrix * Local_Matrix;
+		//if (this->owner->isAudioDistanceObject == false) {
+		//
+		//	Global_Matrix = ObjectOwner->Transformations->Global_Matrix * Local_Matrix;
+		//}
 	}
 
 	UpdateTRS();
