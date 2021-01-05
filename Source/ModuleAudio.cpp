@@ -79,7 +79,7 @@ update_status ModuleAudio::Update(float dt)
       //  Component_Listener* Listener = (Component_Listener*)App->scene->object_scene_camera->GetComponent(Component_Types::Listener);
       //  DynamicSource->WiseItem->SetAuxiliaryBus(1.0f, "Reverb", Listener->WiseItem->GetID());
 
-
+    
 
     int a = 0;
     return UPDATE_CONTINUE;
@@ -251,7 +251,7 @@ void ModuleAudio::SetUpWwise()
         //return false;
     }
 
-    // Create and initialize an instance of the default streaming manager
+  
     AkStreamMgrSettings stmSettings;
     AK::StreamMgr::GetDefaultSettings(stmSettings);
 
@@ -262,7 +262,7 @@ void ModuleAudio::SetUpWwise()
         //return false;
     }
 
-    // Create a streaming device with blocking low-level I/O handshaking.
+   
     AkDeviceSettings deviceSettings;
 
     AK::StreamMgr::GetDefaultDeviceSettings(deviceSettings);
@@ -275,7 +275,7 @@ void ModuleAudio::SetUpWwise()
         //return false;
     }
 
-    // Create the Sound Engine using default initialization parameters
+   
     AkInitSettings initSettings;
 
     AkPlatformInitSettings platformInitSettings;
@@ -292,7 +292,7 @@ void ModuleAudio::SetUpWwise()
         //return false;
     }
 
-    // Initialize the music engine using default initialization parameters
+  
     AkMusicSettings musicInit;
 
     AK::MusicEngine::GetDefaultInitSettings(musicInit);
@@ -301,20 +301,17 @@ void ModuleAudio::SetUpWwise()
     {
         LOG("Could not initialize the Music Engine.");
 
-        //return false;
+        
     }
 
+    AkSpatialAudioInitSettings settings; 
+
+   // if (AK::SpatialAudio::Init(settings) != AK_Success)
+   // {
+   //     LOG("Could not initialize the Spatial Audio.");
+   // }
+
     
-
-    // Initialize Spatial Audio using default initialization parameters
-    AkSpatialAudioInitSettings settings; // The constructor fills AkSpatialAudioInitSettings with the recommended default settings. 
-
-    //if (AK::SpatialAudio::Init(settings) != AK_Success)
-    //{
-    //    LOG("Could not initialize the Spatial Audio.");
-    //
-    //    
-    //}
 
 #ifndef AK_OPTIMIZED
 
@@ -327,7 +324,7 @@ void ModuleAudio::SetUpWwise()
     {
         LOG("Could not initialize communication.");
 
-        //return false;
+        
     }
 
 #endif // AK_OPTIMIZED

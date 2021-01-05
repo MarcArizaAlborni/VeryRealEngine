@@ -388,7 +388,7 @@ void ModuleScene::LoadDynamicSoundSource()
 
 	//Remember to create the SPATIAL AUDIO==TRUE
 
-	DynamicSource->isPlaying = true;
+	DynamicSource->isPlaying = true; 
 
 
 
