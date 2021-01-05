@@ -75,9 +75,10 @@ update_status ModuleAudio::Update(float dt)
 
 
     //REVERB
-       Component_Source* DynamicSource = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
-        Component_Listener* Listener = (Component_Listener*)App->scene->object_scene_camera->GetComponent(Component_Types::Listener);
-        DynamicSource->WiseItem->SetAuxiliaryBus(1.0f, "Reverb", Listener->WiseItem->GetID());
+      // Component_Source* DynamicSource = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
+      //  Component_Listener* Listener = (Component_Listener*)App->scene->object_scene_camera->GetComponent(Component_Types::Listener);
+      //  DynamicSource->WiseItem->SetAuxiliaryBus(1.0f, "Reverb", Listener->WiseItem->GetID());
+
 
 
     int a = 0;

@@ -340,6 +340,8 @@ void ModuleScene::LoadStaticSoundSource()
 	StaticSource->WiseItem->PlayEvent(AK::EVENTS::PENGUIN_STATIC);
 
 	App->editor->Importer_Settings->GlobalScale = false;
+
+	StaticSource->isPlaying = true;
 }
 
 void ModuleScene::LoadDynamicSoundSource()
@@ -385,6 +387,8 @@ void ModuleScene::LoadDynamicSoundSource()
 	DynamicSource->WiseItem->PlayEvent(AK::EVENTS::FISH_DYNAMIC);
 
 	//Remember to create the SPATIAL AUDIO==TRUE
+
+	DynamicSource->isPlaying = true;
 
 
 
