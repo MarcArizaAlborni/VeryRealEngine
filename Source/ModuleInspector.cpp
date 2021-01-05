@@ -156,6 +156,78 @@ bool ModuleInspectorGameObject::LookForChildrenToBeDrawn(Game_Object* item)
         return SomethingDrawn;
 }
 
+void ModuleInspectorGameObject::EqualizeSpatialObjScale(Game_Object* Object,Component_Transform* TransInfo)
+{
+    float MaxScale;
+    float NewSpatialSize;
+
+    Game_Object* SpatialObj = Object->Children_List[0]; //Change this if multiple childs
+
+
+    if (SpatialObj->isAudioDistanceObject) {
+
+        if (TransInfo->Scale.x < TransInfo->Scale.y) {
+
+            if (TransInfo->Scale.y < TransInfo->Scale.z) {
+                MaxScale = TransInfo->Scale.z;
+            }
+            else  if (TransInfo->Scale.y > TransInfo->Scale.z) {
+                MaxScale = TransInfo->Scale.y;
+            }
+            else {
+                MaxScale = TransInfo->Scale.y;
+            }
+
+        }
+        else if (TransInfo->Scale.x > TransInfo->Scale.y) {
+
+            if (TransInfo->Scale.x < TransInfo->Scale.z) {
+                MaxScale = TransInfo->Scale.z;
+            }
+            else  if (TransInfo->Scale.x > TransInfo->Scale.z) {
+                MaxScale = TransInfo->Scale.x;
+            }
+            else {
+                MaxScale = TransInfo->Scale.x;
+            }
+
+        }
+        else {
+
+            if (TransInfo->Scale.x < TransInfo->Scale.z) {
+                MaxScale = TransInfo->Scale.z;
+            }
+            else  if (TransInfo->Scale.x > TransInfo->Scale.z) {
+                MaxScale = TransInfo->Scale.x;
+            }
+            else {
+                MaxScale = TransInfo->Scale.x;
+            }
+        }
+
+        Component_Transform* TransCompSpat = (Component_Transform*)SpatialObj->GetComponent(Component_Types::Transform);
+
+
+        
+
+        NewSpatialSize= TransCompSpat->Scale.x/MaxScale;
+
+
+        TransCompSpat->Scale.x = NewSpatialSize;
+        TransCompSpat->Scale.y = NewSpatialSize;
+        TransCompSpat->Scale.z = NewSpatialSize;
+
+
+        TransCompSpat->UpdateTransformationsObjects(TransCompSpat->Translation, TransCompSpat->Scale, TransCompSpat->Rotation);
+
+
+    }
+
+
+
+
+}
+
 void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh* MeshInfo, Component_Texture* TextureInfo, Component_Transform* TransInfo, Component_Camera* CameraInfo, Component_Listener* ListInfo, Component_Source* SourceInfo)
 {
     const char* Name;
@@ -285,6 +357,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                 //This crashes if >0.01f
                 if (ImGui::DragFloat3("Scale", { &TransInfo->Scale.x }, 2.0f, 0.0f)) {
 
+                    float ScaleToSpatialObjectConversion;
                     if (TransInfo->Scale.x < 0.1)
                     {
                         TransInfo->Scale.x = 0.1;
@@ -297,6 +370,11 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     {
                         TransInfo->Scale.z = 0.1;
                     }
+
+                    //EqualizeSpatialObjScale(item, TransInfo);
+
+                    
+
 
                     TransInfo->UpdateTransformationsObjects(TransInfo->Translation, TransInfo->Scale, TransInfo->Rotation);
 

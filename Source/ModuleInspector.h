@@ -36,8 +36,11 @@ public:
 
 	//bool is_Stopped = false;
 
-private:
 
+	
+
+private:
+	void EqualizeSpatialObjScale(Game_Object* Object, Component_Transform* TransCMP);
 	//Combo Stuff
 	const char* SelectedComboItem="none";
 
