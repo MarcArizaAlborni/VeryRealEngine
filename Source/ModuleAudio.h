@@ -97,7 +97,7 @@ public:
 	WwiseObjects* CreateAudioSource(uint id, const char* name, float3 position);
 	WwiseObjects* CreateAudioListener(uint id, const char* name, float3 position);
 
-	void SetAuxiliaryBus(AkReal32 value, const char* aux_bus, AkGameObjectID listener_id);
+	void SetAuxBus(AkReal32 value, const char* aux_bus);
 
 	void SetVolume(uint id, float volume);
 

@@ -615,6 +615,17 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                 }
             }
 
+            ImGui::Checkbox("Mute", &mute);
+
+            if (mute == true)
+            {
+                SourceInfo->WiseItem->SetVolume(SourceInfo->id, 0);
+            }
+            else if (mute == false)
+            {
+                SourceInfo->WiseItem->SetVolume(SourceInfo->id, SourceInfo->WiseItem->StoredVolume);
+            }
+
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawMuteIcon.texture_id, { 20,20 });
             ImGui::SameLine();
             if (ImGui::SliderFloat("Volume", &SourceInfo->WiseItem->volume, 0, 2))
