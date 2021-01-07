@@ -36,7 +36,7 @@ public:
 
 	//bool is_Stopped = false;
 
-	bool mute = false;
+
 	
 
 private:

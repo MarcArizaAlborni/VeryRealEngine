@@ -73,6 +73,12 @@ update_status ModuleAudio::Update(float dt)
 
     UpdateSpatialObjectsInfo();
 
+
+    //REVERB
+      // Component_Source* DynamicSource = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
+      //  Component_Listener* Listener = (Component_Listener*)App->scene->object_scene_camera->GetComponent(Component_Types::Listener);
+      //  DynamicSource->WiseItem->SetAuxiliaryBus(1.0f, "Reverb", Listener->WiseItem->GetID());
+
     
 
     int a = 0;
@@ -379,9 +385,12 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
 
                     SourceCmp->WiseItem->isOutofRange = false;
 
-                     Finalvolume =  CalculateVolumeDistance(CameraPos, SourceCmp->WiseItem->CenterPosition, SourceCmp->WiseItem->volume);
+
+
+
+                     Finalvolume =  CalculateVolumeDistance(CameraPos, SourceCmp->WiseItem->CenterPosition);
                     
-                     Finalvolume= (ComponentTransSpatialObj->Scale.x / Finalvolume)* SourceCmp->WiseItem->volume;
+                     Finalvolume = (ComponentTransSpatialObj->Scale.x / Finalvolume) * SourceCmp->WiseItem->volume;
                     
                      SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, Finalvolume);
 
@@ -428,7 +437,7 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
 
 }
 
-float ModuleAudio::CalculateVolumeDistance(vec camPos, vec centPos, float sourceVolume)
+float ModuleAudio::CalculateVolumeDistance(vec camPos, vec centPos)
 {
 
     float Value;
@@ -618,6 +627,16 @@ void WwiseObjects::SetSpatialVolume(uint id, float Newvolume)
 
     AK::SoundEngine::SetGameObjectOutputBusVolume(this->id, AK_INVALID_GAME_OBJECT, FinalVolume);
 
+}
+
+void WwiseObjects::SetAuxiliaryBus(AkReal32 value, const char* aux_bus, AkGameObjectID listener_id)
+{
+    AkAuxSendValue reverb_eff;
+    reverb_eff.listenerID = listener_id;
+    reverb_eff.auxBusID = AK::SoundEngine::GetIDFromString(aux_bus);
+    reverb_eff.fControlValue = value;
+
+    AKRESULT result = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb_eff, 2);
 }
 
 uint WwiseObjects::GetID()

@@ -75,7 +75,7 @@ private:
 
 	void UpdateSpatialObjectsInfoChilds(Game_Object* Parent);
 
-	float CalculateVolumeDistance(vec camPos, vec centPos, float sourceVolume);
+	float CalculateVolumeDistance(vec camPos, vec centPos);
 
 };
 
@@ -96,6 +96,8 @@ public:
 
 	WwiseObjects* CreateAudioSource(uint id, const char* name, float3 position);
 	WwiseObjects* CreateAudioListener(uint id, const char* name, float3 position);
+
+	void SetAuxiliaryBus(AkReal32 value, const char* aux_bus, AkGameObjectID listener_id);
 
 	void SetVolume(uint id, float volume);
 

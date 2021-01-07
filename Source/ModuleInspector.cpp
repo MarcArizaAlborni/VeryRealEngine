@@ -614,17 +614,17 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     SourceInfo->isModified = true;
                 }
             }
-
-            ImGui::Checkbox("Mute", &mute);
-
-            if (mute == true)
-            {
-                SourceInfo->WiseItem->SetVolume(SourceInfo->id, 0);
-            }
-            else if (mute == false)
-            {
-                SourceInfo->WiseItem->SetVolume(SourceInfo->id, SourceInfo->WiseItem->StoredVolume);
-            }
+            //bool Mute = false;
+            //ImGui::Checkbox("Mute", &Mute);
+            //
+            //if (Mute == true)
+            //{
+            //    SourceInfo->WiseItem->SetVolume(SourceInfo->id, 0);
+            //}
+            //else if (mute == false)
+            //{
+            //    SourceInfo->WiseItem->SetVolume(SourceInfo->id, SourceInfo->WiseItem->StoredVolume);
+            //}
 
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawMuteIcon.texture_id, { 20,20 });
             ImGui::SameLine();
