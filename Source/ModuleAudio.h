@@ -75,7 +75,7 @@ private:
 
 	void UpdateSpatialObjectsInfoChilds(Game_Object* Parent);
 
-	float CalculateVolumeDistance(vec camPos, vec centPos);
+	float CalculateVolumeDistance(vec camPos, vec centPos, float sourceVolume);
 
 };
 

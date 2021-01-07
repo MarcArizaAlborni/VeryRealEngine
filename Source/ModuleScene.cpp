@@ -328,6 +328,11 @@ void ModuleScene::LoadStaticSoundSource()
 	Component_Source* StaticSource = (Component_Source*)Static_Source->GetComponent(Component_Types::Source);
 	Component_Mesh* MeshStatic= (Component_Mesh*)Static_Source->Children_List[0]->GetComponent(Component_Types::Mesh);
 	
+	Component_Transform* TransformSpatialMesh = (Component_Transform*)Static_Source->Children_List[0]->GetComponent(Component_Types::Transform);
+	TransformSpatialMesh->Scale = { 20,20,20 };
+	TransformSpatialMesh->UpdateTransformationsObjects(TransformSpatialMesh->Translation, TransformSpatialMesh->Scale, TransformSpatialMesh->Rotation);
+
+
 
 	//Static_Source->Children_List[0];
 	MeshStatic->UpdateOnTransformOBB();

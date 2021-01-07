@@ -385,9 +385,9 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
 
                     SourceCmp->WiseItem->isOutofRange = false;
 
-                     Finalvolume =  CalculateVolumeDistance(CameraPos, SourceCmp->WiseItem->CenterPosition);
+                     Finalvolume =  CalculateVolumeDistance(CameraPos, SourceCmp->WiseItem->CenterPosition, SourceCmp->WiseItem->volume);
                     
-                     Finalvolume= (ComponentTransSpatialObj->Scale.x / Finalvolume);
+                     Finalvolume= (ComponentTransSpatialObj->Scale.x / Finalvolume)* SourceCmp->WiseItem->volume;
                     
                      SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, Finalvolume);
 
@@ -434,7 +434,7 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
 
 }
 
-float ModuleAudio::CalculateVolumeDistance(vec camPos, vec centPos)
+float ModuleAudio::CalculateVolumeDistance(vec camPos, vec centPos, float sourceVolume)
 {
 
     float Value;
@@ -465,11 +465,11 @@ float ModuleAudio::CalculateVolumeDistance(vec camPos, vec centPos)
         if (Position.x < Position.z) {
 
 
-            return Position.x;
+            return Position.z;
         }
         else if (Position.x > Position.z) {
 
-            return Position.z;
+            return Position.x;
 
         }
         else {
