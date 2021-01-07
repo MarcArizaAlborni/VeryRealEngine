@@ -615,8 +615,10 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                 }
             }
             //bool Mute = false;
-            //ImGui::Checkbox("Mute", &Mute);
-            //
+            ImGui::Checkbox("Mute", &SourceInfo->isMuted);
+            
+
+
             //if (Mute == true)
             //{
             //    SourceInfo->WiseItem->SetVolume(SourceInfo->id, 0);
