@@ -73,11 +73,6 @@ update_status ModuleAudio::Update(float dt)
 
     UpdateSpatialObjectsInfo();
 
-
-    //REVERB
-       /*Component_Source* DynamicSource = (Component_Source*)App->scene->Static_Source->GetComponent(Component_Types::Source);
-        DynamicSource->WiseItem->SetAuxBus(1.0f, "Penguin_Static");*/
-
     
 
     int a = 0;
@@ -623,16 +618,6 @@ void WwiseObjects::SetSpatialVolume(uint id, float Newvolume)
 
     AK::SoundEngine::SetGameObjectOutputBusVolume(this->id, AK_INVALID_GAME_OBJECT, FinalVolume);
 
-}
-
-void WwiseObjects::SetAuxBus(AkReal32 value, const char* aux_bus)
-{
-    AkAuxSendValue reverb_eff;
-    reverb_eff.listenerID = id;
-    reverb_eff.auxBusID = AK::SoundEngine::GetIDFromString(aux_bus);
-    reverb_eff.fControlValue = value;
-
-    AKRESULT result = AK::SoundEngine::SetGameObjectAuxSendValues(id, &reverb_eff, 2);
 }
 
 uint WwiseObjects::GetID()
