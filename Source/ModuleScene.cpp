@@ -417,7 +417,7 @@ void ModuleScene::LoadReverbSoundSource()
 	App->editor->Importer_Settings->DesiredScaleZ = 1;
 	App->editor->Importer_Settings->GlobalScale = false;
 
-	TransformReverb->Translation = { -68,0,-156 };
+	TransformReverb->Translation = { -68,-5,-156 };
 	TransformReverb->UpdateTransformationsObjects(TransformReverb->Translation, TransformReverb->Scale, TransformReverb->Rotation);
 
 	Component_Mesh* MeshReverb = (Component_Mesh*)Reverb_Source->GetComponent(Component_Types::Mesh);
