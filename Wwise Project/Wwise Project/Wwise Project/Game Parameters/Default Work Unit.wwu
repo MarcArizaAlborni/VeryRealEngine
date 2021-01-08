@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{6CC1744D-B22C-4A39-B478-9314A92594D1}" SchemaVersion="94">
 	<GameParameters>
-		<WorkUnit Name="Default Work Unit" ID="{6CC1744D-B22C-4A39-B478-9314A92594D1}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{6CC1744D-B22C-4A39-B478-9314A92594D1}" PersistMode="Standalone">
+			<ChildrenList>
+				<GameParameter Name="Fish_Position" ID="{FF89B46E-190E-4064-BFF0-DD8BCEC93BFD}">
+					<PropertyList>
+						<Property Name="InitialValue" Type="Real64" Value="0"/>
+					</PropertyList>
+				</GameParameter>
+			</ChildrenList>
+		</WorkUnit>
 	</GameParameters>
 </WwiseDocument>

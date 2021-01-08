@@ -72,6 +72,34 @@
 				<Sound Name="Tiburon tema de sonido" ID="{0DD9ECE9-8E10-40C8-9654-60732AFF6F6B}" ShortID="755641314">
 					<PropertyList>
 						<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+						<Property Name="Lowpass" Type="int16">
+							<RTPCList>
+								<RTPC Name="" ID="{175E08C6-6CB2-48A0-A98D-7877D53B4323}" ShortID="695866152">
+									<ReferenceList>
+										<Reference Name="ControlInput">
+											<ObjectRef Name="Fish_Position" ID="{FF89B46E-190E-4064-BFF0-DD8BCEC93BFD}" WorkUnitID="{6CC1744D-B22C-4A39-B478-9314A92594D1}"/>
+										</Reference>
+									</ReferenceList>
+									<Curve Name="" ID="{AD8A99D3-F233-44B2-964B-0A01D7801464}">
+										<PropertyList>
+											<Property Name="Flags" Type="int32" Value="65537"/>
+										</PropertyList>
+										<PointList>
+											<Point>
+												<XPos>0</XPos>
+												<YPos>1</YPos>
+												<Flags>5</Flags>
+											</Point>
+											<Point>
+												<XPos>100</XPos>
+												<YPos>59</YPos>
+												<Flags>37</Flags>
+											</Point>
+										</PointList>
+									</Curve>
+								</RTPC>
+							</RTPCList>
+						</Property>
 						<Property Name="UseGameAuxSends" Type="bool" Value="True"/>
 					</PropertyList>
 					<ReferenceList>

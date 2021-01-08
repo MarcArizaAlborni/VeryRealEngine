@@ -4,6 +4,9 @@ Event	ID	Name			Wwise Object Path	Notes
 	3072587112	First30			\Default Work Unit\First30	
 	4288538553	Fish_Dynamic			\Default Work Unit\Fish_Dynamic	
 
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	2339924995	Fish_Position			\Default Work Unit\Fish_Position	
+
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	8072839	Thomas_Song	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\Wwise Project\.cache\Windows\SFX\Thomas_Song_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Thomas_Song		28856384
 	72865198	Tiburon tema de sonido	D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\Wwise Project\.cache\Windows\SFX\Tiburon tema de sonido_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Tiburon tema de sonido		18824948

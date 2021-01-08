@@ -73,14 +73,6 @@ update_status ModuleAudio::Update(float dt)
 
     UpdateSpatialObjectsInfo();
 
-
-    //REVERB
-      // Component_Source* DynamicSource = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
-      //  Component_Listener* Listener = (Component_Listener*)App->scene->object_scene_camera->GetComponent(Component_Types::Listener);
-      //  DynamicSource->WiseItem->SetAuxiliaryBus(1.0f, "Reverb", Listener->WiseItem->GetID());
-
-    
-
     int a = 0;
     return UPDATE_CONTINUE;
 }
@@ -510,14 +502,18 @@ void ModuleAudio::Reverb_Audio()
     vec point = { fish_trans->Translation.x,fish_trans->Translation.y,fish_trans->Translation.z };
     /*vec point = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };*/
 
+    Component_Source* DynamicSourceReverb = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
+
     if (tunnel->global_OBB.Contains(point))
     {
-
+        AkRtpcValue val_fish = 100;
+        AK::SoundEngine::SetRTPCValue("Fish_Position", val_fish, DynamicSourceReverb->WiseItem->GetID());
 
     }
     else
     {
-
+        AkRtpcValue val_fish = 0;
+        AK::SoundEngine::SetRTPCValue("Fish_Position", val_fish, DynamicSourceReverb->WiseItem->GetID());
     }
 
 }
@@ -627,16 +623,6 @@ void WwiseObjects::SetSpatialVolume(uint id, float Newvolume)
 
     AK::SoundEngine::SetGameObjectOutputBusVolume(this->id, AK_INVALID_GAME_OBJECT, FinalVolume);
 
-}
-
-void WwiseObjects::SetAuxiliaryBus(AkReal32 value, const char* aux_bus, AkGameObjectID listener_id)
-{
-    AkAuxSendValue reverb_eff;
-    reverb_eff.listenerID = listener_id;
-    reverb_eff.auxBusID = AK::SoundEngine::GetIDFromString(aux_bus);
-    reverb_eff.fControlValue = value;
-
-    AKRESULT result = AK::SoundEngine::SetGameObjectAuxSendValues(listener_id, &reverb_eff, 2);
 }
 
 uint WwiseObjects::GetID()

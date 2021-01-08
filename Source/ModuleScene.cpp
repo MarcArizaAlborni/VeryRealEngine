@@ -120,8 +120,7 @@ update_status ModuleScene::Update(float dt)
 	//AudioControlls();
 	
 	RotateMusics();
-
-
+	
 	return UPDATE_CONTINUE;
 }
 

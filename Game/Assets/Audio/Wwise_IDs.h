@@ -19,6 +19,11 @@ namespace AK
         static const AkUniqueID SECOND30 = 1541101740U;
     } // namespace EVENTS
 
+    namespace GAME_PARAMETERS
+    {
+        static const AkUniqueID FISH_POSITION = 2339924995U;
+    } // namespace GAME_PARAMETERS
+
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
