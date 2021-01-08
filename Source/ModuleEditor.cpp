@@ -29,7 +29,7 @@
 #include "libraries/Glew/include/GL/glew.h" 
 #include "libraries/SDL/include/SDL_opengl.h"
 #include "libraries/imGuizmo/ImGuizmo.h"
-
+#include "wwise.h"
 
 
 ModuleEditor::ModuleEditor(Application* app, const char* name, bool start_enabled) : Module(app,"Editor", start_enabled)
@@ -696,7 +696,35 @@ void ModuleEditor::CreateBar_Play()
 		ImGui::Text("Game Time:");
 		ImGui::SameLine();
 		ImGui::TextColored({ 255,255,0,1 }, "%.3f", Game_Time::time);
+		ImGui::SameLine();
+		ImGui::Spacing();
+		ImGui::SameLine();
+		ImGui::Spacing();
+		ImGui::SameLine();
+		ImGui::Spacing();
+		ImGui::SameLine();
+
+		
+		if (ALL_SOURCES_PLAYING == false) {
+
+			if (ImGui::Button("Resume All Audios", { 150,20 })) {
+
+				ALL_SOURCES_PLAYING = true;
+
+				AK::SoundEngine::WakeupFromSuspend();
+
+			}
+		}
+		else {
+			if (ImGui::Button("Pause All Audios", { 150,20 })) {
+
+				ALL_SOURCES_PLAYING = false;
+				AK::SoundEngine::Suspend();
+			}
+		}
+
 		ImGui::End();
+
 	}
 }
 
