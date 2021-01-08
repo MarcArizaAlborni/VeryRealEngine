@@ -113,94 +113,10 @@ void ModuleAudio::CreateAudioWindow()
 
         ImGui::Begin("AudioManager");
 
-        ImGui::Columns(3);
-
-        ImGui::Text("General Audio Settings");
-
-        ImGui::NextColumn();
-
-        ImGui::Text("Available Audio Files");
-
-        ImGui::NextColumn();
-
-        ImGui::Text("Selected Audio Settings");
-
-        ImGui::NextColumn();
-
-        ImGui::Separator();
+       
 
 
-        //Column1
-
-        ImGui::Spacing();
-        ImGui::SameLine();
-        ImGui::Spacing();
-        ImGui::SameLine();
-        ImGui::Spacing();
-        ImGui::SameLine();
-        ImGui::Spacing();
-        ImGui::SameLine();
-
-        if (ImGui::Button("Stop All", { 75,20 })) {
-
-            AK::SoundEngine::StopAll();
-
-        }
-        ImGui::SameLine();
-        ImGui::Spacing();
-        ImGui::SameLine();
-
-        if (ImGui::Button("Mute All", { 75,20 })) {
-
-
-
-            // AK::SoundEngine::Query::GetPlayingIDsFromGameObject
-
-        }
-
-        ImGui::SameLine();
-        ImGui::Spacing();
-        ImGui::SameLine();
-
-        if (ImGui::Button("Un-Mute All", { 80,20 })) {
-
-        }
-
-        ImGui::NextColumn();
-        //Column2
-        ImGui::Text("Column2");
-        ImGui::NextColumn();
-        //Column3
-        ImGui::Text("Column3");
-
-        ImGui::NextColumn();
-
-        // AK::SoundEngine::StopAll();
-
-
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
-        ImGui::Text("Audio Manager HERE");
+    
 
         ImGui::End();
 
