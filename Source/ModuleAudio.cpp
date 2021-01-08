@@ -70,7 +70,7 @@ update_status ModuleAudio::Update(float dt)
 
     Reverb_Audio();
 
-
+    Speaker_Panning_Audio();
     UpdateSpatialObjectsInfo();
 
     int a = 0;
@@ -523,21 +523,81 @@ void ModuleAudio::Reverb_Audio()
 
     //
 
-    Component_Mesh* Penguin = (Component_Mesh*)App->scene->Static_Source->GetComponent(Component_Types::Mesh);
+    //Component_Mesh* Penguin = (Component_Mesh*)App->scene->Static_Source->GetComponent(Component_Types::Mesh);
+    //
+    //Component_Transform* Penguin_Trans = (Component_Transform*)App->scene->Static_Source->GetComponent(Component_Types::Transform);
+    //
+    //Component_Source* StaticSourcePanning = (Component_Source*)App->scene->Static_Source->GetComponent(Component_Types::Source);
+    //AKRESULT Result;
+    //if (App->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT) {
+    //
+    //    AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 0, StaticSourcePanning->WiseItem->GetID());
+    //}
+    //else {
+    //    Result = AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
+    //}
 
-    Component_Transform* Penguin_Trans = (Component_Transform*)App->scene->Static_Source->GetComponent(Component_Types::Transform);
 
-    Component_Source* StaticSourceReverb = (Component_Source*)App->scene->Static_Source->GetComponent(Component_Types::Source);
-    AKRESULT Result;
-    if (App->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT) {
+}
 
-        AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 0, StaticSourceReverb->WiseItem->GetID());
+void ModuleAudio::Speaker_Panning_Audio()
+{
+
+    Component_Transform* Penguin_Transform = (Component_Transform*)App->scene->Static_Source->GetComponent(Component_Types::Transform);
+    Component_Mesh* Penguin_Mesh = (Component_Mesh*)App->scene->Static_Source->GetComponent(Component_Types::Mesh);
+    Component_Source* StaticSourcePanning = (Component_Source*)App->scene->Static_Source->GetComponent(Component_Types::Source);
+
+    Component_Transform* Camera_Transform = (Component_Transform*)App->scene->object_scene_camera->GetComponent(Component_Types::Transform);
+   
+    float3 CameraRotation=Camera_Transform->Rotation.ToEulerXYZ();
+    
+    vec CameraPosition = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };
+
+    CameraRotation.x;
+    CameraRotation.y;
+    CameraRotation.z;
+
+    vec CornerPosition = { 0,0,0 };
+    App->camera->scene_camera->X;
+    App->camera->scene_camera->Y;
+    App->camera->scene_camera->Z;
+
+    for (int i = 0; i < 8; ++i) {
+
+        vec CornerValue = Penguin_Mesh->global_OBB.CornerPoint(i);
+
+        Sqrt((CornerValue.x - CameraPosition.x, Pow((CornerValue.y - CameraPosition.y),2), Pow((CornerValue.z - CameraPosition.z),2)));
+
+    }
+   
+    float3 Peng_Position = Penguin_Transform->Translation;
+   
+    vec CenterPointPeng = Penguin_Mesh->global_AABB.CenterPoint();
+
+    if (Peng_Position.z < CameraPosition.z) { 
+
+        if (Peng_Position.x < CameraPosition.x) {
+
+        }
+        else if (Peng_Position.x < CameraPosition.x) {
+
+        }
+        else {
+
+        }
+        AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 0, StaticSourcePanning->WiseItem->GetID());
+
+    }
+    else  if (Peng_Position.z > CameraPosition.z) {
+
+        AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
+
     }
     else {
-        Result = AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourceReverb->WiseItem->GetID());
+
+        AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 1, StaticSourcePanning->WiseItem->GetID());
+
     }
-
-
 }
 
 //WWISE OBJECTS

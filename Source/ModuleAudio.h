@@ -44,6 +44,8 @@ public:
 
 	void Reverb_Audio();
 
+	void Speaker_Panning_Audio();
+
 	void LoadEventsFromJson();
 
 	AkGameObjectID CurrentListenerID;

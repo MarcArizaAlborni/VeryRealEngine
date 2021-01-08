@@ -28,6 +28,8 @@ public:
 	void CenterToObject(Game_Object* object);
 	void Orbit();
 
+
+
 	//Settings
 	Component_Camera* GetSceneCamera() const;
 	Component_Camera* scene_camera = nullptr;
