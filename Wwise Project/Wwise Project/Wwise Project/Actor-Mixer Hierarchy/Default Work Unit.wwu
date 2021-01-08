@@ -50,6 +50,7 @@
 				<Sound Name="Penguin" ID="{8C50961B-7E76-4FFE-9B36-194143B18F6E}" ShortID="723607862">
 					<PropertyList>
 						<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+						<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
@@ -65,6 +66,40 @@
 							<AudioFile>Penguin.wav</AudioFile>
 						</AudioFileSource>
 					</ChildrenList>
+					<PositioningInfo>
+						<Panner Name="" ID="{5B482157-6C6F-487D-BDCB-50B230EEBB3D}">
+							<PropertyList>
+								<Property Name="PanX" Type="Real64">
+									<RTPCList>
+										<RTPC Name="" ID="{7E566391-C4A8-4A5D-8BF8-580173251FB7}" ShortID="522917432">
+											<ReferenceList>
+												<Reference Name="ControlInput">
+													<ObjectRef Name="Panning_Sides" ID="{FF65E8F2-9B13-464D-BC5D-0368247E2BE1}" WorkUnitID="{6CC1744D-B22C-4A39-B478-9314A92594D1}"/>
+												</Reference>
+											</ReferenceList>
+											<Curve Name="" ID="{742511C3-FE41-4CA0-B3D6-C015C256728D}">
+												<PropertyList>
+													<Property Name="Flags" Type="int32" Value="1"/>
+												</PropertyList>
+												<PointList>
+													<Point>
+														<XPos>0</XPos>
+														<YPos>-200</YPos>
+														<Flags>5</Flags>
+													</Point>
+													<Point>
+														<XPos>2</XPos>
+														<YPos>200</YPos>
+														<Flags>37</Flags>
+													</Point>
+												</PointList>
+											</Curve>
+										</RTPC>
+									</RTPCList>
+								</Property>
+							</PropertyList>
+						</Panner>
+					</PositioningInfo>
 					<ActiveSourceList>
 						<ActiveSource Name="Penguin" ID="{D4559001-22A3-4613-9056-AEBD11538480}" Platform="Linked"/>
 					</ActiveSourceList>

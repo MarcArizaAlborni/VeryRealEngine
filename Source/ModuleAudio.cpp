@@ -531,10 +531,10 @@ void ModuleAudio::Reverb_Audio()
     AKRESULT Result;
     if (App->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT) {
 
-        AK::SoundEngine::SetRTPCValue("Penguin_Sides", 0, StaticSourceReverb->WiseItem->GetID());
+        AK::SoundEngine::SetRTPCValue("Panning_Sides", 0, StaticSourceReverb->WiseItem->GetID());
     }
     else {
-        Result = AK::SoundEngine::SetRTPCValue("Penguin_Sides", 2, StaticSourceReverb->WiseItem->GetID());
+        Result = AK::SoundEngine::SetRTPCValue("Panning_Sides", 2, StaticSourceReverb->WiseItem->GetID());
     }
 
 
