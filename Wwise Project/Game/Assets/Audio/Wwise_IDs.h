@@ -21,8 +21,11 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
+        static const AkUniqueID FISH_PANNING_FRONTS = 3636899180U;
+        static const AkUniqueID FISH_PANNING_SIDES = 2112570640U;
         static const AkUniqueID FISH_POSITION = 2339924995U;
-        static const AkUniqueID PANNING_SIDES = 2465172349U;
+        static const AkUniqueID PENGUIN_PANNING_FRONTS = 309402120U;
+        static const AkUniqueID PENGUIN_PANNING_SIDES = 3026993492U;
     } // namespace GAME_PARAMETERS
 
     namespace BANKS

@@ -74,7 +74,7 @@
 										<RTPC Name="" ID="{7E566391-C4A8-4A5D-8BF8-580173251FB7}" ShortID="522917432">
 											<ReferenceList>
 												<Reference Name="ControlInput">
-													<ObjectRef Name="Panning_Sides" ID="{FF65E8F2-9B13-464D-BC5D-0368247E2BE1}" WorkUnitID="{6CC1744D-B22C-4A39-B478-9314A92594D1}"/>
+													<ObjectRef Name="Penguin_Panning_Sides" ID="{FF65E8F2-9B13-464D-BC5D-0368247E2BE1}" WorkUnitID="{6CC1744D-B22C-4A39-B478-9314A92594D1}"/>
 												</Reference>
 											</ReferenceList>
 											<Curve Name="" ID="{742511C3-FE41-4CA0-B3D6-C015C256728D}">
@@ -135,6 +135,7 @@
 								</RTPC>
 							</RTPCList>
 						</Property>
+						<Property Name="SpeakerPanning" Type="int16" Value="1"/>
 						<Property Name="UseGameAuxSends" Type="bool" Value="True"/>
 					</PropertyList>
 					<ReferenceList>
@@ -151,6 +152,40 @@
 							<AudioFile>Tiburon tema de sonido.wav</AudioFile>
 						</AudioFileSource>
 					</ChildrenList>
+					<PositioningInfo>
+						<Panner Name="" ID="{9564856D-6F21-4200-9408-25338620C69A}">
+							<PropertyList>
+								<Property Name="PanX" Type="Real64">
+									<RTPCList>
+										<RTPC Name="" ID="{48766FA3-3D15-49D3-8BC1-227E2290B01B}" ShortID="969003102">
+											<ReferenceList>
+												<Reference Name="ControlInput">
+													<ObjectRef Name="Fish_Panning_Sides" ID="{19637FCD-A0D1-4928-ACE7-B031A94AB883}" WorkUnitID="{6CC1744D-B22C-4A39-B478-9314A92594D1}"/>
+												</Reference>
+											</ReferenceList>
+											<Curve Name="" ID="{B60E70BB-7B38-4EE1-906E-DE5C79EEF94D}">
+												<PropertyList>
+													<Property Name="Flags" Type="int32" Value="1"/>
+												</PropertyList>
+												<PointList>
+													<Point>
+														<XPos>0</XPos>
+														<YPos>-200</YPos>
+														<Flags>5</Flags>
+													</Point>
+													<Point>
+														<XPos>2</XPos>
+														<YPos>200</YPos>
+														<Flags>37</Flags>
+													</Point>
+												</PointList>
+											</Curve>
+										</RTPC>
+									</RTPCList>
+								</Property>
+							</PropertyList>
+						</Panner>
+					</PositioningInfo>
 					<ActiveSourceList>
 						<ActiveSource Name="Tiburon tema de sonido" ID="{58444716-20F9-4E3C-A6CC-A2DFC8EC19EA}" Platform="Linked"/>
 					</ActiveSourceList>
