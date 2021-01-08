@@ -187,6 +187,9 @@ public:
 
 	bool guizmos = true;
 
+
+	bool ALL_SOURCES_PLAYING = true;
+
 	//SCENE STUFF
 
 	void LoadScene(std::string SceneFileName);
