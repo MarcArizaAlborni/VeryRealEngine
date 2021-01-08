@@ -516,6 +516,24 @@ void ModuleAudio::Reverb_Audio()
         AK::SoundEngine::SetRTPCValue("Fish_Position", val_fish, DynamicSourceReverb->WiseItem->GetID());
     }
 
+
+    //
+
+    Component_Mesh* Penguin = (Component_Mesh*)App->scene->Static_Source->GetComponent(Component_Types::Mesh);
+
+    Component_Transform* Penguin_Trans = (Component_Transform*)App->scene->Static_Source->GetComponent(Component_Types::Transform);
+
+    Component_Source* StaticSourceReverb = (Component_Source*)App->scene->Static_Source->GetComponent(Component_Types::Source);
+    AKRESULT Result;
+    if (App->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT) {
+
+        AK::SoundEngine::SetRTPCValue("Penguin_Sides", 0, StaticSourceReverb->WiseItem->GetID());
+    }
+    else {
+        Result = AK::SoundEngine::SetRTPCValue("Penguin_Sides", 2, StaticSourceReverb->WiseItem->GetID());
+    }
+
+
 }
 
 //WWISE OBJECTS
