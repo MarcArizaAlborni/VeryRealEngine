@@ -1,10 +1,6 @@
 # VeryRealEngine
 
-
- ## Welcome to Very Real Engine!
-
-
-## DELIVERY 2:
+## Welcome to Very Real Engine!
 
  Very Real Engine (VRE) is an engine created using opengl as mainframe & other several external libraries for other functionalities.
 
@@ -31,6 +27,8 @@ Libraries used:
 
 - Physfs
 
+- Wwise
+
 
 ### Controls:
 
@@ -51,18 +49,9 @@ Camera Movement:
 - Supr to delete a selected mesh from the hierarchy
 
 
-
 ### General
 
 - Meshes/Textures can be imported with drag/drop from an external folder or through the assets window. (To Apply Textures make sure there's a mesh selected).
-
-
-
-
-### Street Environment:
-
-- The street is automatically loaded at the start, it loads the meshes/texture/transforms correctly without any input from the user.
-
 
 
 ### Inspector/Hierarchy:
@@ -96,12 +85,10 @@ Camera Movement:
 
 - Theres an option inside the camera component to enable/disable frustum culling which culls the meshes so they aren't drawn.
 
-  
 
 ### Bounding Boxes:
 
 - Each Mesh component has an AABB and an OBB which can be enabled/disabled in the inspector.
-
 
 
 ### Custom File Format:
@@ -110,12 +97,10 @@ Camera Movement:
 - Metas are created but as we don't have custom file format working, META files are usseles.
 
 
-
 ### Serialization:
 
 - With the o Key or pressing the play button the scene is saved using JSON, but as we don't have custom file format working scene files can't be used to load the scene. 
 - Scenes are stored inside the Library/Scenes folder.
-
 
 
 ### Play/Stop:
@@ -125,7 +110,6 @@ Camera Movement:
 - The next frame button goes forward one frame in the engine/ play time.
 
 - Game/Real timers are functional.
-
 
 
 ### Resource Management:
@@ -147,7 +131,6 @@ Camera Movement:
 - Reference Counting works for textures, textures are only loaded once and if they are used multiple times it is shown in the resources menu inside configuration.
 
 
-
 ### Import Settings:
 
 
@@ -160,7 +143,21 @@ Camera Movement:
       - Meshes: Set Scales to each axis, axis to import, ignore cameras/lights when a mesh is loaded
       - Import settings are stored in the meta file but they are not loaded properly.
           	
-           
+
+### Audio Subsytem
+
+- A loop between two songs starts when the engine executes. The time between the change is 30 seconds. If you pause one fo those songs, they will resume once It's their time to play. Anyway, if you STOP them, they won't play during the lopp anymore until you manually play It on the inspector.     
+- The camera has a component listener on It.  
+- In each Game Object with and audio source you can Play/Stop/Pause/Resume the audio as your convinience. You can also modify the volume of each source or mute directly with the mute checkbox. 
+- On the UpBar you can mute all audios at once If you have more than one source playing. As well as you can resume them too.
+
+- The penguin is our static source and the fish our dynamic source. Both have spatial audios.
+
+- If an audio is spatial, more options will be displayed in the inspector. 
+- Each Game object has a Spatial OBB. Also a sphere is displayed in all spatial audios. That sphere represents the size of the are wjere the audio will be heared. Obviously you can change the whole size of it. 
+- If you move the listener (camera) inside the spatial sphere, the audio will play and the volume will change depending on the position and the distance of the listener from the Game Object.
+
+- The tunnel has a Reverb Effect. It detects when the fish is passing through and changes the audio parameter to a tunnel effect. When the fish leaves the tuneel, It automatically restores.
 
 ### Innovation:
 
@@ -168,71 +165,6 @@ Camera Movement:
 
 - Hide the entire UI with a simple checkbox
 
-
-### Comments: 
-
-- Our main trouble has been to load models properly from the custom file format using meta files, which has made it impossible to have serialization & library loading working properly.
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-## DELIVERY 1:
- Very Real Engine (VRE) is an engine created using opengl as mainframe & other several external libraries for other functionalities.
-
- This engine currently allows the user to import meshes and textures and visualize them inside the engine and several features like primitive model generation & mesh transformation.
-
-
-Libraries used:
-
-- Glew 
-
-- SDL2.0
-
-- ImGui
-
-- DevIL
-
-- Assimp
-
-- Mathgeolib
-
-- Json
-
-
-Developed by : 
-
-Marc Ariza Alborni: https://github.com/MarcArizaAlborni
-
-Gerard Romeu Vidal: https://github.com/Gromeu2000
-
-Camera Movement:
-
-- W, A, S, D + left click to move the camera around, SHIFT to double movement speed.
-
-- F when an object is selected to move next to it.
-
-- Alt + left click to rotate around selected object
-
-- Mouse wheel to zoom in/out
-
-
-
-Information:
-
-- Meshes should be .fbx to make sure they are loaded properly
-
-- Textures should be .png to make sure they are loaded properly
-
-- To see information about an object make sure the checkbox next to them in the inspector is selected
-
-- No information will be displayed in the inspector if the selected item is an empty parent object, to see the information of its childs open child window (arrow) in the hierarchy for the parent object.
-
-- Mesh transformation is available (position,rotation,scale) in the inspector and can be modified.
-
-
-
-Important: When importing a texture with drag & drop, make sure the Draw on Inspector checkbox is selected for the mesh you want the texture to be applied to, if there are multople meshes that you want to be textured with the 
-same texture, sadly the only curent way to do it is one by one selecting each mesh. (a fix will come in the following updates)
 
 Enjoy :)
 

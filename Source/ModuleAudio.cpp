@@ -496,11 +496,15 @@ void ModuleAudio::Reverb_Audio()
     Component_Mesh* fish = (Component_Mesh*)App->scene->Dynamic_Source->GetComponent(Component_Types::Mesh);
 
     Component_Transform* fish_trans = (Component_Transform*)App->scene->Dynamic_Source->GetComponent(Component_Types::Transform);
+    Component_Mesh* fish_trans_child = (Component_Mesh*)App->scene->Dynamic_Source->Children_List[0]->GetComponent(Component_Types::Mesh);
 
     Component_Mesh* tunnel = (Component_Mesh*)App->scene->Reverb_Source->GetComponent(Component_Types::Mesh);
 
-    vec point = { fish_trans->Translation.x,fish_trans->Translation.y,fish_trans->Translation.z };
-    /*vec point = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };*/
+
+    vec point = fish_trans_child->global_OBB.CenterPoint();
+
+
+    //vec point = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };
 
     Component_Source* DynamicSourceReverb = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
 

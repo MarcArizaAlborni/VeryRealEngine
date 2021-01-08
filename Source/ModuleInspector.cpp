@@ -254,11 +254,6 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
             ImGui::InputText(" ", (char*)item->name.c_str(), 100, ImGuiInputTextFlags_EnterReturnsTrue);
 
-            if (SourceInfo != nullptr)
-            {
-                //ImGui::Text("SI SOBRA TIEMPO PONER EL AUDIO DIRECTORY");
-            }
-
             ImGui::Text("Child Amount  %d", ChildAmount = item->Children_List.size());
 
             ImGui::Text("Currently Textured:");
