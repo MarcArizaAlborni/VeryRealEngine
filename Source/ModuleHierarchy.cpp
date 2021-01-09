@@ -257,10 +257,12 @@ void ModuleHierarchyGameObject::SelectItemHierarchy(Game_Object* SelectedItem)
 
                     if (ChildObject->ToBeDrawInspector == true) {
                         ChildObject->ToBeDrawInspector = false;
+                        App->scene->ObjectToBeDeleted = nullptr;
                     }
                     else {
 
                         ChildObject->ToBeDrawInspector = true;
+                        App->scene->ObjectToBeDeleted = SelectedItem;
 
                         
                     }
