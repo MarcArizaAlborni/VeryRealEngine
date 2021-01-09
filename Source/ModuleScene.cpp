@@ -340,6 +340,7 @@ void ModuleScene::LoadStaticSoundSource()
 	
 
 	StaticSource->WiseItem->PlayEvent(AK::EVENTS::PENGUIN_STATIC);
+	StaticSource->isPlaying = true;
 
 	App->editor->Importer_Settings->GlobalScale = false;
 
@@ -387,6 +388,7 @@ void ModuleScene::LoadDynamicSoundSource()
 	DynamicSource->SetID(AK::EVENTS::FISH_DYNAMIC);
 
 	DynamicSource->WiseItem->PlayEvent(AK::EVENTS::FISH_DYNAMIC);
+	DynamicSource->isPlaying = true;
 
 	//Remember to create the SPATIAL AUDIO==TRUE
 
@@ -518,6 +520,7 @@ void ModuleScene::RotateMusics()
 				if (StartMusic2) {
 					StartMusic2 = false;
 					temp2->WiseItem->PlayEvent(AK::EVENTS::SECOND30);
+					temp2->isPlaying = true;
 					MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
 				}
 				else {
@@ -554,6 +557,7 @@ void ModuleScene::RotateMusics()
 	}
 	else if (temp2 != nullptr) {
 		temp2->WiseItem->PlayEvent(AK::EVENTS::SECOND30);
+		temp2->isPlaying = true;
 	}
 }
 
@@ -579,6 +583,7 @@ void ModuleScene::AudioControlls()
 			temp->isPlaying = true;
 			temp->isPaused = false;
 			temp->WiseItem->PlayEvent(AK::EVENTS::FIRST30);
+			temp->isPlaying = true;
 		}
 
 	}
