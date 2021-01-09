@@ -461,30 +461,39 @@ void ModuleScene::RotateMusics()
 	Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
 	Component_Source* temp2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
 
+	if (temp->WiseItem->volume < 0) {
+		temp->WiseItem->volume = 0;
+	}
 
-	//if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 25) {
-	//	if (PlayingMus1) {
-	//		temp->WiseItem->volume = temp->WiseItem->volume / 2;
-	//		temp->WiseItem->SetVolume(temp->id, temp->WiseItem->volume);
-	//	}
-	//	else {
-	//		temp2->WiseItem->volume = temp2->WiseItem->volume / 2;
-	//	}
-	//}
-	//if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 28) {
-	//	if (PlayingMus1) {
-	//		temp->WiseItem->volume = temp->WiseItem->volume / 2;
-	//		temp->WiseItem->SetVolume(temp->id, temp->WiseItem->volume);
-	//	}
-	//	else {
-	//		temp2->WiseItem->volume = temp2->WiseItem->volume / 2;
-	//	}
-	//}
+	if (temp2->WiseItem->volume < 0) {
+		temp2->WiseItem->volume = 0;
+	}
+
+	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 29.5) {
+		if (PlayingMus1) {
+			if (BlendStarted == false) {
+				temp->WiseItem->StoredVolume = temp->WiseItem->volume;
+				BlendStarted = true;
+			}
+			temp->WiseItem->volume = temp->WiseItem->volume - 0.01;
+			temp->WiseItem->SetVolume(temp->id, temp->WiseItem->volume);
+		}
+		else {
+			if (BlendStarted == false) {
+				temp2->WiseItem->StoredVolume = temp2->WiseItem->volume;
+				BlendStarted = true;
+			}
+			temp2->WiseItem->volume = temp2->WiseItem->volume - 0.01;
+			temp2->WiseItem->SetVolume(temp2->id, temp2->WiseItem->volume);
+		}
+	}
+
 	
 	
 
 	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 30) {
 		SwapMusic = true;
+		
 	}
 
 
@@ -494,6 +503,9 @@ void ModuleScene::RotateMusics()
 
 		if (PlayingMus1) {
 
+			temp2->WiseItem->volume = temp2->WiseItem->StoredVolume; //We reset volume for music 2
+
+			BlendStarted = false;
 			temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
 
 			PlayingMus1 = false;
@@ -513,6 +525,10 @@ void ModuleScene::RotateMusics()
 
 		}
 		else if (PlayingMus2) {
+
+			BlendStarted = false;
+
+			temp->WiseItem->volume = temp->WiseItem->StoredVolume; //We reset volume for music 1
 
 			temp2->WiseItem->PauseEvent(AK::EVENTS::SECOND30);
 			PlayingMus1 = true;

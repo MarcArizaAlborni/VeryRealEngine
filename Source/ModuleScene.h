@@ -102,6 +102,8 @@ private: //Timer Rotation Music
 	bool In_Pos3 = false;
 	bool In_Pos4 = false;
 
+	bool BlendStarted = false;
+
 	float3 MoveDynamicSourceTo(float3 GoTo,float3 TranslationVec);
 
 };

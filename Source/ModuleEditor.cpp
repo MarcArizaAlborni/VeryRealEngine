@@ -649,9 +649,13 @@ void ModuleEditor::CreateBar_Play()
 				editor_mode = true;
 				//Reset Pos func
 				AK::SoundEngine::Suspend();
+				
 			}
 		}
 		
+		
+
+
 		ImGui::SameLine();
 		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPauseIcon.texture_id, { 25,25 }))
 		{
