@@ -148,7 +148,7 @@ Camera Movement:
 
 - A loop between two songs starts when the engine executes. The time between the change is 30 seconds. If you pause one fo those songs, they will resume once It's their time to play. Anyway, if you STOP them, they won't play during the lopp anymore until you manually play It on the inspector.     
 - The camera has a component listener on It.  
-- In each Game Object with and audio source you can Play/Stop/Pause/Resume the audio as your convinience. You can also modify the volume of each source or mute directly with the mute checkbox. 
+- In each Game Object with and audio source you can Play/Stop/Pause/Resume the audio as your convinience. You can also modify the volume of each source. 
 - On the UpBar you can mute all audios at once If you have more than one source playing. As well as you can resume them too.
 
 - The penguin is our static source and the fish our dynamic source. Both have spatial audios.
@@ -164,6 +164,8 @@ Camera Movement:
 -  Texture Visualizer when a texture is dragged without a mesh being selected.
 
 - Hide the entire UI with a simple checkbox
+
+- In each Audio Source there is an Effect Header, there you can modify the intensity of 3 types of effects: High - Pass, Low - Pass and Pitch.
 
 
 Enjoy :)

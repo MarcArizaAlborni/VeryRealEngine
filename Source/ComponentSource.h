@@ -26,12 +26,15 @@ public:
 	bool isPlaying = false;
 	bool isStopped = false;
 	bool isModified = false;
+
 	bool isMuted = false;
 	
 	bool isSpatialDependant = false;
 
 	bool isDistanceDependant = true;
 
+	
+	
 
 };
 

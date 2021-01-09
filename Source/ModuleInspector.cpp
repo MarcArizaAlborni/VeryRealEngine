@@ -609,20 +609,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     SourceInfo->isModified = true;
                 }
             }
-            //bool Mute = false;
-            ImGui::Checkbox("Mute", &SourceInfo->isMuted);
             
-
-
-            //if (Mute == true)
-            //{
-            //    SourceInfo->WiseItem->SetVolume(SourceInfo->id, 0);
-            //}
-            //else if (mute == false)
-            //{
-            //    SourceInfo->WiseItem->SetVolume(SourceInfo->id, SourceInfo->WiseItem->StoredVolume);
-            //}
-
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawMuteIcon.texture_id, { 20,20 });
             ImGui::SameLine();
             if (ImGui::SliderFloat("Volume", &SourceInfo->WiseItem->volume, 0, 2))
@@ -650,8 +637,22 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
         }
     }
 
-  
+    if (SourceInfo != nullptr)
+    {
+        if (ImGui::CollapsingHeader("Effects", ImGuiTreeNodeFlags_DefaultOpen)) {
 
+            if (ImGui::Button("Reset Values", {95,20}))
+            {
+                SourceInfo->WiseItem->reset_vals = true;
+            }
+
+            ImGui::SliderFloat("Pitch", (float*)&SourceInfo->WiseItem->val_pitch, -100, 100);
+            ImGui::SliderFloat("High-Pass", (float*)&SourceInfo->WiseItem->val_high, -100, 100);
+            ImGui::SliderFloat("Low-Pass", (float*)&SourceInfo->WiseItem->val_low, -100, 100);
+        }
+    }
+
+  
     std::vector<Game_Object*>::iterator It = item->Children_List.begin();
 
     for (int ChildSpatial = 0; ChildSpatial < item->Children_List.size(); ++ChildSpatial) {

@@ -246,16 +246,11 @@ void ModuleAudio::SetUpWwise()
 
 void ModuleAudio::UpdateSpatialObjectsInfo()
 {
-    std::vector<Game_Object*>::iterator It = App->scene->ROOT_SCENE_OBJECT->Children_List.begin();
-    for (int i = 0; i < App->scene->ROOT_SCENE_OBJECT->Children_List.size(); ++i) {
+    
 
-        Game_Object* Object = *It;
+        UpdateSpatialObjectsInfoChilds(App->scene->ROOT_SCENE_OBJECT);
 
-        UpdateSpatialObjectsInfoChilds(Object);
-
-        ++It;
-    }
-
+        
 }
 
 void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
@@ -273,7 +268,24 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
 
         Component_Source* SourceCmp = (Component_Source*)Object->GetComponent(Component_Types::Source);
 
+
         if (SourceCmp != nullptr) {
+
+            if (SourceCmp->WiseItem->reset_vals == true)
+            {
+
+                SourceCmp->WiseItem->val_high = 0;
+                SourceCmp->WiseItem->val_low = 0;
+                SourceCmp->WiseItem->val_pitch = 0;
+
+                SourceCmp->WiseItem->reset_vals = false;
+            }
+            else {
+
+                AK::SoundEngine::SetRTPCValue("Pitch", SourceCmp->WiseItem->val_pitch, SourceCmp->WiseItem->GetID());
+                AK::SoundEngine::SetRTPCValue("High_Pass", SourceCmp->WiseItem->val_high, SourceCmp->WiseItem->GetID());
+                AK::SoundEngine::SetRTPCValue("Low_Pass", SourceCmp->WiseItem->val_low, SourceCmp->WiseItem->GetID());
+            }
 
             if (SourceCmp->isSpatialDependant) {
 
@@ -424,21 +436,6 @@ void ModuleAudio::Reverb_Audio()
         AkRtpcValue val_fish = 0;
         AK::SoundEngine::SetRTPCValue("Fish_Position", val_fish, DynamicSourceReverb->WiseItem->GetID());
     }
-
-    //Component_Mesh* Penguin = (Component_Mesh*)App->scene->Static_Source->GetComponent(Component_Types::Mesh);
-    //
-    //Component_Transform* Penguin_Trans = (Component_Transform*)App->scene->Static_Source->GetComponent(Component_Types::Transform);
-    //
-    //Component_Source* StaticSourcePanning = (Component_Source*)App->scene->Static_Source->GetComponent(Component_Types::Source);
-    //AKRESULT Result;
-    //if (App->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT) {
-    //
-    //    AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 0, StaticSourcePanning->WiseItem->GetID());
-    //}
-    //else {
-    //    Result = AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
-    //}
-
 
 }
 

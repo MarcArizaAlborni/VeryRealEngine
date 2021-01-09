@@ -24,8 +24,11 @@ namespace AK
         static const AkUniqueID FISH_PANNING_FRONTS = 3636899180U;
         static const AkUniqueID FISH_PANNING_SIDES = 2112570640U;
         static const AkUniqueID FISH_POSITION = 2339924995U;
+        static const AkUniqueID HIGH_PASS = 2917986703U;
+        static const AkUniqueID LOW_PASS = 1177178531U;
         static const AkUniqueID PENGUIN_PANNING_FRONTS = 309402120U;
         static const AkUniqueID PENGUIN_PANNING_SIDES = 3026993492U;
+        static const AkUniqueID PITCH = 1908158473U;
     } // namespace GAME_PARAMETERS
 
     namespace BANKS

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="11" SoundbankVersion="134">
 	<RootPaths>
-		<ProjectRoot>C:\Users\PCCom\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\Wwise Project\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\PCCom\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\Wwise Project\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\PCCom\Documents\GitHub\VeryRealEngine\Wwise Project\Game\Assets\Audio\</SoundBanksRoot>
+		<ProjectRoot>D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\Wwise Project\</ProjectRoot>
+		<SourceFilesRoot>D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\Wwise Project\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>D:\grome\Documents\GitHub\VeryRealEngine\Game\Assets\Audio\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\PCCom\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\Wwise Project\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>D:\grome\Documents\GitHub\VeryRealEngine\Wwise Project\Wwise Project\Wwise Project\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles/>

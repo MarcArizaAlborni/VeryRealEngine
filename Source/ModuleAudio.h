@@ -113,6 +113,13 @@ public:
 	bool isOutofRange = false;
 	vec CenterPosition;
 
+	//Effects panel
+	AkRtpcValue val_pitch = 0;
+	AkRtpcValue val_high = 0;
+	AkRtpcValue val_low = 0;
+
+	bool reset_vals = false;
+
 private:
 	const char* name = nullptr;
 	AkGameObjectID id;
@@ -120,6 +127,8 @@ private:
 	AkVector position = { 0,0,0 };
 	AkVector orientationFront = { 0,0,0 };
 	AkVector orientationTop = { 0,0,0 };
+
+
 };
 
 #endif  

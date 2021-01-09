@@ -58,14 +58,20 @@
 				<Property Name="ProjectExplorer\x64_Expanded_1_1" Type="string" Value="2KQUFaYdKkGhfnXKDCFJ8/S5+0IEzMBMlZ0nvucQmi4="/>
 				<Property Name="ProjectExplorer\x64_Expanded_20_1" Type="string" Value=""/>
 				<Property Name="ProjectExplorer\x64_Expanded_21_1" Type="string" Value=""/>
-				<Property Name="ProjectExplorer\x64_Expanded_2_1" Type="string" Value="u/8qVbZq+UGVjdloGUMCjCw2dC1EkDRGn91QV0nqLyo="/>
+				<Property Name="ProjectExplorer\x64_Expanded_2_1" Type="string" Value="u/8qVbZq+UGVjdloGUMCjA=="/>
 				<Property Name="ProjectExplorer\x64_Expanded_3_1" Type="string" Value="MfgquwjPqEGUHOETSlk/2g=="/>
 				<Property Name="ProjectExplorer\x64_Expanded_4_1" Type="string" Value=""/>
 				<Property Name="ProjectExplorer\x64_Expanded_5_1" Type="string" Value=""/>
 				<Property Name="ProjectExplorer\x64_Expanded_6_1" Type="string" Value=""/>
 				<Property Name="ProjectExplorer\x64_Expanded_7_1" Type="string" Value="TXTBbCyyOUq0eJMUqSWU0Q=="/>
 				<Property Name="ProjectExplorer\x64_Expanded_8_1" Type="string" Value=""/>
-				<Property Name="RTPC\GameParameterSimValue\{4C2A0B5C-AF18-46CD-8DA3-6F4948093E17}" Type="Real64" Value="0.91932059447983"/>
+				<Property Name="RTPC\GameParameterSimValue\{19637FCD-A0D1-4928-ACE7-B031A94AB883}" Type="Real64" Value="1"/>
+				<Property Name="RTPC\GameParameterSimValue\{4B8C0597-820F-4AA0-BCAC-A8690A34BC1E}" Type="Real64" Value="-20.9883103081828"/>
+				<Property Name="RTPC\GameParameterSimValue\{64A0A1A9-9710-44B3-9B83-189CB5127C25}" Type="Real64" Value="1"/>
+				<Property Name="RTPC\GameParameterSimValue\{BA1B8C75-796F-45EF-A387-C35D09DC0752}" Type="Real64" Value="-0.371944739638678"/>
+				<Property Name="RTPC\GameParameterSimValue\{CB5CAD72-EE36-48F4-B2A1-0B18937371A1}" Type="Real64" Value="1"/>
+				<Property Name="RTPC\GameParameterSimValue\{EEC2683A-7B80-4EBA-B15B-E538B1BA1AEF}" Type="Real64" Value="0.318809776833149"/>
+				<Property Name="RTPC\GameParameterSimValue\{FF65E8F2-9B13-464D-BC5D-0368247E2BE1}" Type="Real64" Value="1"/>
 				<Property Name="RTPC\GameParameterSimValue\{FF89B46E-190E-4064-BFF0-DD8BCEC93BFD}" Type="Real64" Value="0"/>
 				<Property Name="SettingsUserOverride" Type="bool" Value="True"/>
 				<Property Name="SoundBank Manager\x64_Expand States" Type="string" Value="yRsDNAixbkaOy2S3kwB4Tw=="/>
