@@ -59,7 +59,7 @@ bool ModuleAudio::Init()
 
 bool ModuleAudio::Start()
 {
-
+    AK::SoundEngine::Suspend();
     //LoadEventsFromJson();
 
     return true;
@@ -502,18 +502,17 @@ void ModuleAudio::Speaker_Panning_Audio()
 
     if (Peng_Position.z < CameraPosition.z) { 
 
-        if (AngleDegG <= 80) {
+       
 
             AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 0, StaticSourcePanning->WiseItem->GetID());
-        }
-        else {
-            AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
-        }
+       
+           
+        
 
     }
-    else  if (Peng_Position.z > CameraPosition.z) {
+    else if (Peng_Position.z > CameraPosition.z) {
 
-        //AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
+        AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
 
     }
     else {
