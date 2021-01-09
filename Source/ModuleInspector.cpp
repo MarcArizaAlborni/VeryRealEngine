@@ -637,6 +637,12 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                 }
             }
 
+            if (item->Children_List.size() > 0) {
+                if (item->Children_List[0]->Mesh != nullptr) {
+                    ImGui::Checkbox("Draw Spatial Area", &item->Children_List[0]->Mesh->is_Drawn);
+                }
+            }
+
         }
     }
 
