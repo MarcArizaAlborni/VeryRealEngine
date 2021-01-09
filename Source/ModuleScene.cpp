@@ -462,6 +462,27 @@ void ModuleScene::RotateMusics()
 	Component_Source* temp2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
 
 
+	//if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 25) {
+	//	if (PlayingMus1) {
+	//		temp->WiseItem->volume = temp->WiseItem->volume / 2;
+	//		temp->WiseItem->SetVolume(temp->id, temp->WiseItem->volume);
+	//	}
+	//	else {
+	//		temp2->WiseItem->volume = temp2->WiseItem->volume / 2;
+	//	}
+	//}
+	//if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 28) {
+	//	if (PlayingMus1) {
+	//		temp->WiseItem->volume = temp->WiseItem->volume / 2;
+	//		temp->WiseItem->SetVolume(temp->id, temp->WiseItem->volume);
+	//	}
+	//	else {
+	//		temp2->WiseItem->volume = temp2->WiseItem->volume / 2;
+	//	}
+	//}
+	
+	
+
 	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 30) {
 		SwapMusic = true;
 	}
