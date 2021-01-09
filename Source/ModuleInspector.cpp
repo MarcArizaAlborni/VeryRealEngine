@@ -553,12 +553,11 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     {
         if (ImGui::CollapsingHeader("Audio Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
 
-            if (SourceInfo->isPaused != true)
+            if (SourceInfo->isPaused != true && SourceInfo->isPlaying != true)
             {
                 if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }) /*&& SourceInfo->isStopped == true*/)
                 {
                     //Play button
-
 
                     if (SourceInfo->isPlaying != true)
                     {
@@ -566,35 +565,43 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                         SourceInfo->WiseItem->PlayEvent(SourceInfo->id);
                         SourceInfo->isStopped = false;
                         SourceInfo->isModified = true;
+                        SourceInfo->isPaused = false;
                     }
-
 
                 }
 
                 ImGui::SameLine();
             }
 
+            if (SourceInfo->isPaused == true && SourceInfo->isStopped==false) {
+                if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawResumeIcon.texture_id, { 25,25 }) /*&& SourceInfo->isStopped == false*/)
+                {
+                    //Resume Button
 
-            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawResumeIcon.texture_id, { 25,25 }) /*&& SourceInfo->isStopped == false*/)
-            {
-                //Resume Button
-                SourceInfo->WiseItem->ResumeEvent(SourceInfo->id);
-                SourceInfo->isModified = true;
+                    SourceInfo->WiseItem->ResumeEvent(SourceInfo->id);
+                    SourceInfo->isModified = true;
+                    SourceInfo->isPaused = false;
+                }
+                ImGui::SameLine();
             }
 
-            ImGui::SameLine();
+           
+            if (SourceInfo->isStopped == false && SourceInfo->isPaused==false) {
+                if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPauseIcon.texture_id, { 25,25 }))
+                {
+                    //Pause Button
+                    if (SourceInfo->isPaused != true) {
+                        SourceInfo->WiseItem->PauseEvent(SourceInfo->id);
 
-            if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPauseIcon.texture_id, { 25,25 }))
-            {
-                //Pause Button
-                SourceInfo->WiseItem->PauseEvent(SourceInfo->id);
+                        SourceInfo->isPaused = true;
+                        SourceInfo->isModified = true;
+                    }
 
-                SourceInfo->isPaused = true;
-                SourceInfo->isModified = true;
-
+                }
+                ImGui::SameLine();
             }
 
-            ImGui::SameLine();
+           
            
             if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawStopIcon.texture_id, { 25,25 }))
             {
