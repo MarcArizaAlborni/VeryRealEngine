@@ -324,24 +324,13 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
             if (Object->isAudioDistanceObject) {
                 ComponentMeshesChild->UpdateOnTransformOBB(); //memory leak here
 
-
-
-
             }
         }
-
-
-
-
-
 
         UpdateSpatialObjectsInfoChilds(Object);
 
         ++It;
     }
-
-
-
 
 }
 
@@ -436,9 +425,6 @@ void ModuleAudio::Reverb_Audio()
         AK::SoundEngine::SetRTPCValue("Fish_Position", val_fish, DynamicSourceReverb->WiseItem->GetID());
     }
 
-
-    //
-
     //Component_Mesh* Penguin = (Component_Mesh*)App->scene->Static_Source->GetComponent(Component_Types::Mesh);
     //
     //Component_Transform* Penguin_Trans = (Component_Transform*)App->scene->Static_Source->GetComponent(Component_Types::Transform);
@@ -468,23 +454,50 @@ void ModuleAudio::Speaker_Panning_Audio()
     float3 CameraRotation=Camera_Transform->Rotation.ToEulerXYZ();
     
     vec CameraPosition = { App->camera->scene_camera->Position.x,App->camera->scene_camera->Position.y, App->camera->scene_camera->Position.z };
+    
+
+    //Angel lo confirma
+
+    vec3 Matrix = App->camera->scene_camera->Z;
+  
+    vec CameraVector = { Matrix.x, Matrix.y,Matrix.z };
+
+  
+    
+  vec TargetVector =  Penguin_Mesh->global_OBB.CenterPoint();
+
+  vec DistanceVector = { TargetVector.x - CameraPosition.x,TargetVector.y - CameraPosition.y,TargetVector.z - CameraPosition.z };
+
+  //(CameraVector.Abs()) * TargetVector.Abs());
+
+
+ float AngleAdq= CameraVector.AngleBetween(TargetVector);
+
+
+
+
+
+
+ float AngleDeg=RadToDeg(AngleAdq);
+ 
+// float NewAngle = Acos((CameraVector.Dot(TargetVector) / (CameraVector.Abs() * TargetVector.Abs())));
+
+  float Distance1 = TargetVector.x * TargetVector.x  + TargetVector.z * TargetVector.z;
+
+  float Distance2 = CameraPosition.x * CameraPosition.x  + CameraPosition.z * CameraPosition.z;
+
+  float Distance3= TargetVector.x * CameraPosition.x +  TargetVector.z * CameraPosition.z;
 
     CameraRotation.x;
     CameraRotation.y;
     CameraRotation.z;
 
-    vec CornerPosition = { 0,0,0 };
-    App->camera->scene_camera->X;
-    App->camera->scene_camera->Y;
-    App->camera->scene_camera->Z;
+    
+  
+  float Result_Angle = Acos(Distance3 / Sqrt(Distance1 * Distance2));
+  float AngleDegG = RadToDeg(Result_Angle); //This one is the correct angle
 
-    for (int i = 0; i < 8; ++i) {
 
-        vec CornerValue = Penguin_Mesh->global_OBB.CornerPoint(i);
-
-        Sqrt((CornerValue.x - CameraPosition.x, Pow((CornerValue.y - CameraPosition.y),2), Pow((CornerValue.z - CameraPosition.z),2)));
-
-    }
    
     float3 Peng_Position = Penguin_Transform->Translation;
    
@@ -492,21 +505,18 @@ void ModuleAudio::Speaker_Panning_Audio()
 
     if (Peng_Position.z < CameraPosition.z) { 
 
-        if (Peng_Position.x < CameraPosition.x) {
+        if (AngleDegG <= 80) {
 
-        }
-        else if (Peng_Position.x < CameraPosition.x) {
-
+            AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 0, StaticSourcePanning->WiseItem->GetID());
         }
         else {
-
+            AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
         }
-        AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 0, StaticSourcePanning->WiseItem->GetID());
 
     }
     else  if (Peng_Position.z > CameraPosition.z) {
 
-        AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
+        //AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
 
     }
     else {
