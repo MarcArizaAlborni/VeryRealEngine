@@ -80,18 +80,20 @@ update_status ModuleCamera3D::Update(float dt)
 		
 
 		// Wheel Zoom
-		if (App->input->GetMouseZ() != 0)
-		{
-			vec3 Distance = scene_camera->Position - scene_camera->Reference;
-			vec3 newPos = { 0,0,0 };
-
-			if (App->input->GetMouseZ() > 0 || App->input->GetMouseZ() < 0)
+		if (ImGui::IsAnyItemFocused() == false && ImGui::IsAnyWindowFocused()==false) {
+			if (App->input->GetMouseZ() != 0)
 			{
-				newPos -= scene_camera->Z * App->input->GetMouseZ() * length(Distance) / (1 / scene_camera->zoomValue * 4);
+				vec3 Distance = scene_camera->Position - scene_camera->Reference;
+				vec3 newPos = { 0,0,0 };
+
+				if (App->input->GetMouseZ() > 0 || App->input->GetMouseZ() < 0)
+				{
+					newPos -= scene_camera->Z * App->input->GetMouseZ() * length(Distance) / (1 / scene_camera->zoomValue * 4);
+					scene_camera->Position += newPos;
+				}
+
 				scene_camera->Position += newPos;
 			}
-
-			scene_camera->Position += newPos;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || reset_camera == true)
