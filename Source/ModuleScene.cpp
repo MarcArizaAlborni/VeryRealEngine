@@ -504,6 +504,9 @@ void ModuleScene::RotateMusics()
 		if (PlayingMus1) {
 
 			temp2->WiseItem->volume = temp2->WiseItem->StoredVolume; //We reset volume for music 2
+			temp2->WiseItem->SetVolume(temp2->id, temp2->WiseItem->volume);
+
+
 
 			BlendStarted = false;
 			temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
@@ -529,6 +532,9 @@ void ModuleScene::RotateMusics()
 			BlendStarted = false;
 
 			temp->WiseItem->volume = temp->WiseItem->StoredVolume; //We reset volume for music 1
+			temp->WiseItem->SetVolume(temp->id, temp->WiseItem->volume);
+
+
 
 			temp2->WiseItem->PauseEvent(AK::EVENTS::SECOND30);
 			PlayingMus1 = true;

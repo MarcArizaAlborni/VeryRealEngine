@@ -713,23 +713,27 @@ void ModuleEditor::CreateBar_Play()
 		ImGui::SameLine();
 
 		
-		if (ALL_SOURCES_PLAYING == false) {
-
-			if (ImGui::Button("Resume All Audios", { 150,20 })) {
-
-				ALL_SOURCES_PLAYING = true;
-
-				AK::SoundEngine::WakeupFromSuspend();
-
-			}
-		}
-		else {
-			if (ImGui::Button("Pause All Audios", { 150,20 })) {
-
-				ALL_SOURCES_PLAYING = false;
-				AK::SoundEngine::Suspend();
-			}
-		}
+		//if (ALL_SOURCES_PLAYING == false) {
+		//
+		//	if (ImGui::Button("Resume All Audios", { 150,20 })) {
+		//
+		//		ALL_SOURCES_PLAYING = true;
+		//
+		//		AK::SoundEngine::WakeupFromSuspend();
+		//
+		//	}
+		//}
+		//else {
+		//	if (ImGui::Button("Pause All Audios", { 150,20 })) {
+		//
+		//
+		//
+		//
+		//
+		//		ALL_SOURCES_PLAYING = false;
+		//		AK::SoundEngine::Suspend();
+		//	}
+		//}
 
 		ImGui::End();
 
