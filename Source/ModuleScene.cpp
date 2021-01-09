@@ -461,94 +461,99 @@ void ModuleScene::RotateMusics()
 	Component_Source* temp = (Component_Source*)background_music->GetComponent(Component_Types::Source);
 	Component_Source* temp2 = (Component_Source*)background_music_2->GetComponent(Component_Types::Source);
 
-	if (temp->WiseItem->volume < 0) {
-		temp->WiseItem->volume = 0;
-	}
-
-	if (temp2->WiseItem->volume < 0) {
-		temp2->WiseItem->volume = 0;
-	}
-
-	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + time_change_music-0.5) {
-		if (PlayingMus1) {
-			if (BlendStarted == false) {
-				temp->WiseItem->StoredVolume = temp->WiseItem->volume;
-				BlendStarted = true;
-			}
-			temp->WiseItem->volume = temp->WiseItem->volume - 0.01;
-			temp->WiseItem->SetVolume(temp->id, temp->WiseItem->volume);
+	if (temp != nullptr && temp2 != nullptr) {
+		if (temp->WiseItem->volume < 0) {
+			temp->WiseItem->volume = 0;
 		}
-		else {
-			if (BlendStarted == false) {
-				temp2->WiseItem->StoredVolume = temp2->WiseItem->volume;
-				BlendStarted = true;
-			}
-			temp2->WiseItem->volume = temp2->WiseItem->volume - 0.01;
-			temp2->WiseItem->SetVolume(temp2->id, temp2->WiseItem->volume);
+
+		if (temp2->WiseItem->volume < 0) {
+			temp2->WiseItem->volume = 0;
 		}
-	}
 
-	
-	
-
-	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + time_change_music) {
-		SwapMusic = true;
-		
-	}
-
-
-	if (SwapMusic == true) {
-
-		MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
-
-		if (PlayingMus1) {
-
-			temp2->WiseItem->volume = temp2->WiseItem->StoredVolume; //We reset volume for music 2
-			temp2->WiseItem->SetVolume(temp2->id, temp2->WiseItem->volume);
-
-
-
-			BlendStarted = false;
-			temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
-
-			PlayingMus1 = false;
-			PlayingMus2 = true;
-
-			if (StartMusic2) {
-				StartMusic2 = false;
-				temp2->WiseItem->PlayEvent(AK::EVENTS::SECOND30);
-				MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
+		if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + time_change_music - 0.5) {
+			if (PlayingMus1) {
+				if (BlendStarted == false) {
+					temp->WiseItem->StoredVolume = temp->WiseItem->volume;
+					BlendStarted = true;
+				}
+				temp->WiseItem->volume = temp->WiseItem->volume - 0.01;
+				temp->WiseItem->SetVolume(temp->id, temp->WiseItem->volume);
 			}
 			else {
-				temp2->WiseItem->ResumeEvent(AK::EVENTS::SECOND30);
-				MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
+				if (BlendStarted == false) {
+					temp2->WiseItem->StoredVolume = temp2->WiseItem->volume;
+					BlendStarted = true;
+				}
+				temp2->WiseItem->volume = temp2->WiseItem->volume - 0.01;
+				temp2->WiseItem->SetVolume(temp2->id, temp2->WiseItem->volume);
 			}
+		}
 
 
+
+
+		if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + time_change_music) {
+			SwapMusic = true;
 
 		}
-		else if (PlayingMus2) {
-
-			BlendStarted = false;
-
-			temp->WiseItem->volume = temp->WiseItem->StoredVolume; //We reset volume for music 1
-			temp->WiseItem->SetVolume(temp->id, temp->WiseItem->volume);
 
 
-
-			temp2->WiseItem->PauseEvent(AK::EVENTS::SECOND30);
-			PlayingMus1 = true;
-			PlayingMus2 = false;
-
-			temp->WiseItem->ResumeEvent(AK::EVENTS::FIRST30);
+		if (SwapMusic == true) {
 
 			MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
 
+			if (PlayingMus1) {
+
+				temp2->WiseItem->volume = temp2->WiseItem->StoredVolume; //We reset volume for music 2
+				temp2->WiseItem->SetVolume(temp2->id, temp2->WiseItem->volume);
+
+
+
+				BlendStarted = false;
+				temp->WiseItem->PauseEvent(AK::EVENTS::FIRST30);
+
+				PlayingMus1 = false;
+				PlayingMus2 = true;
+
+				if (StartMusic2) {
+					StartMusic2 = false;
+					temp2->WiseItem->PlayEvent(AK::EVENTS::SECOND30);
+					MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
+				}
+				else {
+					temp2->WiseItem->ResumeEvent(AK::EVENTS::SECOND30);
+					MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
+				}
+
+
+
+			}
+			else if (PlayingMus2) {
+
+				BlendStarted = false;
+
+				temp->WiseItem->volume = temp->WiseItem->StoredVolume; //We reset volume for music 1
+				temp->WiseItem->SetVolume(temp->id, temp->WiseItem->volume);
+
+
+
+				temp2->WiseItem->PauseEvent(AK::EVENTS::SECOND30);
+				PlayingMus1 = true;
+				PlayingMus2 = false;
+
+				temp->WiseItem->ResumeEvent(AK::EVENTS::FIRST30);
+
+				MusicPlaylistTime = MusicPlaylistTimer.ReadSec();
+
+			}
+
+			SwapMusic = false;
+
+
 		}
-
-		SwapMusic = false;
-
-
+	}
+	else if (temp2 != nullptr) {
+		temp2->WiseItem->PlayEvent(AK::EVENTS::SECOND30);
 	}
 }
 
