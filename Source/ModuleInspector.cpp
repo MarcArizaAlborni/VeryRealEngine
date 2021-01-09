@@ -692,48 +692,6 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
         
     }
 
-
-    if (ImGui::CollapsingHeader("Add Source Component", ImGuiTreeNodeFlags_DefaultOpen)) {
-  
-        const char* items[] = { "Shark", "Penguin", "Doom", "Thomas"};
-        
-        if (ImGui::BeginCombo("Type of Audio File", SelectedComboItem)) {
-
-            for (int n = 0; n < IM_ARRAYSIZE(items); n++) {
-
-                bool is_selected = (SelectedComboItem == items[n]); // You can store your selection however you want, outside or inside your objects
-
-                if (ImGui::Selectable(items[n], is_selected)) {
-                    SelectedComboItem = items[n];
-                }
-
-                if (is_selected) {
-
-                    ImGui::SetItemDefaultFocus();
-                } 
-            }
-
-            ImGui::EndCombo();
-           
-        }
-
-        ImGui::Checkbox("Is spatial Object?", &isSpatial);
-
-        ImGui::Button("Add Source Component");
-     
-    }
-
-    if (ImGui::CollapsingHeader("Add Listener Component", ImGuiTreeNodeFlags_DefaultOpen)) {
-
-
-
-
-
-
-
-
-    }
-
 }
 
 
