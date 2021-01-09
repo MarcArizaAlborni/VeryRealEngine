@@ -635,6 +635,8 @@ void ModuleEditor::CreateBar_Play()
 			App->scene->SaveScene();
 			play_mode = true;
 			editor_mode = false;
+
+			AK::SoundEngine::WakeupFromSuspend();
 			
 		}
 		if (play_mode == true)
@@ -646,7 +648,7 @@ void ModuleEditor::CreateBar_Play()
 				play_mode = false;
 				editor_mode = true;
 				//Reset Pos func
-				
+				AK::SoundEngine::Suspend();
 			}
 		}
 		
@@ -657,6 +659,7 @@ void ModuleEditor::CreateBar_Play()
 			pause_mode = true;
 			play_mode = false;
 			editor_mode = false;
+			AK::SoundEngine::Suspend();
 		}
 		if (pause_mode == true)
 		{
@@ -667,6 +670,7 @@ void ModuleEditor::CreateBar_Play()
 				pause_mode = false;
 				editor_mode = false;
 				play_mode = true;
+				AK::SoundEngine::WakeupFromSuspend();
 			}
 		}
 
