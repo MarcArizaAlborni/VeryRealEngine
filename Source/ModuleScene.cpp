@@ -469,7 +469,7 @@ void ModuleScene::RotateMusics()
 		temp2->WiseItem->volume = 0;
 	}
 
-	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 29.5) {
+	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + time_change_music-0.5) {
 		if (PlayingMus1) {
 			if (BlendStarted == false) {
 				temp->WiseItem->StoredVolume = temp->WiseItem->volume;
@@ -491,7 +491,7 @@ void ModuleScene::RotateMusics()
 	
 	
 
-	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + 30) {
+	if (MusicPlaylistTimer.ReadSec() > MusicPlaylistTime + time_change_music) {
 		SwapMusic = true;
 		
 	}

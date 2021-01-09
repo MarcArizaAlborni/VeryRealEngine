@@ -53,6 +53,8 @@ public:
 	void RemoveSelectedItem(Game_Object* Object);
 
 	int Game_Objects_IdGen = 0;
+
+	int time_change_music = 30;
 	
 public:
 	Game_Object* LookForSelectedChild(Game_Object* obj);

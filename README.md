@@ -146,7 +146,8 @@ Camera Movement:
 
 ### Audio Subsytem
 
-- A loop between two songs starts when the engine executes. The time between the change is 30 seconds. If you pause one fo those songs, they will resume once It's their time to play. Anyway, if you STOP them, they won't play during the lopp anymore until you manually play It on the inspector.     
+- A loop between two songs starts when you press the play on the UpBar. The time between the change is 30 seconds. If you pause one of those songs, they will resume once It's their time to play. Anyway, if you STOP them, they won't play during the lopp anymore until you manually play It on the inspector.     
+- In the inspector, there is a slider where you can change the transition time between the two songs.
 - The camera has a component listener on It.  
 - In each Game Object with and audio source you can Play/Stop/Pause/Resume the audio as your convinience. You can also modify the volume of each source. 
 
