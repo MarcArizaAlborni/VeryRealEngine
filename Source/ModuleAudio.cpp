@@ -539,14 +539,10 @@ void ModuleAudio::Speaker_Panning_Audio()
     vec CenterPointFish = Fish_Mesh->global_AABB.CenterPoint();
 
     if (DynamicSourcePanning->HasPanning == true) {
+
         if (Fish_Position.z - 5 > CameraPosition.z) {
 
-
-
             AK::SoundEngine::SetRTPCValue("Fish_Panning_Sides", 0, DynamicSourcePanning->WiseItem->GetID());
-
-
-
 
         }
         else if (Fish_Position.z + 5 < CameraPosition.z) {

@@ -385,6 +385,7 @@ void ModuleScene::LoadDynamicSoundSource()
 
 	Component_Source* DynamicSource = (Component_Source*)Dynamic_Source->GetComponent(Component_Types::Source);
 
+	DynamicSource->IsDynamic = true;
 
 	Component_Transform* TransformSpatialMesh = (Component_Transform*)Dynamic_Source->Children_List[0]->GetComponent(Component_Types::Transform);
 	TransformSpatialMesh->Scale = { 4,4,2 };
@@ -621,53 +622,55 @@ void ModuleScene::DynamicSourceMovement()
 
 	Component_Transform* TransformStatic=(Component_Transform*)Dynamic_Source->GetComponent(Component_Types::Transform);
 
+	Component_Source* SourceCMP = (Component_Source*)Dynamic_Source->GetComponent(Component_Types::Source);
 	
-	
+	if (SourceCMP->IsDynamic) {
 
-	if (In_Pos1 == false) {
-		TransformStatic->Translation=MoveDynamicSourceTo(PositionSq1, TransformStatic->Translation);
-		
-		TransformStatic->EulerRot = { -90, 90, 0 };
-		Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
-		TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
+		if (In_Pos1 == false) {
+			TransformStatic->Translation = MoveDynamicSourceTo(PositionSq1, TransformStatic->Translation);
 
-		//WORKING
+			TransformStatic->EulerRot = { -90, 90, 0 };
+			Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
+			TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
 
+			//WORKING
+
+		}
+		else if (In_Pos2 == false) {
+
+			TransformStatic->Translation = MoveDynamicSourceTo(PositionSq2, TransformStatic->Translation);
+
+			//TransformStatic->EulerRot = { 0,0,0 };
+			Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
+			TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
+
+
+		}
+		else if (In_Pos3 == false) {
+			TransformStatic->Translation = MoveDynamicSourceTo(PositionSq3, TransformStatic->Translation);
+
+
+			TransformStatic->EulerRot = { 90, -90, 0 };
+			Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
+			TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
+
+			//WORKING
+		}
+		else if (In_Pos4 == false) {
+			TransformStatic->Translation = MoveDynamicSourceTo(PositionSq4, TransformStatic->Translation);
+
+			//TransformStatic->EulerRot = { 0,0,0 };
+			Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
+			TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
+
+		}
+
+		TransformStatic->UpdateTransformationsObjects(TransformStatic->Translation, TransformStatic->Scale, TransformStatic->Rotation);
+
+		Component_Mesh* MeshDynamic = (Component_Mesh*)Dynamic_Source->GetComponent(Component_Types::Mesh);
+
+		MeshDynamic->UpdateOnTransformOBB();
 	}
-	else if (In_Pos2 == false) {
-
-		TransformStatic->Translation= MoveDynamicSourceTo(PositionSq2, TransformStatic->Translation);
-
-		//TransformStatic->EulerRot = { 0,0,0 };
-		Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
-		TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
-
-
-	}
-	else if (In_Pos3 == false) {
-		TransformStatic->Translation= MoveDynamicSourceTo(PositionSq3, TransformStatic->Translation);
-
-
-		TransformStatic->EulerRot = { 90, -90, 0 };
-		Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
-		TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
-
-		//WORKING
-	}
-	else if (In_Pos4 == false) {
-		TransformStatic->Translation= MoveDynamicSourceTo(PositionSq4, TransformStatic->Translation);
-
-		//TransformStatic->EulerRot = { 0,0,0 };
-		Quat NewRot = Quat::FromEulerXYZ(TransformStatic->EulerRot.x, TransformStatic->EulerRot.y, TransformStatic->EulerRot.z);
-		TransformStatic->SetEulerRotation(TransformStatic->EulerRot);
-
-	}
-
-	TransformStatic->UpdateTransformationsObjects(TransformStatic->Translation, TransformStatic->Scale, TransformStatic->Rotation);
-
-	Component_Mesh* MeshDynamic = (Component_Mesh*)Dynamic_Source->GetComponent(Component_Types::Mesh);
-
-	MeshDynamic->UpdateOnTransformOBB();
 
 }
 

@@ -618,7 +618,12 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             }
 
             if (SourceInfo->isSpatialDependant) {
-                ImGui::Checkbox("Use Panning", &SourceInfo->HasPanning);
+                ImGui::Checkbox("Use 3D Panning", &SourceInfo->HasPanning);
+            }
+
+            if (item == App->scene->Dynamic_Source) {
+
+                ImGui::Checkbox("Movement", &SourceInfo->IsDynamic);
             }
             
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawMuteIcon.texture_id, { 20,20 });
