@@ -501,26 +501,30 @@ void ModuleAudio::Speaker_Panning_Audio()
 
    // Component_Transform* Penguin_ChildrenTransform = (Component_Transform*)App->scene->Static_Source->Children_List[0]->GetComponent(Component_Types::Transform);
   
-    
-    if (Peng_Position.z -5 > CameraPosition.z) { //Right
+    if (StaticSourcePanning->HasPanning == true) {
+        if (Peng_Position.z - 5 > CameraPosition.z) { //Right
 
-       
 
-        AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 0, StaticSourcePanning->WiseItem->GetID());
-       
-           
-        
 
+            AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 0, StaticSourcePanning->WiseItem->GetID());
+
+
+
+
+        }
+        else if (Peng_Position.z + 5 < CameraPosition.z) { //Left
+
+            AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
+
+        }
+        else { //Center
+
+            AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 1, StaticSourcePanning->WiseItem->GetID());
+
+        }
     }
-    else if (Peng_Position.z+5 < CameraPosition.z) { //Left
-
-        AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
-
-    }
-    else { //Center
-
+    else {
         AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 1, StaticSourcePanning->WiseItem->GetID());
-
     }
 
 
@@ -534,25 +538,30 @@ void ModuleAudio::Speaker_Panning_Audio()
 
     vec CenterPointFish = Fish_Mesh->global_AABB.CenterPoint();
 
-    if (Fish_Position.z > CameraPosition.z) {
+    if (DynamicSourcePanning->HasPanning == true) {
+        if (Fish_Position.z - 5 > CameraPosition.z) {
 
 
 
-        AK::SoundEngine::SetRTPCValue("Fish_Panning_Sides", 0, DynamicSourcePanning->WiseItem->GetID());
+            AK::SoundEngine::SetRTPCValue("Fish_Panning_Sides", 0, DynamicSourcePanning->WiseItem->GetID());
 
 
 
 
-    }
-    else if (Fish_Position.z < CameraPosition.z) {
+        }
+        else if (Fish_Position.z + 5 < CameraPosition.z) {
 
-        AK::SoundEngine::SetRTPCValue("Fish_Panning_Sides", 2, DynamicSourcePanning->WiseItem->GetID());
+            AK::SoundEngine::SetRTPCValue("Fish_Panning_Sides", 2, DynamicSourcePanning->WiseItem->GetID());
 
+        }
+        else {
+
+            AK::SoundEngine::SetRTPCValue("Fish_Panning_Sides", 1, DynamicSourcePanning->WiseItem->GetID());
+
+        }
     }
     else {
-
         AK::SoundEngine::SetRTPCValue("Fish_Panning_Sides", 1, DynamicSourcePanning->WiseItem->GetID());
-
     }
 
 

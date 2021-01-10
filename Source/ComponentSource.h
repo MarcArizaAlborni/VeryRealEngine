@@ -26,6 +26,7 @@ public:
 	bool isPlaying = false;
 	bool isStopped = false;
 	bool isModified = false;
+	bool HasPanning = true;
 
 	bool isMuted = false;
 	

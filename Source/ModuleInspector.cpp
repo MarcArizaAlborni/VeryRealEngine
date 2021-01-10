@@ -616,10 +616,15 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     SourceInfo->isModified = true;
                 }
             }
+
+            if (SourceInfo->isSpatialDependant) {
+                ImGui::Checkbox("Use Panning", &SourceInfo->HasPanning);
+            }
             
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawMuteIcon.texture_id, { 20,20 });
             ImGui::SameLine();
             if (SourceInfo->isSpatialDependant) {
+               
                 if (ImGui::SliderFloat("Volume", &SourceInfo->WiseItem->UserVolume, 0, 2))
                 {
                     SourceInfo->WiseItem->SetVolume(SourceInfo->id, SourceInfo->WiseItem->UserVolume);
