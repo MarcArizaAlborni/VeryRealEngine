@@ -629,15 +629,17 @@ void ModuleEditor::CreateBar_Play()
 		ImGui::SetWindowFontScale(1.0);
 		ImGui::SameLine();
 
-		if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }))
-		{
-			Game_Time::Start();
-			App->scene->SaveScene();
-			play_mode = true;
-			editor_mode = false;
+		if (play_mode == false) {
+			if (ImGui::ImageButton((void*)(intptr_t)App->textureImporter->DrawPlayIcon.texture_id, { 25,25 }))
+			{
+				Game_Time::Start();
+				App->scene->SaveScene();
+				play_mode = true;
+				editor_mode = false;
 
-			AK::SoundEngine::WakeupFromSuspend();
-			
+				AK::SoundEngine::WakeupFromSuspend();
+
+			}
 		}
 		if (play_mode == true)
 		{

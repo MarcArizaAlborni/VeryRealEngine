@@ -77,8 +77,6 @@ Component_Source::Component_Source(Game_Object* ComponentOwner, bool is_Spatial)
 
 		float3 Position;
 
-
-
 		Position = Trans_Cmp->GetPosition();
 
 		WiseItem = WiseItem->CreateAudioSource(owner->item_id, owner->name.c_str(), Position);
