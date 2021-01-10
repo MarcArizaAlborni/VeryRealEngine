@@ -107,6 +107,7 @@ public:
 public:
 	float volume = 1.0f;
 	float StoredVolume = volume;
+	float UserVolume = StoredVolume;
 	bool isOutofRange = false;
 	vec CenterPosition;
 
