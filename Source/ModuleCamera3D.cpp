@@ -239,15 +239,43 @@ update_status ModuleCamera3D::Update(float dt)
 		scene_camera->CalculateViewMatrix();
 	}
 
-	if ((App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) || App->hierarchy->ITEM_TO_BE_DELETED==true) {
-		std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
-		for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i) {
+	if ((App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN) || App->hierarchy->ITEM_TO_BE_DELETED == true) {
+		if (App->scene->ObjectToBeDeleted != nullptr) {
+			Component_Source* SRCCmp = (Component_Source*)App->scene->ObjectToBeDeleted->GetComponent(Component_Types::Source);
+			std::vector<Game_Object*>::iterator IterSrc = App->scene->ObjectToBeDeleted->Children_List.begin();
 
-			Game_Object* Obj = *It;
+			for (int i = 0; i < App->scene->ObjectToBeDeleted->Children_List.size(); ++i) {
 
-			App->scene->RemoveSelectedItem(Obj);
+				Game_Object* Obj = *IterSrc;
 
-			++It;
+				Component_Source* SRCCmpo = (Component_Source*)Obj->GetComponent(Component_Types::Source);
+
+				if (SRCCmpo != nullptr) {
+
+					App->scene->ObjectToBeDeleted = nullptr;
+					break;
+				}
+
+				++IterSrc;
+
+			}
+
+			if (SRCCmp == nullptr) {
+
+
+				std::vector<Game_Object*>::iterator It = App->geometrymanager->ObjectsOnScene.begin();
+				for (int i = 0; i < App->geometrymanager->ObjectsOnScene.size(); ++i) {
+
+					Game_Object* Obj = *It;
+
+					App->scene->RemoveSelectedItem(Obj);
+
+					++It;
+				}
+			}
+			else {
+				App->scene->ObjectToBeDeleted = nullptr;
+			}
 		}
 	}
 
