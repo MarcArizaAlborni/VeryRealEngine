@@ -387,6 +387,8 @@ void ModuleScene::LoadDynamicSoundSource()
 
 	DynamicSource->IsDynamic = true;
 
+	DynamicSource->HasPanning = false;
+
 	Component_Transform* TransformSpatialMesh = (Component_Transform*)Dynamic_Source->Children_List[0]->GetComponent(Component_Types::Transform);
 	TransformSpatialMesh->Scale = { 4,4,2 };
 	TransformSpatialMesh->UpdateTransformationsObjects(TransformSpatialMesh->Translation, TransformSpatialMesh->Scale, TransformSpatialMesh->Rotation);

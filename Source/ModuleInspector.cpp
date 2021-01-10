@@ -657,11 +657,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                 }
             }
 
-            if (item->Children_List.size() > 0) {
-                if (item->Children_List[0]->Mesh != nullptr) {
-                    ImGui::Checkbox("Draw Spatial Area", &item->Children_List[0]->Mesh->is_Drawn);
-                }
-            }
+            
 
         }
     }
@@ -699,6 +695,11 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
             if (ImGui::CollapsingHeader("Spatial Audio Config", ImGuiTreeNodeFlags_DefaultOpen)) {
 
+              
+                   
+                        ImGui::Checkbox("Draw Spatial Area", &item->Children_List[0]->Mesh->is_Drawn);
+                    
+                
                 ImGui::Checkbox("Show Obb Spatial", &ComponentMeshesChild->show_obb);
 
                 if (ImGui::DragFloat3("Radius", { &ComponentTransformChild->Scale.x }, 2.0f, 0.0f)) {
