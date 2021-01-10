@@ -14,9 +14,6 @@
 #define MAX_VOLUME_AUDIO 2
 
 
-
-
-
 enum class AudioFiles{
 
 	SHARK,
@@ -127,7 +124,6 @@ private:
 	AkVector position = { 0,0,0 };
 	AkVector orientationFront = { 0,0,0 };
 	AkVector orientationTop = { 0,0,0 };
-
 
 };
 

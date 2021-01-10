@@ -33,8 +33,6 @@ Component_Camera::Component_Camera(Game_Object* obj) : Component(obj)
 
 	frustum_corners = new vec[8];
 
-
-	
 }
 
 // Frustum

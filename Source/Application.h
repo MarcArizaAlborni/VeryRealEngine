@@ -8,7 +8,6 @@
 #include "Timer.h"
 #include "Module.h"
 
-
 #include <list>
 
 #include "ModuleGeometryManager.h"
@@ -19,7 +18,6 @@
 #include "libraries/json/json.hpp"
 
 #include "JsonFiles.h"
-
 
 class ModuleWindow;
 class ModuleInput;
@@ -125,8 +123,6 @@ public:
 
 	int value;
 
-
-
 // json
 
 	JSONFiles* LoaderJson();
@@ -135,9 +131,7 @@ public:
 private:
 
 	std::string SaveFileName;
-
 };
-
 
 #endif
 

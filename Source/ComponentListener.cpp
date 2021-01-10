@@ -4,8 +4,6 @@
 #include "GameObject.h"
 #include "ComponentTransform.h"
 
-
-
 Component_Listener::Component_Listener(Game_Object* ComponentOwner) :Component(ComponentOwner)
 {
 	type = Component_Types::Listener;
@@ -30,4 +28,3 @@ void Component_Listener::Update()
 {
 
 }
-

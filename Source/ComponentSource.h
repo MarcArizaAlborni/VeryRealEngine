@@ -33,9 +33,6 @@ public:
 
 	bool isDistanceDependant = true;
 
-	
-	
-
 };
 
 #endif __C_AudioSource__H__

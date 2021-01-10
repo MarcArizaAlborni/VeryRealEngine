@@ -58,9 +58,6 @@ public:
 	std::string CurrentlyDetectedMETA = "";
 	std::vector<int> StoreMetaIDs_List; //List used to write in meta file
 	std::vector<int> LoadMetaIDs_List; // List used to read from meta file
-
-
-
 };
 
 #endif  

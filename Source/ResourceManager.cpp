@@ -1149,11 +1149,4 @@ void ResourceManager::ClearResourceList(Resource* Parent)
 		delete Item;
 		++It;
 	}
-
-	
-	
 }
-
-
-
-

@@ -16,7 +16,6 @@
 
 #pragma comment (lib, "libraries/Assimp/Assimp/libx86/assimp.lib")
 
-
 Component_Mesh::Component_Mesh(Game_Object* ComponentOwner) :Component(ComponentOwner)
 {
 	Mesh = nullptr;

@@ -246,11 +246,9 @@ void ModuleAudio::SetUpWwise()
 
 void ModuleAudio::UpdateSpatialObjectsInfo()
 {
-    
-
-        UpdateSpatialObjectsInfoChilds(App->scene->ROOT_SCENE_OBJECT);
-
-        
+ 
+   UpdateSpatialObjectsInfoChilds(App->scene->ROOT_SCENE_OBJECT);
+   
 }
 
 void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
@@ -472,10 +470,6 @@ void ModuleAudio::Speaker_Panning_Audio()
  float AngleAdq= CameraVector.AngleBetween(TargetVector);
 
 
-
-
-
-
  float AngleDeg=RadToDeg(AngleAdq);
  
 // float NewAngle = Acos((CameraVector.Dot(TargetVector) / (CameraVector.Abs() * TargetVector.Abs())));
@@ -525,7 +519,6 @@ void ModuleAudio::Speaker_Panning_Audio()
 
 
     //FISH
-
     Component_Transform* Fish_Transform = (Component_Transform*)App->scene->Dynamic_Source->GetComponent(Component_Types::Transform);
     Component_Mesh* Fish_Mesh = (Component_Mesh*)App->scene->Dynamic_Source->GetComponent(Component_Types::Mesh);
     Component_Source* DynamicSourcePanning = (Component_Source*)App->scene->Dynamic_Source->GetComponent(Component_Types::Source);
@@ -533,7 +526,6 @@ void ModuleAudio::Speaker_Panning_Audio()
     float3 Fish_Position = Fish_Transform->Translation;
 
     vec CenterPointFish = Fish_Mesh->global_AABB.CenterPoint();
-
 
     if (Fish_Position.z > CameraPosition.z) {
 
@@ -559,9 +551,8 @@ void ModuleAudio::Speaker_Panning_Audio()
 
 }
 
+
 //WWISE OBJECTS
-
-
 WwiseObjects::WwiseObjects(unsigned __int64 id, const char* name)
 {
     this->id = id;

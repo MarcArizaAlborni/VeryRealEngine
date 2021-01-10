@@ -44,7 +44,6 @@ bool ModuleTextureImporter::Start()
 }
 
 
-
 TextureInfo ModuleTextureImporter::LoadTextureImage(const char* path)
 {
 
@@ -130,8 +129,6 @@ TextureInfo ModuleTextureImporter::CreateTexturesNodeMap(NodeMap Node, const aiS
 	std::string file_name;
 	
 	aiMaterial* material = scene->mMaterials[Node.MaterialPositionArray];
-
-	
 
 	std::string texName;
 	std::string CompletePath;
@@ -316,7 +313,6 @@ void ModuleTextureImporter::ImportTexture()
 {
 	
 }
-
 
 
 void ModuleTextureImporter::freeTexture()
