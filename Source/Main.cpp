@@ -21,7 +21,6 @@ enum main_states
 
 };
 
-
 int main(int argc, char ** argv)
 {
 	

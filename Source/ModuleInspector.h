@@ -29,15 +29,8 @@ public:
 	void DrawInspectorWindowInfo();
 	void DrawObjectInfo(Game_Object* item, Component_Mesh* MeshInfo, Component_Texture* TextureInfo, Component_Transform* TransInfo, Component_Camera* CameraInfo, Component_Listener* ListenerInfo, Component_Source* SourceInfo);
 	bool LookForChildrenToBeDrawn(Game_Object* item);
-	//Inspector Window Bools
 
-	//bool ShowInspectorWindow;
 	float testoa;
-
-	//bool is_Stopped = false;
-
-
-	
 
 private:
 	void EqualizeSpatialObjScale(Game_Object* Object, Component_Transform* TransCMP);

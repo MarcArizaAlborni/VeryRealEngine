@@ -716,8 +716,3 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
     }
 
 }
-
-
-
-
-

@@ -43,16 +43,12 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	meshimporter = new ModuleMeshImporter(this);
 	resources = new ResourceManager(this);
 	
-
-
 	filemanager = new ModuleFileSystem(this);
-
 
 	geometrymanager = new ModuleGeometryManager(this);
 	renderer3D = new ModuleRenderer3D(this);
 	scene = new ModuleScene(this);
 
-	
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -75,7 +71,6 @@ Application::Application() : debug(false), renderPrimitives(true), dt(0.0f)
 	AddModule(renderer3D);
 	AddModule(geometrymanager);
 	AddModule(scene);
-	
 }
 
 Application::~Application()
@@ -131,9 +126,6 @@ void Application::PrepareUpdate()
 
 	dt = (float)frame_time.ReadSec();
 	frame_time.Start();
-
-
-
 }
 
 // ---------------------------------------------

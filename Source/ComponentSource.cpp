@@ -15,8 +15,6 @@ Component_Source::Component_Source(Game_Object* ComponentOwner) :Component(Compo
 
 	owner = ComponentOwner;
 
-
-
 	type = Component_Types::Source;
 
 	float3 Position;

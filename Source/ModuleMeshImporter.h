@@ -4,8 +4,6 @@
 #include "Module.h"
 #include "Globals.h"
 
-
-
 #include "libraries/MathGeoLib/include/MathGeoLib.h"
 
 
@@ -80,8 +78,6 @@ public:
 
 	vec3 LoadNodeInfo(const aiScene* scene, aiNode* rootNode);
 	
-
-
 private:
 	
 	float3 PositionValue;

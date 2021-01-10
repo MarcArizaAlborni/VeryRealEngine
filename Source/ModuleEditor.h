@@ -128,10 +128,6 @@ public:
 	bool drawsphere;
 
 	//Drag Drop
-
-	
-
-	
 	Game_Object* DragedItem=nullptr;
 
 	// CONFIG---------------------------------------------------------------------------------

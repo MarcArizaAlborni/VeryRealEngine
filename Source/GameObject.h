@@ -66,18 +66,11 @@ public:
 	bool isAudioDistanceObject=false; // if it appears in the hierarchy (for audio source distance objects) and if its the game object related to the mesh that sets the max distance 
 	//of the audio source
 
-
-	
-
 public:
 
 	void Update();
 	void CleanUp();
 };
-
-
-
-
 
 
 #endif
