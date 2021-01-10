@@ -385,6 +385,11 @@ void ModuleScene::LoadDynamicSoundSource()
 
 	Component_Source* DynamicSource = (Component_Source*)Dynamic_Source->GetComponent(Component_Types::Source);
 
+
+	Component_Transform* TransformSpatialMesh = (Component_Transform*)Dynamic_Source->Children_List[0]->GetComponent(Component_Types::Transform);
+	TransformSpatialMesh->Scale = { 4,4,2 };
+	TransformSpatialMesh->UpdateTransformationsObjects(TransformSpatialMesh->Translation, TransformSpatialMesh->Scale, TransformSpatialMesh->Rotation);
+
 	DynamicSource->SetID(AK::EVENTS::FISH_DYNAMIC);
 
 	DynamicSource->WiseItem->PlayEvent(AK::EVENTS::FISH_DYNAMIC);
@@ -556,8 +561,8 @@ void ModuleScene::RotateMusics()
 		}
 	}
 	else if (temp2 != nullptr) {
-		temp2->WiseItem->PlayEvent(AK::EVENTS::SECOND30);
-		temp2->isPlaying = true;
+		//temp2->WiseItem->PlayEvent(AK::EVENTS::SECOND30);
+		//temp2->isPlaying = true;
 	}
 }
 
