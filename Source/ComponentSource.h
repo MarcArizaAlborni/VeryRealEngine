@@ -29,6 +29,7 @@ public:
 	bool HasPanning = true;
 	bool IsDynamic = false;
 
+
 	bool isMuted = false;
 	
 	bool isSpatialDependant = false;
