@@ -697,7 +697,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
               
                    
-                        ImGui::Checkbox("Draw Spatial Area", &item->Children_List[0]->Mesh->is_Drawn);
+                ImGui::Checkbox("Draw Spatial Area", &item->Children_List[0]->Mesh->is_Drawn);
                     
                 
                 ImGui::Checkbox("Show Obb Spatial", &ComponentMeshesChild->show_obb);
