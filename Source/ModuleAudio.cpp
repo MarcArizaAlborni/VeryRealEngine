@@ -498,10 +498,17 @@ void ModuleAudio::Speaker_Panning_Audio()
 
    
     float3 Peng_Position = Penguin_Transform->Translation;
-   
-    vec CenterPointPeng = Penguin_Mesh->global_AABB.CenterPoint();
 
-    if (Peng_Position.z > CameraPosition.z) { 
+   vec CuarterSize =Penguin_Mesh->global_OBB.HalfSize();
+
+   
+
+    vec CenterPointPeng = Penguin_Mesh->global_OBB.CenterPoint();
+
+   // Component_Transform* Penguin_ChildrenTransform = (Component_Transform*)App->scene->Static_Source->Children_List[0]->GetComponent(Component_Types::Transform);
+  
+    
+    if (Peng_Position.z -5 > CameraPosition.z) { //Right
 
        
 
@@ -511,12 +518,12 @@ void ModuleAudio::Speaker_Panning_Audio()
         
 
     }
-    else if (Peng_Position.z < CameraPosition.z) {
+    else if (Peng_Position.z+5 < CameraPosition.z) { //Left
 
         AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
 
     }
-    else {
+    else { //Center
 
         AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 1, StaticSourcePanning->WiseItem->GetID());
 

@@ -691,7 +691,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
                 ImGui::Checkbox("Show Obb Spatial", &ComponentMeshesChild->show_obb);
 
-                if (ImGui::DragFloat3("Rad", { &ComponentTransformChild->Scale.x }, 2.0f, 0.0f)) {
+                if (ImGui::DragFloat3("Radius", { &ComponentTransformChild->Scale.x }, 2.0f, 0.0f)) {
 
                     if (ComponentTransformChild->Scale.x < 0.1)
                     {
