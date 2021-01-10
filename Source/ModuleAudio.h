@@ -109,6 +109,7 @@ public:
 	float StoredVolume = volume;
 	float UserVolume = StoredVolume;
 	bool isOutofRange = false;
+	float  SpatialAreaOffset = 5;
 	vec CenterPosition;
 
 	//Effects panel

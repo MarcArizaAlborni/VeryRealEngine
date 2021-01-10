@@ -502,9 +502,9 @@ void ModuleAudio::Speaker_Panning_Audio()
    // Component_Transform* Penguin_ChildrenTransform = (Component_Transform*)App->scene->Static_Source->Children_List[0]->GetComponent(Component_Types::Transform);
   
     if (StaticSourcePanning->HasPanning == true) {
-        if (Peng_Position.z - 5 > CameraPosition.z) { //Right
+        if (Peng_Position.z - StaticSourcePanning->WiseItem->SpatialAreaOffset > CameraPosition.z) { //Right
 
-
+            //SourceInfo->WiseItem->SpatialAreaOffset
 
             AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 0, StaticSourcePanning->WiseItem->GetID());
 
@@ -512,7 +512,7 @@ void ModuleAudio::Speaker_Panning_Audio()
 
 
         }
-        else if (Peng_Position.z + 5 < CameraPosition.z) { //Left
+        else if (Peng_Position.z + StaticSourcePanning->WiseItem->SpatialAreaOffset < CameraPosition.z) { //Left
 
             AK::SoundEngine::SetRTPCValue("Penguin_Panning_Sides", 2, StaticSourcePanning->WiseItem->GetID());
 
@@ -540,12 +540,12 @@ void ModuleAudio::Speaker_Panning_Audio()
 
     if (DynamicSourcePanning->HasPanning == true) {
 
-        if (Fish_Position.z - 5 > CameraPosition.z) {
+        if (Fish_Position.z - DynamicSourcePanning->WiseItem->SpatialAreaOffset > CameraPosition.z) {
 
             AK::SoundEngine::SetRTPCValue("Fish_Panning_Sides", 0, DynamicSourcePanning->WiseItem->GetID());
 
         }
-        else if (Fish_Position.z + 5 < CameraPosition.z) {
+        else if (Fish_Position.z + DynamicSourcePanning->WiseItem->SpatialAreaOffset < CameraPosition.z) {
 
             AK::SoundEngine::SetRTPCValue("Fish_Panning_Sides", 2, DynamicSourcePanning->WiseItem->GetID());
 

@@ -636,6 +636,9 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
 
                   
                 }
+
+               
+
             }
             else {
                 if (ImGui::SliderFloat("Volume", &SourceInfo->WiseItem->StoredVolume, 0, 2))
@@ -648,6 +651,8 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
            
             ImGui::SameLine();
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawFullVoIcon.texture_id, { 20,20 });
+
+           
 
             if (SourceInfo->isSpatialDependant == false)
             {
@@ -701,7 +706,7 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
                     
                 
                 ImGui::Checkbox("Show Obb Spatial", &ComponentMeshesChild->show_obb);
-
+                ImGui::DragFloat("Panning Center", &SourceInfo->WiseItem->SpatialAreaOffset, 0, 999);
                 if (ImGui::DragFloat3("Radius", { &ComponentTransformChild->Scale.x }, 2.0f, 0.0f)) {
 
                     if (ComponentTransformChild->Scale.x < 0.1)
