@@ -310,7 +310,7 @@ void ModuleAudio::UpdateSpatialObjectsInfoChilds(Game_Object* Parent)
 
                      Finalvolume =  CalculateVolumeDistance(CameraPos, SourceCmp->WiseItem->CenterPosition);
                     
-                     Finalvolume = (ComponentTransSpatialObj->Scale.x / Finalvolume) * SourceCmp->WiseItem->volume;
+                     Finalvolume = (ComponentTransSpatialObj->Scale.x / Finalvolume) * SourceCmp->WiseItem->UserVolume;
                     
                      SourceCmp->WiseItem->SetSpatialVolume(SourceCmp->id, Finalvolume);
 

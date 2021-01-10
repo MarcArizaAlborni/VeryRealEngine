@@ -619,11 +619,21 @@ void ModuleInspectorGameObject::DrawObjectInfo(Game_Object* item, Component_Mesh
             
             ImGui::Image((void*)(intptr_t)App->textureImporter->DrawMuteIcon.texture_id, { 20,20 });
             ImGui::SameLine();
-            if (ImGui::SliderFloat("Volume", &SourceInfo->WiseItem->StoredVolume, 0, 2))
-            {
-                SourceInfo->WiseItem->SetVolume(SourceInfo->id, SourceInfo->WiseItem->StoredVolume);
+            if (SourceInfo->isSpatialDependant) {
+                if (ImGui::SliderFloat("Volume", &SourceInfo->WiseItem->UserVolume, 0, 2))
+                {
+                    SourceInfo->WiseItem->SetVolume(SourceInfo->id, SourceInfo->WiseItem->UserVolume);
 
-                //SourceInfo->WiseItem->StoredVolume = SourceInfo->WiseItem->volume;
+                  
+                }
+            }
+            else {
+                if (ImGui::SliderFloat("Volume", &SourceInfo->WiseItem->StoredVolume, 0, 2))
+                {
+                    SourceInfo->WiseItem->SetVolume(SourceInfo->id, SourceInfo->WiseItem->StoredVolume);
+
+                    
+                }
             }
            
             ImGui::SameLine();
