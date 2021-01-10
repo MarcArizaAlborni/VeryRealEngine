@@ -13,7 +13,7 @@ in Barcelona. We made a 3D Game Engine in C & C++ during our 3rd year of Game De
    - Github: [MarcArizaAlborni](https://github.com/MarcArizaAlborni)
    - Linkedin [HERE](https://www.linkedin.com/in/marc-ariza-alborni-0b2b431a2/)
    
-![](https://raw.githubusercontent.com/MarcArizaAlborni/VeryRealEngine/main/Team_Picture.png)
+![](https://raw.githubusercontent.com/MarcArizaAlborni/VeryRealEngine/main/web%20source/Team_Picture.png)
 _On the left Gerard, on the right Marc_
  
 ### **_Tasks Completed_**
