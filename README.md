@@ -151,17 +151,18 @@ Camera Movement:
 - The camera has a component listener on It.  
 - In each Game Object with and audio source you can Play/Stop/Pause/Resume the audio as your convinience. You can also modify the volume of each source. 
 
-- The penguin is our static source and the fish our dynamic source. Both have spatial audios.
+- The penguin is our static source and the fish our dynamic source. Both have spatial audios. The dynamic source's movement can be disabled with a checkbox.
 
 - If an audio is spatial, more options will be displayed in the inspector. 
-- Each Game object has a Spatial OBB. Also a sphere is displayed in all spatial audios. That sphere represents the size of the are wjere the audio will be heared. Obviously you can change the whole size of it. 
+- Each Game object has a Spatial OBB. Also a sphere is displayed in all spatial audios. That sphere represents the size of the are where the audio will be heared. Obviously you can change the whole size of it as well as hide It. 
 - If you move the listener (camera) inside the spatial sphere, the audio will play and the volume will change depending on the position and the distance of the listener from the Game Object.
+- The spatial audios have a 3D panning option implemented. With this option activated, the source will change and the user will be able to hear from the right/left ear the audio. This option can also be desactivated/activated in a checkbox on the inspector.
 
-- The tunnel has a Reverb Effect. It detects when the fish is passing through and changes the audio parameter to a tunnel effect. When the fish leaves the tuneel, It automatically restores.
+- The tunnel has a Reverb Effect. It detects when the fish is passing through and changes the audio parameter to a tunnel effect. When the fish leaves the tunnel, It automatically restores.
 
 ### Innovation:
 
--  Texture Visualizer when a texture is dragged without a mesh being selected.
+- Texture Visualizer when a texture is dragged without a mesh being selected.
 
 - Hide the entire UI with a simple checkbox
 
