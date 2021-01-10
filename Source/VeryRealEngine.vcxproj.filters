@@ -1047,6 +1047,7 @@
     <ClInclude Include="ComponentListener.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -1186,5 +1187,12 @@
     <None Include="libraries\imGuizmo\README.md">
       <Filter>Source\External Libraries\ImGuizmo</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VeryRealEngine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\grome\Downloads\icon_engine.ico" />
+    <Image Include="..\Game\Assets\Textures\icons\VeryRealEngineIcon.ico" />
   </ItemGroup>
 </Project>

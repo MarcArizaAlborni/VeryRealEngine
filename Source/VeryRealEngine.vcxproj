@@ -410,6 +410,7 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="FileSystem.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ModuleScene.h" />
     <ClInclude Include="Game_Time.h" />
@@ -532,6 +533,13 @@
     <None Include="libraries\MathGeoLib\include\Math\float2.inl" />
     <None Include="libraries\MathGeoLib\include\Math\Matrix.inl" />
     <None Include="libraries\Parson\LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VeryRealEngine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\Assets\Textures\icons\VeryRealEngineIcon.ico" />
+    <Image Include="C:\Users\grome\Downloads\icon_engine.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
