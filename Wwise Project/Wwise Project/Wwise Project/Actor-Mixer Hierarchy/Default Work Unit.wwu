@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{552AFFBB-6AB6-41F9-958D-D9681943028C}" SchemaVersion="94">
+<WwiseDocument Type="WorkUnit" ID="{552AFFBB-6AB6-41F9-958D-D9681943028C}" SchemaVersion="97">
 	<AudioObjects>
 		<WorkUnit Name="Default Work Unit" ID="{552AFFBB-6AB6-41F9-958D-D9681943028C}" PersistMode="Standalone">
 			<ChildrenList>
@@ -100,9 +100,12 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<AudioFileSource Name="Doom_Music" ID="{94ECDD6F-9A10-40CF-AFBC-80D6EE0E4E8A}" ShortID="301909818">
+						<AudioFileSource Name="Doom_Music" ID="{94ECDD6F-9A10-40CF-AFBC-80D6EE0E4E8A}">
 							<Language>SFX</Language>
 							<AudioFile>Doom_Music.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="301909818"/>
+							</MediaIDList>
 						</AudioFileSource>
 					</ChildrenList>
 					<ActiveSourceList>
@@ -206,9 +209,12 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<AudioFileSource Name="Thomas_Song" ID="{D0BE841D-F266-4146-BBDC-6BD1654CA12B}" ShortID="8072839">
+						<AudioFileSource Name="Thomas_Song" ID="{D0BE841D-F266-4146-BBDC-6BD1654CA12B}">
 							<Language>SFX</Language>
 							<AudioFile>Thomas_Song.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="8072839"/>
+							</MediaIDList>
 						</AudioFileSource>
 					</ChildrenList>
 					<ActiveSourceList>
@@ -313,9 +319,12 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<AudioFileSource Name="Penguin" ID="{D4559001-22A3-4613-9056-AEBD11538480}" ShortID="196623566">
+						<AudioFileSource Name="Penguin" ID="{D4559001-22A3-4613-9056-AEBD11538480}">
 							<Language>SFX</Language>
 							<AudioFile>Penguin.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="196623566"/>
+							</MediaIDList>
 						</AudioFileSource>
 					</ChildrenList>
 					<PositioningInfo>
@@ -479,9 +488,12 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<AudioFileSource Name="Tiburon tema de sonido" ID="{58444716-20F9-4E3C-A6CC-A2DFC8EC19EA}" ShortID="72865198">
+						<AudioFileSource Name="Tiburon tema de sonido" ID="{58444716-20F9-4E3C-A6CC-A2DFC8EC19EA}">
 							<Language>SFX</Language>
 							<AudioFile>Tiburon tema de sonido.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="72865198"/>
+							</MediaIDList>
 						</AudioFileSource>
 					</ChildrenList>
 					<PositioningInfo>
