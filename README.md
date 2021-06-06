@@ -29,6 +29,10 @@ Libraries used:
 
 - Wwise
 
+### Made by:
+
+- Marc Ariza (GitHub Link: [MarcArizaAlborni](https://github.com/MarcArizaAlborni))
+- Gerard Romeu (Github Link: [GerardRomeuVidal](https://github.com/Gromeu2000))
 
 ### Controls:
 
